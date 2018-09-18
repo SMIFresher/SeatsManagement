@@ -1,3 +1,4 @@
+
 drop database seat;
 
 create database seat;
