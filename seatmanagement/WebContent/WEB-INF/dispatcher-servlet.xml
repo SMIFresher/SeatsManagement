@@ -49,7 +49,7 @@
         
     </bean>
     
-    <bean class="com.seatmanagement.util.HibernateUtil" id="hibernateTemplate">
+    <bean class="com.seatmanagement.util.BuildingDaoImpl" id="hibernateTemplate">
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
 	

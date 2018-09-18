@@ -1,4 +1,4 @@
-package com.seatmanagement.util;
+/*package com.seatmanagement.util;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,3 +12,4 @@ public class HibernateUtil {
 		HibernateUtil.hibernateTemplate = hibernateTemplate;
 	}
 }
+*/
