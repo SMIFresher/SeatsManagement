@@ -1,5 +1,8 @@
 package com.seatmanagement.dao;
 
-public interface BuildingDao {
+import com.seatmanagement.model.Building;
 
+public interface BuildingDao {
+	
+	public void saveBuilding(Building building);
 }
