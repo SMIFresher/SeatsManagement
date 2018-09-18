@@ -10,7 +10,7 @@ CREATE TABLE `seat`.`building` (
  `building_name` VARCHAR(45) NOT NULL, 
  `building_address` VARCHAR(255) NOT NULL, 
  `building_location` VARCHAR(45) NOT NULL,
- PRIMARY KEY (`building_id`));
+ PRIMARY KEY (`building_id`))ENGINE=InnoDB;
  
 CREATE TABLE `seat`.`floor` (  `floor_id` VARCHAR(36) NOT NULL,
   `building_id` VARCHAR(36) NOT NULL,  
@@ -19,7 +19,7 @@ CREATE TABLE `seat`.`floor` (  `floor_id` VARCHAR(36) NOT NULL,
   INDEX `building_id_idx` (`building_id` ASC), 
   CONSTRAINT `building_id`    FOREIGN KEY (`building_id`)   
   REFERENCES `seat`.`building` (`building_id`)   
-  ON DELETE NO ACTION    ON UPDATE NO ACTION);
+  ON DELETE NO ACTION    ON UPDATE NO ACTION)ENGINE=InnoDB;
   
 CREATE TABLE `seat`.`block` ( 
  `block_id` VARCHAR(36) NOT NULL, 
@@ -33,7 +33,7 @@ CREATE TABLE `seat`.`block` (
  CONSTRAINT `floor_id`   
  FOREIGN KEY (`floor_id`)    
  REFERENCES `seat`.`floor` (`floor_id`)  
- ON DELETE NO ACTION    ON UPDATE NO ACTION);
+ ON DELETE NO ACTION    ON UPDATE NO ACTION)ENGINE=InnoDB;
  
 CREATE TABLE `seat`.`block_specification` 
 (  `specification_id` VARCHAR(36) NOT NULL,  
@@ -49,7 +49,7 @@ CREATE TABLE `seat`.`block_specification`
  INDEX `block_id_idx` (`block_id` ASC),  
  CONSTRAINT `block_id`    FOREIGN KEY (`block_id`)    
  REFERENCES `seat`.`block` (`block_id`)   
- ON DELETE NO ACTION    ON UPDATE NO ACTION);
+ ON DELETE NO ACTION    ON UPDATE NO ACTION)ENGINE=InnoDB;
  
 CREATE TABLE seat.team (   
  team_id varchar(36) NOT NULL,  
@@ -115,7 +115,7 @@ CREATE TABLE `seat`.`seating` (
  ON DELETE NO ACTION    ON UPDATE NO ACTION, 
  CONSTRAINT `team_id`     FOREIGN KEY (`team_id`)   
  REFERENCES `seat`.`team` (`team_id`)     ON DELETE NO ACTION    ON UPDATE NO ACTION 
- );
+ )ENGINE=InnoDB;
  
 CREATE TABLE seat.seating_detail (
     seating_detail_id varchar(36) NOT NULL,
