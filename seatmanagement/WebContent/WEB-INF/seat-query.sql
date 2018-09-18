@@ -65,7 +65,7 @@ CREATE TABLE seat.employee (
     last_name varchar(50) NOT NULL,
     designation varchar(50) NOT NULL,
     date_of_joining DATE NOT NULL,
-    team_id varchar(36) NOT NULL,
+    team_id varchar(36),
     PRIMARY KEY (employee_id),
     KEY `employee_fk_1` (`team_id`),
     CONSTRAINT `employee_fk_1` FOREIGN KEY (`team_id`) 
