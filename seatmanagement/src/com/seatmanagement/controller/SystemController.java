@@ -16,7 +16,7 @@ public class SystemController {
 	@Autowired
 	SystemService systemService;
 	
-	@RequestMapping("getAllEmployees.do")
+	@RequestMapping("getAllSystems.do")
 	public ResponseEntity getAllEmployees() {
 		List<System> systems = systemService.getAllSystems();
 		String jsonString = new Gson().toJson(systems);
