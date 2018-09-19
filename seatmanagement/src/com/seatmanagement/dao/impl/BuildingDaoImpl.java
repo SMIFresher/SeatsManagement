@@ -8,6 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.BuildingDao;
 import com.seatmanagement.model.Building;
 
+
+/**
+ * 
+ * @author Adithya Prabhu
+ * 
+ * This class provides implementation for all Database related activities to 'Building'
+ * model object
+ *
+ */
 @Transactional
 @Repository
 public class BuildingDaoImpl implements BuildingDao{
@@ -19,6 +28,12 @@ public class BuildingDaoImpl implements BuildingDao{
 		this.hibernateTemplate = hibernateTemplate;
 	}
 
+	/**
+	 * 
+	 * Saves a 'Building' model in DB
+	 * 
+	 * @param building
+	 */
 	@Override
 	public void saveBuilding(Building building) {
 		

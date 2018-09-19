@@ -9,8 +9,7 @@
 	
 	<context:annotation-config />
 	
-	<import resource="building-beans.xml" />
-	<import resource="hibernate-beans.xml" />
+	<import resource="spring-beans.xml" />
 	
 	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 	

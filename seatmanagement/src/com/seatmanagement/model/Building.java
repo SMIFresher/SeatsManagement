@@ -11,6 +11,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+/**
+ * 
+ * @author Adithya Prabhu
+ * 
+ * Model object to represent a building
+ *
+ */
 @Entity
 @Table(name="building")
 public class Building implements Serializable{
