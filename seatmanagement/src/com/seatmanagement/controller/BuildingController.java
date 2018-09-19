@@ -19,8 +19,4 @@ public class BuildingController {
 	@Autowired
 	BuildingService buildingService;
 	
-	public void setBuildingService(BuildingService buildingService) {
-		this.buildingService = buildingService;
-	}
-	
 }

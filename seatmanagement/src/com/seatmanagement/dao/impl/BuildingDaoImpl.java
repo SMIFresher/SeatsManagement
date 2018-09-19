@@ -24,10 +24,6 @@ public class BuildingDaoImpl implements BuildingDao{
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate = hibernateTemplate;
-	}
-
 	/**
 	 * 
 	 * Saves a 'Building' model in DB

@@ -19,9 +19,5 @@ public class BuildingServiceImpl implements BuildingService{
 
 	@Autowired
 	BuildingDao buildingDao;
-
-	public void setBuildingDao(BuildingDao buildingDao) {
-		this.buildingDao = buildingDao;
-	}
 	
 }
