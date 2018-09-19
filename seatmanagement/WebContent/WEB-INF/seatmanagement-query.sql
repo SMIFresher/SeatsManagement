@@ -160,3 +160,11 @@ INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) V
 
 INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('1', 'ROOM', '12', 'TRAINEES', '500', '1');
 INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('2', 'ROOM', '3', 'ADMIN', '600', '1');
+
+
+--9/19/2018
+ALTER TABLE `seat`.`seating_detail` 
+ADD COLUMN `x` VARCHAR(45) NULL AFTER `seating_date`,
+ADD COLUMN `y` VARCHAR(45) NULL AFTER `x`,
+ADD COLUMN `node` VARCHAR(45) NULL AFTER `y`;
+
