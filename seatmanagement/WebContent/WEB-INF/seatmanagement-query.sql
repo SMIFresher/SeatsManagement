@@ -166,11 +166,11 @@ ALTER TABLE `seatmanagement`.`seating_detail`
 ADD COLUMN `x_axis` VARCHAR(45) NULL AFTER `seating_date`,
 ADD COLUMN `y_axis` VARCHAR(45) NULL AFTER `x_axis`;
 
-INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('1', 'SMI_774', 'Vijayakumar', 'Selvaraj', 'Software Engineer', '2018-07-25');
-INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('2', 'SMI_761', 'Venkat', 'Narayanan', 'Trainee', '2018-07-02');
+INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('ef5ea5ce-9927-4bd2-9d49-6997a3dfb612', 'SMI_774', 'Vijayakumar', 'Selvaraj', 'Software Engineer', '2018-07-25');
+INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('a5800ee1-c80e-400d-8b5a-ed8c953a50fb', 'SMI_761', 'Venkat', 'Narayanan', 'Trainee', '2018-07-02');
 
-INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('1', '1', 'VIJAY-011', 'DESKTOP', 'WIFI', 'ALLOTED');
-INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('2', '2', 'VIJAY-071', 'DESKTOP', 'LAN', 'ALLOTED');
+INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('812325b0-0794-4482-fc0a-3a1914da6f4b', 'ef5ea5ce-9927-4bd2-9d49-6997a3dfb612', 'VIJAY-011', 'DESKTOP', 'WIFI', 'ALLOTED');
+INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('66340e13-a14f-4f63-f257-289933b3a321', 'a5800ee1-c80e-400d-8b5a-ed8c953a50fb', 'VIJAY-071', 'DESKTOP', 'LAN', 'ALLOTED');
 
 INSERT INTO `seatmanagement`.`team` (`team_id`, `team_name`, `team_head`, `team_members_count`) VALUES ('1', 'L1 TRAINEES', 'Satheesh Kumar', '12');
 
