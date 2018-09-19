@@ -21,6 +21,9 @@ import org.hibernate.annotations.Type;
 @Table(name = "employee")
 public class Employee implements Serializable {
 
+	
+	private static final long serialVersionUID = -6157281635308092716L;
+
 	@Id
 	@Column(name = "employee_id")
 	@Type(type = "uuid-char")

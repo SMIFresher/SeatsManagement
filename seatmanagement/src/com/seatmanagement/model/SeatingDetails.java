@@ -1,5 +1,6 @@
 package com.seatmanagement.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -13,7 +14,10 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="seating_detail")
-public class SeatingDetails {
+public class SeatingDetails implements Serializable{
+
+
+	private static final long serialVersionUID = -3552137905378520101L;
 
 	@Id
 	@Column(name = "seating_id")
