@@ -37,22 +37,29 @@ CREATE TABLE `seatmanagement`.`block` (
 	 ON DELETE NO ACTION    ON UPDATE NO ACTION
  )ENGINE=InnoDB;
  
-CREATE TABLE `seatmanagement`.`block_specification` (  
-	`specification_id` VARCHAR(36) NOT NULL,  
-	`block_id` VARCHAR(36) NOT NULL, 
-	 `airconditioning` TINYINT NULL,  
-	 `network_type` TINYINT NULL,  
-	 `television` TINYINT NULL,  
-	 `projector` TINYINT NULL,
-	 `board` TINYINT NULL, 
-	 `chair` TINYINT NULL,  
-	 `mike` TINYINT NULL, 
-	 PRIMARY KEY (`specification_id`),  
-	 INDEX `block_id_idx` (`block_id` ASC),  
-	 CONSTRAINT `block_id`    FOREIGN KEY (`block_id`)    
-	 REFERENCES `seatmanagement`.`block` (`block_id`)   
-	 ON DELETE NO ACTION    ON UPDATE NO ACTION
- )ENGINE=InnoDB;
+
+ CREATE TABLE `seat`.`utilities` (
+ 	 `utility_id` VARCHAR(36) NOT NULL,
+	 `utility_name` VARCHAR(100) NOT NULL,
+ 	 PRIMARY KEY (`utility_id`))ENGINE=InnoDB;
+
+
+ CREATE TABLE `seat`.`block_utilities` (
+	`block_id` VARCHAR(36) NOT NULL,
+	`utility_id` VARCHAR(36) NOT NULL,
+	PRIMARY KEY (`block_id`, `utility_id`),
+	INDEX `utility_id_idx` (`utility_id` ASC),
+	CONSTRAINT `block_id`
+	FOREIGN KEY (`block_id`)
+	REFERENCES `seat`.`block` (`block_id`)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION,
+	CONSTRAINT `utility_id`
+	FOREIGN KEY (`utility_id`)
+	REFERENCES `seat`.`utilities` (`utility_id`)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION)ENGINE=InnoDB;
+
  
 CREATE TABLE seatmanagement.team (   
  team_id varchar(36) NOT NULL,  
