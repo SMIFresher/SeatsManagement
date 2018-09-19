@@ -38,25 +38,25 @@ CREATE TABLE `seatmanagement`.`block` (
  )ENGINE=InnoDB;
  
 
- CREATE TABLE `seat`.`utilities` (
+ CREATE TABLE `seatmanagement`.`utilities` (
  	 `utility_id` VARCHAR(36) NOT NULL,
 	 `utility_name` VARCHAR(100) NOT NULL,
  	 PRIMARY KEY (`utility_id`))ENGINE=InnoDB;
 
 
- CREATE TABLE `seat`.`block_utilities` (
+ CREATE TABLE `seatmanagement`.`block_utilities` (
 	`block_id` VARCHAR(36) NOT NULL,
 	`utility_id` VARCHAR(36) NOT NULL,
 	PRIMARY KEY (`block_id`, `utility_id`),
 	INDEX `utility_id_idx` (`utility_id` ASC),
 	CONSTRAINT `block_id`
 	FOREIGN KEY (`block_id`)
-	REFERENCES `seat`.`block` (`block_id`)
+	REFERENCES `seatmanagement`.`block` (`block_id`)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION,
 	CONSTRAINT `utility_id`
 	FOREIGN KEY (`utility_id`)
-	REFERENCES `seat`.`utilities` (`utility_id`)
+	REFERENCES `seatmanagement`.`utilities` (`utility_id`)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION)ENGINE=InnoDB;
 
@@ -161,10 +161,8 @@ INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) V
 INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('1', 'ROOM', '12', 'TRAINEES', '500', '1');
 INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('2', 'ROOM', '3', 'ADMIN', '600', '1');
 
-
---9/19/2018
-ALTER TABLE `seat`.`seating_detail` 
-ADD COLUMN `x` VARCHAR(45) NULL AFTER `seating_date`,
-ADD COLUMN `y` VARCHAR(45) NULL AFTER `x`,
-ADD COLUMN `node` VARCHAR(45) NULL AFTER `y`;
+# 9/19/2018
+ALTER TABLE `seatmanagement`.`seating_detail` 
+ADD COLUMN `x_axis` VARCHAR(45) NULL AFTER `seating_date`,
+ADD COLUMN `y_axis` VARCHAR(45) NULL AFTER `x_axis`;
 

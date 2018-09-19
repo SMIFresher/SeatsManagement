@@ -1,6 +1,5 @@
 package com.seatmanagement.model;
 
-import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -30,14 +29,11 @@ public class SeatingDetails {
 	@Column(name="seating_date")
 	private String seatingDate;
 	
-	@Column(name="x")
+	@Column(name="x_axis")
 	private String xAxis;
 	
-	@Column(name="y")
+	@Column(name="y_axis")
 	private String yAxis;
-	
-	@Column(name="node")
-	private String node;
 
 	public UUID getSeatingId() {
 		return seatingId;
@@ -54,8 +50,6 @@ public class SeatingDetails {
 	public void setSystemId(UUID systemId) {
 		this.systemId = systemId;
 	}
-
-	
 
 	public String getSeatingDate() {
 		return seatingDate;
@@ -80,14 +74,5 @@ public class SeatingDetails {
 	public void setyAxis(String yAxis) {
 		this.yAxis = yAxis;
 	}
-
-	public String getNode() {
-		return node;
-	}
-
-	public void setNode(String node) {
-		this.node = node;
-	}
-	
 	
 }
