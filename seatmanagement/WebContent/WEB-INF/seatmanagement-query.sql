@@ -151,3 +151,12 @@ CREATE TABLE seatmanagement.additional_device (
     CONSTRAINT `additional_device_fk_1` FOREIGN KEY (`system_id`) 
  	REFERENCES `system` (`system_id`)
 )ENGINE=InnoDB;
+
+INSERT INTO `seatmanagement`.`building` (`building_id`, `building_name`, `building_address`, `building_location`) VALUES ('1', 'VGS', '1/504-1,5th Street, Poriyalar Nagar, Thiruppalai, Madurai - 625014', 'Poriyalar Nagar');
+
+INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) VALUES ('1', '1', 'Ground Floor');
+INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) VALUES ('2', '1', 'First Floor');
+INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) VALUES ('3', '1', 'Second Floor');
+
+INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('1', 'ROOM', '12', 'TRAINEES', '500', '1');
+INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('2', 'ROOM', '3', 'ADMIN', '600', '1');
