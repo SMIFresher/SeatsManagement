@@ -145,11 +145,19 @@ CREATE TABLE seatmanagement.seating_detail (
 CREATE TABLE seatmanagement.additional_device (
     additional_device_id varchar(36) NOT NULL,
 	device_name varchar(100) NOT NULL,
-	system_id varchar(36),
-    PRIMARY KEY (additional_device_id),
-	KEY `additional_device_fk_1` (`system_id`),
-    CONSTRAINT `additional_device_fk_1` FOREIGN KEY (`system_id`) 
- 	REFERENCES `system` (`system_id`)
+    PRIMARY KEY (additional_device_id)
+)ENGINE=InnoDB;
+
+CREATE TABLE `seatmanagement`.`system_additional_device` (
+	`system_id` VARCHAR(36) NOT NULL,
+	`additional_device_id` VARCHAR(36) NOT NULL,
+	PRIMARY KEY (`system_id`, `additional_device_id`),
+	KEY `system_additional_device_fk_1` (`system_id`),
+    CONSTRAINT `system_additional_device_fk_1` FOREIGN KEY (`system_id`) 
+ 	REFERENCES `system` (`system_id`),
+	KEY `system_additional_device_fk_2` (`additional_device_id`),
+    CONSTRAINT `system_additional_device_fk_2` FOREIGN KEY (additional_device_id) 
+ 	REFERENCES `additional_device` (`additional_device_id`)
 )ENGINE=InnoDB;
 
 INSERT INTO `seatmanagement`.`building` (`building_id`, `building_name`, `building_address`, `building_location`) VALUES ('1', 'VGS', '1/504-1,5th Street, Poriyalar Nagar, Thiruppalai, Madurai - 625014', 'Poriyalar Nagar');
