@@ -53,4 +53,12 @@
 		class="com.seatmanagement.service.impl.SystemServiceImpl">
 	</bean>
 	
+	<bean id="seatingDetailsDao"
+		class="com.seatmanagement.dao.impl.SeatingDetailsDaoImpl">
+	</bean>
+
+	<bean id="seatingDetailsService"
+		class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
+	</bean>
+	
 </beans>
