@@ -44,19 +44,19 @@ public class Employee implements Serializable {
 	private LocalDate doj;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
-	private System system;
+	private Systems system;
+
+	public Systems getSystem() {
+		return system;
+	}
+
+	public void setSystem(Systems system) {
+		this.system = system;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "team_id", nullable = true)
 	private Team team;
-
-	public System getSystem() {
-		return system;
-	}
-
-	public void setSystem(System system) {
-		this.system = system;
-	}
 
 	public UUID getEmployeeId() {
 		return employeeId;

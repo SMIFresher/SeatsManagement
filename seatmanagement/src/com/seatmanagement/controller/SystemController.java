@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.Gson;
+import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SystemService;
 
 @Controller
@@ -18,7 +19,7 @@ public class SystemController {
 	
 	@RequestMapping("getAllSystems.do")
 	public ResponseEntity getAllEmployees() {
-		List<System> systems = systemService.getAllSystems();
+		List<Systems> systems = systemService.getAllSystems();
 		String jsonString = new Gson().toJson(systems);
 		return ResponseEntity.ok(jsonString);
 	}

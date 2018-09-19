@@ -2,8 +2,10 @@ package com.seatmanagement.service;
 
 import java.util.List;
 
+import com.seatmanagement.model.Systems;
+
 public interface SystemService {
 
-	List<System> getAllSystems();
+	List<Systems> getAllSystems();
 
 }
