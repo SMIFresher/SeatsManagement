@@ -45,4 +45,12 @@
 		class="com.seatmanagement.service.impl.BuildingServiceImpl">
 	</bean>
 	
+	<bean id="systemDao"
+		class="com.seatmanagement.dao.impl.SystemDaoImpl">
+	</bean>
+
+	<bean id="systemService"
+		class="com.seatmanagement.service.impl.SystemServiceImpl">
+	</bean>
+	
 </beans>

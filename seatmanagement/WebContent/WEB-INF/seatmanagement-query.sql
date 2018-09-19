@@ -166,3 +166,15 @@ ALTER TABLE `seatmanagement`.`seating_detail`
 ADD COLUMN `x_axis` VARCHAR(45) NULL AFTER `seating_date`,
 ADD COLUMN `y_axis` VARCHAR(45) NULL AFTER `x_axis`;
 
+INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('1', 'SMI_774', 'Vijayakumar', 'Selvaraj', 'Software Engineer', '2018-07-25');
+INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('2', 'SMI_761', 'Venkat', 'Narayanan', 'Trainee', '2018-07-02');
+
+INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('1', '1', 'VIJAY-011', 'DESKTOP', 'WIFI', 'ALLOTED');
+INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('2', '2', 'VIJAY-071', 'DESKTOP', 'LAN', 'ALLOTED');
+
+INSERT INTO `seatmanagement`.`team` (`team_id`, `team_name`, `team_head`, `team_members_count`) VALUES ('1', 'L1 TRAINEES', 'Satheesh Kumar', '12');
+
+INSERT INTO `seatmanagement`.`seating` (`seating_id`, `block_id`, `seat_occupied`, `team_id`) VALUES ('1', '1', '11', '1');
+
+UPDATE `seatmanagement`.`employee` SET `team_id`='1' WHERE `employee_id`='1';
+UPDATE `seatmanagement`.`employee` SET `team_id`='1' WHERE `employee_id`='2';
