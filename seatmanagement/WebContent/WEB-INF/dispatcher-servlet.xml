@@ -15,7 +15,7 @@
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
-			<value>/Seats/</value>
+			<value>/WEB-INF/Seats/</value>
 		</property>
 		<property name="suffix">
 			<value>.jsp</value>
