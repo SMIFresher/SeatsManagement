@@ -25,6 +25,8 @@ public class BuildingController {
 	@RequestMapping("saveBuilding.do")
 	public ModelAndView saveBuilding() {
 		
+		
+		
 		System.out.println("Service Hit");
 		
 		return null;
@@ -35,5 +37,9 @@ public class BuildingController {
 		System.out.println("Service Hit");
 		
 		return new ModelAndView("index");
+		
+		
+		
+		
 	}
 }
