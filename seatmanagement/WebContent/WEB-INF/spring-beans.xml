@@ -61,11 +61,5 @@
 		class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 	</bean>
 	
-	<bean id="genericDao"
-		class="com.seatmanagement.dao.impl.GenericDaoImpl">
-	</bean>
-	
-	<bean id="genericDaoService"
-		class="com.seatmanagement.service.impl.GenericDaoServiceImpl">
-	</bean>
+
 </beans>
