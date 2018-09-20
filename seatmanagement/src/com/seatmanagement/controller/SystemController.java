@@ -44,7 +44,8 @@ public class SystemController {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
 	public ResponseEntity<Systems> saveOrUpdateSystems(@RequestBody Systems system ) {
-		return new ResponseEntity(systemService.addOrUpdateSystem(system),HttpStatus.OK);
+		systemService.addOrUpdateSystem(system);
+		return new ResponseEntity(system,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/getSystemById",method=RequestMethod.GET)
