@@ -35,7 +35,7 @@ public class Team implements Serializable{
 	private Integer teamMembersCount;
 	
 	@OneToMany(mappedBy="team")
-    private Set<Employee> items;
+    private Set<Employee> employees;
 
 	public UUID getTeamId() {
 		return teamId;
@@ -67,6 +67,14 @@ public class Team implements Serializable{
 
 	public void setTeamMembersCount(Integer teamMembersCount) {
 		this.teamMembersCount = teamMembersCount;
+	}
+
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
 	}
 
 }

@@ -48,6 +48,17 @@ public class Employee implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
 	private Systems system;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+	private Reallocation reallocation;
+
+	public Reallocation getReallocation() {
+		return reallocation;
+	}
+
+	public void setReallocation(Reallocation reallocation) {
+		this.reallocation = reallocation;
+	}
 
 	public Systems getSystem() {
 		return system;

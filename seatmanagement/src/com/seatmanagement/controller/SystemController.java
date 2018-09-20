@@ -19,7 +19,7 @@ import com.seatmanagement.service.SystemService;
 public class SystemController {
 
 	@Autowired
-	SystemService systemService;
+	private SystemService systemService;
 	
 	@RequestMapping("getAllSystems.do")
 	public ResponseEntity getAllEmployees() {

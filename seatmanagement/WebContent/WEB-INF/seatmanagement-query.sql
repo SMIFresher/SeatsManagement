@@ -98,6 +98,7 @@ CREATE TABLE seatmanagement.system (
 
 CREATE TABLE seatmanagement.reallocation (
     reallocation_id varchar(36) NOT NULL,
+    current_seating_detail_id varchar(36) NOT NULL,
 	employee_id varchar(36) NOT NULL,
 	block_id varchar(36) NOT NULL,
     reallocated_seating_detail_id varchar(36),
@@ -110,7 +111,10 @@ CREATE TABLE seatmanagement.reallocation (
  	REFERENCES `employee` (`employee_id`),
 	KEY `reallocation_fk_2` (`block_id`),
     CONSTRAINT `reallocation_fk_2` FOREIGN KEY (`block_id`) 
- 	REFERENCES `block` (`block_id`)
+ 	REFERENCES `block` (`block_id`),
+ 	KEY `reallocation_fk_3` (`reallocated_seating_detail_id`),
+    CONSTRAINT `reallocation_fk_3` FOREIGN KEY (`reallocated_seating_detail_id`) 
+ 	REFERENCES `seating_detail` (`seating_detail_id`)
 )ENGINE=InnoDB;
 
 CREATE TABLE `seatmanagement`.`seating` (  

@@ -20,7 +20,7 @@ import com.seatmanagement.service.BuildingService;
 public class BuildingController {
 	
 	@Autowired
-	BuildingService buildingService;
+	private BuildingService buildingService;
 	
 	@RequestMapping("saveBuilding.do")
 	public ModelAndView saveBuilding() {
