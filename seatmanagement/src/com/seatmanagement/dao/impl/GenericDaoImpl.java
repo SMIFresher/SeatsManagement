@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
 import com.seatmanagement.dao.genericDao;
-
-import com.seatmanagement.util.*;
-
-import net.bytebuddy.description.type.TypeDescription.Generic;
+import com.seatmanagement.util.HibernateUtil;
 
 public class GenericDaoImpl<T> implements genericDao<T>{
 	

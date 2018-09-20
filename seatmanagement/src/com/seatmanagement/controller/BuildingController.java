@@ -3,6 +3,7 @@ package com.seatmanagement.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.service.BuildingService;
@@ -24,8 +25,21 @@ public class BuildingController {
 	@RequestMapping("saveBuilding.do")
 	public ModelAndView saveBuilding() {
 		
+		
+		
 		System.out.println("Service Hit");
 		
 		return null;
+	}
+	@RequestMapping(value="/" , method = RequestMethod.GET)
+	public ModelAndView getIndex() {
+		
+		System.out.println("Service Hit");
+		
+		return new ModelAndView("index");
+		
+		
+		
+		
 	}
 }
