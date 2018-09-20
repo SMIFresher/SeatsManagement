@@ -2,11 +2,13 @@ package com.seatmanagement.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.TeamService;
 
@@ -30,35 +32,31 @@ public class TeamController {
 	}
 
 	@RequestMapping("getTeamByName")
-	public ModelAndView getTeamByName(@ModelAttribute String teamName) {
+	public ResponseEntity getTeamByName(@ModelAttribute String teamName) {
 
 		if(StringUtils.isBlank(teamName)) {
 			throw new RuntimeException("Required Params not present");
 		}
 		
-		ModelAndView model = new ModelAndView();
-		
 		Team team = teamService.getTeamByName(teamName);
-
-		model.addObject("team", team);
 		
-		return model;
+		String jsonResponse = new Gson().toJson(team);
+		
+		return ResponseEntity.ok(jsonResponse);
 	}
 	
 	@RequestMapping("getTeamById")
-	public ModelAndView getTeamById(@ModelAttribute String teamId) {
+	public ResponseEntity getTeamById(@ModelAttribute String teamId) {
 
 		if(StringUtils.isBlank(teamId)) {
 			throw new RuntimeException("Required Params not present");
 		}
 		
-		ModelAndView model = new ModelAndView();
-		
 		Team team = teamService.getTeamById(teamId);
 
-		model.addObject("team", team);
+		String jsonResponse = new Gson().toJson(team);
 		
-		return model;
+		return ResponseEntity.ok(jsonResponse);
 	}
 	
 	@RequestMapping("updateTeam")
