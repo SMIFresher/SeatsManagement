@@ -96,23 +96,6 @@ CREATE TABLE seatmanagement.system (
  	REFERENCES `employee` (`employee_id`)
 )ENGINE=InnoDB;
 
-CREATE TABLE seatmanagement.reallocation (
-    reallocation_id varchar(36) NOT NULL,
-	employee_id varchar(36) NOT NULL,
-	block_id varchar(36) NOT NULL,
-    reallocated_seating_detail_id varchar(36),
-    reallocation_date date,
-    reallocation_status varchar(50) NOT NULL,
-	alloted_by varchar(50) NOT NULL,
-    PRIMARY KEY (reallocation_id),
-	KEY `reallocation_fk_1` (`employee_id`),
-    CONSTRAINT `reallocation_fk_1` FOREIGN KEY (`employee_id`) 
- 	REFERENCES `employee` (`employee_id`),
-	KEY `reallocation_fk_2` (`block_id`),
-    CONSTRAINT `reallocation_fk_2` FOREIGN KEY (`block_id`) 
- 	REFERENCES `block` (`block_id`)
-)ENGINE=InnoDB;
-
 CREATE TABLE `seatmanagement`.`seating` (  
 `seating_id` VARCHAR(36) NOT NULL, 
  `block_id` VARCHAR(36) NOT NULL,  
@@ -142,39 +125,47 @@ CREATE TABLE seatmanagement.seating_detail (
  	REFERENCES `system` (`system_id`)
 )ENGINE=InnoDB;
 
+CREATE TABLE seatmanagement.reallocation (
+    reallocation_id varchar(36) NOT NULL,
+    current_seating_detail_id varchar(36) NOT NULL,
+	employee_id varchar(36) NOT NULL,
+	block_id varchar(36) NOT NULL,
+    reallocated_seating_detail_id varchar(36),
+    reallocation_date date,
+    reallocation_status varchar(50) NOT NULL,
+	alloted_by varchar(50) NOT NULL,
+    PRIMARY KEY (reallocation_id),
+	KEY `reallocation_fk_1` (`employee_id`),
+    CONSTRAINT `reallocation_fk_1` FOREIGN KEY (`employee_id`) 
+ 	REFERENCES `employee` (`employee_id`),
+	KEY `reallocation_fk_2` (`block_id`),
+    CONSTRAINT `reallocation_fk_2` FOREIGN KEY (`block_id`) 
+ 	REFERENCES `block` (`block_id`),
+ 	KEY `reallocation_fk_3` (`reallocated_seating_detail_id`),
+    CONSTRAINT `reallocation_fk_3` FOREIGN KEY (`reallocated_seating_detail_id`) 
+ 	REFERENCES `seating_detail` (`seating_detail_id`)
+)ENGINE=InnoDB;
+
 CREATE TABLE seatmanagement.additional_device (
     additional_device_id varchar(36) NOT NULL,
 	device_name varchar(100) NOT NULL,
-	system_id varchar(36),
-    PRIMARY KEY (additional_device_id),
-	KEY `additional_device_fk_1` (`system_id`),
-    CONSTRAINT `additional_device_fk_1` FOREIGN KEY (`system_id`) 
- 	REFERENCES `system` (`system_id`)
+    PRIMARY KEY (additional_device_id)
 )ENGINE=InnoDB;
 
-INSERT INTO `seatmanagement`.`building` (`building_id`, `building_name`, `building_address`, `building_location`) VALUES ('1', 'VGS', '1/504-1,5th Street, Poriyalar Nagar, Thiruppalai, Madurai - 625014', 'Poriyalar Nagar');
-
-INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) VALUES ('1', '1', 'Ground Floor');
-INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) VALUES ('2', '1', 'First Floor');
-INSERT INTO `seatmanagement`.`floor` (`floor_id`, `building_id`, `floor_type`) VALUES ('3', '1', 'Second Floor');
-
-INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('1', 'ROOM', '12', 'TRAINEES', '500', '1');
-INSERT INTO `seatmanagement`.`block` (`block_id`, `block_type`, `block_capacity`, `block_description`, `block_measurement`, `floor_id`) VALUES ('2', 'ROOM', '3', 'ADMIN', '600', '1');
+CREATE TABLE `seatmanagement`.`system_additional_device` (
+	`system_id` VARCHAR(36) NOT NULL,
+	`additional_device_id` VARCHAR(36) NOT NULL,
+	PRIMARY KEY (`system_id`, `additional_device_id`),
+	KEY `system_additional_device_fk_1` (`system_id`),
+    CONSTRAINT `system_additional_device_fk_1` FOREIGN KEY (`system_id`) 
+ 	REFERENCES `system` (`system_id`),
+	KEY `system_additional_device_fk_2` (`additional_device_id`),
+    CONSTRAINT `system_additional_device_fk_2` FOREIGN KEY (additional_device_id) 
+ 	REFERENCES `additional_device` (`additional_device_id`)
+)ENGINE=InnoDB;
 
 # 9/19/2018
 ALTER TABLE `seatmanagement`.`seating_detail` 
 ADD COLUMN `x_axis` VARCHAR(45) NULL AFTER `seating_date`,
 ADD COLUMN `y_axis` VARCHAR(45) NULL AFTER `x_axis`;
 
-INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('ef5ea5ce-9927-4bd2-9d49-6997a3dfb612', 'SMI_774', 'Vijayakumar', 'Selvaraj', 'Software Engineer', '2018-07-25');
-INSERT INTO `seatmanagement`.`employee` (`employee_id`, `employee_roll`, `first_name`, `last_name`, `designation`, `date_of_joining`) VALUES ('a5800ee1-c80e-400d-8b5a-ed8c953a50fb', 'SMI_761', 'Venkat', 'Narayanan', 'Trainee', '2018-07-02');
-
-INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('812325b0-0794-4482-fc0a-3a1914da6f4b', 'ef5ea5ce-9927-4bd2-9d49-6997a3dfb612', 'VIJAY-011', 'DESKTOP', 'WIFI', 'ALLOTED');
-INSERT INTO `seatmanagement`.`system` (`system_id`, `employee_id`, `system_name`, `system_type`, `network_type`, `allotment_status`) VALUES ('66340e13-a14f-4f63-f257-289933b3a321', 'a5800ee1-c80e-400d-8b5a-ed8c953a50fb', 'VIJAY-071', 'DESKTOP', 'LAN', 'ALLOTED');
-
-INSERT INTO `seatmanagement`.`team` (`team_id`, `team_name`, `team_head`, `team_members_count`) VALUES ('1', 'L1 TRAINEES', 'Satheesh Kumar', '12');
-
-INSERT INTO `seatmanagement`.`seating` (`seating_id`, `block_id`, `seat_occupied`, `team_id`) VALUES ('1', '1', '11', '1');
-
-UPDATE `seatmanagement`.`employee` SET `team_id`='1' WHERE `employee_id`='1';
-UPDATE `seatmanagement`.`employee` SET `team_id`='1' WHERE `employee_id`='2';

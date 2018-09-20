@@ -61,4 +61,28 @@
 		class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 	</bean>
 	
+	<bean id="genericDao"
+		class="com.seatmanagement.dao.impl.GenericDaoImpl">
+	</bean>
+	
+	<bean id="additionalDeviceService" 
+		class="com.seatmanagement.service.impl.AdditionalDeviceServiceimpl">
+	</bean>
+
+	<bean id="teamService"
+		class="com.seatmanagement.service.impl.TeamServiceImpl">
+	</bean>
+	
+	<bean id="teamDao"
+		class="com.seatmanagement.dao.impl.TeamDaoImpl">
+	</bean>
+
+	<bean id="reallocationService"
+		class="com.seatmanagement.service.impl.ReallocationServiceImpl">
+	</bean>
+	
+	<bean id="reallocationDao"
+		class="com.seatmanagement.dao.impl.ReallocationDaoImpl">
+	</bean>
+	
 </beans>

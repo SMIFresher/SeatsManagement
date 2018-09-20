@@ -21,6 +21,9 @@ import org.hibernate.annotations.Type;
 @Table(name = "employee")
 public class Employee implements Serializable {
 
+	
+	private static final long serialVersionUID = -6157281635308092716L;
+
 	@Id
 	@Column(name = "employee_id")
 	@Type(type = "uuid-char")
@@ -45,6 +48,17 @@ public class Employee implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
 	private Systems system;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+	private Reallocation reallocation;
+
+	public Reallocation getReallocation() {
+		return reallocation;
+	}
+
+	public void setReallocation(Reallocation reallocation) {
+		this.reallocation = reallocation;
+	}
 
 	public Systems getSystem() {
 		return system;

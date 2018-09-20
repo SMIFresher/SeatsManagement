@@ -1,6 +1,9 @@
 package com.seatmanagement.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,20 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	SeatingDetailsDao seatingDetailsDao;
 	
 	@Override
-	public List<SeatingDetails> getAllSeatingDetails() {
+	public List<Object> getAllSeatingDetails() {
 		//seatingDetailsDao.getAllSeatingDetails();
-		return seatingDetailsDao.getAllSeatingDetails();
+		List<Object> object = new ArrayList<>();
+		List<SeatingDetails> seatingDetailsList = seatingDetailsDao.getAllSeatingDetails();
+		seatingDetailsList.stream().filter(Objects::nonNull).forEach(y->{
+		Properties properties = new Properties();
+		properties.put("x", y.getxAxis());
+		properties.put("y", y.getyAxis());
+		properties.put("note", "<a href> system_id = " + y.getSystemId() +" </a>");
+		object.add(properties);
+		});
+		
+		System.out.println(object);
+		return object;
 	}
 	
 	@Override
