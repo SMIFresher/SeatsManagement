@@ -15,10 +15,18 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		HibernateUtil.hibernateTemplate = hibernateTemplate;
 	}
 	
-	public void insert(T t) {
-		HibernateUtil.hibernateTemplate.save(t);
-	}
-	
+	 public boolean saveOrUpdate(T t) {
+			boolean b=false;
+			
+			try{
+				HibernateUtil.hibernateTemplate.saveOrUpdate(t);
+				b=true;
+				//System.out.println("saved/updated");
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			return b;
+		}
 	public T getById(T t,int id) {
 		return (T) HibernateUtil.hibernateTemplate.get(t.getClass(),id);	
 		
@@ -42,18 +50,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		return b;  
 	}
 	
-	public boolean update(T t) {
-		boolean b=false;
-		
-		try{
-			HibernateUtil.hibernateTemplate.saveOrUpdate(t);
-			b=true;
-			System.out.println("updated");
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-		return b;
-	}
+	
 	
 
 }
