@@ -11,6 +11,8 @@
 	
 	<context:annotation-config />
 	
+	<mvc:annotation-driven/>
+	
 	<mvc:resources mapping="/**" location="/" />
 	
 	<import resource="spring-beans.xml" />
