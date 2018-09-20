@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
-import com.seatmanagement.dao.genericDao;
+import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.util.HibernateUtil;
 
-public class GenericDaoImpl<T> implements genericDao<T>{
+public class GenericDaoImpl<T> implements GenericDao<T>{
 	
 	public static HibernateTemplate hibernateTemplate;
 
