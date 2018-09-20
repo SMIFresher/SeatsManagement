@@ -96,27 +96,6 @@ CREATE TABLE seatmanagement.system (
  	REFERENCES `employee` (`employee_id`)
 )ENGINE=InnoDB;
 
-CREATE TABLE seatmanagement.reallocation (
-    reallocation_id varchar(36) NOT NULL,
-    current_seating_detail_id varchar(36) NOT NULL,
-	employee_id varchar(36) NOT NULL,
-	block_id varchar(36) NOT NULL,
-    reallocated_seating_detail_id varchar(36),
-    reallocation_date date,
-    reallocation_status varchar(50) NOT NULL,
-	alloted_by varchar(50) NOT NULL,
-    PRIMARY KEY (reallocation_id),
-	KEY `reallocation_fk_1` (`employee_id`),
-    CONSTRAINT `reallocation_fk_1` FOREIGN KEY (`employee_id`) 
- 	REFERENCES `employee` (`employee_id`),
-	KEY `reallocation_fk_2` (`block_id`),
-    CONSTRAINT `reallocation_fk_2` FOREIGN KEY (`block_id`) 
- 	REFERENCES `block` (`block_id`),
- 	KEY `reallocation_fk_3` (`reallocated_seating_detail_id`),
-    CONSTRAINT `reallocation_fk_3` FOREIGN KEY (`reallocated_seating_detail_id`) 
- 	REFERENCES `seating_detail` (`seating_detail_id`)
-)ENGINE=InnoDB;
-
 CREATE TABLE `seatmanagement`.`seating` (  
 `seating_id` VARCHAR(36) NOT NULL, 
  `block_id` VARCHAR(36) NOT NULL,  
@@ -144,6 +123,27 @@ CREATE TABLE seatmanagement.seating_detail (
 	KEY `seating_detail_fk_2` (`system_id`),
     CONSTRAINT `seating_detail_fk_2` FOREIGN KEY (system_id) 
  	REFERENCES `system` (`system_id`)
+)ENGINE=InnoDB;
+
+CREATE TABLE seatmanagement.reallocation (
+    reallocation_id varchar(36) NOT NULL,
+    current_seating_detail_id varchar(36) NOT NULL,
+	employee_id varchar(36) NOT NULL,
+	block_id varchar(36) NOT NULL,
+    reallocated_seating_detail_id varchar(36),
+    reallocation_date date,
+    reallocation_status varchar(50) NOT NULL,
+	alloted_by varchar(50) NOT NULL,
+    PRIMARY KEY (reallocation_id),
+	KEY `reallocation_fk_1` (`employee_id`),
+    CONSTRAINT `reallocation_fk_1` FOREIGN KEY (`employee_id`) 
+ 	REFERENCES `employee` (`employee_id`),
+	KEY `reallocation_fk_2` (`block_id`),
+    CONSTRAINT `reallocation_fk_2` FOREIGN KEY (`block_id`) 
+ 	REFERENCES `block` (`block_id`),
+ 	KEY `reallocation_fk_3` (`reallocated_seating_detail_id`),
+    CONSTRAINT `reallocation_fk_3` FOREIGN KEY (`reallocated_seating_detail_id`) 
+ 	REFERENCES `seating_detail` (`seating_detail_id`)
 )ENGINE=InnoDB;
 
 CREATE TABLE seatmanagement.additional_device (
