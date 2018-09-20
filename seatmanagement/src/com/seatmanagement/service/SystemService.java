@@ -8,7 +8,7 @@ public interface SystemService {
 
 	public boolean addOrUpdateSystem(Systems system);
 	public List<Systems> getAllSystems();
-	public Systems getById(Systems system,int System_id);
+	/*public Systems getById(Systems system,int System_id);*/
 	public boolean delete(Systems system);
 	
 }

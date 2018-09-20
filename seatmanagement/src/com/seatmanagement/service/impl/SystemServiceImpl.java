@@ -1,6 +1,7 @@
 package com.seatmanagement.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,10 +22,10 @@ public class SystemServiceImpl implements SystemService{
 		return systems;
 	}
 
-	@Override
-	public Systems getById(Systems system, int System_id) {
+	/*@Override
+	public Systems getById(Systems system, UUID System_id) {
 		return  genericDao.getById(system,System_id);
-	}
+	}*/
 
 	@Override
 	public boolean delete(Systems system) {

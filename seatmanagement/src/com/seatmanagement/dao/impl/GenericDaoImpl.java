@@ -1,6 +1,7 @@
 package com.seatmanagement.dao.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
@@ -27,7 +28,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 			}
 			return b;
 		}
-	public T getById(T t,int id) {
+	public T getById(T t,UUID id) {
 		return (T) HibernateUtil.hibernateTemplate.get(t.getClass(),id);	
 		
 	}
