@@ -1,12 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
+ <%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <link href="<c:url value="/css/Style.css" />" rel="stylesheet"  type="text/css" />
 </head>
 <body>
-Hi
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container login-container">
+            <div class="row">
+
+                 <div class="col-md-6 login-form-2 rounded container " >
+                    <h3 style="text-align: left;">SMI Seats Management</h3>
+                    <br><br>
+                    <dl>
+                      <dt class="fa fa-align-justify"> Seats</dt>
+                      <dd>SMI seat Availability</dd>
+                      <dt class="fa fa-desktop"> Systems</dt>
+                      <dd>SMI Systems Availability</dd>
+                      <dt class="fa fa-male"> Employees</dt>
+                      <dd>SMI Employees Availability</dd>
+                    </dl>     
+                </div>
+
+                <div class="col-md-6 login-form-1 rounded border">
+                    <h3>Login</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control"  placeholder="Employee ID" value="" required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Your Password *" value="" required="required" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+  
+    
 </body>
 </html>
