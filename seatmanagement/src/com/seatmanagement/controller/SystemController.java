@@ -21,6 +21,7 @@ import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SystemService;
 
 @Controller
+@RequestMapping("/systems")
 public class SystemController {
 
 	@Autowired
