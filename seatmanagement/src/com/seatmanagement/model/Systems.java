@@ -1,6 +1,7 @@
 package com.seatmanagement.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -35,7 +38,7 @@ public class Systems implements Serializable{
 	@Column(name = "system_type")
 	private String systemType;
 
-	@Column(name = "networ_type")
+	@Column(name = "network_type")
 	private Integer networkType;
 	
 	@Column(name = "allotment_status")
@@ -44,6 +47,12 @@ public class Systems implements Serializable{
 	@OneToOne(cascade=CascadeType.ALL)  
     @JoinColumn(name="employee_id")  
     private Employee employee;
+	
+	@ManyToMany(targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
+	@JoinTable(name = "system_additional_device", 
+				joinColumns = { @JoinColumn(name = "system_id") }, 
+				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
+	private List<AdditionalDevice> additionalDevice;
 
 	public UUID getSystemId() {
 		return systemId;
@@ -91,6 +100,15 @@ public class Systems implements Serializable{
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}	
+	}
+
+	public List<AdditionalDevice> getAdditionalDevice() {
+		return additionalDevice;
+	}
+
+	public void setAdditionalDevice(List<AdditionalDevice> additionalDevice) {
+		this.additionalDevice = additionalDevice;
+	}
+
 	
 }

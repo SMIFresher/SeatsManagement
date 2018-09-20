@@ -22,10 +22,10 @@ public class SystemServiceImpl implements SystemService{
 		return systems;
 	}
 
-	/*@Override
+	@Override
 	public Systems getById(Systems system, UUID System_id) {
-		return  genericDao.getById(system,System_id);
-	}*/
+		return genericDao.getById(system, System_id);
+	}
 
 	@Override
 	public boolean delete(Systems system) {
