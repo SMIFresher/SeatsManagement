@@ -18,7 +18,7 @@ public class EmployeeCron {
 	    return new ConcurrentTaskScheduler(); //single threaded by default
 	}
 	
-	@Scheduled(cron="0 33 21 * * *")
+	//@Scheduled(cron="0 33 21 * * *")
     public void reportCurrentTime() {
 		XMLParser.parseEmployees();
     }
