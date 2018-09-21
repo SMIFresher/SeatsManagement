@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -45,33 +46,27 @@ public class Employee implements Serializable {
 
 	@Column(name = "date_of_joining")
 	private LocalDate doj;
-
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
-	private Systems system;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
-	private Reallocation reallocation;
+	
+	@ManyToOne
+	@JoinColumn(name = "team_id", nullable = true)
+	private Team team;
 
-	public Reallocation getReallocation() {
+	
+	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+	private Reallocation reallocation;*/
+
+	/*public Reallocation getReallocation() {
 		return reallocation;
 	}
 
 	public void setReallocation(Reallocation reallocation) {
 		this.reallocation = reallocation;
-	}
+	}*/
 
-	public Systems getSystem() {
-		return system;
-	}
 
-	public void setSystem(Systems system) {
-		this.system = system;
-	}
 
-	@ManyToOne
-	@JoinColumn(name = "team_id", nullable = true)
-	private Team team;
-
+	
 	public UUID getEmployeeId() {
 		return employeeId;
 	}

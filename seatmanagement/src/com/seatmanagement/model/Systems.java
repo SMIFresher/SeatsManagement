@@ -39,23 +39,26 @@ public class Systems implements Serializable{
 	private String systemType;
 
 	@Column(name = "network_type")
-	private Integer networkType;
+	private String networkType;
 	
 	@Column(name = "allotment_status")
     private String allotmentStatus;
 	
-	@OneToOne(cascade=CascadeType.ALL)  
+	
+	@OneToOne(targetEntity=Employee.class,cascade=CascadeType.ALL)  
     @JoinColumn(name="employee_id")  
     private Employee employee;
 	
-	@ManyToMany(targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
-	@JoinTable(name = "system_additional_device", 
-				joinColumns = { @JoinColumn(name = "system_id") }, 
-				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
-	private List<AdditionalDevice> additionalDevice;
-
 	public UUID getSystemId() {
 		return systemId;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public void setSystemId(UUID systemId) {
@@ -78,11 +81,11 @@ public class Systems implements Serializable{
 		this.systemType = systemType;
 	}
 
-	public Integer getNetworkType() {
+	public String getNetworkType() {
 		return networkType;
 	}
 
-	public void setNetworkType(Integer networkType) {
+	public void setNetworkType(String  networkType) {
 		this.networkType = networkType;
 	}
 
@@ -94,21 +97,21 @@ public class Systems implements Serializable{
 		this.allotmentStatus = allotmentStatus;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
+	/* @ManyToMany(targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
+	@JoinTable(name = "system_additional_device", 
+				joinColumns = { @JoinColumn(name = "system_id") }, 
+				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
+	private List<AdditionalDevice> additionalDevice;
+*/
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 
-	public List<AdditionalDevice> getAdditionalDevice() {
+	/*	public List<AdditionalDevice> getAdditionalDevice() {
 		return additionalDevice;
 	}
 
 	public void setAdditionalDevice(List<AdditionalDevice> additionalDevice) {
 		this.additionalDevice = additionalDevice;
 	}
-
+*/
 	
 }

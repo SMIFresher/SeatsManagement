@@ -11,5 +11,6 @@ public interface SystemService {
 	public List<Systems> getAllSystems();
 	public Systems getById(Systems system,UUID System_id);
 	public boolean delete(Systems system);
+	public Systems getSystemByEmployeeId(UUID EmployeeId);
 	
 }

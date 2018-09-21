@@ -15,11 +15,14 @@ public class SystemServiceImpl implements SystemService{
 	@Autowired
 	GenericDao<Systems> genericDao;
 	
+	@Autowired
+	SystemDao systemDao;
+	
 	@Override
 	public List<Systems> getAllSystems() {
-		Systems system = null;
-		List<Systems> systems = genericDao.getAll(system);
-		return systems;
+		Systems system=new Systems();
+		List<Systems> list = genericDao.getAll(system);
+		return list;
 	}
 
 	@Override
@@ -36,8 +39,12 @@ public class SystemServiceImpl implements SystemService{
 
 	@Override
 	public boolean addOrUpdateSystem(Systems system) {
-		// TODO Auto-generated method stub
 		return genericDao.saveOrUpdate(system);
+	}
+
+	@Override
+	public Systems getSystemByEmployeeId(UUID EmployeeId) {
+		return systemDao.getSystemByEmployeeId(EmployeeId);
 	}
 
 	

@@ -1,26 +1,24 @@
 package com.seatmanagement.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SystemService;
 
-@Controller
+@RestController
 @RequestMapping("/systems")
 public class SystemController {
 
@@ -29,32 +27,77 @@ public class SystemController {
 	
 	@RequestMapping("getAllSystems.do")
 	public ResponseEntity getAllEmployees() {
-		List<Systems> systems = systemService.getAllSystems();
 		
-		if(null != systems && !systems.isEmpty()) {
-			for(Systems system : systems) {
-				system.getEmployee().setSystem(null);
-			}
+		List<Systems> systemList = systemService.getAllSystems();
+		ResponseEntity responseEntity = null;
+		if(!systemList.isEmpty()) {
+		responseEntity=new ResponseEntity(systemList,HttpStatus.OK);
 		}
-		
-		String jsonString = new Gson().toJson(systems);
-		return ResponseEntity.ok(jsonString);
+		else{
+				throw new RuntimeException("Systems List is empty");
+			}
+		return responseEntity;
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
-	public ResponseEntity<Systems> saveOrUpdateSystems(@RequestBody Systems system ) {
-		systemService.addOrUpdateSystem(system);
-		return new ResponseEntity(system,HttpStatus.OK);
+	public ResponseEntity<Systems> saveOrUpdateSystems(@RequestBody Systems system) {
+		
+		ResponseEntity responseEntity=null;
+		if(system !=null){
+		responseEntity = new ResponseEntity(systemService.addOrUpdateSystem(system),HttpStatus.OK);
+		}
+		else{
+			throw new RuntimeException("Cant save/update");
+		}
+		return responseEntity;
 	}
 	
 	@RequestMapping(value="/getSystemById",method=RequestMethod.GET)
-	public ResponseEntity getSystemById(@RequestParam UUID id){
+	public ResponseEntity getSystemById(@RequestParam UUID SystemId){
 		Systems system = new Systems();
-		system=systemService.getById(system, id);
-		String string=new Gson().toJson(system);
-		return ResponseEntity.ok(string);
+		system=systemService.getById(system, SystemId);
+		ResponseEntity responseEntity=null;
+		if(!(system.getSystemId()==null)) {
+			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
+		}
+		else{
+					throw new RuntimeException("Invalid System ID");
+			}
+		
+		return responseEntity;
 	}
+	
+	@RequestMapping(value="/getSystemByEmployee",method=RequestMethod.GET)
+	public ResponseEntity getSystemByEmployeeId(@RequestParam UUID EmployeeId){
+		Systems system = new Systems();
+		system=systemService.getSystemByEmployeeId(EmployeeId);
+		ResponseEntity responseEntity=null;
+		if(!(system.getSystemId()==null)) {
+			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
+		}
+		else{
+					throw new RuntimeException("Invalid System ID");
+			}
+		
+		return responseEntity;
+	}
+	
+	/*@RequestMapping(value="/deleteById",method=RequestMethod.GET)
+	public ResponseEntity deleteSystemById(@RequestParam UUID SystemId){
+		
+		Systems system = new Systems();
+		system.setSystemId(SystemId);
+		
+		ResponseEntity responseEntity=null;
+		if(system.getSystemId() !=null){
+		responseEntity = new ResponseEntity(systemService.delete(system),HttpStatus.OK);
+		}
+		else{
+			throw new RuntimeException("Invalid ID");
+		}
+		return responseEntity;
+	}*/
 	
 	
 	
