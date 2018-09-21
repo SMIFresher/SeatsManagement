@@ -1,6 +1,7 @@
 package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Team;
-import com.seatmanagement.scheduledtasks.EmployeeCron;
 import com.seatmanagement.service.TeamService;
 
 @Controller
@@ -33,8 +35,8 @@ public class TeamController {
 		ModelAndView model = null;
 				
 		try {
-			if(null==team) {
-				throw new RuntimeException("Required Params not present");
+			if(Objects.isNull(team)) {
+				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 
 			teamService.saveTeam(team);
@@ -61,7 +63,7 @@ public class TeamController {
 		
 		try {
 			if(StringUtils.isBlank(teamName)) {
-				throw new RuntimeException("Required Params not present");
+				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 			
 			Team team = teamService.getTeamByName(teamName);
@@ -87,7 +89,7 @@ public class TeamController {
 				
 		try {
 			if(StringUtils.isBlank(teamId)) {
-				throw new RuntimeException("Required Params not present");
+				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 			
 			Team team = teamService.getTeamById(teamId);
@@ -121,7 +123,7 @@ public class TeamController {
 			throw new RuntimeException(e);
 		}
 		if(null == team) {
-			throw new RuntimeException("Required Params not present");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		
 		logger.info("Controller: TeamController Method : updateTeam response sent at : " + LocalDateTime.now());
@@ -139,7 +141,7 @@ public class TeamController {
 		try {
 			
 			if(null == team) {
-				throw new RuntimeException("Required Params not present");
+				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 			
 			model = new ModelAndView();
@@ -164,7 +166,7 @@ public class TeamController {
 		
 		try {
 			if(StringUtils.isBlank(teamId)) {
-				throw new RuntimeException("Required Params not present");
+				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 			
 			model = new ModelAndView();
