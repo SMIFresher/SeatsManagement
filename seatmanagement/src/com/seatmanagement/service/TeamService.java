@@ -1,7 +1,5 @@
 package com.seatmanagement.service;
 
-import java.util.Map;
-
 import com.seatmanagement.model.Team;
 
 public interface TeamService {

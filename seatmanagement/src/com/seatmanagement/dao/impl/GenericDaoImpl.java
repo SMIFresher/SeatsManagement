@@ -50,8 +50,19 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		}
 		return b;  
 	}
-	
-	
-	
+
+	@Override
+	public boolean saveAll(List<T> objectList) {
+		boolean b=false;
+		try {
+			for(Object obj : objectList) {
+				HibernateUtil.hibernateTemplate.save(obj);
+			}
+			b=true;
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+		return b;
+	}
 
 }
