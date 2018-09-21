@@ -4,8 +4,8 @@
 <nav class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
 
 
-  <a class="navbar-brand" href="#">
-    <img src="nav-logo.jpg" alt="logo" style="width:100px;">
+  <a class="navbar-brand" href="index.jsp">
+    <img src="../Logo/nav-logo.jpg" alt="logo" style="width:100px;">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="fa fa-bars " style="font-size: 30px;"  aria-hidden="true" ></span>
