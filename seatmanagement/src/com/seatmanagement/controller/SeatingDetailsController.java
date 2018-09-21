@@ -3,6 +3,7 @@ package com.seatmanagement.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +23,14 @@ public class SeatingDetailsController {
 	@Autowired
 	SeatingDetailsService seatingDetailsService;
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="/getAll",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getAllSeatingDetails(){
-		List<Object> objectList = seatingDetailsService.getAllSeatingDetails();
+	public ResponseEntity<List<Object>> getAllSeatingDetails(){
+		//List<Object> objectList = seatingDetailsService.getAllSeatingDetails();
 		
 		
-		String string=new Gson().toJson(objectList);
-		return ResponseEntity.ok(string);
+		//String string=new Gson().toJson(objectList);
+		return new ResponseEntity(seatingDetailsService.getAllSeatingDetails(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
