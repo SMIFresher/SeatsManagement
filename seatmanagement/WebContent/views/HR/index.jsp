@@ -13,6 +13,8 @@
 <!-- Our Custom CSS -->
 <link href="<c:url value="css/nav.css" />" rel="stylesheet"
 	type="text/css" />
+	<link href="<c:url value="css/style.css" />" rel="stylesheet"
+	type="text/css" />
 <!-- Font Awesome JS -->
 
 <script type="text/javascript"
@@ -29,7 +31,7 @@
 		
 		
 		<div class="container-fluid ">
-<br><br><br><br><br><br>
+<br><br><br><br>
 			<div class="row">
 				<div class="col-sm-6 col-md-3">
 					<div class="content text-center" >
