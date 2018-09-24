@@ -19,11 +19,11 @@
 <br><br><br>
 
 <div class="container">
-  <div class="row">
+  <div class="row" >
     <div class="col-md-4">
-    	<div class="content text-center" data-toggle="modal" data-target="#myModal">
+    	<div class="content text-center" data-toggle="modal" data-target="#myModal" >
     	<br><br><br>
-    	  <h3>SMI I</h3>
+    	  <h3>{{X.}}</h3>
 	      <p>SMI I Buliding architecture</p>
     	</div>
     </div>
