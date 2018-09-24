@@ -3,24 +3,23 @@ package com.seatmanagement.dao.impl;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
-import com.seatmanagement.util.HibernateUtil;
 
+@Transactional
 public class GenericDaoImpl<T> implements GenericDao<T>{
 	
-	public static HibernateTemplate hibernateTemplate;
-
-	 public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		HibernateUtil.hibernateTemplate = hibernateTemplate;
-	}
+	@Autowired
+	public HibernateTemplate hibernateTemplate;
 	
 	 public boolean saveOrUpdate(T t) {
 			boolean b=false;
 			
 			try{
-				HibernateUtil.hibernateTemplate.saveOrUpdate(t);
+				hibernateTemplate.saveOrUpdate(t);
 				b=true;
 				//System.out.println("saved/updated");
 			}catch(Exception e) {
@@ -28,13 +27,14 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 			}
 			return b;
 		}
+	 
 	public T getById(T t,UUID id) {
-		return (T) HibernateUtil.hibernateTemplate.get(t.getClass(),id);	
+		return (T) hibernateTemplate.get(t.getClass(),id);	
 		
 	}
 	
 	public List getAll(T t) {
-		List<T> list = (List<T>) HibernateUtil.hibernateTemplate.loadAll(t.getClass());
+		List<T> list = (List<T>) hibernateTemplate.loadAll(t.getClass());
 		return list;
 	}
 	
@@ -42,7 +42,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		boolean b=false;
 		try{
 			
-			HibernateUtil.hibernateTemplate.delete(t);
+			hibernateTemplate.delete(t);
 			b=true;
 			System.out.println("deleeted");
 		}catch(Exception e) {
@@ -56,7 +56,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		boolean b=false;
 		try {
 			for(Object obj : objectList) {
-				HibernateUtil.hibernateTemplate.save(obj);
+				hibernateTemplate.save(obj);
 			}
 			b=true;
 		}catch(Exception e) {
