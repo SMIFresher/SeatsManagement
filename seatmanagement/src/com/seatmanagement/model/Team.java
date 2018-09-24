@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -13,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "team")
@@ -34,7 +37,8 @@ public class Team implements Serializable{
 	@Column(name = "team_members_count")
 	private Integer teamMembersCount;
 	
-	@OneToMany(mappedBy="team")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="team")
+	@JsonIgnore
     private Set<Employee> employees;
 
 	public UUID getTeamId() {

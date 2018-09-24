@@ -54,9 +54,9 @@ public class SystemController {
 	}
 	
 	@RequestMapping(value="/getSystemById",method=RequestMethod.GET)
-	public ResponseEntity getSystemById(@RequestParam UUID SystemId){
+	public ResponseEntity getSystemById(@RequestParam UUID systemId){
 		Systems system = new Systems();
-		system=systemService.getById(system, SystemId);
+		system=systemService.getById(system, systemId);
 		ResponseEntity responseEntity=null;
 		if(!(system.getSystemId()==null)) {
 			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
@@ -69,9 +69,9 @@ public class SystemController {
 	}
 	
 	@RequestMapping(value="/getSystemByEmployee",method=RequestMethod.GET)
-	public ResponseEntity getSystemByEmployeeId(@RequestParam UUID EmployeeId){
+	public ResponseEntity getSystemByEmployeeId(@RequestParam UUID employeeId){
 		Systems system = new Systems();
-		system=systemService.getSystemByEmployeeId(EmployeeId);
+		system=systemService.getSystemByEmployeeId(employeeId);
 		ResponseEntity responseEntity=null;
 		if(!(system.getSystemId()==null)) {
 			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
@@ -83,11 +83,11 @@ public class SystemController {
 		return responseEntity;
 	}
 	
-	/*@RequestMapping(value="/deleteById",method=RequestMethod.GET)
-	public ResponseEntity deleteSystemById(@RequestParam UUID SystemId){
+	@RequestMapping(value="/deleteById",method=RequestMethod.GET)
+	public ResponseEntity deleteSystemById(@RequestParam UUID systemId){
 		
 		Systems system = new Systems();
-		system.setSystemId(SystemId);
+		system.setSystemId(systemId);
 		
 		ResponseEntity responseEntity=null;
 		if(system.getSystemId() !=null){
@@ -97,7 +97,7 @@ public class SystemController {
 			throw new RuntimeException("Invalid ID");
 		}
 		return responseEntity;
-	}*/
+	}
 	
 	
 	
