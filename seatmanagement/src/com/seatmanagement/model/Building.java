@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -50,6 +51,19 @@ public class Building implements Serializable{
 	
 	@Column(name="square_feet")
 	private Float squareFeet;
+	
+	@Transient
+	private String squareFeetString;
+	
+	
+
+	public String getSquareFeetString() {
+		return squareFeetString;
+	}
+
+	public void setSquareFeetString(String squareFeetString) {
+		this.squareFeetString = squareFeetString;
+	}
 
 	public Float getSquareFeet() {
 		return squareFeet;

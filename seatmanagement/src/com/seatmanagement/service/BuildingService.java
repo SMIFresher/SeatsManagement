@@ -1,6 +1,7 @@
 package com.seatmanagement.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.seatmanagement.model.Building;
 
@@ -8,21 +9,18 @@ import com.seatmanagement.model.Building;
  * 
  * @author Adithya Prabhu
  * 
- * Provides interface for all business logic related processing 
- * to 'Building' model object
+ *         Provides interface for all business logic related processing to
+ *         'Building' model object
  *
  */
 public interface BuildingService {
-	
-	
-	public boolean saveOrUpdate(Building building);
-	
+
+	public boolean saveOrUpdate(Building building,UUID organisationId);
+
 	public List<Building> getAll();
-	
-	
-	
-	public boolean delete(Building building);
-	
-	
- 
+
+	public Building getById(Building building, UUID buildingId);
+
+	/*public boolean delete(Building building);
+*/
 }
