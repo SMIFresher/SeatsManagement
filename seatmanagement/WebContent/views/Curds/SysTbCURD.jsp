@@ -118,11 +118,11 @@
 							</div>
 							<div class="form-group">
 								<label for="systemType">Additional Device:</label> <select
-									name="cars" class="custom-select mb-3">
+									name="cars" class="custom-select mb-3" id="Device">
 									<option selected>Additional Device</option>
-									<option id="KeyBoard" value="volvo">KeyBoard</option>
-									<option id="Mouse" value="fiat">Mouse</option>
-									<option id="HeadSet" value="audi">HeadSet</option>
+									<option  value="KeyBoard">KeyBoard</option>
+									<option value="Mouse">Mouse</option>
+									<option value="HeadSet">HeadSet</option>
 								</select>
 							</div>
 
@@ -192,13 +192,17 @@
 			var col4 = currow.find('td:eq(3)').text();
 			var col5 = currow.find('td:eq(4)').text();
 			var col6 = currow.find('td:eq(5)').text();
+
+			
 			
 			document.getElementById('empId').value = col1;
 			document.getElementById('systemNo').value = col2;
 			document.getElementById(col3).checked = true;
 			document.getElementById(col4).checked = true;
 			document.getElementById(col5).checked = true;
-			document.getElementById('Device').value = col6;
+			$("#Device").val(col6).change();
+			
+			
 		})
 	</script>
 </body>
