@@ -73,9 +73,11 @@ public class OrganisationServiceImpl implements OrganisationService {
 	public void deleteOrganisationById(UUID organisationId) {
 		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
 		
-		Organisation organisation = null;
+		Organisation organisation = new Organisation();
 		
-		genericDao.deleteById(organisation, organisationId);
+		organisation.setOrganisationId(organisationId);
+		
+		genericDao.delete(organisation);
 
 		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());		
 	}
