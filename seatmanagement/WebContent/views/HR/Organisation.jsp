@@ -1,26 +1,3 @@
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
-
-	<%
-	String id = request.getParameter("userid");
-	String driver = "com.mysql.jdbc.Driver";
-	String connectionUrl = "jdbc:mysql://localhost:3306/";
-	String database = "seatmanagementexample";
-	String userid = "root";
-	String password = "root";
-	try {
-	Class.forName(driver);
-	} catch (ClassNotFoundException e) {
-	e.printStackTrace();
-	}
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	%>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,9 +16,10 @@
 </head>
 <body>
 
-	<div class="jumbotron text-center bg-primary text-white">
-		<h2>View All</h2>
-	</div>
+	<!-- Nav Bar -->
+<jsp:include page="nav.jsp"></jsp:include>
+
+<br><br><br><br><br>
 
 	<div class="container">
 		<div class="row">
@@ -50,17 +28,11 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2>Team</h2>
-						<form action="../../organisation/saveOrganisation" method="post">
-							<!-- <div class="form-group">
-								<label for="orgId">Organization Id:</label> <input type="hidden" value=""
-									name="id" id="id"> <input type="text"
-									class="form-control" id="orgId" placeholder="Organization Id"
-									name="team_id">
-							</div> -->
+						<h2>Add Organization </h2>
+						<form id="Form" method="post">
 							<div class="form-group">
-								<label for="orgId">Organization Name:</label> <input type="hidden" value=""
-									name="id" id="id"> <input type="text"
+								<label for="orgId">Organization Name:</label> 
+								<input type="hidden" value="" name="organisationName" id="id"> <input type="text"
 									class="form-control" id="orgId" placeholder="Organization Name"
 									name="team_id">
 							</div>
@@ -68,18 +40,26 @@
 						</form>
 
 					</div>
+					<div class="col-md-12">
+						<div id="result">
+						</div>
+					</div>
 
 				</div>
 				<br>
 			</div>
 			<div class="col-md-8">
 				<div ng-app="organisation" ng-controller="OrganisationController">
-
-					<table class="table table-hover">
+					<div class="col-md-12 bg-primary text-white">
+					<br>
+					<h3>Organization Details</h3>
+					<br>
+					</div>
+					<table class="table table-hover border">
 						<thead>
-							<td>Organization Id</td>
-							<td>Organization Name</td>
-							<td align="center">Process</td>
+							<th>Organization Id</th>
+							<th>Organization Name</th>
+							<th align="center">Process</th>
 						</thead>
 						<tbody align="center">
 						<tr ng-repeat="org in getOrg">
@@ -99,9 +79,29 @@
 		<script>
 		var app = angular.module('organisation', []);
 		app.controller('OrganisationController', function($scope, $http) {
-		    $http.get("../../organisation/getAllOrganisation")
+		    $http.get("../../organisation/getAllOrganisations")
 		    .then(function (response) {$scope.getOrg = response.data.records;});
 		});
 		</script>
+		
+		
+		
+<script type="text/javascript">
+function formSubmit(){
+
+ $.ajax({
+     url:'../../organisation/saveOrganisation',
+     data: $("#Form").serialize(),
+     success: function (data) {
+            $('#result').html("Success");
+
+    }
+ 	
+});
+}
+
+
+</script>
+		
 </body>
 </html>
