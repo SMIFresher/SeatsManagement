@@ -1,5 +1,7 @@
 package com.seatmanagement.dao;
 
+import java.util.List;
+
 import com.seatmanagement.model.Building;
 
 /**
@@ -18,5 +20,7 @@ public interface BuildingDao {
 	 * 
 	 * @param building
 	 */
-	public void saveBuilding(Building building);
+	//public void saveBuilding(Building building);
+	
+	public List<Building> getAll();
 }

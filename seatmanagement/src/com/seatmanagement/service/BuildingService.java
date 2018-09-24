@@ -1,5 +1,9 @@
 package com.seatmanagement.service;
 
+import java.util.List;
+
+import com.seatmanagement.model.Building;
+
 /**
  * 
  * @author Adithya Prabhu
@@ -9,5 +13,16 @@ package com.seatmanagement.service;
  *
  */
 public interface BuildingService {
-
+	
+	
+	public boolean saveOrUpdate(Building building);
+	
+	public List<Building> getAll();
+	
+	
+	
+	public boolean delete(Building building);
+	
+	
+ 
 }
