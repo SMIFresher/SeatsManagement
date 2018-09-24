@@ -60,11 +60,11 @@
 							</div>
 							<div class="form-group">
 								<label for="systemType">Team Name:</label> <select
-									name="cars" class="custom-select mb-3">
+									name="cars" class="custom-select mb-3" id="teamName">
 									<option selected>Team Name</option>
-									<option value="corex">Corex</option>
-									<option value="vision">Vision</option>
-									<option value="cm">Credential Management</option>
+									<option value="Corex">Corex</option>
+									<option value="Vision">Vision</option>
+									<option value="Credential Management">Credential Management</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -138,7 +138,7 @@
 			var col4 = currow.find('td:eq(3)').text();
 
 			document.getElementById('team_id').value = col1;
-			//document.getElementById('team_name').value = col2;
+			$("#teamName").val(col2).change();
 			document.getElementById('team').value = col3;
 			document.getElementById('team_member').value = col4;
 		})
