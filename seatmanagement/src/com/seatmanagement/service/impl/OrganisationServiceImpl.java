@@ -38,7 +38,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 		
 		logger.info("Service: OrganisationServiceImpl Method : getAllOrganisations started at : " + LocalDateTime.now());
 
-		Organisation organisation = null;
+		Organisation organisation = new Organisation();
 		
 		List<Organisation> organisations = genericDao.getAll(organisation);
 
