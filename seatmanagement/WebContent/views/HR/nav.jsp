@@ -1,5 +1,5 @@
 <link href="css/nav.css" rel="stylesheet" type="text/css" />
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav
 	class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
 
@@ -24,7 +24,7 @@
 	<br>
 	<br>
 	<br>
-	<br>
+	<br> 
 	<div class="sidebar-header">
 
 
@@ -33,9 +33,9 @@
 	</div>
 
 	<ul class="list-unstyled components">
-		<li><a href="index.jsp">Home</a></li>
+		<li><a href="index.jsp" class="fa fa-home"> Home</a></li>
 		<li class="active"><a href="#managebuildingSubmenu"
-			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage
+			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-building"> Manage
 				Building</a>
 			<ul class="collapse list-unstyled" id="managebuildingSubmenu">
 				<li><a href="#buldsubmenu" data-toggle="collapse"
@@ -59,7 +59,7 @@
 			</ul>
 		</li>
 		<li class="active"><a href="#manageallotmentSubmenu"
-			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Manage
+			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-map-o"> Manage
 				Allotment</a>
 			<ul class="collapse list-unstyled" id="manageallotmentSubmenu">
 				<li><a href="#">Available Seats</a></li>
@@ -67,7 +67,7 @@
 				<li><a href="#">Reallocated Seats</a></li>
 			</ul></li>
 		<li class="active"><a href="#facilitiesSubmenu"
-			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Facilities</a>
+			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-stack-exchange"> Facilities</a>
 			<ul class="collapse list-unstyled" id="facilitiesSubmenu">
 				<li><a href="#systemSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">System</a>
