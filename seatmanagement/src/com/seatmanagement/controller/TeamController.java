@@ -20,6 +20,7 @@ import com.seatmanagement.model.Team;
 import com.seatmanagement.service.TeamService;
 
 @Controller
+@RequestMapping("/team")
 public class TeamController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
@@ -27,7 +28,7 @@ public class TeamController {
 	@Autowired
 	private TeamService teamService;
 
-	@RequestMapping("saveTeam")
+	@RequestMapping("/saveTeam")
 	public ModelAndView saveTeam(@ModelAttribute Team team) {
 		
 		logger.info("Controller: TeamController Method : saveTeam request processing started at : " + LocalDateTime.now());
@@ -54,7 +55,7 @@ public class TeamController {
 		return model;
 	}
 
-	@RequestMapping("getTeamByName")
+	@RequestMapping("/getTeamByName")
 	public ResponseEntity getTeamByName(@ModelAttribute String teamName) {
 
 		logger.info("Controller: TeamController Method : getTeamByName request processing started at : " + LocalDateTime.now());
@@ -80,7 +81,7 @@ public class TeamController {
 		return ResponseEntity.ok(jsonResponse);
 	}
 	
-	@RequestMapping("getTeamById")
+	@RequestMapping("/getTeamById")
 	public ResponseEntity getTeamById(@ModelAttribute String teamId) {
 		
 		logger.info("Controller: TeamController Method : getTeamById request processing started at : " + LocalDateTime.now());
@@ -106,7 +107,7 @@ public class TeamController {
 		return ResponseEntity.ok(jsonResponse);
 	}
 	
-	@RequestMapping("updateTeam")
+	@RequestMapping("/updateTeam")
 	public ModelAndView updateTeam(@ModelAttribute Team team) {
 		
 		logger.info("Controller: TeamController Method : updateTeam request processing started at : " + LocalDateTime.now());
@@ -131,7 +132,7 @@ public class TeamController {
 		return model;
 	}
 	
-	@RequestMapping("deleteTeam")
+	@RequestMapping("/deleteTeam")
 	public ModelAndView deleteTeam(@ModelAttribute Team team) {
 		
 		logger.info("Controller: TeamController Method : deleteTeam request processing started at : " + LocalDateTime.now());
@@ -157,7 +158,7 @@ public class TeamController {
 		return model;
 	}
 	
-	@RequestMapping("deleteTeamById")
+	@RequestMapping("/deleteTeamById")
 	public ModelAndView deleteTeamById(@ModelAttribute String teamId) {
 		
 		logger.info("Controller: TeamController Method : deleteTeamById request processing started at : " + LocalDateTime.now());

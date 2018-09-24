@@ -85,4 +85,12 @@
 		class="com.seatmanagement.dao.impl.ReallocationDaoImpl">
 	</bean>
 	
+	<bean id="organisationService"
+		class="com.seatmanagement.service.impl.OrganisationServiceImpl">
+	</bean>
+	
+	<bean id="organisationDao"
+		class="com.seatmanagement.dao.impl.OrganisationDaoImpl">
+	</bean>
+	
 </beans>

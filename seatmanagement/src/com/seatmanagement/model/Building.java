@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -41,6 +43,29 @@ public class Building implements Serializable{
     
 	@Column(name="building_location")
     private String buildingLocation;
+	
+	@ManyToOne
+    @JoinColumn(name="organisation_id", nullable=false)
+    private Organisation organisation;
+	
+	@Column(name="square_feet")
+	private Float squareFeet;
+
+	public Float getSquareFeet() {
+		return squareFeet;
+	}
+
+	public void setSquareFeet(Float squareFeet) {
+		this.squareFeet = squareFeet;
+	}
+
+	public Organisation getOrganisation() {
+		return organisation;
+	}
+
+	public void setOrganisation(Organisation organisation) {
+		this.organisation = organisation;
+	}
 
 	public UUID getBuildingId() {
 		return buildingId;

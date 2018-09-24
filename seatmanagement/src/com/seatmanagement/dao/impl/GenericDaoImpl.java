@@ -65,4 +65,22 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		return b;
 	}
 
+	@Override
+	public boolean deleteById(T t, UUID uuid) {
+		boolean b=false;
+		try{
+			t = (T) HibernateUtil.hibernateTemplate.get(t.getClass(),uuid);
+			
+			if(null == t) {
+				throw new RuntimeException("required data not in DB. Cannot continue DB process.");
+			}
+			
+			HibernateUtil.hibernateTemplate.delete(t);
+			b=true;
+		}catch(Exception e) {
+			throw new RuntimeException("DB operation Uncesuccessful");
+		}
+		return b; 
+	}
+
 }

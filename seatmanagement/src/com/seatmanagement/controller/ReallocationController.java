@@ -15,6 +15,7 @@ import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.service.ReallocationService;
 
 @Controller
+@RequestMapping("/reallocation")
 public class ReallocationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReallocationController.class);
@@ -22,7 +23,7 @@ public class ReallocationController {
 	@Autowired
 	private ReallocationService reallocationService;
 
-	@RequestMapping("getReallocationByEmployeeId")
+	@RequestMapping("/getReallocationByEmployeeId")
 	public ModelAndView getReallocationByEmployeeId(@ModelAttribute String employeeId) {
 
 		logger.info(
@@ -53,7 +54,7 @@ public class ReallocationController {
 		return model;
 	}
 
-	@RequestMapping("saveReallocation")
+	@RequestMapping("/saveReallocation")
 	public ModelAndView saveReallocation(@ModelAttribute Reallocation reallocation) {
 		
 		logger.info(
@@ -83,7 +84,7 @@ public class ReallocationController {
 		return model;
 	}
 
-	@RequestMapping("updateReallocation")
+	@RequestMapping("/updateReallocation")
 	public ModelAndView updateReallocation(@ModelAttribute Reallocation reallocation) {
 		
 		logger.info(
@@ -113,7 +114,7 @@ public class ReallocationController {
 		return model;
 	}
 
-	@RequestMapping("deleteReallocation")
+	@RequestMapping("/deleteReallocation")
 	public ModelAndView deleteReallocation(@ModelAttribute Reallocation reallocation) {
 		
 		logger.info(

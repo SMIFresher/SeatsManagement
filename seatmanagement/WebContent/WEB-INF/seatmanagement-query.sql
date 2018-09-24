@@ -169,3 +169,14 @@ ALTER TABLE `seatmanagement`.`seating_detail`
 ADD COLUMN `x_axis` VARCHAR(45) NULL AFTER `seating_date`,
 ADD COLUMN `y_axis` VARCHAR(45) NULL AFTER `x_axis`;
 
+CREATE TABLE `seatmanagement`.`organisation` ( 
+ `organisation_id` VARCHAR(36) NOT NULL,  
+ `organisation_name` VARCHAR(100) NOT NULL,
+ PRIMARY KEY (`organisation_id`)
+ )ENGINE=InnoDB;
+ 
+ALTER TABLE building ADD COLUMN `organisation_id` VARCHAR(36) NOT NULL;
+ALTER TABLE building ADD COLUMN `square_feet` FLOAT NOT NULL;
+ 
+ALTER TABLE building 
+ADD CONSTRAINT `building_fk_1` FOREIGN KEY (organisation_id) REFERENCES organisation(organisation_id);
