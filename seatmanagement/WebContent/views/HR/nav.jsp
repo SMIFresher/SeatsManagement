@@ -34,6 +34,7 @@
 
 	<ul class="list-unstyled components">
 		<li><a href="index.jsp" class="fa fa-home"> Home</a></li>
+		<li><a href="Organisation.jsp" class="fa fa-sitemap"> Organization</a></li>
 		<li class="active"><a href="#managebuildingSubmenu"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-building"> Manage
 				Building</a>
@@ -41,7 +42,7 @@
 				<li><a href="#buldsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Building</a>
 					<ul class="collapse list-unstyled" id="buldsubmenu">
-						<li><a href="#floorsubmenu">Add</a></li>
+						<li><a href="viewandAddBuilding.jsp">Add</a></li>
 						<li><a href="#">Modify</a></li>
 					</ul></li>
 				<li><a href="#floorsubmenu" data-toggle="collapse"
