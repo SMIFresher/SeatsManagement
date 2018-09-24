@@ -201,8 +201,6 @@
 			document.getElementById(col4).checked = true;
 			document.getElementById(col5).checked = true;
 			$("#Device").val(col6).change();
-			
-			
 		})
 	</script>
 </body>
