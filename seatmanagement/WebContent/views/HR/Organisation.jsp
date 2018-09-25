@@ -63,7 +63,7 @@
 						<td>{{org.organisationId}}</td>
 						<td>{{org.organisationName}}</td>
 						<td align="center">
-							<form action="../../organisation/deleteOrganisationById" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+							<form action="../../organisation/deleteOrganisationById" method="post"><input type="hidden" name="organisationId" value="{{org.organisationId}}"><button type="submit" class="btn btn-danger">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>

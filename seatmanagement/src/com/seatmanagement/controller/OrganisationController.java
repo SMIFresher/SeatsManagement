@@ -5,20 +5,26 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Organisation;
 import com.seatmanagement.service.OrganisationService;
+import com.seatmanagement.util.UUIDConverter;
 
 @Controller
 @RequestMapping("/organisation")
@@ -30,11 +36,20 @@ public class OrganisationController {
 	private OrganisationService organisationService;
 	
 	@RequestMapping("/saveOrganisation")
-	public ModelAndView saveOrganisation(@ModelAttribute Organisation organisation) {
+	public ModelAndView saveOrganisation(@Valid Organisation organisation, Errors errors) {
 		
 		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView model = null;
+		
+		if(errors.hasErrors()) {
+			
+			model = new ModelAndView();
+			
+			return model;
+		}
+		
+		
 				
 		try {
 			if(Objects.isNull(organisation)) {
@@ -44,6 +59,8 @@ public class OrganisationController {
 			organisationService.saveOrganisation(organisation);
 
 			model = new ModelAndView();
+			
+			model.setStatus(HttpStatus.OK);
 			
 		}catch(Exception e) {
 			logger.error("Exception at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
@@ -135,7 +152,7 @@ public class OrganisationController {
 	}
 	
 	@RequestMapping("/deleteOrganisationById")
-	public ModelAndView deleteOrganisationById(@ModelAttribute UUID organisationId) {
+	public ModelAndView deleteOrganisationById(String organisationId) {
 		
 		logger.info("Controller: OrganisationController Method : deleteOrganisation request processing started at : " + LocalDateTime.now());
 		
@@ -145,11 +162,13 @@ public class OrganisationController {
 			
 			model = new ModelAndView();
 			
-			if(Objects.isNull(organisationId)) {
+			if(StringUtils.isBlank(organisationId)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 			
-			organisationService.deleteOrganisationById(organisationId);
+			UUID organisationIDUUID = UUIDConverter.stringToUUID(organisationId);
+			
+			organisationService.deleteOrganisationById(organisationIDUUID);
 			
 		}catch(Exception e) {
 			logger.error("Exception at Controller: OrganisationController Method : deleteOrganisation " + e.getMessage());
