@@ -140,5 +140,32 @@
   })
 
 </script>
+
+<!-- <script>
+		var app = angular.module('seating', []);
+		app.controller('SeatingController', function($scope, $http) {
+		    $http.get("../../seating/getAllSeatings")
+		    .then(function (response) {$scope.getOrg = response.data.records;});
+		});
+		</script>
+		
+		
+		
+<script type="text/javascript">
+function formSubmit(){
+
+ $.ajax({
+     url:'../../seating/saveOrganisation',
+     data: $("#Form").serialize(),
+     success: function (data) {
+            $('#result').html("Success");
+
+    }
+ 	
+});
+}
+
+
+</script>-->
 </body>
 </html>
