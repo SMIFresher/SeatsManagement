@@ -180,3 +180,6 @@ ALTER TABLE building ADD COLUMN `square_feet` FLOAT NOT NULL;
  
 ALTER TABLE building 
 ADD CONSTRAINT `building_fk_1` FOREIGN KEY (organisation_id) REFERENCES organisation(organisation_id);
+
+ALTER TABLE `seatmanagement`.`floor` 
+ADD COLUMN `floor_name` VARCHAR(45) NOT NULL AFTER `floor_type`;

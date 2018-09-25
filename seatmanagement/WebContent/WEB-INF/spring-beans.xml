@@ -45,6 +45,14 @@
 		class="com.seatmanagement.service.impl.BuildingServiceImpl">
 	</bean>
 	
+	<bean id="floorDao"
+		class="com.seatmanagement.dao.impl.FloorDaoImpl">
+	</bean>
+
+	<bean id="floorService"
+		class="com.seatmanagement.service.impl.FloorServiceImpl">
+	</bean>
+	
 	<bean id="systemDao"
 		class="com.seatmanagement.dao.impl.SystemDaoImpl">
 	</bean>
