@@ -79,7 +79,7 @@
 <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
-			var col1 = currow.find('td:eq(0)').text();
+			var col1 = currow.find('td:eq(1)').text();
 
 			document.getElementById('orgName').value = col1;
 		})
