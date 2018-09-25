@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,25 +24,46 @@ public class SeatingDetails implements Serializable{
 	private static final long serialVersionUID = -3552137905378520101L;
 
 	@Id
-	@Column(name = "seating_id")
+	@Column(name = "seating_detail_id")
 	@Type(type = "uuid-char")
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private UUID seatingId;
+	private UUID seatingDetailsId;
 	
-	@Column(name = "system_id")
-	@Type(type = "uuid-char")
-	private UUID systemId;
 	
+	@OneToOne
+    @JoinColumn(name="system_id", nullable=false)
+    private Systems system;
+	
+	
+	@OneToOne
+    @JoinColumn(name="seating_id", nullable=false)
+    private Seating seating;
+	
+	
+	public Seating getSeating() {
+		return seating;
+	}
+
+	public void setSeating(Seating seating) {
+		this.seating = seating;
+	}
+
 	@Column(name="seating_date")
 	private String seatingDate;
 	
-	@Column(name="x_axis")
-	private String xAxis;
+	@Column(name="seating_position")
+	private String seatingPosition;
 	
-	@Column(name="y_axis")
-	private String yAxis;
 	
+	public String getSeatingPosition() {
+		return seatingPosition;
+	}
+
+	public void setSeatingPosition(String seatingPosition) {
+		this.seatingPosition = seatingPosition;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "reallocatedSeatingDetailId")
 	private Reallocation postReallocation;
 
@@ -48,25 +71,27 @@ public class SeatingDetails implements Serializable{
 		return postReallocation;
 	}
 
+	public UUID getSeatingDetailsId() {
+		return seatingDetailsId;
+	}
+
+	public void setSeatingDetailsId(UUID seatingDetailsId) {
+		this.seatingDetailsId = seatingDetailsId;
+	}
+
+	public Systems getSystem() {
+		return system;
+	}
+
+	public void setSystem(Systems system) {
+		this.system = system;
+	}
+
 	public void setPostReallocation(Reallocation postReallocation) {
 		this.postReallocation = postReallocation;
 	}
 
-	public UUID getSeatingId() {
-		return seatingId;
-	}
-
-	public void setSeatingId(UUID seatingId) {
-		this.seatingId = seatingId;
-	}
-
-	public UUID getSystemId() {
-		return systemId;
-	}
-
-	public void setSystemId(UUID systemId) {
-		this.systemId = systemId;
-	}
+	
 
 	public String getSeatingDate() {
 		return seatingDate;
@@ -75,21 +100,4 @@ public class SeatingDetails implements Serializable{
 	public void setSeatingDate(String seatingDate) {
 		this.seatingDate = seatingDate;
 	}
-
-	public String getxAxis() {
-		return xAxis;
-	}
-
-	public void setxAxis(String xAxis) {
-		this.xAxis = xAxis;
-	}
-
-	public String getyAxis() {
-		return yAxis;
-	}
-
-	public void setyAxis(String yAxis) {
-		this.yAxis = yAxis;
-	}
-	
 }

@@ -188,3 +188,13 @@ ADD COLUMN `floor_name` VARCHAR(45) NOT NULL AFTER `floor_type`;
 #9/25/2018
 ALTER TABLE block ADD COLUMN `block_name` VARCHAR(45) NOT NULL;
 ALTER TABLE block ADD COLUMN `square_feet` FLOAT NOT NULL;
+
+alter table seatmanagement.seating_detail drop column x_axis;
+alter table seatmanagement.seating_detail drop column y_axis;
+alter table seatmanagement.seating_detail add seating_position varchar(255);
+
+ALTER TABLE `seatmanagement`.`seating` 
+DROP FOREIGN KEY `team_id`;
+ALTER TABLE `seatmanagement`.`seating` 
+DROP COLUMN `team_id`,
+DROP INDEX `team_id_idx` ;
