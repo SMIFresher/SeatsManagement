@@ -63,7 +63,7 @@
 						<td>{{org.organisationId}}</td>
 						<td>{{org.organisationName}}</td>
 						<td align="center">
-							<form action="../../organisation/deleteOrganisationById" method="post"><input type="hidden" name="organisationId" value="{{org.organisationId}}"><button type="submit" class="btn btn-danger">Delete</button></form>
+							<form method="post" ><input type="hidden" name="organisationId" value="{{org.organisationId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>
@@ -97,11 +97,31 @@ function formSubmit(){
      data: $("#Form").serialize(),
      success: function (data) {
             $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-
+            location.replace("Organisation.jsp");
     }
  	
 });
 }
+	
+	
+var orgId = null;
+
+$('.table tbody').on('click', '.deleteBtn', function() {
+	var currow = $(this).closest('tr');
+	orgId = currow.find('td:eq(0)').text();
+	console.log("orgId : " + orgId);
+	
+	 $.post("../../organisation/deleteOrganisationById", {
+		 organisationId:orgId
+		}, function(data) {
+			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+            location.replace("Organisation.jsp");
+		});
+
+	}
+);
+	 
+	
 </script>
 </body>
 </html>
