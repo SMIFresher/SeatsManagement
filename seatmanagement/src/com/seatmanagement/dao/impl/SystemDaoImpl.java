@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.FetchMode;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Property;
@@ -25,13 +26,15 @@ public class SystemDaoImpl implements SystemDao {
 	
 	
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Systems getSystem(String request) {
 		
 		Systems system=null;
 	
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
-		criteria.createAlias("employee","employee");
+		criteria.createAlias("employee","employee",CriteriaSpecification.LEFT_JOIN);
+	
 		criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.or
 				(Restrictions.eq("systemName",request),Restrictions.eq("employee.employeeRoll",request),Restrictions.like("employee.firstName",request)));

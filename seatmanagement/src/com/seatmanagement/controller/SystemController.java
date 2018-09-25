@@ -69,7 +69,7 @@ public class SystemController {
 	}
 	
 	@RequestMapping(value="/getSystem",method=RequestMethod.GET)
-	public ResponseEntity getSystemByEmployeeId(@RequestParam String request){
+	public ResponseEntity getSystem(@RequestParam String request){
 		Systems system = new Systems();
 		system=systemService.getSystem(request);
 		ResponseEntity responseEntity=null;
