@@ -6,13 +6,15 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	
 	 <script src="../js/angular.ng-modules.js"></script>
+	 
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -21,9 +23,9 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br>
-<div ng-app="Building" ng-controller="BuildingController">
+<div id="build" ng-app="Building" ng-controller="BuildingController">
 <div class="container">
-  <div class="row" ng-repeat="Building in getBuildings">
+  <div class="row" ng-repeat="Building in getBuilding">
   
     <div class="col-md-4">
     	<div class="content text-center" data-toggle="modal" data-target="#myModal" >
@@ -127,7 +129,7 @@
                     <textarea class="form-control" name="buildingAddress" rows="3" id="address"></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="location">Building Name :</label> <input type="text"
+                    <label for="location">Building Location :</label> <input type="text"
                       class="form-control" id="location" name="buildingLocation" name="location"
                       required="required" placeholder="Location">
                   </div>
@@ -137,11 +139,10 @@
                       required="required" placeholder="Square Feet">
                   </div>
                    <div class="form-group">
-                   		<div ng-app="getOrg" ng-controller="getOrganization">
+                   		<div ng-app="getOrg" ng-controller="getOrganization" id="orgFiled">
 						<label for="location">Organization </label>
-							<select class="custom-select mb-3" ng-model="selectedName" ng-options="x.organisationName for x in getOrg">
-								<option></option>
-								<option>SMI</option>
+							<select class="custom-select mb-3" name="organisationId">
+								<option ng-repeat="org in getOrg" value="{{org.organisationId}}">{{org.organisationName}}</option>
 							</select>
 						</div>
 					</div>
@@ -161,7 +162,8 @@
   </div>
 <script type="text/javascript">
 function formSubmit(){
-
+	var select_id = document.getElementById("org");
+	
  $.ajax({
      url:'../../building/build',
      method : 'POST',
@@ -176,17 +178,32 @@ function formSubmit(){
 </script>
 
 <script>
-		var app = angular.module('getOrg', []);
-		app.controller('getOrganization', function($scope, $http) {
-		    $http.get("../../organisation/getAllOrganisations")
-		    .then(function (response) {$scope.getOrg = response.data.records;});
-		});
 
-		var app = angular.module('Building', []);
-		app.controller('BuildingController', function($scope, $http) {
-		    $http.get("../../building/getAllBuildings")
-		    .then(function (response) {$scope.getBuildings = response.data.records;});
-		});
+var app = angular.module('getOrg', ['Building']);
+app.controller('getOrganization', function($scope, $http) {
+    $http.post("../../organisation/getAllOrganisations")
+        .then(function successCallback(response) {
+            $scope.getOrg = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+            alert(response.status);
+        });
+});
+
+
+var app = angular.module('Building', []);
+app.controller('BuildingController', function($scope, $http) {
+    $http.post("../../building/getAllBuildings")
+        .then(function successCallback(response) {
+            $scope.getBuilding = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+            alert(response.status);
+        });
+});
+angular.element(document).ready(function() {
+    angular.bootstrap(document.getElementById("orgFiled"), ['getOrg']);
+  });
 </script>
 </body>
 </html>
