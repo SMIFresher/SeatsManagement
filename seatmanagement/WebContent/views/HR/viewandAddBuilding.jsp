@@ -140,6 +140,8 @@
                    		<div ng-app="getOrg" ng-controller="getOrganization">
 						<label for="location">Organization </label>
 							<select class="custom-select mb-3" ng-model="selectedName" ng-options="x.organisationName for x in getOrg">
+								<option></option>
+								<option>SMI</option>
 							</select>
 						</div>
 					</div>
