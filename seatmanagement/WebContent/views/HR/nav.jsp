@@ -48,7 +48,7 @@
 				<li><a href="#floorsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Floor</a>
 					<ul class="collapse list-unstyled" id="floorsubmenu">
-						<li><a href="#floorsubmenu">Add</a></li>
+						<li><a href="Floor.jsp">Add</a></li>
 						<li><a href="#">Modify</a></li>
 					</ul></li>
 				<li><a href="#blocksubmenu" data-toggle="collapse"
