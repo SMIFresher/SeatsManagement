@@ -7,6 +7,6 @@ import com.seatmanagement.model.Systems;
 
 public interface SystemDao {
 
-	public Systems getSystemByEmployeeId(UUID id);
-
+	public  Systems getSystem(String request);
+	
 }

@@ -68,10 +68,10 @@ public class SystemController {
 		return responseEntity;
 	}
 	
-	@RequestMapping(value="/getSystemByEmployee",method=RequestMethod.GET)
-	public ResponseEntity getSystemByEmployeeId(@RequestParam UUID employeeId){
+	@RequestMapping(value="/getSystem",method=RequestMethod.GET)
+	public ResponseEntity getSystem(@RequestParam String request){
 		Systems system = new Systems();
-		system=systemService.getSystemByEmployeeId(employeeId);
+		system=systemService.getSystem(request);
 		ResponseEntity responseEntity=null;
 		if(!(system.getSystemId()==null)) {
 			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
