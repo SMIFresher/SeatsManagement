@@ -3,7 +3,6 @@ package com.seatmanagement.controller;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Building;
-import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.BuildingService;
-import com.seatmanagement.util.UUIDConverter;
 
 /**
  * 
@@ -50,13 +46,13 @@ public class BuildingController {
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	@RequestMapping(value="/build",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Building> saveOrUpdate(Building building){
+	public ResponseEntity<Building> saveOrUpdate(Building building , @RequestParam(value="organisationId") UUID organisationId){
 		 //buildingService.saveOrUpdate(building);
 		//return ResponseEntity.ok().build();
-	
-		ResponseEntity<Building> response =  new ResponseEntity(buildingService.saveOrUpdate(building),HttpStatus.OK);
+		ResponseEntity<Building> response =  new ResponseEntity(buildingService.saveOrUpdate(building,organisationId),HttpStatus.OK);
 		return response;
 	}
+	
 	
 	
 	@RequestMapping(value="/getAllBuildings")
