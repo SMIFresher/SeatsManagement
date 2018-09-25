@@ -183,3 +183,8 @@ ADD CONSTRAINT `building_fk_1` FOREIGN KEY (organisation_id) REFERENCES organisa
 
 ALTER TABLE `seatmanagement`.`floor` 
 ADD COLUMN `floor_name` VARCHAR(45) NOT NULL AFTER `floor_type`;
+
+
+#9/25/2018
+ALTER TABLE block ADD COLUMN `block_name` VARCHAR(45) NOT NULL;
+ALTER TABLE block ADD COLUMN `square_feet` FLOAT NOT NULL;

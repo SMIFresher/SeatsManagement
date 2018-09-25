@@ -53,6 +53,17 @@
 		class="com.seatmanagement.service.impl.FloorServiceImpl">
 	</bean>
 	
+		
+	<bean id="blockDao"
+		class="com.seatmanagement.dao.impl.BlockDaoImpl">
+	</bean>
+
+	<bean id="blockService"
+		class="com.seatmanagement.service.impl.BlockServiceImpl">
+	</bean>
+	
+	
+	
 	<bean id="systemDao"
 		class="com.seatmanagement.dao.impl.SystemDaoImpl">
 	</bean>
