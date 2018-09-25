@@ -1,24 +1,20 @@
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="Form"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Form</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
-	<%
-	String id = request.getParameter("userid");
-	String driver = "com.mysql.jdbc.Driver";
-	String connectionUrl = "jdbc:mysql://localhost:3306/";
-	String database = "seatmanagementexample";
-	String userid = "root";
-	String password = "root";
-	try {
-	Class.forName(driver);
-	} catch (ClassNotFoundException e) {
-	e.printStackTrace();
-	}
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	%>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,10 +47,26 @@
 						<h2>Blocks</h2>
 						<form action="#">
 							<div class="form-group">
-								<label for="pwd">Floor Id:</label> <input type="hidden" value=""
-									name="id" id="id"> <input type="text"
-									class="form-control" id="floor_id" placeholder="Enter Floor Id"
-									name="floor_id">
+								<label for="buildingName">Building Name:</label> <select
+									name="cars" class="custom-select mb-3" id="buildingName">
+									<option selected>Building Name</option>
+									<option value="#SMI1">SMI1</option>
+									<option value="#PALAMI">PALAMI</option>
+									<option value="#DH2">DH2</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="floorName">Floor Name:</label> <select
+									name="cars" class="custom-select mb-3" id="FloorName">
+									<option selected>Floor Name</option>
+									<option value=""></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="blockName">Block Name:</label> <input type="hidden" value=""
+									name="id" id="blockName"> <input type="text"
+									class="form-control" id="blockName" placeholder="Enter Block Name"
+									name="block_Name">
 							</div>
 							<div class="form-group">
 								<label for="systemType">Block Type:</label>
@@ -75,8 +87,8 @@
 							</div>
 							<div class="form-group">
 								<label for="pwd">Block Measurement:</label> <input type="hidden" value=""
-									name="id" id="id"> <input type="text"
-									class="form-control" id="block_measure" placeholder="Enter Block Measurement"
+									name="id" id="blockMeasurement"> <input type="text"
+									class="form-control" id="blockMeasurement" placeholder="Enter Block Measurement"
 									name="block_measure">
 							</div>
 							<div class="form-group">
@@ -100,50 +112,34 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="myApp" ng-controller="customersCtrl">
+				<div ng-app="block" ng-controller="blockController">
 
 					<table class="table table-hover">
 						<thead>
-							<td>Floor Id</td>
+							<td>Floor Name</td>
+							<td>Block Name</td>
+							<td>Block Measurement</td>
 							<td>Block Type</td>
-							<td>Measurement</td>
 							<td>Capacity</td>
-							<td>Description</td>
 							<td align="center">Process</td>
 						</thead>
-						<%
-						try{
-						connection = DriverManager.getConnection(connectionUrl+database, userid, password);
-						statement=connection.createStatement();
-						String sql ="select * from blocktbcurd";
-						resultSet = statement.executeQuery(sql);
-						while(resultSet.next()){
-						%>
+						
 						<tbody align="center">
-						<tr ng-repeat="x in plan">
-						<td><%=resultSet.getString("floorid") %></td>
-						<td><%=resultSet.getString("blocktype") %></td>
-						<td><%=resultSet.getString("blockmeasurement") %></td>
-						<td><%=resultSet.getString("blockcapacity") %></td>
-						<td><%=resultSet.getString("blockdescription") %></td>
+						<tr ng-repeat="blk in getBlock">
+						<td>{{blk.floor}}</td>
+						<td>{{blk.blockName}}</td>
+						<td>{{blk.blockMeasurement}}</td>
+						<td>{{blk.blockType}}</td>
+						<td>{{blk.blockCapacity}}</td>
 						<td align="center"><button class="btn btn-danger">Delete</button></td>
 						</tr>
 						</tbody>
-						<%
-						}
-						connection.close();
-						} catch (Exception e) {
-						e.printStackTrace();
-						}
-						%>
+						
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 
 	<script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
@@ -153,14 +149,69 @@
 			var col3 = currow.find('td:eq(2)').text();
 			var col4 = currow.find('td:eq(3)').text();
 			var col5 = currow.find('td:eq(4)').text();
+			var col6 = currow.find('td:eq(5)').text();
+			var col7 = currow.find('td:eq(6)').text();
 
-			document.getElementById('floor_id').value = col1;
-			document.getElementById(col2).checked = true;
-			document.getElementById('block_measure').value = col3;
-			document.getElementById('block_capacity').value = col4;
-			document.getElementById('block_desc').value = col5;
+			document.getElementById('buildingName').value = col1;
+			document.getElementById('FloorName').value = col2;
+			document.getElementById('blockName').value = col3;
+			document.getElementById(col4).checked = true;
+			document.getElementById('blockMeasurement').value = col5;
+			document.getElementById('block_capacity').value = col6;
+			document.getElementById('block_desc').value = col7;
 			
 		})
 	</script>
+
+	<script>
+	var app = angular.module('block', []);
+	app.controller('blockController', function($scope, $http) {
+	    $http.post("../../organisation/getAllOrganisations")
+	        .then(function successCallback(response) {
+	            $scope.getOrg = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+	});
+	</script>
+	
+	<script type="text/javascript">
+	function formSubmit(){
+	
+	 $.ajax({
+	     url:'../../organisation/saveOrganisation',
+	     method : 'POST',
+	     data: $("#Form").serialize(),
+	     success: function (data) {
+	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+	            location.replace("Organisation.jsp");
+	    }
+	 	
+	});
+	}
+		
+		
+	var orgId = null;
+	
+	$('.table tbody').on('click', '.deleteBtn', function() {
+		var currow = $(this).closest('tr');
+		orgId = currow.find('td:eq(0)').text();
+		console.log("orgId : " + orgId);
+		
+		 $.post("../../organisation/deleteOrganisationById", {
+			 organisationId:orgId
+			}, function(data) {
+				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+	            location.replace("Organisation.jsp");
+			});
+	
+		}
+	);
+		 
+		
+	</script>
+
+	
 </body>
 </html>
