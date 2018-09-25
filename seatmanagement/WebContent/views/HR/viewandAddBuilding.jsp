@@ -124,16 +124,16 @@
                   </div>
                   <div class="form-group">
                     <label for="address">Address:</label>
-                    <textarea class="form-control" name="" rows="3" id="address"></textarea>
+                    <textarea class="form-control" name="buildingAddress" rows="3" id="address"></textarea>
                   </div>
                   <div class="form-group">
                     <label for="location">Building Name :</label> <input type="text"
-                      class="form-control" id="location" name="" name="location"
+                      class="form-control" id="location" name="buildingLocation" name="location"
                       required="required" placeholder="Location">
                   </div>
                   <div class="form-group">
                     <label for="location">Square Feet :</label> <input type="text"
-                      class="form-control" id="SqFt" name="SqFt"
+                      class="form-control" id="SqFt" name="squareFeet"
                       required="required" placeholder="Square Feet">
                   </div>
                    <div class="form-group">
@@ -161,7 +161,7 @@
 function formSubmit(){
 
  $.ajax({
-     url:'../../organisation/saveOrganisation',
+     url:'../../building/build',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
@@ -176,7 +176,7 @@ function formSubmit(){
 <script>
 		var app = angular.module('getOrg', []);
 		app.controller('getOrganization', function($scope, $http) {
-		    $http.get("../../organisation/saveOrganisation")
+		    $http.get("../../organisation/getAllOrganisations")
 		    .then(function (response) {$scope.getOrg = response.data.records;});
 		});
 
