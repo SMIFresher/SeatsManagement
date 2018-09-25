@@ -38,11 +38,11 @@ public class OrganisationController {
 	@RequestMapping("/saveOrganisation")
 	//public ModelAndView saveOrganisation(@Valid Organisation organisation, Errors errors) {
 		
-		public ModelAndView saveOrganisation(Organisation organisation) {
+		public ResponseEntity saveOrganisation(Organisation organisation) {
 		
 		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : " + LocalDateTime.now());
 		
-		ModelAndView model = null;
+		ResponseEntity responseEntity = null;
 		
 		/*if(errors.hasErrors()) {
 			
@@ -60,9 +60,9 @@ public class OrganisationController {
 
 			organisationService.saveOrganisation(organisation);
 
-			model = new ModelAndView();
+			//model = new ModelAndView("organisation");
 			
-			model.setStatus(HttpStatus.OK);
+			//model.setStatus(HttpStatus.OK);
 			
 		}catch(Exception e) {
 			logger.error("Exception at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
@@ -70,9 +70,11 @@ public class OrganisationController {
 			throw new RuntimeException(e);
 		}
 		
+		responseEntity.status(HttpStatus.OK);
+		
 		logger.info("Controller: OrganisationController Method : saveOrganisation response sent at : " + LocalDateTime.now());
 		
-		return model;
+		return responseEntity;
 	}
 	
 	@RequestMapping("/getAllOrganisations")
