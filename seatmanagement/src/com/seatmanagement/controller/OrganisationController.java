@@ -36,18 +36,20 @@ public class OrganisationController {
 	private OrganisationService organisationService;
 	
 	@RequestMapping("/saveOrganisation")
-	public ModelAndView saveOrganisation(@Valid Organisation organisation, Errors errors) {
+	//public ModelAndView saveOrganisation(@Valid Organisation organisation, Errors errors) {
+		
+		public ModelAndView saveOrganisation(Organisation organisation) {
 		
 		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView model = null;
 		
-		if(errors.hasErrors()) {
+		/*if(errors.hasErrors()) {
 			
 			model = new ModelAndView();
 			
 			return model;
-		}
+		}*/
 		
 		
 				
