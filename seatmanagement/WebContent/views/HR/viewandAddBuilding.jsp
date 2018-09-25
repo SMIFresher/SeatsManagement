@@ -135,7 +135,7 @@
                   </div>
                   <div class="form-group">
                     <label for="location">Square Feet :</label> <input type="text"
-                      class="form-control" id="SqFt" name="squareFeet"
+                      class="form-control" id="SqFt" name="squareFeetString"
                       required="required" placeholder="Square Feet">
                   </div>
                    <div class="form-group">

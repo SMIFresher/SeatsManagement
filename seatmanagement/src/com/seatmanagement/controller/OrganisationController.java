@@ -29,160 +29,159 @@ import com.seatmanagement.util.UUIDConverter;
 @Controller
 @RequestMapping("/organisation")
 public class OrganisationController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(OrganisationController.class);
-	
+
 	@Autowired
 	private OrganisationService organisationService;
-	
+
 	@RequestMapping("/saveOrganisation")
-	//public ModelAndView saveOrganisation(@Valid Organisation organisation, Errors errors) {
-		
-		public ResponseEntity saveOrganisation(Organisation organisation) {
-		
-		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : " + LocalDateTime.now());
-		
+	public ResponseEntity saveOrganisation(Organisation organisation) {
+
+		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : "
+				+ LocalDateTime.now());
+
 		ResponseEntity responseEntity = null;
-		
-		/*if(errors.hasErrors()) {
-			
-			model = new ModelAndView();
-			
-			return model;
-		}*/
-		
-		
-				
+
 		try {
-			if(Objects.isNull(organisation)) {
+			if (Objects.isNull(organisation)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 
 			organisationService.saveOrganisation(organisation);
 
-			//model = new ModelAndView("organisation");
-			
-			//model.setStatus(HttpStatus.OK);
-			
-		}catch(Exception e) {
+			responseEntity.status(HttpStatus.OK);
+
+		} catch (Exception e) {
 			logger.error("Exception at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
-    		logger.error("Exception stack : ", e);
+			logger.error("Exception stack : ", e);
 			throw new RuntimeException(e);
 		}
-		
-		responseEntity.status(HttpStatus.OK);
-		
-		logger.info("Controller: OrganisationController Method : saveOrganisation response sent at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : saveOrganisation response sent at : "
+				+ LocalDateTime.now());
+
 		return responseEntity;
 	}
-	
+
 	@RequestMapping("/getAllOrganisations")
 	public ResponseEntity getAllOrganisations() {
-		
-		logger.info("Controller: OrganisationController Method : getAllOrganisations request processing started at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : getAllOrganisations request processing started at : "
+				+ LocalDateTime.now());
+
 		ResponseEntity responseEntity = null;
-		
+
 		try {
-			
+
 			List<Organisation> organisations = organisationService.getAllOrganisations();
-			
-			responseEntity = new ResponseEntity(organisations,HttpStatus.OK);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: OrganisationController Method : getAllOrganisations " + e.getMessage());
-    		logger.error("Exception stack : ", e);
+
+			responseEntity = new ResponseEntity(organisations, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error(
+					"Exception at Controller: OrganisationController Method : getAllOrganisations " + e.getMessage());
+			logger.error("Exception stack : ", e);
 			throw new RuntimeException(e);
 		}
-		
-		logger.info("Controller: OrganisationController Method : getAllOrganisations response sent at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : getAllOrganisations response sent at : "
+				+ LocalDateTime.now());
+
 		return responseEntity;
 	}
-	
+
 	@RequestMapping("/getOrganisationById")
 	public ResponseEntity getOrganisationById(@ModelAttribute UUID organisationId) {
-		
-		logger.info("Controller: OrganisationController Method : getOrganisationById request processing started at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : getOrganisationById request processing started at : "
+				+ LocalDateTime.now());
+
 		ResponseEntity responseEntity = null;
-		
+
 		try {
-			
-			if(Objects.isNull(organisationId)) {
+
+			if (Objects.isNull(organisationId)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
-			
+
 			Organisation organisation = organisationService.getOrganisationById(organisationId);
-			
-			responseEntity = new ResponseEntity(organisation,HttpStatus.OK);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: OrganisationController Method : getOrganisationById " + e.getMessage());
-    		logger.error("Exception stack : ", e);
+
+			responseEntity = new ResponseEntity(organisation, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error(
+					"Exception at Controller: OrganisationController Method : getOrganisationById " + e.getMessage());
+			logger.error("Exception stack : ", e);
 			throw new RuntimeException(e);
 		}
-		
-		logger.info("Controller: OrganisationController Method : getOrganisationById response sent at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : getOrganisationById response sent at : "
+				+ LocalDateTime.now());
+
 		return responseEntity;
 	}
-	
+
 	@RequestMapping("/updateOrganisation")
 	public ModelAndView updateOrganisation(@ModelAttribute Organisation organisation) {
-		
-		logger.info("Controller: OrganisationController Method : updateOrganisation request processing started at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : updateOrganisation request processing started at : "
+				+ LocalDateTime.now());
+
 		ModelAndView model = null;
-		
+
 		try {
-			
+
 			model = new ModelAndView();
-			
-			if(Objects.isNull(organisation)) {
+
+			if (Objects.isNull(organisation)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
-			
+
 			organisationService.updateOrganisation(organisation);
-			
-		}catch(Exception e) {
-			logger.error("Exception at Controller: OrganisationController Method : updateOrganisation " + e.getMessage());
-    		logger.error("Exception stack : ", e);
+
+		} catch (Exception e) {
+			logger.error(
+					"Exception at Controller: OrganisationController Method : updateOrganisation " + e.getMessage());
+			logger.error("Exception stack : ", e);
 			throw new RuntimeException(e);
 		}
-		
-		logger.info("Controller: OrganisationController Method : updateOrganisation response sent at : " + LocalDateTime.now());
-		
+
+		logger.info("Controller: OrganisationController Method : updateOrganisation response sent at : "
+				+ LocalDateTime.now());
+
 		return model;
 	}
-	
+
 	@RequestMapping("/deleteOrganisationById")
-	public ModelAndView deleteOrganisationById(String organisationId) {
-		
-		logger.info("Controller: OrganisationController Method : deleteOrganisation request processing started at : " + LocalDateTime.now());
-		
-		ModelAndView model = null;
-		
+	public ResponseEntity deleteOrganisationById(String organisationId) {
+
+		logger.info("Controller: OrganisationController Method : deleteOrganisation request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity responseEntity = null;
+
 		try {
-			
-			model = new ModelAndView();
-			
-			if(StringUtils.isBlank(organisationId)) {
+
+			if (StringUtils.isBlank(organisationId)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
-			
+
 			UUID organisationIDUUID = UUIDConverter.stringToUUID(organisationId);
-			
+
 			organisationService.deleteOrganisationById(organisationIDUUID);
-			
-		}catch(Exception e) {
-			logger.error("Exception at Controller: OrganisationController Method : deleteOrganisation " + e.getMessage());
-    		logger.error("Exception stack : ", e);
+
+			responseEntity.status(HttpStatus.OK);
+
+		} catch (Exception e) {
+			logger.error(
+					"Exception at Controller: OrganisationController Method : deleteOrganisation " + e.getMessage());
+			logger.error("Exception stack : ", e);
 			throw new RuntimeException(e);
 		}
-		
-		logger.info("Controller: OrganisationController Method : deleteOrganisation response sent at : " + LocalDateTime.now());
-		
-		return model;
+
+		logger.info("Controller: OrganisationController Method : deleteOrganisation response sent at : "
+				+ LocalDateTime.now());
+
+		return responseEntity;
 	}
-	
+
 }
