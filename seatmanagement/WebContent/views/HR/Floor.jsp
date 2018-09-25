@@ -27,11 +27,11 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form action="#">
+						<form method="post" onsubmit="formSubmit()" id="Form">
 							<div class="form-group">
 		                   		<div ng-app="Building" ng-controller="BuildingController" id="build">
 								<label for="location">Organization </label>
-									<select class="custom-select mb-3" name="organisationId">
+									<select class="custom-select mb-3" name="buildingId">
 										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
 									</select>
 								</div>
@@ -39,12 +39,12 @@
 							<div class="form-group">
 								<label for="ftype">Floor Type:</label>  <input type="text"
 									class="form-control" id="ftype" placeholder="Enter Floor Type"
-									name="floortype">
+									name="floorType">
 							</div>
 							<div class="form-group">
 								<label for="fname">Floor Name:</label>  <input type="text"
 									class="form-control" id="fname" placeholder="Enter Floor Name"
-									name="floortype">
+									name="floorName">
 							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -110,7 +110,7 @@ angular.element(document).ready(function() {
 
 <script type="text/javascript">
 function formSubmit(){
-
+	
  $.ajax({
      url:'../../floor/floorsave',
      method : 'POST',

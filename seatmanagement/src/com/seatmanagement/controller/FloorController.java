@@ -29,13 +29,13 @@ public class FloorController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/floorsave",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<Floor> saveOrUpdate(@RequestBody Floor floor, @RequestParam(value="buildingId") UUID buildingId ) {
+	public ResponseEntity<Floor> saveOrUpdate(Floor floor, @RequestParam(value="buildingId") UUID buildingId ) {
 		ResponseEntity<Floor> response =  new ResponseEntity(floorService.saveOrUpdate(floor,buildingId),HttpStatus.OK);
 		return response;
 	}
 	
 	 @SuppressWarnings({ "rawtypes", "unchecked" })
-		@RequestMapping(value="/getAllFloor",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value="/getAllFloor")
 		public ResponseEntity<List<Floor>> getAll(){
 			return new ResponseEntity(floorService.getAll(),HttpStatus.OK);
 		}

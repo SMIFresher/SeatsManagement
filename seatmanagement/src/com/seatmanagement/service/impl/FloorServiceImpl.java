@@ -3,7 +3,7 @@ package com.seatmanagement.service.impl;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +12,9 @@ import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Floor;
-
 import com.seatmanagement.service.FloorService;
 
-
 @Service
-@Transactional
-
 public class FloorServiceImpl implements FloorService {
 
 	@Autowired
@@ -29,7 +25,6 @@ GenericDao<Building> genericDaoBuilding;
 	
 	@Autowired
  FloorDao floorDao;
-	
 	
    public boolean saveOrUpdate(Floor floor,UUID buildingId) {
 		
