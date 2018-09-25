@@ -42,9 +42,10 @@ public class SystemServiceImpl implements SystemService{
 		return genericDao.saveOrUpdate(system);
 	}
 
-	@Override
-	public Systems getSystemByEmployeeId(UUID EmployeeId) {
-		return systemDao.getSystemByEmployeeId(EmployeeId);
+	
+
+	public  Systems getSystem(String request) {
+		return systemDao.getSystem(request);
 	}
 
 	
