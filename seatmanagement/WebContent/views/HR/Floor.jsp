@@ -11,6 +11,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="../js/angular.ng-modules.js"></script>
 </head>
 <body>
 
@@ -28,10 +29,12 @@
 						<h2>Floor</h2>
 						<form action="#">
 							<div class="form-group">
-								<label for="fid">Floor Id:</label> <input type="hidden"
-									value="" name="id" id="id"> <input type="text"
-									class="form-control" id="fid" placeholder="Enter Floor Id"
-									name="fID">
+		                   		<div ng-app="Building" ng-controller="BuildingController" id="build">
+								<label for="location">Organization </label>
+									<select class="custom-select mb-3" name="organisationId">
+										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
+									</select>
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="ftype">Floor Type:</label>  <input type="text"
@@ -52,7 +55,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="floor" ng-controller="floorController">
+				<div id="floor" ng-app="floor" ng-controller="floorController">
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -76,7 +79,18 @@
 	</div>
 
 <script>
-var app = angular.module('floor', []);
+var app = angular.module('Building', []);
+app.controller('BuildingController', function($scope, $http) {
+    $http.post("../../building/getAllBuildings")
+        .then(function successCallback(response) {
+            $scope.getBuilding = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+            alert(response.status);
+        });
+});
+
+var app = angular.module('floor', ['Building']);
 app.controller('floorController', function($scope, $http) {
     $http.post("../../floor/getAllFloor")
         .then(function successCallback(response) {
@@ -86,6 +100,12 @@ app.controller('floorController', function($scope, $http) {
             alert(response.status);
         });
 });
+
+
+angular.element(document).ready(function() {
+    angular.bootstrap(document.getElementById("floor"), ['floor']);
+  });
+  
 </script>
 
 <script type="text/javascript">
