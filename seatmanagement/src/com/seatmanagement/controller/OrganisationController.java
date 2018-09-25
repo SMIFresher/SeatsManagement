@@ -5,16 +5,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +20,6 @@ import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Organisation;
 import com.seatmanagement.service.OrganisationService;
-import com.seatmanagement.util.UUIDConverter;
 
 @Controller
 @RequestMapping("/organisation")
@@ -152,7 +147,7 @@ public class OrganisationController {
 	}
 
 	@RequestMapping("/deleteOrganisationById")
-	public ResponseEntity deleteOrganisationById(String organisationId) {
+	public ResponseEntity deleteOrganisationById(@RequestParam(value="organisationId") UUID organisationId) {
 
 		logger.info("Controller: OrganisationController Method : deleteOrganisation request processing started at : "
 				+ LocalDateTime.now());
@@ -161,13 +156,11 @@ public class OrganisationController {
 
 		try {
 
-			if (StringUtils.isBlank(organisationId)) {
+			if (Objects.isNull(organisationId)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 
-			UUID organisationIDUUID = UUIDConverter.stringToUUID(organisationId);
-
-			organisationService.deleteOrganisationById(organisationIDUUID);
+			organisationService.deleteOrganisationById(organisationId);
 
 			responseEntity.status(HttpStatus.OK);
 
