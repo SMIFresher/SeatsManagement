@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "organisation")
 public class Organisation implements Serializable {
@@ -34,6 +36,7 @@ public class Organisation implements Serializable {
 	private String organisationName;
 	
 	 @OneToMany(mappedBy="organisation")
+	 @JsonIgnore
 	private Set<Building> buildings;
 
 	public UUID getOrganisationId() {
