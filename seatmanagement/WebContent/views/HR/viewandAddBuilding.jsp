@@ -9,6 +9,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	
+	 <script src="../js/angular.ng-modules.js"></script>
 </head>
 <body>
 
@@ -17,34 +21,20 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br>
-
+<div ng-app="Building" ng-controller="BuildingController">
 <div class="container">
-  <div class="row" >
+  <div class="row" ng-repeat="Building in getBuildings">
+  
     <div class="col-md-4">
     	<div class="content text-center" data-toggle="modal" data-target="#myModal" >
     	<br><br><br>
-    	  <h3>{{X.}}</h3>
-	      <p>SMI I Buliding architecture</p>
+    	  <h3>{{Building.Name }}</h3>
+	      <p>{{ Building.some}} Building architecture</p>
     	</div>
-    </div>
-
-    <div class="col-md-4 ">
-      <div class="content text-center" data-toggle="modal" data-target="#myModal">
-        <br><br><br>
-         <h3>DH2</h3>
-        <p>DH2 Buliding architecture</p>
-      </div>
-    </div>
-
-    <div class="col-md-4 ">
-      <div class="content text-center" data-toggle="modal" data-target="#myModal">
-        <br><br><br>
-         <h3>Plami</h3>
-        <p>Plami Buliding architecture</p>
-      </div>
-    </div>
-
-    <div class="col-md-4 ">
+    </div>    
+  </div>
+<hr>  
+	<div class="col-md-4 ">
     	<div class="content text-center" data-toggle="modal" data-target="#AddBuilding">
     		<br><br>
     	   <h3>+</h3>
@@ -52,30 +42,10 @@
         <p></p>
     	</div>
     </div>
-	</div>
 </div>
-<hr>
-<div class="container">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="content text-center" data-toggle="modal" data-target="#myModal">
-      <br><br><br>
-        <h3>Tech Mango</h3>
-        <p>Tech Mango Buliding architecture</p>
-      </div>
-    </div>
+</div>
 
 
-    <div class="col-md-4 ">
-      <div class="content text-center" data-toggle="modal" data-target="#AddBuilding">
-        <br><br>
-         <h3>+</h3>
-        <h3>Add</h3>
-        <p></p>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -127,9 +97,8 @@
   <div class="modal fade" id="AddBuilding">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      
+      <form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
         <!-- Modal Header -->
-         <form action="/addBuilding" autocomplete="off">
         <div class="modal-header">
           <h4 class="modal-title">Add Buliding</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -147,7 +116,6 @@
               </ul>
             </div>
             <div class="col-md-7">
-              
                   <div class="form-group">
                     <label for="buildingName">Building Name :</label> <input
                       type="text" class="form-control" id="buildingName"
@@ -156,11 +124,11 @@
                   </div>
                   <div class="form-group">
                     <label for="address">Address:</label>
-                    <textarea class="form-control" rows="3" id="address"></textarea>
+                    <textarea class="form-control" name="" rows="3" id="address"></textarea>
                   </div>
                   <div class="form-group">
                     <label for="location">Building Name :</label> <input type="text"
-                      class="form-control" id="location" name="location"
+                      class="form-control" id="location" name="" name="location"
                       required="required" placeholder="Location">
                   </div>
                   <div class="form-group">
@@ -169,14 +137,13 @@
                       required="required" placeholder="Square Feet">
                   </div>
                    <div class="form-group">
-						<label for="location">Organization </label> <select name="cars"
-							class="custom-select mb-3">
-							<option selected>Select Organization</option>
-							<option value="SMI">SMI</option>
-							<option value="Tech Mango">Tech Mango</option>
-						</select>
+                   		<div ng-app="getOrg" ng-controller="getOrganization">
+						<label for="location">Organization </label>
+							<select class="custom-select mb-3" ng-model="selectedName" ng-options="x.organisationName for x in getOrg">
+							</select>
+						</div>
 					</div>
-               
+              
             </div>
           </div>
            
@@ -184,12 +151,40 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success" >Add Building</button>
+          <button  class="btn btn-success" >Add Building</button>
         </div>
-        </form>
+		</form>
       </div>
     </div>
   </div>
+<script type="text/javascript">
+function formSubmit(){
 
+ $.ajax({
+     url:'../../organisation/saveOrganisation',
+     method : 'POST',
+     data: $("#Form").serialize(),
+     success: function (data) {
+            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+
+    }
+ 	
+});
+}
+</script>
+
+<script>
+		var app = angular.module('getOrg', []);
+		app.controller('getOrganization', function($scope, $http) {
+		    $http.get("../../organisation/saveOrganisation")
+		    .then(function (response) {$scope.getOrg = response.data.records;});
+		});
+
+		var app = angular.module('Building', []);
+		app.controller('BuildingController', function($scope, $http) {
+		    $http.get("../../building/getAllBuildings")
+		    .then(function (response) {$scope.getBuildings = response.data.records;});
+		});
+</script>
 </body>
 </html>
