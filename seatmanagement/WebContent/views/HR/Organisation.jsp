@@ -34,7 +34,7 @@
 							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 					  		<div class="form-group">
 							<label>Organization Name</label>
-					  		<input name="organisationName" class="form-control" type="text" placeholder="Organization Name"/>
+					  		<input name="organisationName" class="form-control" id="orgName" type="text" placeholder="Organization Name"/>
 					  		</div>
 					  		<button type="submit" class="btn btn-primary">Submit</button>
 					  		
@@ -74,6 +74,20 @@
 		</div>
 	</div>
 </div>
+
+
+<script type="text/javascript">
+		$('.table tbody').on('click', 'tr', function() {
+			var currow = $(this).closest('tr');
+			var col1 = currow.find('td:eq(0)').text();
+
+			document.getElementById('orgName').value = col1;
+		})
+	</script>
+
+
+
+
 
 <script>
 var app = angular.module('organisation', []);
