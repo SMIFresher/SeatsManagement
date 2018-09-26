@@ -94,10 +94,22 @@ public class BlockServiceImpl implements BlockService {
 		}
 		
 	}
+	
+	@Override
+	public List<Block> getBlocksByFloorId(UUID floorId) {
+		List<Block> blocks = blockDao.getBlocksByFloorId(floorId);
+		return blocks;
+	}
+	
+	@Override
+	public List<Block> getBlocksByBlockType(String blockType,UUID floorId) {
+		List<Block> blocks = blockDao.getBlocksByBlockType(blockType,floorId);
+		return blocks;
+	}
 
-	/*public boolean delete(Building building) {
-		return genericDao.delete(building);
+	public boolean delete(Block block) {
+		return genericDao.delete(block);
 
-	}*/
+	}
 
 }

@@ -58,5 +58,14 @@ public class BlockDaoImpl implements BlockDao {
 		return blocks;
 	}
 	
+	@Override
+	public List<Block> getBlocksByBlockType(String blockType,UUID floorId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
+		criteria.add(Restrictions.eq("block.blockType",  blockType));
+		criteria.add(Restrictions.eq("floor.floorId",  floorId));
+		List<Block> blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
+		return blocks;
+	}
+	
 
 }

@@ -1,6 +1,7 @@
 package com.seatmanagement.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
+import com.seatmanagement.model.Constant;
+import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.BlockService;
 
 
@@ -40,9 +45,9 @@ public class BlockController {
 	
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	@RequestMapping(value="/save",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Block> saveOrUpdate(@RequestBody Block block , @RequestParam(value="floor_id") UUID floor_id){
-		ResponseEntity<Block> response =  new ResponseEntity(blockService.saveOrUpdate(block,floor_id),HttpStatus.OK);
+	@RequestMapping(value="/saveblock",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Block> saveOrUpdate(@RequestBody Block block , @RequestParam(value="floor_id") UUID floorId){
+		ResponseEntity<Block> response =  new ResponseEntity(blockService.saveOrUpdate(block,floorId),HttpStatus.OK);
 		return response;
 	}
 	
@@ -69,9 +74,40 @@ public class BlockController {
 		return responseEntity;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getBlockByFloorId", method = RequestMethod.GET)
+	public ResponseEntity getBlocksByFloorId(@RequestParam(value = "floor_id") UUID floorId) {
+		
+		if (Objects.isNull(floorId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+		
+		ResponseEntity responseEntity = null;
+		List<Block> blocks = null;
+		blocks = blockService.getBlocksByFloorId(floorId);
+		responseEntity= new ResponseEntity(blocks, HttpStatus.OK);
+
+		return responseEntity;
+	}
 	
-	/*@RequestMapping(value="/deleteBlockById",method=RequestMethod.GET)
-	public ResponseEntity deleteBlockById(@RequestParam UUID blockId){
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getBlockByBlockType", method = RequestMethod.GET)
+	public ResponseEntity getBlocksByBlockType(@RequestParam(value = "block_type") String blockType,@RequestParam(value = "floor_id") UUID floorId ) {
+		if (Objects.isNull(floorId)) {
+		if (Objects.isNull(blockType)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+		}
+		ResponseEntity responseEntity = null;
+		List<Block> blocks = null;
+		blocks = blockService.getBlocksByBlockType(blockType,floorId);
+		responseEntity= new ResponseEntity(blocks, HttpStatus.OK);
+
+		return responseEntity;
+	}
+	
+	@RequestMapping(value="/deleteBlockById",method=RequestMethod.GET)
+	public ResponseEntity deleteBlockById(@RequestParam(value="block_id") UUID blockId){
 		
 		Block block = new Block();
 		block.setBlockId(blockId);
@@ -84,7 +120,7 @@ public class BlockController {
 			throw new RuntimeException("Invalid ID");
 		}
 		return responseEntity;
-	}*/
+	}
 		
 	
 	

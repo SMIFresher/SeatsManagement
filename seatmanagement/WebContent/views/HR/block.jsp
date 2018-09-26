@@ -85,6 +85,12 @@
 									class="form-control" id="block_desc"
 									placeholder="Enter Block Description" name="block_desc">
 							</div>
+							<div class="form-group">
+								<label for="pwd">Square Feet:</label> <input type="hidden"
+									value="" name="id" id="id"> <input type="text"
+									class="form-control" id="block_sqft"
+									placeholder="Enter Block Square Feet" name="block_sqft">
+							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
@@ -99,20 +105,26 @@
 					<table class="table table-hover">
 						<thead>
 							<td>Floor Name</td>
+							<td>Block Id</td>
 							<td>Block Name</td>
 							<td>Block Measurement</td>
 							<td>Block Type</td>
+							<td>Block Description</td>
 							<td>Capacity</td>
+							<td>Square Feet</td>
 							<td align="center">Process</td>
 						</thead>
 						
 						<tbody align="center">
 						<tr ng-repeat="blk in getBlock">
 						<td>{{blk.floor}}</td>
+						<td>{{blk.blockId}}</td>
 						<td>{{blk.blockName}}</td>
 						<td>{{blk.blockMeasurement}}</td>
 						<td>{{blk.blockType}}</td>
+						<td>{{blk.blockDescription}}</td>
 						<td>{{blk.blockCapacity}}</td>
+						<td>{{blk.squarefeet}}</td>
 						<td align="center"><button class="btn btn-danger">Delete</button></td>
 						</tr>
 						</tbody>
@@ -123,7 +135,7 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
 			var col1 = currow.find('td:eq(0)').text();
@@ -143,12 +155,12 @@
 			document.getElementById('block_desc').value = col7;
 			
 		})
-	</script>
+	</script> -->
 
 	<script>
-	var app = angular.module('Building', []);
-	app.controller('BuildingController', function($scope, $http) {
-	    $http.post("../../building/getAllBuildings")
+	var app = angular.module('Block', []);
+	app.controller('BlockController', function($scope, $http) {
+	    $http.post("../../block/getAllBlocks")
 	        .then(function successCallback(response) {
 	            $scope.getBuilding = response.data;
 	            console.log(response.data);
@@ -157,7 +169,7 @@
 	        });
 	});
 	
-	var app = angular.module('block', ['Building']);
+	var app = angular.module('block', ['Block']);
 	app.controller('blockController', function($scope, $http) {
 	    $http.post("../../block/getAllBlocks")
 	        .then(function successCallback(response) {
@@ -183,7 +195,7 @@
 	     data: $("#Form").serialize(),
 	     success: function (data) {
 	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("Organisation.jsp");
+	            location.replace("Block.jsp");
 	    }
 	 	
 	});
@@ -197,11 +209,11 @@
 		orgId = currow.find('td:eq(0)').text();
 		console.log("orgId : " + orgId);
 		
-		 $.post("../../organisation/deleteOrganisationById", {
+		 $.post("../../block/deleteBlockById", {
 			 organisationId:orgId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("Organisation.jsp");
+	            location.replace("Block.jsp");
 			});
 	
 		}

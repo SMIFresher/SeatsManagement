@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.seatmanagement.model.Block;
+import com.seatmanagement.model.Floor;
 
 /**
  * 
@@ -15,7 +16,7 @@ import com.seatmanagement.model.Block;
  */
 public interface BlockService {
 
-	public boolean saveOrUpdate(Block block,UUID floor_id);
+	public boolean saveOrUpdate(Block block,UUID floorId);
 
 	public List<Block> getAll();
 
@@ -23,6 +24,10 @@ public interface BlockService {
 
 	public void deleteBlocksByFloorId(UUID floorId);
 
-	/*public boolean delete(Building building);
-*/
+	public boolean delete(Block block);
+	
+	public List<Block> getBlocksByFloorId(UUID floorId);
+	
+	public List<Block> getBlocksByBlockType(String blockType,UUID floorId);
+
 }

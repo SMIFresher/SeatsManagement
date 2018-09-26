@@ -27,5 +27,7 @@ public interface BlockDao {
 
 	public List<Block> getBlocksByFloorId(UUID floorId);
 	
+	public List<Block> getBlocksByBlockType(String blockType,UUID floorId);
+	
 	
 }
