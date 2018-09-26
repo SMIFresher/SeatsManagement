@@ -27,7 +27,4 @@ public class AdditionalDeviceDaoImpl implements AdditionalDeviceDao{
 		DeviceList= (List<AdditionalDevice>) hibernateTemplate.find("From AdditionalDevice ");
 		return DeviceList;
 	}
-
-	
-
 }
