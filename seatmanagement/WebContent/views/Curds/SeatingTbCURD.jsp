@@ -37,11 +37,11 @@
 								ng-init="loadBuilding()">
 								<div class="form-group">
 								<select name="building" ng-model="building" class="form-control"
-									ng-change="loadFloor()">
+									ng-change="floorDetails(building)">
 									<option value="">Select Building</option>
 									<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
 								</select>
-								</div>
+								</div>{{building}}
 								<div class="form-group">
 								<select name="floor" ng-model="floor"
 									class="form-control">
@@ -106,29 +106,18 @@ app.controller('BuildingController', function($scope, $http) {
         });
 	}
 	
-	$scope.loadFloor = function(){ 
-	    $http.get("../../floor/getFloorsByBuildingId",{'buildingId':$scope.building})
-	        .then(function successCallback(response) {
-	            $scope.getflr = response.data;
-	            console.log("floor :" + response.data);
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-		}
-});
-
-/* var app = angular.module('Floor', ['Building']);
-app.controller('FloorController', function($scope, $http) {
-	$scope.loadFloor = function(){ 
-    $http.post("../../floor/getFloorsByBuildingId",{'buildingId':$scope.building})
+	$scope.floorDetails=function(buildingId){
+		$http.get("../../floor/getFloorsByBuildingId?buildingId="+buildingId)
         .then(function successCallback(response) {
-            $scope.getflr = response.data;
-            console.log("floor :" + response.data);
+            $scope.getFloor = response.data;
+            console.log(response.data);
+			
         }, function errorCallback(response) {
             alert(response.status);
         });
-	}
-}); */
+	};
+});
+
 </script>	
 		
 		
