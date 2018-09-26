@@ -94,7 +94,7 @@ var app = angular.module('floor', ['Building']);
 app.controller('floorController', function($scope, $http) {
     $http.post("../../floor/getAllFloor")
         .then(function successCallback(response) {
-            $scope.getOrg = response.data;
+            $scope.getflr = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
             alert(response.status);
