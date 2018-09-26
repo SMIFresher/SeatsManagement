@@ -1,12 +1,14 @@
 package com.seatmanagement.controller;
 
 import java.util.List;
+
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,8 @@ import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.AdditionalDeviceService;
 
+@Controller
+@RequestMapping("/Additionaldevice")
 public class AdditionalDeviceController {
 	
 	@Autowired
@@ -30,13 +34,11 @@ public class AdditionalDeviceController {
 	
 	
 	
-	@RequestMapping(value="/save",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/adddevice",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdditionalDevice> saveSeatingDetails(@RequestBody AdditionalDevice additionalDevice ){
-		additionalDeviceService.saveOrUpdate(additionalDevice);
-		return ResponseEntity.ok().build();
+		
+		return new ResponseEntity(additionalDeviceService.saveOrUpdate(additionalDevice),HttpStatus.OK);
 	}
-	
-	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="/getAllDevice",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
