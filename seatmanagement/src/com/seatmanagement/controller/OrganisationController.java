@@ -94,7 +94,7 @@ public class OrganisationController {
 
 			status = Constant.RESPONSE_STATUS_OK;
 			
-			throw new RuntimeException();
+			//throw new RuntimeException();
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			
