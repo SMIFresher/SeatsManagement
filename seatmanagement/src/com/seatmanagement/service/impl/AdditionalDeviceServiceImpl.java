@@ -23,8 +23,6 @@ public class AdditionalDeviceServiceImpl implements AdditionalDeviceService{
 		return genericDao.saveOrUpdate(additionalDevice);
 	}
 	
-	
-	
 	@Override
 	public boolean deleteDevice(AdditionalDevice device) {
 		

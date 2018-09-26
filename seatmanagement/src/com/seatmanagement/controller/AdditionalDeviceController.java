@@ -32,8 +32,7 @@ public class AdditionalDeviceController {
 		return new ModelAndView("AdditionalDevice");
 	}
 	
-	
-	
+
 	@RequestMapping(value="/savedevice",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdditionalDevice> saveSeatingDetails(@RequestBody AdditionalDevice additionalDevice ){
 		

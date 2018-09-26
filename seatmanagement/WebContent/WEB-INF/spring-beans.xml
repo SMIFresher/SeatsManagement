@@ -88,8 +88,6 @@
 		class="com.seatmanagement.service.impl.AdditionalDeviceServiceImpl">
 	</bean>
 	
-		
-
 	<bean id="additionalDeviceDao" 
 		class="com.seatmanagement.dao.impl.AdditionalDeviceDaoImpl">
 	</bean>

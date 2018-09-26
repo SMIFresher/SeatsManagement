@@ -16,7 +16,6 @@ import org.hibernate.annotations.Type;
 @Table(name="additional_device")
 public class AdditionalDevice implements Serializable {
 	
-
 	private static final long serialVersionUID = -6615735067436384024L;
 
 	@Id

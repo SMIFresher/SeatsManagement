@@ -8,7 +8,6 @@ public interface AdditionalDeviceDao {
 	
 	public List<AdditionalDevice> getAll();
 	
-	
 	}
 
 

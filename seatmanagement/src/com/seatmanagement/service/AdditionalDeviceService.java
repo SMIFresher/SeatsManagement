@@ -12,4 +12,5 @@ public interface AdditionalDeviceService {
 	public boolean deleteDevice(AdditionalDevice additionalDevice);
 	
 	public List<AdditionalDevice> getAll();
+	
 }
