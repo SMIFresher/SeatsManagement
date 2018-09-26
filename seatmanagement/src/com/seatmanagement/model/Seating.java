@@ -35,6 +35,12 @@ public class Seating implements Serializable {
 	@Column(name="seat_occupied")
 	private int seat_occupied;
 	
+	@Column(name="x")
+	private String x;
+	
+	@Column(name="y")
+	private String y;
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="block_id")
 	private Block block;

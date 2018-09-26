@@ -55,7 +55,7 @@
 					aria-expanded="false" class="dropdown-toggle">Block</a>
 					<ul class="collapse list-unstyled" id="blocksubmenu">
 						<li><a href="block.jsp">Add</a></li>
-						<li><a href="#">Modify</a></li>
+						<li><a href="seating.jsp">Modify</a></li>
 					</ul></li>
 			</ul>
 		</li>

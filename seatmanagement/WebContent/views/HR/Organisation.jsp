@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="Form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -34,7 +34,7 @@
 							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 					  		<div class="form-group">
 							<label>Organization Name</label>
-					  		<input name="organisationName" class="form-control" id="orgName" type="text" placeholder="Organization Name"/>
+					  		<input name="organisationName" class="form-control" type="text" placeholder="Organization Name"/>
 					  		</div>
 					  		<button type="submit" class="btn btn-primary">Submit</button>
 					  		
@@ -75,20 +75,6 @@
 	</div>
 </div>
 
-
-<script type="text/javascript">
-		$('.table tbody').on('click', 'tr', function() {
-			var currow = $(this).closest('tr');
-			var col1 = currow.find('td:eq(1)').text();
-
-			document.getElementById('orgName').value = col1;
-		})
-	</script>
-
-
-
-
-
 <script>
 var app = angular.module('organisation', []);
 app.controller('OrganisationController', function($scope, $http) {
@@ -128,7 +114,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	 $.post("../../organisation/deleteOrganisationById", {
 		 organisationId:orgId
 		}, function(data) {
-			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+			 $('#result').html("<br><div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Deleted</div>");
             location.replace("Organisation.jsp");
 		});
 
