@@ -1,6 +1,8 @@
 package com.seatmanagement.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.TeamDao;
+import com.seatmanagement.model.Floor;
+import com.seatmanagement.model.Organisation;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.TeamService;
 
@@ -30,6 +34,12 @@ public class TeamServiceImpl implements TeamService{
 		genericDao.saveOrUpdate(team);
 		
 		logger.info("Service: TeamServiceImpl Method : saveTeam ended at : " + LocalDateTime.now());
+	}
+	
+	@Override
+	public List<Team> getAll() {
+		// TODO Auto-generated method stub
+	return teamDao.getAll();
 	}
 
 	@Override
@@ -72,12 +82,16 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public void deleteTeamById(String teamId) {
-		logger.info("Service: TeamServiceImpl Method : deleteTeamById started at : " + LocalDateTime.now());
+	public void deleteTeamById(UUID teamId) {
+		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
 		
-		teamDao.deleteTeamById(teamId);
+		Team team = new Team();
 		
-		logger.info("Service: TeamServiceImpl Method : deleteTeamById ended at : " + LocalDateTime.now());
+		team.setTeamId(teamId);
+		
+		genericDao.delete(team);
+
+		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());		
 	}
 
 }

@@ -2,25 +2,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-
-	<%
-	String id = request.getParameter("userid");
-	String driver = "com.mysql.jdbc.Driver";
-	String connectionUrl = "jdbc:mysql://localhost:3306/";
-	String database = "seatmanagementexample";
-	String userid = "root";
-	String password = "root";
-	try {
-	Class.forName(driver);
-	} catch (ClassNotFoundException e) {
-	e.printStackTrace();
-	}
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	%>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +20,7 @@
 <body>
 
 	<div class="jumbotron text-center bg-primary text-white">
-		<h2>View All</h2>
+		<h2>Seating Arrangement</h2>
 	</div>
 
 	<div class="container">
@@ -50,29 +31,33 @@
 					<div class="col-md-12">
 
 						<h2>Seating Arrangement</h2>
-						<form action="#">
-							<div class="form-group">
-								<label for="seatId">Seat Id:</label> <input type="hidden"
-									value="" name="id" id="id"> <input type="text"
-									class="form-control" id="seat_id" placeholder="Enter seat id"
-									name="seat_id">
+						<form method="post" onsubmit="formSubmit()" id="Form">
+						
+							<div ng-app="Building" ng-controller="BuildingController"
+								ng-init="loadBuilding()">
+								<div class="form-group">
+								<select name="building" ng-model="building" class="form-control"
+									ng-change="loadFloor()">
+									<option value="">Select Building</option>
+									<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
+								</select>
+								</div>
+								<div class="form-group">
+								<select name="floor" ng-model="floor"
+									class="form-control">
+									<option value="">Select Floor</option>
+									<option ng-repeat="floor in getflr" value="{{floor.floorId}}">
+										{{floor.floorName}}</option>
+								</select>
+								</div>
 							</div>
+
 							<div class="form-group">
-								<label for="seatId">Seat Occupied:</label> <input type="text"
-									class="form-control" id="seat_occupied" placeholder="Enter seat occupied"
-									name="seat_occupied">
+								<label for="Seatoccupied">Seat Occupied:</label>  
+								<input type="text" class="form-control" id="seatoccupied" placeholder="Enter Occupied Seat"
+									name="seatOccupied">
 							</div>
-							<div class="form-group">
-								<label for="blockId">Block Id:</label> <input type="text"
-									class="form-control" id="block_id" placeholder="Enter block id"
-									name="block_id">
-							</div>
-							<div class="form-group">
-								<label for="floorId">Floor Id:</label> <input type="text"
-									class="form-control" id="floor_id" placeholder="Enter floor id"
-									name="floor_id">
-							</div>
-							<button type="submit" class="btn btn-primary">Update</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
 					</div>
@@ -85,87 +70,82 @@
 
 					<table class="table table-hover">
 						<thead align="center">
-							<td>Seat Id</td>
+							<td>Building Name</td>
+							<td>Floor Name</td>
+							<td>Block Name</td>
 							<td>Seat Occupied</td>
-							<td>Block Id</td>
-							<td>Floor Id</td>
 							<td align="center">Process</td>
 						</thead>
 
-						<%
-						try{
-						connection = DriverManager.getConnection(connectionUrl+database, userid, password);
-						statement=connection.createStatement();
-						String sql ="select * from seatingdetails";
-						resultSet = statement.executeQuery(sql);
-						while(resultSet.next()){
-						%>
-						<tbody align="center">
-						<tr ng-repeat="x in plan">
-						<td><%=resultSet.getString("seatid") %></td>
-						<td><%=resultSet.getString("seatoccupied") %></td>
-						<td><%=resultSet.getString("blockid") %></td>
-						<td><%=resultSet.getString("floorid") %></td>
-						<td align="center"><button class="btn btn-danger">Delete</button></td>
-						</tr>
+						<tbody>
+							<tr ng-repeat="flr in getflr" align="center">
+								<td>{{flr.organisationId}}</td>
+								<td>{{flr.organisationName}}</td>
+								<td>{{flr.organisationName}}</td>
+								<td>{{flr.organisationName}}</td>
+								<td><button class="btn btn-danger">Delete</button></td>
+							</tr>
 						</tbody>
-						<%
-						}
-						connection.close();
-						} catch (Exception e) {
-						e.printStackTrace();
-						}
-						%>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 
+<script>
+var app = angular.module('Building', []);
+app.controller('BuildingController', function($scope, $http) {
+	
+	$scope.loadBuilding = function(){ 
+    $http.post("../../building/getAllBuildings")
+        .then(function successCallback(response) {
+            $scope.getBuilding = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+            alert(response.status);
+        });
+	}
+	
+	$scope.loadFloor = function(){ 
+	    $http.get("../../floor/getFloorsByBuildingId",{'buildingId':$scope.building})
+	        .then(function successCallback(response) {
+	            $scope.getflr = response.data;
+	            console.log("floor :" + response.data);
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+		}
+});
 
-
-
-	<script type="text/javascript">
-  $('.table tbody').on('click','tr',function() {
-    var currow=$(this).closest('tr');
-    var  col1=currow.find('td:eq(0)').text();
-    var  col2=currow.find('td:eq(1)').text();
-    var  col3=currow.find('td:eq(2)').text();
-	var  col4=currow.find('td:eq(3)').text();
-    
-    document.getElementById('seat_id').value=col1;
-    document.getElementById('seat_occupied').value=col2;
-    document.getElementById('block_id').value=col3;
-	document.getElementById('floor_id').value=col4;
-  })
-
-</script>
-
-<!-- <script>
-		var app = angular.module('seating', []);
-		app.controller('SeatingController', function($scope, $http) {
-		    $http.get("../../seating/getAllSeatings")
-		    .then(function (response) {$scope.getOrg = response.data.records;});
-		});
-		</script>
-		
+/* var app = angular.module('Floor', ['Building']);
+app.controller('FloorController', function($scope, $http) {
+	$scope.loadFloor = function(){ 
+    $http.post("../../floor/getFloorsByBuildingId",{'buildingId':$scope.building})
+        .then(function successCallback(response) {
+            $scope.getflr = response.data;
+            console.log("floor :" + response.data);
+        }, function errorCallback(response) {
+            alert(response.status);
+        });
+	}
+}); */
+</script>	
 		
 		
 <script type="text/javascript">
 function formSubmit(){
-
+	
  $.ajax({
-     url:'../../seating/saveOrganisation',
+     url:'../../seating/saveSeating',
+     method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
-            $('#result').html("Success");
+            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> Successfully Inserted</div>");
 
     }
  	
 });
 }
-
-
-</script>-->
+</script>
 </body>
 </html>

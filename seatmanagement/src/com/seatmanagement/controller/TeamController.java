@@ -1,21 +1,26 @@
 package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
+import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.TeamService;
 
@@ -53,6 +58,13 @@ public class TeamController {
 		logger.info("Controller: TeamController Method : saveTeam response sent at : " + LocalDateTime.now());
 		
 		return model;
+	}
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/getAllTeam")
+	public ResponseEntity<List<Team>> getAll() {
+		return new ResponseEntity(teamService.getAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping("/getTeamByName")
@@ -158,28 +170,37 @@ public class TeamController {
 		return model;
 	}
 	
+	
+	
 	@RequestMapping("/deleteTeamById")
-	public ModelAndView deleteTeamById(@ModelAttribute String teamId) {
-		
-		logger.info("Controller: TeamController Method : deleteTeamById request processing started at : " + LocalDateTime.now());
-		
-		ModelAndView model = null;
-		
+	public ResponseEntity deleteTeamById(@RequestParam(value="teamId") UUID teamId) {
+
+		logger.info("Controller: TeamController Method : deleteTeam request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity responseEntity = null;
+
 		try {
-			if(StringUtils.isBlank(teamId)) {
+
+			if (Objects.isNull(teamId)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
-			
-			model = new ModelAndView();
+
 			teamService.deleteTeamById(teamId);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: TeamController Method : deleteTeamById " + e.getMessage());
-    		logger.error("Exception stack : ", e);
+
+			responseEntity = new ResponseEntity(HttpStatus.OK);
+
+		} catch (Exception e) {
+			logger.error(
+					"Exception at Controller: OrganisationController Method : deleteOrganisation " + e.getMessage());
+			logger.error("Exception stack : ", e);
 			throw new RuntimeException(e);
 		}
-		
-		logger.info("Controller: TeamController Method : deleteTeamById response sent at : " + LocalDateTime.now());
-		
-		return model;
+
+		logger.info("Controller: OrganisationController Method : deleteOrganisation response sent at : "
+				+ LocalDateTime.now());
+
+		return responseEntity;
 	}
+	
 }

@@ -1,6 +1,9 @@
 package com.seatmanagement.dao.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -11,6 +14,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.TeamDao;
+import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.impl.TeamServiceImpl;
 
@@ -36,6 +40,14 @@ public class TeamDaoImpl implements TeamDao {
 		
 		return team;
 	}
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public List<Team> getAll() {
+			
+			List<Team> teamList = new ArrayList<>();
+			teamList=	(List<Team>) hibernateTemplate.find("From Team");
+			return teamList;
+	}
 
 	@Override
 	public Team getTeamById(String teamId) {
@@ -53,7 +65,7 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
-	public void deleteTeamById(String teamId) {
+	public void deleteTeamById(UUID teamId) {
 		
 		logger.info("DAO: TeamDaoImpl Method : deleteTeamById started at : " + LocalDateTime.now());
 		

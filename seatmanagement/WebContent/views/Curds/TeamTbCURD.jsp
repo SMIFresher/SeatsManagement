@@ -1,41 +1,16 @@
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
-
-	<%
-	String id = request.getParameter("userid");
-	String driver = "com.mysql.jdbc.Driver";
-	String connectionUrl = "jdbc:mysql://localhost:3306/";
-	String database = "seatmanagementexample";
-	String userid = "root";
-	String password = "root";
-	try {
-	Class.forName(driver);
-	} catch (ClassNotFoundException e) {
-	e.printStackTrace();
-	}
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	%>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="Form"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<title>Curd Application</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Form</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -51,16 +26,14 @@
 					<div class="col-md-12">
 
 						<h2>Team</h2>
-						<form action="#">
+						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 							<div class="form-group">
-								<label for="teadId">Team Id:</label> <input type="hidden" value=""
-									name="id" id="id"> <input type="text"
-									class="form-control" id="team_id" placeholder="Enter Team Id"
-									name="team_id">
+								<label for="teadId">Team Id:</label> 
+								<input name="teamId" class="form-control" id="team_id" type="text" placeholder="Organization Name"/>
 							</div>
 							<div class="form-group">
 								<label for="systemType">Team Name:</label> <select
-									name="cars" class="custom-select mb-3" id="teamName">
+									name="teamName" class="custom-select mb-3" id="teamName">
 									<option selected>Team Name</option>
 									<option value="Corex">Corex</option>
 									<option value="Vision">Vision</option>
@@ -68,14 +41,12 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="teadhead">Team Head:</label>  <input type="text"
-									class="form-control" id="team" placeholder="Enter Team Head"
-									name="team_head">
+								<label for="teadhead">Team Head:</label>  
+								<input name="teamHead" class="form-control" id="team" type="text" placeholder="Team head"/>
 							</div>
 							<div class="form-group">
-								<label for="teamMember">Team Member Count:</label> <input type="text"
-									class="form-control" id="team_member" placeholder="Enter team member count"
-									name="team_member">
+								<label for="teamMember">Team Member Count:</label> 
+								<input type="text" class="form-control" id="team_member" placeholder="Enter team member count" name="teamMembersCount">
 							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -86,40 +57,29 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="myApp" ng-controller="customersCtrl">
+				<div ng-app="teamMembers" ng-controller="teamMembersController">
 
 					<table class="table table-hover">
-						<thead>
+						<thead align="center">
 							<td>Team Id</td>
 							<td>Team Name</td>
 							<td>Team Head</td>
 							<td>Team Member Count</td>
 							<td align="center">Process</td>
 						</thead>
-						<%
-						try{
-						connection = DriverManager.getConnection(connectionUrl+database, userid, password);
-						statement=connection.createStatement();
-						String sql ="select * from teamtbcurd";
-						resultSet = statement.executeQuery(sql);
-						while(resultSet.next()){
-						%>
+						
 						<tbody align="center">
-						<tr ng-repeat="x in plan">
-						<td><%=resultSet.getString("teamid") %></td>
-						<td><%=resultSet.getString("teamname") %></td>
-						<td><%=resultSet.getString("teamhead") %></td>
-						<td><%=resultSet.getString("Teammembercount") %></td>
-						<td align="center"><button class="btn btn-danger">Delete</button></td>
+						<tr ng-repeat="team in getteam" align="center">
+						<td>{{team.teamId}}</td>
+						<td>{{team.teamName}}</td>
+						<td>{{team.teamHead}}</td>
+						<td>{{team.teamMembersCount}}</td>
+						<td align="center">
+							<form method="post" ><input type="hidden" name="teamId" value="{{team.teamId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+						</td>
 						</tr>
 						</tbody>
-						<%
-						}
-						connection.close();
-						} catch (Exception e) {
-						e.printStackTrace();
-						}
-						%>
+						
 					</table>
 				</div>
 			</div>
@@ -143,5 +103,53 @@
 			document.getElementById('team_member').value = col4;
 		})
 	</script>
+	
+	<script>
+	var app = angular.module('teamMembers', []);
+	app.controller('teamMembersController', function($scope, $http) {
+	    $http.post("../../team/getAllTeam")
+	        .then(function successCallback(response) {
+	            $scope.getteam = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+	});
+	</script>
+	
+	<script type="text/javascript">
+	function formSubmit(){
+	
+	 $.ajax({
+	     url:'../../team/saveTeam',
+	     method : 'POST',
+	     data: $("#Form").serialize(),
+	     success: function (data) {
+	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+	            location.replace("TeamTbCURD.jsp");
+	    }
+	 	
+	});
+	}
+		
+	var tId = null;
+
+	$('.table tbody').on('click', '.deleteBtn', function() {
+		var currow = $(this).closest('tr');
+		tId = currow.find('td:eq(0)').text();
+		console.log("tId : " + tId);
+		
+		 $.post("../../team/deleteTeamById", {
+			 teamId:tId
+			}, function(data) {
+				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+	            location.replace("TeamTbCURD.jsp");
+			});
+		}
+	);
+		 
+		
+	</script>
+
 </body>
 </html>
