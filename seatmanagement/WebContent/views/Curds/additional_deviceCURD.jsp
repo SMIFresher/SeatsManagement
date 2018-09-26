@@ -28,16 +28,18 @@
 						<h2>Details</h2>
 						<form action="#">
 							<div class="form-group">
-								<label for="pwd">System Id:</label> <input type="hidden"
-									value="" name="id" id="id"> <input type="text"
+								<label for="pwd">Device Id:</label> <input type="hidden"
+									value="" name="id" id="id"> 
+									<input type="text"
 									class="form-control" id="system_id"
-									placeholder="Enter System Id" name="system_id">
+									placeholder="Enter Device Id" name="additional_device_id">
 							</div>
 							<div class="form-group">
 								<label for="device">Additional Device:</label> <input type="hidden"
-									value="" name="id_device" id="id_device"> <input type="text"
+									value="" name="id_device" id="id_device"> 
+									<input type="text"
 									class="form-control" id="Device_id"
-									placeholder="Enter Device" name="Device_id">
+									placeholder="Enter Device Name" name="device_name">
 							</div>
 							<button type="submit" class="btn btn-primary">Insert</button>
 						</form>
@@ -74,7 +76,7 @@
 <script>
 var app = angular.module('additionalDevice', []);
 app.controller('additionalDeviceController', function($scope, $http) {
-    $http.post("../../organisation/getAllOrganisations")
+    $http.post("../../Additionaldevice/getAllDevice")
         .then(function successCallback(response) {
             $scope.getOrg = response.data;
             console.log(response.data);
@@ -88,12 +90,12 @@ app.controller('additionalDeviceController', function($scope, $http) {
 function formSubmit(){
 
  $.ajax({
-     url:'../../organisation/saveOrganisation',
+     url:'../../Additionaldevice/savedevice',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
             $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Organisation.jsp");
+            location.replace("additional_deviceCURD.jsp");
     }
  	
 });
@@ -107,11 +109,11 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	orgId = currow.find('td:eq(0)').text();
 	console.log("orgId : " + orgId);
 	
-	 $.post("../../organisation/deleteOrganisationById", {
+	 $.post("../../Additionaldevice/deleteByDeviceId", {
 		 organisationId:orgId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Organisation.jsp");
+            location.replace("additional_deviceCURD.jsp");
 		});
 
 	}
