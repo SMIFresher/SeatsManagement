@@ -10,11 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="seating_detail")
@@ -64,11 +67,16 @@ public class SeatingDetails implements Serializable{
 		this.seatingPosition = seatingPosition;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "reallocatedSeatingDetailId")
-	private Reallocation postReallocation;
+	@OneToOne(mappedBy="seatingDetails")
+	@JsonIgnore
+	private Reallocation reallocation;
+	
+	public Reallocation getReallocation() {
+		return reallocation;
+	}
 
-	public Reallocation getPostReallocation() {
-		return postReallocation;
+	public void setReallocation(Reallocation reallocation) {
+		this.reallocation = reallocation;
 	}
 
 	public UUID getSeatingDetailsId() {
@@ -85,13 +93,7 @@ public class SeatingDetails implements Serializable{
 
 	public void setSystem(Systems system) {
 		this.system = system;
-	}
-
-	public void setPostReallocation(Reallocation postReallocation) {
-		this.postReallocation = postReallocation;
-	}
-
-	
+	}	
 
 	public String getSeatingDate() {
 		return seatingDate;

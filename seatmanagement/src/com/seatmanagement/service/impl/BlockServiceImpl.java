@@ -2,14 +2,18 @@ package com.seatmanagement.service.impl;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.seatmanagement.dao.BlockDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.BlockService;
+import com.seatmanagement.service.ReallocationService;
+import com.seatmanagement.service.SeatingService;
 
 
 /**
@@ -29,6 +33,12 @@ public class BlockServiceImpl implements BlockService {
 	GenericDao<Floor> genericDaoFloor;
 	@Autowired
 	BlockDao blockDao;
+	
+	@Autowired
+	SeatingService	seatingService;
+	
+	@Autowired
+	ReallocationService reallocationService;
 
 	public boolean saveOrUpdate(Block block,UUID floor_id) {
 		
@@ -60,6 +70,29 @@ public class BlockServiceImpl implements BlockService {
 
 	public Block getById(Block block, UUID blockId) {
 		return genericDao.getById(block, blockId);
+	}
+
+
+	@Override
+	public void deleteBlocksByFloorId(UUID floorId) {
+		
+		List<Block> blocks = blockDao.getBlocksByFloorId(floorId);
+		
+		// No blocks in floor scenario
+		if(Objects.isNull(blocks) || blocks.isEmpty()) {
+			
+		}
+		// Blocks present in floor scenario
+		else {
+			for(Block block:blocks) {
+				// delete seating
+				seatingService.deleteSeatingByBlockId(block.getBlockId());
+				
+				// delete reallocation
+				reallocationService.deleteReallocationsByBlockId(block.getBlockId());
+			}
+		}
+		
 	}
 
 	/*public boolean delete(Building building) {

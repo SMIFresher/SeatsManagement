@@ -1,6 +1,8 @@
 package com.seatmanagement.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,6 @@ import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDao;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Seating;
-import com.seatmanagement.model.Systems;
-import com.seatmanagement.model.Team;
 import com.seatmanagement.service.SeatingService;
 
 @Service
@@ -44,5 +44,27 @@ public class SeatingServiceImpl implements SeatingService {
 		@SuppressWarnings("unchecked")
 		List<Seating> list = seatingDao.getAllSeating();
 		return list;
+	}
+
+	@Override
+	public void deleteSeatingByBlockId(UUID blockId) {
+		// unreference children(seatingdetails) and delete
+		
+		Seating seating = seatingDao.getSeatingByBlockId(blockId);
+		
+		// Scenario: No seating mapped yet
+		if(Objects.isNull(seating)) {
+			
+		}
+		// Scenario: Seating mapped
+		else {
+			
+			// unreference all SeatingDetails
+			seating.setSeatingDetails(new HashSet());
+			
+			genericDao.saveOrUpdate(seating);
+		}
+		
+		genericDao.delete(seating);
 	}
 }

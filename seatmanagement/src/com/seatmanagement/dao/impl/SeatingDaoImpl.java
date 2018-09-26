@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.SeatingDao;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
+import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Seating;
 
 @Transactional
@@ -42,6 +43,15 @@ public class SeatingDaoImpl implements SeatingDao {
 		List<Seating> seatingList = new ArrayList<>();
 		seatingList = (List<Seating>) hibernateTemplate.find("From Seating");
 		return seatingList;
+	}
+
+	@Override
+	public Seating getSeatingByBlockId(UUID blockId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Seating.class);
+		criteria.add(Restrictions.eq("block.blockId", blockId));
+
+		Seating seating = (Seating) hibernateTemplate.findByCriteria(criteria);
+		return seating;
 	}
 
 }

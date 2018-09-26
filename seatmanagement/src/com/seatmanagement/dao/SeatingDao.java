@@ -9,4 +9,5 @@ public interface SeatingDao {
 
 	public List<Seating> getAll(Seating seating, UUID block_id);
 	public List<Seating> getAllSeating();
+	public Seating getSeatingByBlockId(UUID blockId);
 }

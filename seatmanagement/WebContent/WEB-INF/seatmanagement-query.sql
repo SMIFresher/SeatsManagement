@@ -198,3 +198,9 @@ DROP FOREIGN KEY `team_id`;
 ALTER TABLE `seatmanagement`.`seating` 
 DROP COLUMN `team_id`,
 DROP INDEX `team_id_idx` ;
+
+ALTER TABLE `seatmanagement`.`reallocation` CHANGE `current_seating_detail_id` `seating_detail_id` varchar(36) NOT NULL;
+ALTER TABLE `seatmanagement`.`reallocation` CHANGE `block_id` `reallocated_block_id` varchar(36) NOT NULL;
+alter table `seatmanagement`.`reallocation` drop foreign key reallocation_fk_1;
+alter table `seatmanagement`.`reallocation` drop column employee_id;
+alter table `seatmanagement`.`reallocation` ADD COLUMN `reallocated_position` VARCHAR(100) NOT NULL;

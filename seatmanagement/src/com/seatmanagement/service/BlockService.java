@@ -21,6 +21,8 @@ public interface BlockService {
 
 	public Block getById(Block block, UUID blockId);
 
+	public void deleteBlocksByFloorId(UUID floorId);
+
 	/*public boolean delete(Building building);
 */
 }

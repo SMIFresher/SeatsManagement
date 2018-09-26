@@ -1,6 +1,9 @@
 package com.seatmanagement.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +83,28 @@ public class ReallocationServiceImpl implements ReallocationService{
 		logger.info(
 				"Service: ReallocationServiceImpl Method : deleteReallocation ended at : "
 						+ LocalDateTime.now());
+	}
+
+	@Override
+	public void deleteReallocationsByBlockId(UUID blockId) {
+		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);
+		
+		// Scenario 1: No reallocations mapped
+		if(Objects.isNull(reallocations) || reallocations.isEmpty()) {
+			
+		}
+		// Scenario 2 : Reallocations mapped
+		else {
+			for(Reallocation reallocation : reallocations) {
+				
+				reallocation.setBlock(null);
+				reallocation.setSeatingDetails(null);
+				
+				genericDao.saveOrUpdate(reallocation);
+				
+				reallocationDao.deleteReallocationByBlockId(blockId);
+			}
+		}
 	}
 
 }

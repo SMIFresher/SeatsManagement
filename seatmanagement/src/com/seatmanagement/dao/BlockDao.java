@@ -24,6 +24,8 @@ public interface BlockDao {
 	// public void saveBuilding(Building building);
 
 	public List<Block> getAll();
+
+	public List<Block> getBlocksByFloorId(UUID floorId);
 	
 	
 }

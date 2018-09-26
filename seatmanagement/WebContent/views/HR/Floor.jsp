@@ -103,11 +103,11 @@ app.controller('floorController', function($scope, $http) {
 
 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
-	orgId = currow.find('td:eq(0)').text();
-	console.log("orgId : " + orgId);
+	var floorId = currow.find('td:eq(0)').text();
+	console.log("floorId : " + floorId);
 	
 	 $.post("../../floor/deleteFloorById", {
-		 organisationId:orgId
+		 floorId:floorId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
             location.replace("Floor.jsp");
@@ -115,7 +115,6 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 
 	}
 );
-
 
 angular.element(document).ready(function() {
     angular.bootstrap(document.getElementById("floor"), ['floor']);

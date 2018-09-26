@@ -71,15 +71,15 @@ public class FloorController {
 	}
 	
 	@RequestMapping(value = "/deleteFloorById")
-	public ResponseEntity deleteFloorById(@RequestParam(value = "FloorId") UUID FloorId) {
+	public ResponseEntity deleteFloorById(@RequestParam(value = "floorId") UUID floorId) {
 		
-		if (Objects.isNull(FloorId)) {
+		if (Objects.isNull(floorId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		
 		ResponseEntity responseEntity = null;
 		
-		floorService.deleteFloorById(FloorId);
+		floorService.deleteFloorById(floorId);
 		
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 		

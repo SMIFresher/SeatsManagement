@@ -28,16 +28,13 @@ public class Reallocation implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID reallocationId;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id")
-	private Employee employee;
-
-	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "reallocation")
-	private Block block;*/
+	@OneToOne(cascade=CascadeType.ALL)  
+    @JoinColumn(name="reallocated_block_id") 
+	private Block block;
 
 	@OneToOne(cascade=CascadeType.ALL)  
-    @JoinColumn(name="seating_id") 
-	private SeatingDetails reallocatedSeatingDetailId;
+    @JoinColumn(name="seating_detail_id") 
+	private SeatingDetails seatingDetails;
 
 	@Column(name = "reallocation_date")
 	private LocalDate reallocationDate;
@@ -47,6 +44,17 @@ public class Reallocation implements Serializable {
 
 	@Column(name = "alloted_by")
 	private String allotedBy;
+	
+	@Column(name = "reallocated_position")
+	private String reallocatedPosition;
+
+	public String getReallocatedPosition() {
+		return reallocatedPosition;
+	}
+
+	public void setReallocatedPosition(String reallocatedPosition) {
+		this.reallocatedPosition = reallocatedPosition;
+	}
 
 	public UUID getReallocationId() {
 		return reallocationId;
@@ -56,32 +64,24 @@ public class Reallocation implements Serializable {
 		this.reallocationId = reallocationId;
 	}
 
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	/*public Block getBlock() {
+	public Block getBlock() {
 		return block;
 	}
 
 	public void setBlock(Block block) {
 		this.block = block;
-	}*/
-
-	public SeatingDetails getReallocatedSeatingDetailId() {
-		return reallocatedSeatingDetailId;
-	}
-
-	public void setReallocatedSeatingDetailId(SeatingDetails reallocatedSeatingDetailId) {
-		this.reallocatedSeatingDetailId = reallocatedSeatingDetailId;
 	}
 
 	public LocalDate getReallocationDate() {
 		return reallocationDate;
+	}
+
+	public SeatingDetails getSeatingDetails() {
+		return seatingDetails;
+	}
+
+	public void setSeatingDetails(SeatingDetails seatingDetails) {
+		this.seatingDetails = seatingDetails;
 	}
 
 	public void setReallocationDate(LocalDate reallocationDate) {

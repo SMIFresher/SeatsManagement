@@ -1,6 +1,7 @@
 package com.seatmanagement.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -10,11 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="seating")
@@ -32,7 +35,6 @@ public class Seating implements Serializable {
 	@Column(name="seat_occupied")
 	private int seat_occupied;
 	
-	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="block_id")
 	private Block block;
@@ -41,17 +43,16 @@ public class Seating implements Serializable {
 	@JoinColumn(name="team_id")
 	private Team team;*/
 	
-	@OneToOne(cascade=CascadeType.ALL)  
-    @JoinColumn(name="seating_id")  
-    private  SeatingDetails seatingDetails;
+	@OneToMany(mappedBy="seating")
+	@JsonIgnore
+    private  Set<SeatingDetails> seatingDetails;
 
-	
 
-	public SeatingDetails getSeatingDetails() {
+	public Set<SeatingDetails> getSeatingDetails() {
 		return seatingDetails;
 	}
 
-	public void setSeatingDetails(SeatingDetails seatingDetails) {
+	public void setSeatingDetails(Set<SeatingDetails> seatingDetails) {
 		this.seatingDetails = seatingDetails;
 	}
 

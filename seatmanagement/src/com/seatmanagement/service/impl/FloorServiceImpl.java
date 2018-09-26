@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Floor;
-import com.seatmanagement.service.BuildingService;
+import com.seatmanagement.service.BlockService;
 import com.seatmanagement.service.FloorService;
 
 @Service
@@ -26,6 +27,9 @@ GenericDao<Building> genericDaoBuilding;
 	
 	@Autowired
  FloorDao floorDao;
+	
+	@Autowired
+	BlockService blockService;
 	
    public boolean saveOrUpdate(Floor floor,UUID buildingId) {
 		
@@ -62,13 +66,19 @@ GenericDao<Building> genericDaoBuilding;
 		
 		Floor floor = genericDao.getById(new Floor(), floorId);
 		
+		//Scenario 1: Floor not present
 		if(Objects.isNull(floor)) {
 			throw new BusinessException("Floor not present");
 		}
-		
-		// Logic to delete unwanted floor children (Block) and unreference needed children (Systems)
-		
-		//List<Block>
+		// Scenario 2: Floor Present
+		else {
+			
+			// Delete blocks referenced to this floor first
+			blockService.deleteBlocksByFloorId(floorId);
+			
+			// Delete floor
+			genericDao.delete(floor);
+		}
 	}
 	
 	@Override

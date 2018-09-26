@@ -1,5 +1,6 @@
 package com.seatmanagement.model;
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -10,9 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
@@ -56,6 +61,18 @@ public class Block implements Serializable{
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="floor_id", nullable=false)
     private Floor floor;
+	
+	@OneToMany(mappedBy="block")
+	@JsonIgnore
+	private List<Reallocation> reallocations;
+
+	public List<Reallocation> getReallocations() {
+		return reallocations;
+	}
+
+	public void setReallocations(List<Reallocation> reallocations) {
+		this.reallocations = reallocations;
+	}
 
 	public UUID getBlockId() {
 		return blockId;
