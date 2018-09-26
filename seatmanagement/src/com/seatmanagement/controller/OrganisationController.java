@@ -45,7 +45,7 @@ public class OrganisationController {
 
 			organisationService.saveOrganisation(organisation);
 
-			responseEntity.status(HttpStatus.OK);
+			responseEntity = new ResponseEntity(HttpStatus.OK);
 
 		} catch (Exception e) {
 			logger.error("Exception at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
@@ -162,7 +162,7 @@ public class OrganisationController {
 
 			organisationService.deleteOrganisationById(organisationId);
 
-			responseEntity.status(HttpStatus.OK);
+			responseEntity = new ResponseEntity(HttpStatus.OK);
 
 		} catch (Exception e) {
 			logger.error(
