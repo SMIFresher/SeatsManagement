@@ -28,12 +28,8 @@ public class SeatingDetailsController {
 	SeatingDetailsService seatingDetailsService;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAll",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getAllSeatingDetails",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> getAllSeatingDetails(){
-		//List<Object> objectList = seatingDetailsService.getAllSeatingDetails();
-		
-		
-		//String string=new Gson().toJson(objectList);
 		return new ResponseEntity(seatingDetailsService.getAllSeatingDetails(),HttpStatus.OK);
 	}
 	
@@ -64,7 +60,7 @@ public class SeatingDetailsController {
 		return responseEntity;
 	}
 	
-	@RequestMapping(value="/getSeatByEmployeeId",method=RequestMethod.GET)
+	/*@RequestMapping(value="/getSeatByEmployeeId",method=RequestMethod.GET)
 	public ResponseEntity<SeatingDetails> getSystemByEmployeeId(@RequestParam(value="empid") UUID employee_id){
 		SeatingDetails seatingDetails = new SeatingDetails();
 		seatingDetails=seatingDetailsService.getSeatByEmployeeId(seatingDetails, employee_id);
@@ -77,5 +73,5 @@ public class SeatingDetailsController {
 			}
 		
 		return responseEntity;
-	}
+	}*/
 }

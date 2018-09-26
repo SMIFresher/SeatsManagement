@@ -8,7 +8,7 @@ import com.seatmanagement.model.SeatingDetails;
 
 public interface SeatingDetailsService {
 
-	List<Object> getAllSeatingDetails();
+	public List<SeatingDetails> getAllSeatingDetails();
 
 	void saveSeatingDetails(SeatingDetails seatingDetails);
 	

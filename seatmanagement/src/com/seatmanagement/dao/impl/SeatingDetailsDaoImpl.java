@@ -1,6 +1,7 @@
 package com.seatmanagement.dao.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,10 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.SeatingDetailsDao;
-import com.seatmanagement.model.Block;
-import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
-import com.seatmanagement.model.Systems;
 
 @Transactional
 @Repository
@@ -24,11 +22,11 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 	
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	@Override
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<SeatingDetails> getAllSeatingDetails() {
-		
-		return (List<SeatingDetails>) hibernateTemplate.find("From SeatingDetails");
+		List<SeatingDetails> seatingList = new ArrayList<>();
+		seatingList = (List<SeatingDetails>) hibernateTemplate.find("From SeatingDetails");
+		return seatingList;
 	}
 
 	@Override
