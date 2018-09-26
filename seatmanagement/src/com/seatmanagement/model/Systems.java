@@ -2,11 +2,13 @@ package com.seatmanagement.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -16,7 +18,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.seatmanagement.service.AdditionalDeviceService;
 
 @Entity
 @Table(name = "system")
@@ -44,10 +53,26 @@ public class Systems implements Serializable{
 	@Column(name = "allotment_status")
     private String allotmentStatus;
 	
+
 	
 	@OneToOne(targetEntity=Employee.class,cascade=CascadeType.ALL)  
     @JoinColumn(name="employee_id")  
     private Employee employee;
+	
+	@ManyToMany(fetch=FetchType.EAGER,targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
+	@JoinTable(name = "system_additional_device", 
+				joinColumns = { @JoinColumn(name = "system_id") }, 
+				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
+	
+	private Set<AdditionalDevice> additionalDevice;
+	
+	public Set<AdditionalDevice> getAdditionalDevice() {
+		return additionalDevice;
+	}
+
+	public void setAdditionalDevice(Set<AdditionalDevice> additionalDevice) {
+		this.additionalDevice = additionalDevice;
+	}
 	
 	public UUID getSystemId() {
 		return systemId;
@@ -96,22 +121,14 @@ public class Systems implements Serializable{
 	public void setAllotmentStatus(String allotmentStatus) {
 		this.allotmentStatus = allotmentStatus;
 	}
+	
+	
+	
+	
+	
+	
 
-	/* @ManyToMany(targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
-	@JoinTable(name = "system_additional_device", 
-				joinColumns = { @JoinColumn(name = "system_id") }, 
-				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
-	private List<AdditionalDevice> additionalDevice;
-*/
+	
 
-
-	/*	public List<AdditionalDevice> getAdditionalDevice() {
-		return additionalDevice;
-	}
-
-	public void setAdditionalDevice(List<AdditionalDevice> additionalDevice) {
-		this.additionalDevice = additionalDevice;
-	}
-*/
 	
 }

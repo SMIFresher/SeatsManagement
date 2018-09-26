@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -53,19 +54,7 @@ public class Employee implements Serializable {
 	private Team team;
 
 	
-	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
-	private Reallocation reallocation;*/
-
-	/*public Reallocation getReallocation() {
-		return reallocation;
-	}
-
-	public void setReallocation(Reallocation reallocation) {
-		this.reallocation = reallocation;
-	}*/
-
-
-
+	
 	
 	public UUID getEmployeeId() {
 		return employeeId;
