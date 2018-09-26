@@ -34,7 +34,7 @@ public class AdditionalDeviceController {
 	
 	
 	
-	@RequestMapping(value="/adddevice",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/savedevice",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<AdditionalDevice> saveSeatingDetails(@RequestBody AdditionalDevice additionalDevice ){
 		
 		return new ResponseEntity(additionalDeviceService.saveOrUpdate(additionalDevice),HttpStatus.OK);
@@ -46,7 +46,7 @@ public class AdditionalDeviceController {
 		return new ResponseEntity(additionalDeviceService.getAll(),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/deleteById",method=RequestMethod.GET)
+	@RequestMapping(value="/deleteByDeviceId",method=RequestMethod.GET)
 	public ResponseEntity deleteDeviceById(@RequestParam UUID additional_device_id){
 		
 		AdditionalDevice additionalDevice = new AdditionalDevice();
