@@ -1,7 +1,9 @@
 package com.seatmanagement.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -73,11 +75,22 @@ public class OrganisationServiceImpl implements OrganisationService {
 	public void deleteOrganisationById(UUID organisationId) {
 		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
 		
-		Organisation organisation = new Organisation();
+		Organisation organisation = (Organisation) genericDao.getById(new Organisation(), organisationId);
 		
-		organisation.setOrganisationId(organisationId);
-		
-		genericDao.delete(organisation);
+		// Scenario 1 : Organisation does not exist
+		if(Objects.isNull(organisation)) {
+			
+		}
+		// Scenario 2 : Organisation exists
+		else {
+			
+			// Dereference buildings connected to organisation
+			organisation.setBuildings(new HashSet());
+			genericDao.saveOrUpdate(organisation);
+			
+			// Then delete Organisation
+			genericDao.delete(organisation);
+		}
 
 		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());		
 	}

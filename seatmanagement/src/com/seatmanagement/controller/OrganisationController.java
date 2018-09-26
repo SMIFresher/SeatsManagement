@@ -1,7 +1,9 @@
 package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.exception.BusinessException;
@@ -31,12 +34,13 @@ public class OrganisationController {
 	private OrganisationService organisationService;
 
 	@RequestMapping("/saveOrganisation")
-	public ResponseEntity saveOrganisation(Organisation organisation) {
+	public @ResponseBody Map saveOrganisation(Organisation organisation) {
 
 		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : "
 				+ LocalDateTime.now());
-
-		ResponseEntity responseEntity = null;
+		
+		Map model = new HashMap();
+		String status = null;
 
 		try {
 			if (Objects.isNull(organisation)) {
@@ -45,53 +49,86 @@ public class OrganisationController {
 
 			organisationService.saveOrganisation(organisation);
 
-			responseEntity = new ResponseEntity(HttpStatus.OK);
-
-		} catch (Exception e) {
-			logger.error("Exception at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
+			status = Constant.RESPONSE_STATUS_OK;
+			
+		} catch (BusinessException e) {
+			String errorMessage = e.getMessage();
+			
+			logger.error("BusinessException caught at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
 			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+			
+			// Set status and error message in map
+			status = Constant.RESPONSE_STATUS_ERROR;
+			
+			model.put(Constant.RESPONSE_MESSAGE, errorMessage);
+		} catch(RuntimeException e) {
+			
+			logger.error("RuntimeException caught at Controller: OrganisationController Method : saveOrganisation " + e.getMessage());
+			logger.error("Exception stack : ", e);
+			
+			throw e;
+		} 
+		
+		model.put(Constant.RESPONSE_STATUS, status);
 
 		logger.info("Controller: OrganisationController Method : saveOrganisation response sent at : "
 				+ LocalDateTime.now());
 
-		return responseEntity;
+		return model;
 	}
 
 	@RequestMapping("/getAllOrganisations")
-	public ResponseEntity getAllOrganisations() {
+	public @ResponseBody Map getAllOrganisations() {
 
 		logger.info("Controller: OrganisationController Method : getAllOrganisations request processing started at : "
 				+ LocalDateTime.now());
 
-		ResponseEntity responseEntity = null;
-
+		Map model = new HashMap();
+		String status = null;
+		
 		try {
 
 			List<Organisation> organisations = organisationService.getAllOrganisations();
+			
+			model.put("organisations", organisations);
 
-			responseEntity = new ResponseEntity(organisations, HttpStatus.OK);
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: OrganisationController Method : getAllOrganisations " + e.getMessage());
+			status = Constant.RESPONSE_STATUS_OK;
+			
+			throw new RuntimeException();
+		} catch (BusinessException e) {
+			String errorMessage = e.getMessage();
+			
+			logger.error("BusinessException caught at Controller: OrganisationController Method : getAllOrganisations " + e.getMessage());
 			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+			
+			// Set status and error message in map
+			status = Constant.RESPONSE_STATUS_ERROR;
+			
+			model.put(Constant.RESPONSE_MESSAGE, errorMessage);
+		} catch(RuntimeException e) {
+			
+			logger.error("RuntimeException caught at Controller: OrganisationController Method : getAllOrganisations " + e.getMessage());
+			logger.error("Exception stack : ", e);
+			
+			throw e;
+		} 
+		
+		model.put(Constant.RESPONSE_STATUS, status);
 
 		logger.info("Controller: OrganisationController Method : getAllOrganisations response sent at : "
 				+ LocalDateTime.now());
 
-		return responseEntity;
+		return model;
 	}
 
 	@RequestMapping("/getOrganisationById")
-	public ResponseEntity getOrganisationById(@ModelAttribute UUID organisationId) {
+	public @ResponseBody Map getOrganisationById(@ModelAttribute UUID organisationId) {
 
 		logger.info("Controller: OrganisationController Method : getOrganisationById request processing started at : "
 				+ LocalDateTime.now());
 
-		ResponseEntity responseEntity = null;
+		Map model = new HashMap();
+		String status = null;
 
 		try {
 
@@ -101,31 +138,44 @@ public class OrganisationController {
 
 			Organisation organisation = organisationService.getOrganisationById(organisationId);
 
-			responseEntity = new ResponseEntity(organisation, HttpStatus.OK);
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: OrganisationController Method : getOrganisationById " + e.getMessage());
+			model.put("organisation", organisation);
+			status = Constant.RESPONSE_STATUS_OK;
+		} catch (BusinessException e) {
+			String errorMessage = e.getMessage();
+			
+			logger.error("BusinessException caught at Controller: OrganisationController Method : getOrganisationById " + e.getMessage());
 			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+			
+			// Set status and error message in map
+			status = Constant.RESPONSE_STATUS_ERROR;
+			
+			model.put(Constant.RESPONSE_MESSAGE, errorMessage);
+		} catch(RuntimeException e) {
+			
+			logger.error("RuntimeException caught at Controller: OrganisationController Method : getOrganisationById " + e.getMessage());
+			logger.error("Exception stack : ", e);
+			
+			throw e;
+		} 
+		
+		model.put(Constant.RESPONSE_STATUS, status);
 
 		logger.info("Controller: OrganisationController Method : getOrganisationById response sent at : "
 				+ LocalDateTime.now());
 
-		return responseEntity;
+		return model;
 	}
 
 	@RequestMapping("/updateOrganisation")
-	public ModelAndView updateOrganisation(@ModelAttribute Organisation organisation) {
+	public @ResponseBody Map updateOrganisation(@ModelAttribute Organisation organisation) {
 
 		logger.info("Controller: OrganisationController Method : updateOrganisation request processing started at : "
 				+ LocalDateTime.now());
 
-		ModelAndView model = null;
+		Map model = new HashMap();
+		String status = null;
 
 		try {
-
-			model = new ModelAndView();
 
 			if (Objects.isNull(organisation)) {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -133,12 +183,26 @@ public class OrganisationController {
 
 			organisationService.updateOrganisation(organisation);
 
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: OrganisationController Method : updateOrganisation " + e.getMessage());
+			status = Constant.RESPONSE_STATUS_OK;
+		}catch (BusinessException e) {
+			String errorMessage = e.getMessage();
+			
+			logger.error("BusinessException caught at Controller: OrganisationController Method : updateOrganisation " + e.getMessage());
 			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+			
+			// Set status and error message in map
+			status = Constant.RESPONSE_STATUS_ERROR;
+			
+			model.put(Constant.RESPONSE_MESSAGE, errorMessage);
+		} catch(RuntimeException e) {
+			
+			logger.error("RuntimeException caught at Controller: OrganisationController Method : updateOrganisation " + e.getMessage());
+			logger.error("Exception stack : ", e);
+			
+			throw e;
+		} 
+		
+		model.put(Constant.RESPONSE_STATUS, status);
 
 		logger.info("Controller: OrganisationController Method : updateOrganisation response sent at : "
 				+ LocalDateTime.now());
@@ -147,12 +211,13 @@ public class OrganisationController {
 	}
 
 	@RequestMapping("/deleteOrganisationById")
-	public ResponseEntity deleteOrganisationById(@RequestParam(value="organisationId") UUID organisationId) {
+	public @ResponseBody Map deleteOrganisationById(@RequestParam(value="organisationId") UUID organisationId) {
 
-		logger.info("Controller: OrganisationController Method : deleteOrganisation request processing started at : "
+		logger.info("Controller: OrganisationController Method : deleteOrganisationById request processing started at : "
 				+ LocalDateTime.now());
 
-		ResponseEntity responseEntity = null;
+		Map model = new HashMap();
+		String status = null;
 
 		try {
 
@@ -162,19 +227,32 @@ public class OrganisationController {
 
 			organisationService.deleteOrganisationById(organisationId);
 
-			responseEntity = new ResponseEntity(HttpStatus.OK);
+			status = Constant.RESPONSE_STATUS_OK;
 
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: OrganisationController Method : deleteOrganisation " + e.getMessage());
+		} catch (BusinessException e) {
+			String errorMessage = e.getMessage();
+			
+			logger.error("BusinessException caught at Controller: OrganisationController Method : deleteOrganisationById " + e.getMessage());
 			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+			
+			// Set status and error message in map
+			status = Constant.RESPONSE_STATUS_ERROR;
+			
+			model.put(Constant.RESPONSE_MESSAGE, errorMessage);
+		} catch(RuntimeException e) {
+			
+			logger.error("RuntimeException caught at Controller: OrganisationController Method : deleteOrganisationById " + e.getMessage());
+			logger.error("Exception stack : ", e);
+			
+			throw e;
+		} 
+		
+		model.put(Constant.RESPONSE_STATUS, status);
 
-		logger.info("Controller: OrganisationController Method : deleteOrganisation response sent at : "
+		logger.info("Controller: OrganisationController Method : deleteOrganisationById response sent at : "
 				+ LocalDateTime.now());
 
-		return responseEntity;
+		return model;
 	}
 
 }

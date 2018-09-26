@@ -204,3 +204,12 @@ ALTER TABLE `seatmanagement`.`reallocation` CHANGE `block_id` `reallocated_block
 alter table `seatmanagement`.`reallocation` drop foreign key reallocation_fk_1;
 alter table `seatmanagement`.`reallocation` drop column employee_id;
 alter table `seatmanagement`.`reallocation` ADD COLUMN `reallocated_position` VARCHAR(100) NOT NULL;
+
+# 26/09/2018
+
+ALTER TABLE `seatmanagement`.`building` MODIFY `organisation_id` VARCHAR(36) NULL;
+
+ALTER TABLE building DROP FOREIGN KEY building_fk_1;
+
+ALTER TABLE building 
+ADD CONSTRAINT `building_fk_1` FOREIGN KEY (organisation_id) REFERENCES organisation(organisation_id) ON DELETE SET NULL;
