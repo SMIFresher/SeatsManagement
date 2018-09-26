@@ -30,7 +30,7 @@
 						<form method="post" onsubmit="formSubmit()" id="Form">
 							<div class="form-group">
 		                   		<div ng-app="Building" ng-controller="BuildingController" id="build">
-								<label for="location">Organization </label>
+								<label for="location">Building Name </label>
 									<select class="custom-select mb-3" name="buildingId">
 										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
 									</select>
