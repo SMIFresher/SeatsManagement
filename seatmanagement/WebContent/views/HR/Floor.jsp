@@ -69,7 +69,7 @@
 								<td>{{flr.floorId}}</td>
 								<td>{{flr.floorName}}</td>
 								<td>{{flr.floorType}}</td>
-								<td><button class="btn btn-danger">Delete</button></td>
+								<td><button class="btn btn-danger deleteBtn">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -100,6 +100,21 @@ app.controller('floorController', function($scope, $http) {
             alert(response.status);
         });
 });
+
+$('.table tbody').on('click', '.deleteBtn', function() {
+	var currow = $(this).closest('tr');
+	orgId = currow.find('td:eq(0)').text();
+	console.log("orgId : " + orgId);
+	
+	 $.post("../../floor/deleteFloorById", {
+		 organisationId:orgId
+		}, function(data) {
+			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+            location.replace("Floor.jsp");
+		});
+
+	}
+);
 
 
 angular.element(document).ready(function() {

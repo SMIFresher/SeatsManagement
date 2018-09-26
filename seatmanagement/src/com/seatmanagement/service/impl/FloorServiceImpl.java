@@ -12,6 +12,7 @@ import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Floor;
+import com.seatmanagement.service.BuildingService;
 import com.seatmanagement.service.FloorService;
 
 @Service
@@ -55,6 +56,25 @@ GenericDao<Building> genericDaoBuilding;
 	public List<Floor> getAll() {
 		// TODO Auto-generated method stub
 	return floorDao.getAll();
+	}
+	@Override
+	public void deleteFloorById(UUID floorId) {
+		
+		Floor floor = genericDao.getById(new Floor(), floorId);
+		
+		if(Objects.isNull(floor)) {
+			throw new BusinessException("Floor not present");
+		}
+		
+		// Logic to delete unwanted floor children (Block) and unreference needed children (Systems)
+		
+		//List<Block>
+	}
+	
+	@Override
+	public List<Floor> getFloorsByBuildingId(UUID buildingId) {
+		List<Floor> floors = floorDao.getFloorsByBuildingId(buildingId);
+		return floors;
 	}
 
 

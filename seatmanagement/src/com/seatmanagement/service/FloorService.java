@@ -13,6 +13,8 @@ public interface FloorService {
 	public List<Floor> getAll();
 	public Floor getById(Floor floor,UUID floor_id);
 	/*public boolean delete(Floor floor);*/
+	public void deleteFloorById(UUID floorId);
+	public List<Floor> getFloorsByBuildingId(UUID buildingId);
 
 
 	

@@ -2,7 +2,7 @@
 package com.seatmanagement.model;
 
 import java.io.Serializable;
-
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -11,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -39,8 +42,18 @@ public class Floor implements Serializable{
 	@JoinColumn(name = "building_id", nullable = false)
 	private Building building;
 	
+    @OneToMany(mappedBy="floor")
+	@JsonIgnore
+	private Set<Block> blocks;
     
-    
+	public Set<Block> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(Set<Block> blocks) {
+		this.blocks = blocks;
+	}
+
 	public UUID getFloorId() {
 		return floorId;
 	}
