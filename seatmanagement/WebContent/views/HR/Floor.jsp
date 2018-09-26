@@ -66,9 +66,9 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="flr in getflr" align="center">
-								<td>{{flr.organisationId}}</td>
-								<td>{{flr.organisationName}}</td>
-								<td>{{flr.organisationName}}</td>
+								<td>{{flr.floorId}}</td>
+								<td>{{flr.floorName}}</td>
+								<td>{{flr.floorType}}</td>
 								<td><button class="btn btn-danger">Delete</button></td>
 							</tr>
 						</tbody>

@@ -5,15 +5,11 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.FloorService;
@@ -28,9 +24,11 @@ public class FloorController {
 	private FloorService floorService;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value="/floorsave",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<Floor> saveOrUpdate(Floor floor, @RequestParam(value="buildingId") UUID buildingId ) {
-		ResponseEntity<Floor> response =  new ResponseEntity(floorService.saveOrUpdate(floor,buildingId),HttpStatus.OK);
+	@RequestMapping(value="/floorsave",method=RequestMethod.POST)
+	public ResponseEntity saveOrUpdate(Floor floor, @RequestParam(value="buildingId") UUID buildingId ) {
+		ResponseEntity response = null;
+		floorService.saveOrUpdate(floor, buildingId);
+		response = new ResponseEntity(HttpStatus.OK);
 		return response;
 	}
 	
