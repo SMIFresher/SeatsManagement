@@ -14,19 +14,23 @@ public class AdditionalDeviceServiceimpl implements AdditionalDeviceService{
 	private GenericDao<AdditionalDevice> genericDao;
 	
 	@Override
-	public boolean addOrUpdateDevice(AdditionalDevice device) {
+	public boolean saveOrUpdate(AdditionalDevice additionalDevice) {
 		
-		return genericDao.saveOrUpdate(device);
+		return genericDao.saveOrUpdate(additionalDevice);
 	}
+	
+	
 	
 	@Override
 	public boolean deleteDevice(AdditionalDevice device) {
 		
 		return genericDao.delete(device);
 	}
+	
+	
 
 	@Override
-	public List<AdditionalDevice> listAlldevices() {
+	public List<AdditionalDevice> getAll() {
 		AdditionalDevice additionalDevice = null;
 		List<AdditionalDevice> list=genericDao.getAll(additionalDevice); 
 		return list;
