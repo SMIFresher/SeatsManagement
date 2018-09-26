@@ -1,19 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="Form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Form</title>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-</head>
-<body>
-
 
 
 <!DOCTYPE html>
@@ -43,17 +27,15 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12">
-
 						<h2>Blocks</h2>
-						<form action="#">
+						<form id="Form" method="post" onsubmit="formSubmit()">
 							<div class="form-group">
-								<label for="buildingName">Building Name:</label> <select
-									name="cars" class="custom-select mb-3" id="buildingName">
-									<option selected>Building Name</option>
-									<option value="#SMI1">SMI1</option>
-									<option value="#PALAMI">PALAMI</option>
-									<option value="#DH2">DH2</option>
-								</select>
+		                   		<div ng-app="Building" ng-controller="BuildingController" id="build">
+								<label for="location">Building Name </label>
+									<select class="custom-select mb-3" name="buildingId">
+										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
+									</select>
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="floorName">Floor Name:</label> <select
@@ -112,7 +94,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="block" ng-controller="blockController">
+				<div id="block" ng-app="block" ng-controller="blockController">
 
 					<table class="table table-hover">
 						<thead>
@@ -164,9 +146,20 @@
 	</script>
 
 	<script>
-	var app = angular.module('block', []);
+	var app = angular.module('Building', []);
+	app.controller('BuildingController', function($scope, $http) {
+	    $http.post("../../building/getAllBuildings")
+	        .then(function successCallback(response) {
+	            $scope.getBuilding = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+	});
+	
+	var app = angular.module('block', ['Building']);
 	app.controller('blockController', function($scope, $http) {
-	    $http.post("../../organisation/getAllOrganisations")
+	    $http.post("../../block/getAllBlocks")
 	        .then(function successCallback(response) {
 	            $scope.getOrg = response.data;
 	            console.log(response.data);
@@ -174,13 +167,18 @@
 	            alert(response.status);
 	        });
 	});
-	</script>
+
+	angular.element(document).ready(function() {
+	    angular.bootstrap(document.getElementById("block"), ['block']);
+	  });
+
+</script>
 	
 	<script type="text/javascript">
 	function formSubmit(){
 	
 	 $.ajax({
-	     url:'../../organisation/saveOrganisation',
+	     url:'../../block/save',
 	     method : 'POST',
 	     data: $("#Form").serialize(),
 	     success: function (data) {

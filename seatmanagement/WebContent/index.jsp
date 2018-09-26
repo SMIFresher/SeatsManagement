@@ -1,3 +1,24 @@
+<%
+	
+	if(request.getParameter("password")!=null){
+		String usr=request.getParameter("username");
+		if(usr.equals("HR")){
+			%>
+				<script>
+						location.replace("views/HR");
+				</script>
+			<%
+		}else if(usr.equals("Lead")){
+			%>
+					<script>
+						location.replace("views/Lead");
+					</script>
+			<%
+		}
+	}
+
+%>
+
 <!DOCTYPE html>
 <html>
  <%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
@@ -32,18 +53,15 @@
 
                 <div class="col-md-6 login-form-1 rounded border">
                     <h3>Login</h3>
-                    <form>
+                    <form action="" method="post">
                         <div class="form-group">
-                            <input type="text" class="form-control"  placeholder="Employee ID" value="" required="required"/>
+                            <input type="text" name="username" class="form-control"  placeholder="Employee ID" value="" required="required"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Your Password *" value="" required="required" />
+                            <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" required="required" />
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Login" />
-                        </div>
-                        <div class="form-group">
-                            <a href="#" class="ForgetPwd">Forget Password?</a>
                         </div>
                     </form>
                 </div>

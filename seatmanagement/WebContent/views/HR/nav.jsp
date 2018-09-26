@@ -54,7 +54,7 @@
 				<li><a href="#blocksubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Block</a>
 					<ul class="collapse list-unstyled" id="blocksubmenu">
-						<li><a href="AddBlock.jsp">Add</a></li>
+						<li><a href="block.jsp">Add</a></li>
 						<li><a href="#">Modify</a></li>
 					</ul></li>
 			</ul>
@@ -79,6 +79,7 @@
 				<li><a href="#">Seating</a></li>
 				<li><a href="#">Utilities</a></li>
 			</ul></li>
+		<li><a href="../../" class="fa fa-sign-out"> Logout</a></li>
 		<br>
 	</ul>
 

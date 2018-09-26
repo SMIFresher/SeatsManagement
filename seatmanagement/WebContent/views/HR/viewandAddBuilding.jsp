@@ -25,25 +25,26 @@
 <br><br><br>
 <div id="build" ng-app="Building" ng-controller="BuildingController">
 <div class="container">
-  <div class="row" ng-repeat="Building in getBuilding">
+  <div class="row" >
   
-    <div class="col-md-4">
+    <div class="col-md-4" ng-repeat="Building in getBuilding">
     	<div class="content text-center" data-toggle="modal" data-target="#myModal" >
     	<br><br><br>
-    	  <h3>{{Building.Name }}</h3>
-	      <p>{{ Building.some}} Building architecture</p>
+    	  <h3>{{Building.buildingName }}</h3>
+	      <p>{{ Building.buildingName}} Building architecture</p>
     	</div>
-    </div>    
-  </div>
-<hr>  
-	<div class="col-md-4 ">
+    </div> 
+    <div class="col-md-4 ">
     	<div class="content text-center" data-toggle="modal" data-target="#AddBuilding">
     		<br><br>
     	   <h3>+</h3>
 	      <h3>Add</h3>
         <p></p>
     	</div>
-    </div>
+    </div>   
+  </div>
+<hr>  
+	
 </div>
 </div>
 
