@@ -45,4 +45,6 @@ public class AdditionalDevice implements Serializable {
 		this.device_name = device_name;
 	}
 
+	
+
 }
