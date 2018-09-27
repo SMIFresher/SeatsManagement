@@ -55,8 +55,12 @@
        							<input class="form-control" id="date" name="doj" placeholder="DD/MM/YYY" type="date"/>
 							  </div>
 							<div class="form-group">
-								<label for="teamId">Team Id:</label> 
-								<input type="text" class="form-control" id="teamId" placeholder="Team Id" name="team">
+		                   		<div ng-app="Team" ng-controller="TeamController" id="team1">
+								<label for="location">Team Name </label>
+									<select class="custom-select mb-3" name="teamId">
+										<option ng-repeat="team1 in getTeam" value="{{team1.teamId}}">{{team1.teamName}}</option>
+									</select>
+								</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -66,9 +70,10 @@
 				</div>
 				<br>
 			</div>
+			
 			<div class="col-md-8">
-				<div ng-app="employee" ng-controller="employeeController">
-				<div class="table-resposive" style="overflow-x: auto; height: 700px;">
+				<div id="emp" ng-app="employee" ng-controller="employeeController">
+				<!-- <div class="table-resposive" style="overflow-x: auto; height: 700px;"> -->
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Employee Roll Number</td>
@@ -81,7 +86,7 @@
 						</thead>
 						
 						<tbody align="center">
-						<tr ng-repeat="emp in getemployee" align="center">
+						<tr ng-repeat="emp in getemployees" align="center">
 						<td>{{emp.employeeRoll}}</td>
 						<td>{{emp.firstName}}</td>
 						<td>{{emp.lastName}}</td>
@@ -89,13 +94,13 @@
 						<td>{{emp.doj}}</td>
 						<td>{{emp.team}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="teamId" value="{{emp.teamId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<form method="post" ><input type="hidden" name="teamId" value="{{emp.team}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>
 						
 					</table>
-					</div>
+					<!-- </div> -->
 				</div>
 			</div>
 		</div>
@@ -122,16 +127,34 @@
 	</script> -->
 	
 	<script>
-	var app = angular.module('employee', []);
-	app.controller('employeeController', function($scope, $http) {
-	    $http.post("../../employee/getAllEmployees")
+
+	var app = angular.module('Team', []);
+	app.controller('TeamController', function($scope, $http) {
+	    $http.post("../../team/getAllTeam")
 	        .then(function successCallback(response) {
-	            $scope.getemployee = response.data;
+	            $scope.getTeam = response.data;
 	            console.log(response.data);
 	        }, function errorCallback(response) {
 	            alert(response.status);
 	        });
 	});
+
+
+	var app = angular.module('emp', ['Team']);
+	app.controller('getemployee', function($scope, $http) {
+	    $http.post("../../employee/getAllEmployees")
+	        .then(function successCallback(response) {
+	            $scope.getemployees = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+	});
+
+	angular.element(document).ready(function() {
+	    angular.bootstrap(document.getElementById("emp"), ['emp']);
+	});
+	
 	</script>
 	
 	<script type="text/javascript">
@@ -144,13 +167,14 @@
 	     success: function (data) {
 	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
 	            location.replace("Employee.jsp");
-	    }
+	    },
 		 error: function (jqXHR,exception) {
 			alert(exception)
 	 	}
 	 	
 	});
 	}
+	
 		
 	var tId = null;
 
