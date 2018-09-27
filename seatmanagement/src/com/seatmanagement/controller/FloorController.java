@@ -56,7 +56,7 @@ public class FloorController {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getFloorsByBuildingId", method = RequestMethod.GET)
+	@RequestMapping(value = "/getFloorTypeByBuildingId", method = RequestMethod.GET)
 	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
 		
 		if (Objects.isNull(buildingId)) {
