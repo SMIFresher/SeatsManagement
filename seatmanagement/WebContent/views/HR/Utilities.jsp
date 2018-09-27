@@ -15,7 +15,7 @@
 <body>
 
 
-<div ng-app="utilities" ng-controller="UtilitiesController">
+<div ng-app="Utilities" ng-controller="UtilitiesController">
 
 	
 <!-- Nav Bar -->
@@ -34,7 +34,7 @@
 							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 					  		<div class="form-group">
 							<label>Utility Name</label>
-					  		<input name="utilitiesName" class="form-control" id="utilityName" type="text" placeholder="Utilities Name "/>
+					  		<input name="utilityName" class="form-control" id="utilityName" type="text" placeholder="Utilities Name "/>
 					  		</div>
 					  		<button type="submit" class="btn btn-primary">Submit</button>
 					  		
@@ -50,7 +50,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="utilities" ng-controller="UtilitiesController">
+				<div ng-app="Utilities" ng-controller="UtilitiesController">
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -59,11 +59,11 @@
 							<td align="center">Process</td>
 						</thead>
 						<tbody align="center">
-						<tr ng-repeat="org in getOrg">
-						<td>{{org.utilitiesId}}</td>
-						<td>{{org.utilitiesName}}</td>
+						<tr ng-repeat="utilities in getUtilities">
+						<td>{{utilities.utilityId}}</td>
+						<td>{{utilities.utilityName}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="utilitiesId" value="{{org.utilitiesId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<form method="post" ><input type="hidden" name="utilityId" value="{{utilities.utilityId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>
@@ -83,14 +83,10 @@
 
 			document.getElementById('utilityName').value = col1;
 		})
-	</script>
-
-
-
-
+</script>
 
 <script>
-var app = angular.module('utilities', []);
+var app = angular.module('Utilities', []);
 app.controller('UtilitiesController', function($scope, $http) {
     $http.post("../../utilities/getAllUtilities")
         .then(function successCallback(response) {
@@ -116,26 +112,24 @@ function formSubmit(){
  	
 });
 }
-	
-	
-var utilityId = null;
+
+		
+var uId = null;
 
 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
-	utilityId  = currow.find('td:eq(0)').text();
-	console.log("utilityId  : " + utilityId );
+	uId  = currow.find('td:eq(0)').text();
+	console.log("uId  : " + uId );
 	
-	 $.post("../../Utilities/deleteUtilitiesById", {
-		 utilitiesId:utilityId 
+	 $.post("../../utilities/deleteUtilityById", {
+		 utilityId:uId 
 		}, function(data) {
-			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+			 $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
             location.replace("Utilities.jsp");
 		});
 
 	}
 );
-	 
-	
 </script>
 </body>
 </html>

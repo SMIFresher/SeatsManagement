@@ -7,27 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seatmanagement.model.AdditionalDevice;
+
 import com.seatmanagement.model.Utilities;
 import com.seatmanagement.service.UtilitiesService;
 
 
-
-/**
- * 
- * @author Adithya Prabhu
- * 
- * This class gets all requests for 'Building' model object and delegates to service classes 
- * for business processing
- *
- */
 @Controller
 @RequestMapping("/utilities")
 public class UtilitiesController {
@@ -41,23 +32,25 @@ public class UtilitiesController {
 	public ModelAndView welcome() {
 		return new ModelAndView("Utilities");
 	}
+	      
 	
-	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveUtilities",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Utilities> saveOrUpdate(@RequestBody Utilities utilities ){
+	public ResponseEntity<Utilities> saveOrUpdate( Utilities utilities ){
 		
 		return new ResponseEntity(utilitiesService.saveOrUpdate(utilities),HttpStatus.OK);
 	}
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAllUtilities",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getAllUtilities",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<List<Utilities>> getAll(){
 		return new ResponseEntity(utilitiesService.getAll(),HttpStatus.OK);
 	}
 	
 	
-	@RequestMapping(value="/getUtilitiesById",method=RequestMethod.GET)
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value="/getUtilitiesById",method=RequestMethod.POST)
 	public ResponseEntity getBlockById(@RequestParam(value="utilityId") UUID utilityId){
 		Utilities utilities = new Utilities();
 		utilities=utilitiesService.getById(utilities,utilityId);
@@ -73,8 +66,9 @@ public class UtilitiesController {
 	}
 	
 	
-	@RequestMapping(value="/deleteUtilityById",method=RequestMethod.GET)
-	public ResponseEntity deleteUtilityById(@RequestParam(value="utility_id") UUID utilityId){
+	@RequestMapping(value="/deleteUtilityById",method=RequestMethod.POST)
+
+	public ResponseEntity deleteUtilityById(@RequestParam(value="utilityId") UUID utilityId){
 		
 		Utilities utilities = new Utilities();
 		utilities.setUtilityId(utilityId);
@@ -88,7 +82,4 @@ public class UtilitiesController {
 		}
 		return responseEntity;
 	}
-		
-	
-	
 }
