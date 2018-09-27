@@ -234,7 +234,34 @@ ALTER TABLE block DROP FOREIGN KEY floor_id;
 ALTER TABLE block 
 ADD CONSTRAINT `floor_id` FOREIGN KEY (floor_id) REFERENCES floor(floor_id) ON DELETE SET NULL;
 
+ALTER TABLE `seatmanagement`.`seating` 
+DROP COLUMN `y`,
+DROP COLUMN `x`;
+
 
 ALTER TABLE `seatmanagement`.`seating` 
 ADD COLUMN `xaxis` VARCHAR(45) NOT NULL AFTER `seat_occupied`,
 ADD COLUMN `yaxis` VARCHAR(45) NOT NULL AFTER `xaxis`;
+
+CREATE  TABLE users (
+  username VARCHAR(45) NOT NULL ,
+  password VARCHAR(100) NOT NULL ,
+  enabled TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (username));
+  
+  
+  CREATE TABLE user_roles (
+  user_role_id int(11) NOT NULL AUTO_INCREMENT,
+  username varchar(45) NOT NULL,
+  role varchar(45) NOT NULL,
+  PRIMARY KEY (user_role_id),
+  UNIQUE KEY uni_username_role (role,username),
+  KEY fk_username_idx (username),
+  CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username));
+  
+  
+INSERT INTO `seatmanagement`.`users` (`username`, `password`, `enabled`) VALUES ('Lead', '{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', '1');
+INSERT INTO `seatmanagement`.`users` (`username`, `password`, `enabled`) VALUES ('HR', '{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG', '1');
+
+INSERT INTO `seatmanagement`.`user_roles` (`user_role_id`, `username`, `role`) VALUES ('1', 'HR', 'ROLE_ADMIN');
+INSERT INTO `seatmanagement`.`user_roles` (`user_role_id`, `username`, `role`) VALUES ('2', 'Lead', 'ROLE_LEAD');
