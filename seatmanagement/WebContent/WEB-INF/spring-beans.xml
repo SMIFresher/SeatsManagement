@@ -124,4 +124,12 @@
 	<bean id="seatingService"
 		class="com.seatmanagement.service.impl.SeatingServiceImpl">
 	</bean>
+	
+	<bean id="employeeDao"
+		class="com.seatmanagement.dao.impl.EmployeeDaoImpl">
+	</bean>
+
+	<bean id="employeeService"
+		class="com.seatmanagement.service.impl.EmployeeServiceImpl">
+	</bean>
 </beans>
