@@ -30,16 +30,11 @@ public class BuildingServiceImpl implements BuildingService {
 
 	public boolean saveOrUpdate(Building building,UUID organisationId) {
 		
-		Building newBuilding = new Building();
-		newBuilding.setBuildingLocation(building.getBuildingLocation());
-		newBuilding.setBuildingAddress(building.getBuildingAddress());
-		newBuilding.setBuildingName(building.getBuildingName());
-
-		newBuilding.setSquareFeet(Float.parseFloat(building.getSquareFeetString()));
+		
 		Organisation organisation = new Organisation();
 		organisation.setOrganisationId(organisationId);
-		newBuilding.setOrganisation(organisation);
-		return genericDao.saveOrUpdate(newBuilding);
+		building.setOrganisation(organisation);
+		return genericDao.saveOrUpdate(building);
 
 	}
 
@@ -52,9 +47,9 @@ public class BuildingServiceImpl implements BuildingService {
 		return genericDao.getById(building, buildingId);
 	}
 
-	/*public boolean delete(Building building) {
+	public boolean delete(Building building) {
 		return genericDao.delete(building);
 
-	}*/
+	}
 
 }

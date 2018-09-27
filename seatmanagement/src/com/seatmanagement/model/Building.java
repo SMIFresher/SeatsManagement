@@ -46,7 +46,7 @@ public class Building implements Serializable{
     private String buildingLocation;
 	
 	@ManyToOne
-    @JoinColumn(name="organisation_id", nullable=false)
+    @JoinColumn(name="organisation_id", nullable=true)
     private Organisation organisation;
 	
 	@Column(name="square_feet")
