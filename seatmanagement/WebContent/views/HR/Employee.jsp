@@ -17,10 +17,10 @@
 </head>
 <body>
 
-	<div class="jumbotron text-center bg-primary text-white">
-		<h2>Employee Details</h2>
-	</div>
+<!-- Nav Bar -->
+<jsp:include page="nav.jsp"></jsp:include>
 
+<br><br><br><br>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -34,8 +34,7 @@
 							<div class="form-group">
 								<label for="employeeRoll">Employee Roll Number:</label>  
 								<input name="employeeRoll" class="form-control" id="employeeRoll" type="text" placeholder="Employee Roll Number"/>
-								<input name="employeeId" class="form-control" id="employeeId" type="hidden" placeholder="Employee Id"/>
-								
+								<input name="employeeId" class="form-control" id="employeeId" type="hidden" placeholder="Employee Id"/>			
 							</div>
 							<div class="form-group">
 								<label for="firstName">First Name:</label> 

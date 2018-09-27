@@ -22,16 +22,16 @@
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
-<br><br><br>
+<br><br><br><br>
 <div id="build" ng-app="Building" ng-controller="BuildingController">
 <div class="container">
   <div class="row" >
   
     <div class="col-md-4" ng-repeat="Building in getBuilding">
-    	<div class="content text-center" data-toggle="modal" data-target="#myModal" >
+    	<div ng-click="floorDetails(Building.buildingId)" class="content text-center" data-toggle="modal" data-target="#myModal" >
     	<br><br><br>
-    	  <h3>{{Building.buildingName }}</h3>
-	      <p>{{ Building.buildingName}} Building architecture</p>
+    	  <h3>{{Building.buildingName}}</h3>
+	      <p>{{Building.buildingName}} Building architecture</p>
     	</div>
     </div> 
     <div class="col-md-4 ">
@@ -46,7 +46,7 @@
 <hr>  
 	
 </div>
-</div>
+
 
 
 
@@ -73,14 +73,11 @@
           	</div>
           	<div class="col-sm-8 cc">
           		<div class="row text-center">
-          			<div class="col-sm-12 flr bg-info">
-          				<h4>Flr 1</h4>
-          			</div>
-          			<div class="col-sm-12 flr bg-info">
-          				<h4>Flr 1</h4>
-          			</div>
-          			<div class="col-sm-12 flr">
-          				<h4>Flr 1</h4>
+          			<div class="col-sm-12" ng-repeat="flr in getFloor | orderBy : '-floorName'">
+          				<div class="container flr">
+							<h4>{{flr.floorName}}</h4>
+          				</div>
+          				
           			</div>
           		</div>
           	</div>
@@ -96,7 +93,7 @@
     </div>
   </div>
 
-
+</div>
   <div class="modal fade" id="AddBuilding">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -136,7 +133,7 @@
                   </div>
                   <div class="form-group">
                     <label for="location">Square Feet :</label> <input type="text"
-                      class="form-control" id="SqFt" name="squareFeetString"
+                      class="form-control" id="SqFt" name="squareFeet"
                       required="required" placeholder="Square Feet">
                   </div>
                    <div class="form-group">
@@ -176,6 +173,9 @@ function formSubmit(){
  	
 });
 }
+
+
+
 </script>
 
 <script>
@@ -198,9 +198,22 @@ app.controller('BuildingController', function($scope, $http) {
         .then(function successCallback(response) {
             $scope.getBuilding = response.data;
             console.log(response.data);
+			
         }, function errorCallback(response) {
             alert(response.status);
         });
+		$scope.floorDetails=function(buildingId){
+			$http.get("../../floor/getFloorsByBuildingId?buildingId="+buildingId)
+	        .then(function successCallback(response) {
+	            $scope.getFloor = response.data;
+	            console.log(response.data);
+				
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+		};
+    	
+    
 });
 angular.element(document).ready(function() {
     angular.bootstrap(document.getElementById("orgFiled"), ['getOrg']);

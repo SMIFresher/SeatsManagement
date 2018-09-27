@@ -35,11 +35,11 @@ public class Seating implements Serializable {
 	@Column(name="seat_occupied")
 	private int seat_occupied;
 	
-	@Column(name="x")
-	private String x;
+	@Column(name="xaxis")
+	private String x_axis;
 	
-	@Column(name="y")
-	private String y;
+	@Column(name="yaxis")
+	private String y_axis;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="block_id")
@@ -53,6 +53,22 @@ public class Seating implements Serializable {
 	@JsonIgnore
     private  Set<SeatingDetails> seatingDetails;
 
+
+	public String getX_axis() {
+		return x_axis;
+	}
+
+	public void setX_axis(String x_axis) {
+		this.x_axis = x_axis;
+	}
+
+	public String getY_axis() {
+		return y_axis;
+	}
+
+	public void setY_axis(String y_axis) {
+		this.y_axis = y_axis;
+	}
 
 	public Set<SeatingDetails> getSeatingDetails() {
 		return seatingDetails;

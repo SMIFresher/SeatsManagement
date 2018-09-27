@@ -66,7 +66,7 @@ public class BlockDaoImpl implements BlockDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
 		criteria.createAlias("floor","floor",CriteriaSpecification.LEFT_JOIN);
 		criteria.add(Restrictions.disjunction());
-		criteria.add(Restrictions.or
+		criteria.add(Restrictions.and
 				(Restrictions.eq("blockType",blockType),Restrictions.eq("floor.floorId",floorId)));
 		List<Block> blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
 		return blocks;

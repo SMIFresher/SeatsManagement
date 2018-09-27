@@ -8,7 +8,7 @@ import com.seatmanagement.model.Employee;
 
 public interface EmployeeService {
 	
-	void saveEmployee(Employee employee);
+	void saveEmployee(Employee employee,UUID team_id);
 
 	List<Employee> getAllEmployees();
 

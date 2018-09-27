@@ -177,13 +177,7 @@ body {
 			</div>
 			<h1>oops!</h1>
 			<h2>${errorMsg}</h2>
-			<a href="#">go back</a>
-			<!-- <div class="notfound-social">
-				<a href="#"><i class="fa fa-facebook"></i></a>
-				<a href="#"><i class="fa fa-twitter"></i></a>
-				<a href="#"><i class="fa fa-pinterest"></i></a>
-				<a href="#"><i class="fa fa-google-plus"></i></a>
-			</div> -->
+			<a href="/seatmanagement/">go back</a>
 		</div>
 	</div>
 

@@ -31,8 +31,8 @@ public class SeatingController {
 		}
 		
 		@SuppressWarnings({ "unchecked", "rawtypes" })
-		@RequestMapping(value="/saveSeating",method=RequestMethod.POST )
-		public ResponseEntity<Seating> saveOrUpdateSystems(@RequestBody Seating seating,@RequestParam(value="blockID") UUID blockID) {
+		@RequestMapping(value="/saveSeating")
+		public ResponseEntity<Seating> saveOrUpdateSystems(Seating seating, @RequestParam(value="blockID") UUID blockID) {
 			
 			ResponseEntity responseEntity=null;
 			if(seating !=null){

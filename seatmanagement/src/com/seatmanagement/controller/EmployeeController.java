@@ -33,7 +33,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@RequestMapping("/saveEmployee")
-	public ResponseEntity saveEmployee(Employee employee) {
+	public ResponseEntity saveEmployee(Employee employee, @RequestParam(value="teamId") UUID teamId) {
 
 		logger.info("Controller: EmployeeController Method : saveEmployee request processing started at : "
 				+ LocalDateTime.now());
@@ -45,7 +45,7 @@ public class EmployeeController {
 				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 
-			employeeService.saveEmployee(employee);
+			employeeService.saveEmployee(employee,teamId);
 
 			responseEntity = new ResponseEntity(HttpStatus.OK);
 

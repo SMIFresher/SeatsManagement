@@ -17,9 +17,10 @@
 </head>
 <body>
 
-	<div class="jumbotron text-center bg-primary text-white">
-		<h2>BLOCKS</h2>
-	</div>
+<!-- Nav Bar -->
+<jsp:include page="nav.jsp"></jsp:include>
+
+<br><br><br><br><br><br>
 
 	<div class="container">
 		<div class="row">

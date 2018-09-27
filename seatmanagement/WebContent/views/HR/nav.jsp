@@ -43,7 +43,7 @@
 					aria-expanded="false" class="dropdown-toggle">Building</a>
 					<ul class="collapse list-unstyled" id="buldsubmenu">
 						<li><a href="viewandAddBuilding.jsp">Add</a></li>
-						<li><a href="#">Modify</a></li>
+						<li><a href="ModifyBuilding.jsp">Modify</a></li>
 					</ul></li>
 				<li><a href="#floorsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Floor</a>
@@ -59,6 +59,13 @@
 					</ul></li>
 			</ul>
 		</li>
+		<li class="active"><a href="#Employee"
+			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-users"> Employee </a>
+			<ul class="collapse list-unstyled" id="Employee">
+				<li><a href="team.jsp">Team</a></li>
+				<li><a href="Employee.jsp">Employee</a></li>
+
+			</ul></li>
 		<li class="active"><a href="#manageallotmentSubmenu"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-map-o"> Manage
 				Allotment</a>
@@ -76,7 +83,6 @@
 						<li><a href="#">Add System Details</a></li>
 						<li><a href="#">Add Device Details</a></li>
 					</ul></li>
-				<li><a href="#">Seating</a></li>
 				<li><a href="#">Utilities</a></li>
 			</ul></li>
 		<li><a href="../../" class="fa fa-sign-out"> Logout</a></li>

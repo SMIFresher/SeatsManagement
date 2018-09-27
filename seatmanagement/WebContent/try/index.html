@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ADD Block Seating Details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" href="style.css" type="text/css" media="screen" /> -->
+  <script type="text/javascript" src="redips-drag-min.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style type="text/css">
+  td{
+    width: 100px;
+    height: 100px;
+  }
+</style>
+
+
+<body>
+
+
+<nav class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
+
+
+  <a class="navbar-brand" href="#">
+    <img src="nav-logo.jpg" alt="logo" style="width:100px;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="fa fa-bars " style="font-size: 30px;"  aria-hidden="true" ></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="view.html">view</a>
+      </li>    
+    </ul>
+  </div> 
+  <form class="form-inline" action="/action_page.php">
+    <input class="form-control mr-sm-2 search" type="text" placeholder="Search">
+  </form> 
+</nav>
+<br><br><br><br><br>
+
+<div class="container-fluid" id="redips-drag">
+  <div class="row">
+   <style type="text/css">
+    .table-borderless > tbody > tr > td,
+    .table-borderless > tbody > tr > th,
+    .table-borderless > tfoot > tr > td,
+    .table-borderless > tfoot > tr > th,
+    .table-borderless > thead > tr > td,
+    .table-borderless > thead > tr > th {
+        border: 2px solid rgba(0,0,0,0);
+    }
+  </style>
+  <div class="col-md-3 ">
+    <div class="container border">
+      <br>
+      <h3> <span class="fa fa-th" aria-hidden="true"></span> Block Type</h3>
+      <p>SOme Name</p>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <p><b>Bulding name :</b> SMI I</p>
+          <hr>
+        </div>
+
+        <div class="col-md-6"> 
+          <p><b>Floar :</b> 1</p>
+        </div>
+        <div class="col-md-6"> 
+           <p><b>Block Capacity :</b> 30</p>
+        </div>
+        <div class="col-md-12"> 
+          <p><b>Mesurments :</b> 209 sq ft</p>
+        </div>
+        <div class="col-md-12"> 
+           <p align="justify"> <b>Description</b><br>
+      <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco </span>
+      </p>
+        </div>
+        <div class="col-md-12">
+        <button class="btn btn-primary">Save - Block Details</button>
+      </div>
+     </div>
+     <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container">
+          <p>
+            <span class="message_line">Save content of this Table table (JSON format)</span>
+          </p>
+          <input type="button" value="Save Block Diagram" class="btn btn-success" onclick="save('json')" title="Send content to the server (it will only show accepted parameters)"/>
+        </div>
+      </div>
+    </div>
+      <br>
+
+      
+    </div>
+      
+    </div>
+  <div class="col-md-8 text-center" >
+    <div class="content">
+        <table id="block" class="table table-borderless" style="border:5px solid; padding: 30px;">
+          <tbody>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td id="lastCell"></td></tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-1 text-center" style="overflow:auto;">
+    <table class="table table-borderless">
+        <tbody >
+          <tr>
+            <td><div id="exit" class="redips-drag redips-clone" style="width: 100%;">
+              <span class="fa fa-bars" style="font-size: 60px;"></span>
+            </div></td>
+          </tr>
+
+          <tr>
+            <td><div id="laptop" class="redips-drag redips-clone" style="width: 100%;">
+              <span class="fa fa-laptop" style="font-size: 60px;"></span>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div id="desktop" class="redips-drag redips-clone" style="width: 100%;">
+              <span class="fa fa-desktop" style="font-size: 60px;"></span>
+            </div></td>
+          </tr>
+           <tr>
+            <td><div id="others" class="redips-drag redips-clone" style="width: 100%;">
+              <span class="fa fa-stop" style="font-size: 60px;"></span>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div id="board" class="redips-drag redips-clone">
+              <img src="board.svg" width="100%" >
+            </div></td>
+          </tr>
+          <tr>
+            <td class="redips-trash bg-danger text-white">
+              <span class="fa fa-trash" style="font-size: 50px;"></span>
+              Delete
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+ 
+
+ <script type="text/javascript">
+   
+   $("document").ready(function () {
+     $("table").delegate("td", "click", function () {
+         var colSp = prompt("Number of cells to span");
+
+         $(this).attr("colspan", colSp);
+
+         
+         var ptr = $(this).parent().children();
+         for (var i = 1; i < colSp; i++) {
+             ptr[ptr.length - i].parentNode.removeChild(ptr[ptr.length - i]);
+         }
+      
+     });
+ });
+
+ </script>
+
+
+  </div>
+</div>
+</body>
+</html>

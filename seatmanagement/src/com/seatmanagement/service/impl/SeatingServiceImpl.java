@@ -32,7 +32,7 @@ public class SeatingServiceImpl implements SeatingService {
 	
 	@Override
 	public boolean addOrUpdateSeating(Seating seating,UUID blockID) {
-		Seating newSeating = new Seating();
+		Seating newSeating = seating;
 		Block newBlock = new Block();
 		newBlock=genericDaoBlock.getById(newBlock, blockID);
 		newSeating.setBlock(newBlock);
