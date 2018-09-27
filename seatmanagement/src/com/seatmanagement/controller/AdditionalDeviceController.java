@@ -34,18 +34,18 @@ public class AdditionalDeviceController {
 	
 
 	@RequestMapping(value="/savedevice",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AdditionalDevice> saveSeatingDetails(@RequestBody AdditionalDevice additionalDevice ){
+	public ResponseEntity<AdditionalDevice> saveSeatingDetails(AdditionalDevice additionalDevice ){
 		
 		return new ResponseEntity(additionalDeviceService.saveOrUpdate(additionalDevice),HttpStatus.OK);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAllDevice",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getAllDevice",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AdditionalDevice>> getAll(){
 		return new ResponseEntity(additionalDeviceService.getAll(),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/deleteByDeviceId",method=RequestMethod.GET)
+	@RequestMapping(value="/deleteByDeviceId",method=RequestMethod.POST)
 	public ResponseEntity deleteDeviceById(@RequestParam UUID additional_device_id){
 		
 		AdditionalDevice additionalDevice = new AdditionalDevice();

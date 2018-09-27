@@ -110,7 +110,7 @@ function formSubmit(){
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
-            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
             location.replace("device.jsp");
     }
  	
