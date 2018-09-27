@@ -46,7 +46,7 @@ public class Employee implements Serializable {
 	private String designation;
 
 	@Column(name = "date_of_joining")
-	private LocalDate doj;
+	private String doj;
 	
 	
 	@ManyToOne
@@ -96,11 +96,11 @@ public class Employee implements Serializable {
 		this.designation = designation;
 	}
 
-	public LocalDate getDoj() {
+	public String getDoj() {
 		return doj;
 	}
 
-	public void setDoj(LocalDate doj) {
+	public void setDoj(String doj) {
 		this.doj = doj;
 	}
 
