@@ -46,14 +46,15 @@ public class BlockController {
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	@RequestMapping(value="/saveblock",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Block> saveOrUpdate(@RequestBody Block block , @RequestParam(value="floor_id") UUID floorId){
-		ResponseEntity<Block> response =  new ResponseEntity(blockService.saveOrUpdate(block,floorId),HttpStatus.OK);
+	public ResponseEntity<Block> saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId){
+		blockService.saveOrUpdate(block,floorId);
+		ResponseEntity<Block> response =  new ResponseEntity(HttpStatus.OK);
 		return response;
 	}
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAllBlocks",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getAllBlocks",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Block>> getAll(){
 		return new ResponseEntity(blockService.getAll(),HttpStatus.OK);
 	}
@@ -106,15 +107,16 @@ public class BlockController {
 		return responseEntity;
 	}
 	
-	@RequestMapping(value="/deleteBlockById",method=RequestMethod.GET)
-	public ResponseEntity deleteBlockById(@RequestParam(value="block_id") UUID blockId){
+	@RequestMapping(value="/deleteBlockById")
+	public ResponseEntity deleteBlockById(@RequestParam(value="blockId") UUID blockId){
 		
 		Block block = new Block();
 		block.setBlockId(blockId);
 		
 		ResponseEntity responseEntity=null;
 		if(block.getBlockId() !=null){
-		responseEntity = new ResponseEntity(blockService.delete(block),HttpStatus.OK);
+			blockService.delete(block);
+			responseEntity = new ResponseEntity(HttpStatus.OK);
 		}
 		else{
 			throw new RuntimeException("Invalid ID");

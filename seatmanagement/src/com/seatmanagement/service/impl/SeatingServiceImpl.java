@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.service.SeatingService;
@@ -50,21 +51,24 @@ public class SeatingServiceImpl implements SeatingService {
 	public void deleteSeatingByBlockId(UUID blockId) {
 		// unreference children(seatingdetails) and delete
 		
-		Seating seating = seatingDao.getSeatingByBlockId(blockId);
+		List<Seating> seatings = seatingDao.getSeatingByBlockId(blockId);
 		
 		// Scenario: No seating mapped yet
-		if(Objects.isNull(seating)) {
+		if(Objects.isNull(seatings)|| seatings.isEmpty()) {
 			
 		}
 		// Scenario: Seating mapped
 		else {
-			
-			// unreference all SeatingDetails
-			seating.setSeatingDetails(new HashSet());
-			
-			genericDao.saveOrUpdate(seating);
+			// Scenario a: More than 1 seating mapped to a block
+			if(seatings.size()>1) {
+				throw new BusinessException("More than one Seating mapped to a Block");
+			}
+			// Scenario b: Only 1 seating mapped to a block
+			else {
+				genericDao.delete(seatings.get(0));
+			}
 		}
 		
-		genericDao.delete(seating);
+		
 	}
 }

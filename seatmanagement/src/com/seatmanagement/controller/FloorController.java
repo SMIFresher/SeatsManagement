@@ -36,7 +36,8 @@ public class FloorController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/getAllFloor")
 	public ResponseEntity<List<Floor>> getAll() {
-		return new ResponseEntity(floorService.getAll(), HttpStatus.OK);
+		List<Floor> floors = floorService.getAll();
+		return new ResponseEntity(floors, HttpStatus.OK);
 	}
 
 	@SuppressWarnings("rawtypes")

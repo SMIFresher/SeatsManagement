@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -55,8 +56,8 @@ public class Block implements Serializable{
 	@Column(name="block_measurement")
     private String blockMeasurement;
 	
-	@Column(name="square_feet")
-    private String squarefeet;
+	@Transient
+	private String blockMeasurementString;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="floor_id", nullable=false)
@@ -65,6 +66,14 @@ public class Block implements Serializable{
 	@OneToMany(mappedBy="block")
 	@JsonIgnore
 	private List<Reallocation> reallocations;
+
+	public String getBlockMeasurementString() {
+		return blockMeasurementString;
+	}
+
+	public void setBlockMeasurementString(String blockMeasurementString) {
+		this.blockMeasurementString = blockMeasurementString;
+	}
 
 	public List<Reallocation> getReallocations() {
 		return reallocations;
@@ -76,14 +85,6 @@ public class Block implements Serializable{
 
 	public UUID getBlockId() {
 		return blockId;
-	}
-
-	public String getSquarefeet() {
-		return squarefeet;
-	}
-
-	public void setSquarefeet(String squarefeet) {
-		this.squarefeet = squarefeet;
 	}
 
 	public void setBlockId(UUID blockId) {

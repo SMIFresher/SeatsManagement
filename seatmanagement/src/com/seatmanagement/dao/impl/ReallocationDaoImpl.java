@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.ReallocationDao;
 import com.seatmanagement.model.Reallocation;
 
+@Transactional
 public class ReallocationDaoImpl implements ReallocationDao {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ReallocationDaoImpl.class);

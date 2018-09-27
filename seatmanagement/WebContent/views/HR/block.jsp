@@ -78,7 +78,7 @@
 							<div class="form-group">
 								<label for="blockMeasurement">Block Measurement:</label> 
 									 <input type="text"
-									class="form-control" id="blockMeasurement" placeholder="Enter Block Measurement"
+									class="form-control" id="blockMeasurementString" placeholder="Enter Block Measurement"
 									name="blockMeasurement">
 							</div>
 							<div class="form-group">
@@ -92,12 +92,6 @@
 								 <input type="text"
 									class="form-control" id="block_desc"
 									placeholder="Enter Block Description" name="blockDescription">
-							</div>
-							<div class="form-group">
-								<label for="block_sqft">Block Square Feet:</label>
-									 <input type="text"
-									class="form-control" id="block_sqft"
-									placeholder="Enter Block Square Feet" name="squarefeet">
 							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -114,6 +108,7 @@
 						<thead>
 							<td>Building Name</td>
 							<td>Floor Name</td>
+							<td>Block Id</td>
 							<td>Block Name</td>
 							<td>Block Measurement</td>
 							<td>Block Type</td>
@@ -125,11 +120,12 @@
 						<tr ng-repeat="blk in getBlock" align="center">
 						<td>{{blk.floor.building.buildingName}}</td>
 						<td>{{blk.floor.floorName}}</td>
+						<td>{{blk.blockId}}</td>
 						<td>{{blk.blockName}}</td>
 						<td>{{blk.blockMeasurement}}</td>
 						<td>{{blk.blockType}}</td>
 						<td>{{blk.blockCapacity}}</td>
-						<td align="center"><button class="btn btn-danger" value="{{blk.blockId}}">Delete</button></td>
+						<td align="center"><button class="btn btn-danger deleteBtn" value="{{blk.blockId}}">Delete</button></td>
 						
 						</tr>
 						</tbody>
@@ -200,18 +196,18 @@ function formSubmit(){
 	}
 		
 		
-	var orgId = null;
+	var blockId = null;
 	
 	$('.table tbody').on('click', '.deleteBtn', function() {
 		var currow = $(this).closest('tr');
-		orgId = currow.find('td:eq(0)').text();
-		console.log("orgId : " + orgId);
+		blockId = currow.find('td:eq(2)').text();
+		console.log("blockId : " + blockId);
 		
 		 $.post("../../block/deleteBlockById", {
-			 organisationId:orgId
+			 blockId:blockId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("Block.jsp");
+	            location.replace("block.jsp");
 			});
 	
 		}

@@ -1,6 +1,7 @@
 package com.seatmanagement.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -9,11 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 
@@ -55,7 +59,17 @@ public class Building implements Serializable{
 	@Transient
 	private String squareFeetString;
 	
-	
+	@OneToMany(mappedBy="building")
+	@JsonIgnore
+	private Set<Floor> floors;
+
+	public Set<Floor> getFloors() {
+		return floors;
+	}
+
+	public void setFloors(Set<Floor> floors) {
+		this.floors = floors;
+	}
 
 	public String getSquareFeetString() {
 		return squareFeetString;

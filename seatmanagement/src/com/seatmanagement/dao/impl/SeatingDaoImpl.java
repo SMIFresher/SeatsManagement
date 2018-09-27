@@ -46,12 +46,12 @@ public class SeatingDaoImpl implements SeatingDao {
 	}
 
 	@Override
-	public Seating getSeatingByBlockId(UUID blockId) {
+	public List<Seating> getSeatingByBlockId(UUID blockId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Seating.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
-		Seating seating = (Seating) hibernateTemplate.findByCriteria(criteria);
-		return seating;
+		List<Seating> seatings = (List<Seating>) hibernateTemplate.findByCriteria(criteria);
+		return seatings;
 	}
 
 }

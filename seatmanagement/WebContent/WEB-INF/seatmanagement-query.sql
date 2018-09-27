@@ -213,3 +213,14 @@ ALTER TABLE building DROP FOREIGN KEY building_fk_1;
 
 ALTER TABLE building 
 ADD CONSTRAINT `building_fk_1` FOREIGN KEY (organisation_id) REFERENCES organisation(organisation_id) ON DELETE SET NULL;
+
+#27/09/2018
+
+ALTER TABLE block DROP COLUMN square_feet;
+
+ALTER TABLE `seatmanagement`.`seating_detail` MODIFY `seating_id` VARCHAR(36) NULL;
+
+ALTER TABLE seating_detail DROP FOREIGN KEY seating_detail_fk_1;
+
+ALTER TABLE seating_detail 
+ADD CONSTRAINT `seating_detail_fk_1` FOREIGN KEY (seating_id) REFERENCES seating(seating_id) ON DELETE SET NULL;

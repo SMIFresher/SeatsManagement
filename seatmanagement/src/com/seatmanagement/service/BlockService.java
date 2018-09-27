@@ -24,7 +24,7 @@ public interface BlockService {
 
 	public void deleteBlocksByFloorId(UUID floorId);
 
-	public boolean delete(Block block);
+	public void delete(Block block);
 	
 	public List<Block> getBlocksByFloorId(UUID floorId);
 	

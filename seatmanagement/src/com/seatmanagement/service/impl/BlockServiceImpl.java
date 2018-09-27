@@ -49,7 +49,6 @@ public class BlockServiceImpl implements BlockService {
 		 newBlock.setBlockCapacity(block.getBlockCapacity());
 		 newBlock.setBlockDescription(block.getBlockDescription());
 		 newBlock.setBlockMeasurement(block.getBlockMeasurement());
-		 newBlock.setSquarefeet(block.getSquarefeet());
 		 if(Objects.nonNull(floor_id)) {
 			
 			 floor = genericDaoFloor.getById(floor, floor_id);
@@ -107,9 +106,25 @@ public class BlockServiceImpl implements BlockService {
 		return blocks;
 	}
 
-	public boolean delete(Block block) {
-		return genericDao.delete(block);
+	public void delete(Block block) {
+		
+		block = genericDao.getById(block, block.getBlockId());
+		
+		// Scenario 1: Block Not present
+		if(Objects.isNull(block)) {
+			
+		}
+		// Scenario 2: Block present
+		else {
+			// delete seating
+			seatingService.deleteSeatingByBlockId(block.getBlockId());
 
+			// delete reallocation
+			reallocationService.deleteReallocationsByBlockId(block.getBlockId());
+			
+			// delete block
+			genericDao.delete(block);
+		}
 	}
 
 }

@@ -97,11 +97,6 @@ public class ReallocationServiceImpl implements ReallocationService{
 		else {
 			for(Reallocation reallocation : reallocations) {
 				
-				reallocation.setBlock(null);
-				reallocation.setSeatingDetails(null);
-				
-				genericDao.saveOrUpdate(reallocation);
-				
 				reallocationDao.deleteReallocationByBlockId(blockId);
 			}
 		}
