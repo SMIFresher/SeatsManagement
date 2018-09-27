@@ -12,5 +12,7 @@ public class Constant {
 	
 	public static final String RESPONSE_ERROR_CODE = "ERROR_CODE";
 
+	public static final String NO_RECORD_FOUND_FOR_SEATINGS = "No Record found for Seating";
+
 	private Constant() {}
 }
