@@ -16,8 +16,11 @@
         <a class="nav-link text-dark" href="index.jsp">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" href="view.jsp">view</a>
-      </li>    
+        <a class="nav-link text-dark" href="view.jsp">View</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="">Logout</a>
+      </li>     
     </ul>
   </div> 
   <form class="form-inline" action="#" data-toggle="modal" data-target="#myModal">
