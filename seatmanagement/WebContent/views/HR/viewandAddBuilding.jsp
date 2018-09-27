@@ -184,7 +184,7 @@ var app = angular.module('getOrg', ['Building']);
 app.controller('getOrganization', function($scope, $http) {
     $http.post("../../organisation/getAllOrganisations")
         .then(function successCallback(response) {
-            $scope.getOrg = response.data;
+            $scope.getOrg = response.data.organisations;
             console.log(response.data);
         }, function errorCallback(response) {
             alert(response.status);

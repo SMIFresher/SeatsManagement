@@ -84,11 +84,6 @@ public class OrganisationServiceImpl implements OrganisationService {
 		// Scenario 2 : Organisation exists
 		else {
 			
-			// Dereference buildings connected to organisation
-			organisation.setBuildings(new HashSet());
-			genericDao.saveOrUpdate(organisation);
-			
-			// Then delete Organisation
 			genericDao.delete(organisation);
 		}
 
