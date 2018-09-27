@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,17 +16,19 @@ import com.seatmanagement.model.Constant;
 
 @Controller
 public class ErrorController {
-
+	private static final Logger logger = LoggerFactory.getLogger(ErrorController.class);
 	@RequestMapping(value = "errors")
 	public ModelAndView renderErrorPageForNonAJAX(HttpServletRequest httpRequest) {
-
+		
+		
+		
 		ModelAndView errorPage = new ModelAndView("/errorpages/ErrorPage");
 		String errorMsg = "";
 		int httpErrorCode = getErrorCode(httpRequest);
-
+		
 		switch (httpErrorCode) {
 		case 400: {
-			errorMsg = "Http Error Code: 400. Bad Request";
+			errorMsg = "Error Code: 400. Bad Request";
 			break;
 		}
 		case 401: {
@@ -32,15 +36,23 @@ public class ErrorController {
 			break;
 		}
 		case 404: {
-			errorMsg = "Http Error Code: 404. Resource not found";
+			errorMsg = "Error Code: 404. Resource not found";
 			break;
 		}
 		case 500: {
-			errorMsg = "Http Error Code: 500. Internal Server Error";
+			errorMsg = "Error Code: 500. Internal Server Error";
 			break;
 		}
+		default:{
+			errorMsg = "Error Code: "+httpErrorCode+". Server Error";
+		
 		}
+		}
+		
+		logger.error("Exeception occured in Application "+errorMsg);
+		
 		errorPage.addObject("errorMsg", errorMsg);
+		errorPage.addObject("errorcode", httpErrorCode);
 		return errorPage;
 	}
 
