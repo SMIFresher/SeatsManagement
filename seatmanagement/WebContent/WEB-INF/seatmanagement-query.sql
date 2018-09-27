@@ -224,3 +224,12 @@ ALTER TABLE seating_detail DROP FOREIGN KEY seating_detail_fk_1;
 
 ALTER TABLE seating_detail 
 ADD CONSTRAINT `seating_detail_fk_1` FOREIGN KEY (seating_id) REFERENCES seating(seating_id) ON DELETE SET NULL;
+
+
+# Block Foriegn key update
+ALTER TABLE `seatmanagement`.`block` MODIFY `floor_id` VARCHAR(36) NULL;
+
+ALTER TABLE block DROP FOREIGN KEY floor_id;
+
+ALTER TABLE block 
+ADD CONSTRAINT `floor_id` FOREIGN KEY (floor_id) REFERENCES floor(floor_id) ON DELETE SET NULL;
