@@ -54,13 +54,12 @@
 
 					<table class="table table-hover">
 						<thead align="center">
-							<td>Device Id</td>
 							<td>Device Name</td>
 							<td align="center">Process</td>
 						</thead>
 						<tbody align="center">
 						<tr ng-repeat="dev in getdev" align="center">
-						<td>{{dev.additional_device_id}}</td>
+						<td style="display:none;">{{dev.additional_device_id}}</td>
 						<td>{{dev.device_name}}</td>
 						<td align="center">
 							<form method="post" ><input type="hidden" name="additional_device_id" value="{{dev.additional_device_id}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>

@@ -61,16 +61,15 @@
 
 					<table class="table table-hover">
 						<thead align="center">
-							<td>Floor Id</td>
-							<td>Floor Type</td>
 							<td>Floor Name</td>
+							<td>Floor Type</td>
 							<td>Process</td>
 						</thead>
 						<tbody>
 							<tr ng-repeat="flr in getflr" align="center">
-								<td>{{flr.floorId}}</td>
 								<td>{{flr.floorName}}</td>
 								<td>{{flr.floorType}}</td>
+								<td style="display:none;">{{flr.floorId}}</td>
 								<td><button class="btn btn-danger deleteBtn">Delete</button></td>
 							</tr>
 						</tbody>
@@ -105,7 +104,7 @@ app.controller('floorController', function($scope, $http) {
 
 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
-	var floorId = currow.find('td:eq(0)').text();
+	var floorId = currow.find('td:eq(2)').text();
 	console.log("floorId : " + floorId);
 	
 	 $.post("../../floor/deleteFloorById", {

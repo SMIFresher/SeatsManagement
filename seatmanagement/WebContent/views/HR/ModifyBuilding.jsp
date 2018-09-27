@@ -69,8 +69,6 @@
 
 					<table class="table table-hover">
 						<thead>
-							<td>Building Id</td>
-							<td>Organization ID</td>
 							<td>Building Name</td>
 							<td>Building Address</td>
 							<td>Building Location</td>
@@ -79,8 +77,8 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="build in getBuilding">
-								<td>{{build.buildingId}}</td>
-								<td>{{build.organisation.organisationId}}</td>
+								<td style="display:none;">{{build.buildingId}}</td>
+								<td style="display:none;">{{build.organisation.organisationId}}</td>
 								<td>{{build.buildingName}}</td>
 								<td>{{build.buildingAddress}}</td>
 								<td align="center">{{build.buildingLocation}}</td>
