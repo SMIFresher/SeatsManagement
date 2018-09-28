@@ -15,5 +15,5 @@ public interface SeatingService {
 
 	public void deleteSeatingByBlockId(UUID uuid);
 
-	public List<Object> getAllSeatingWithAxis();
+	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId);
 }

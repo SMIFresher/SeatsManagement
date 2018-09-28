@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,15 +87,18 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public List<Object> getAllSeatingWithAxis() {
+	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId) {
 		
 		logger.info("Service: SeatingServiceImpl Method : getAllSeatingWithAxis request processing started at : " + LocalDateTime.now());
 		List<Object> object = new ArrayList<>();                 
 		List<Seating> list = seatingDao.getAllSeating();
-		if(CollectionUtils.isEmpty(list)) {
+	    List<Seating> seatingListByFloor = list.stream().filter(Objects::nonNull).filter(p->p.getBlock().getFloor().getFloorId().equals(floorId)).collect(Collectors.toList());
+	
+	    if(CollectionUtils.isEmpty(seatingListByFloor)) {
 			throw new BusinessException(Constant.NO_RECORD_FOUND_FOR_SEATINGS);
 		}
-		list.stream().filter(Objects::nonNull).forEach(k->{
+		 
+		 seatingListByFloor.stream().filter(Objects::nonNull).forEach(k->{
 			Properties properties = new Properties();
 			properties.put("x",k.getX_axis());
 			properties.put("y",k.getY_axis());

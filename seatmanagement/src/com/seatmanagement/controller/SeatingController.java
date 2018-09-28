@@ -53,9 +53,9 @@ public class SeatingController {
 	
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@RequestMapping("/getAllSeatingWithAxis")
-		public ResponseEntity<List<Object>> getAllSeatingWithAxis() {
+		public ResponseEntity<List<Object>> getAllSeatingWithAxisByFloor(@RequestParam("floorId") UUID floorId) {
 			logger.info("Controller: SeatingController Method : getAllSeatingWithAxis request processing started at : " + LocalDateTime.now());
-			return new ResponseEntity(seatingService.getAllSeatingWithAxis(),HttpStatus.OK);
+			return new ResponseEntity(seatingService.getAllSeatingWithAxisByFloor(floorId),HttpStatus.OK);
 		}
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
