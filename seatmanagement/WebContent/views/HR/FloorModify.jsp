@@ -74,7 +74,7 @@
 								<td>{{floor.floorName}}</td>
 								<td>{{floor.building.buildingName}}</td>
 								<td>{{floor.floorType}}</td>
-								<td style="display:none;">{{floor.floorId}}</td>
+								<td style="display:none;">{{floor.floorId}}</td> 
 								<td style="display:none;">{{floor.building.buildingId}}</td>
 								
 								<td align="center">
