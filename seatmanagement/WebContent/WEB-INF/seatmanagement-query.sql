@@ -261,7 +261,10 @@ INSERT INTO `seatmanagement`.`users` (`username`, `password`, `enabled`) VALUES 
 INSERT INTO `seatmanagement`.`user_roles` (`user_role_id`, `username`, `role`) VALUES ('1', 'HR', 'ROLE_ADMIN');
 INSERT INTO `seatmanagement`.`user_roles` (`user_role_id`, `username`, `role`) VALUES ('2', 'Lead', 'ROLE_LEAD');
 
+#28.9.2018
+alter table  seatmanagement.system add column os varchar(20);
+
 ALTER TABLE `seatmanagement`.`system` 
-CHANGE COLUMN `network_type` `os` VARCHAR(50) NOT NULL ,
-CHANGE COLUMN `allotment_status` `network_type` VARCHAR(50) NOT NULL ,
-CHANGE COLUMN `os` `allotment_status` VARCHAR(255) NULL DEFAULT NULL ;
+CHANGE COLUMN `network_type` `os` VARCHAR(20) NULL DEFAULT NULL ,
+CHANGE COLUMN `allotment_status` `network_type` VARCHAR(45) NULL DEFAULT NULL ,
+CHANGE COLUMN `os` `allotment_status` VARCHAR(20) NULL DEFAULT NULL ;
