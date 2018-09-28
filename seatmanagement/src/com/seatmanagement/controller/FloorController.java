@@ -55,6 +55,26 @@ public class FloorController {
 		return responseEntity;
 	}
 	
+	
+	
+	
+
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getFloorByBuildingId", method = RequestMethod.GET)
+	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
+		
+		if (Objects.isNull(buildingId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+		
+		ResponseEntity responseEntity = null;
+		List<Floor> floors = null;
+		floors = floorService.getFloorsByBuildingId(buildingId);
+		responseEntity= new ResponseEntity(floors, HttpStatus.OK);
+
+		return responseEntity;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getFloorTypeByBuildingId", method = RequestMethod.GET)
 	public ResponseEntity getFloorTypeByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
