@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <property name="url" value="jdbc:mysql://192.168.2.171:3306/seatmanagement"/>
+	    <property name="username" value="root"/>
+	    <property name="password" value="root"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource" />
+	   	<property name="packagesToScan" value="com.workspacemanagement.model"></property>
+	   	<property name="hibernateProperties">
+	   		<props>
+	   			<prop key="hibernate.hbm2ddl.auto">update</prop>
+	   			 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+	   			 <prop key="format-sql">true</prop>
+	   			 <prop key="hibernate.show_sql">true</prop>
+	   		</props>
+	   	</property>
+    </bean>
+    
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean id="transaction" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+	
+	<tx:annotation-driven transaction-manager="transaction" />
+	
+	<bean id="buildingDao"
+		class="com.workspacemanagement.dao.impl.BuildingDaoImpl">
+	</bean>
+
+	<bean id="buildingService"
+		class="com.workspacemanagement.service.impl.BuildingServiceImpl">
+	</bean>
+	
+	<bean id="floorDao"
+		class="com.workspacemanagement.dao.impl.FloorDaoImpl">
+	</bean>
+
+	<bean id="floorService"
+		class="com.workspacemanagement.service.impl.FloorServiceImpl">
+	</bean>
+	
+		
+	<bean id="blockDao"
+		class="com.workspacemanagement.dao.impl.BlockDaoImpl">
+	</bean>
+
+	<bean id="blockService"
+		class="com.workspacemanagement.service.impl.BlockServiceImpl">
+	</bean>
+	
+	<bean id="utilitiesDao"
+		class="com.workspacemanagement.dao.impl.UtilitiesDaoImpl">
+	</bean>
+
+	<bean id="utilitiesService"
+		class="com.workspacemanagement.service.impl.UtilitiesServiceImpl">
+	</bean>
+	
+	<bean id="systemDao"
+		class="com.workspacemanagement.dao.impl.SystemDaoImpl">
+	</bean>
+
+	<bean id="systemService"
+		class="com.workspacemanagement.service.impl.SystemServiceImpl">
+	</bean>
+	
+	<bean id="seatingDetailsDao"
+		class="com.workspacemanagement.dao.impl.SeatingDetailsDaoImpl">
+	</bean>
+
+	<bean id="seatingDetailsService"
+		class="com.workspacemanagement.service.impl.SeatingDetailsServiceImpl">
+	</bean>
+	
+	<bean id="genericDao"
+		class="com.workspacemanagement.dao.impl.GenericDaoImpl">
+	</bean>
+	
+	<bean id="additionalDeviceService" 
+		class="com.workspacemanagement.service.impl.AdditionalDeviceServiceImpl">
+	</bean>
+	
+	<bean id="additionalDeviceDao" 
+		class="com.workspacemanagement.dao.impl.AdditionalDeviceDaoImpl">
+	</bean>
+	
+
+	<bean id="teamService"
+		class="com.workspacemanagement.service.impl.TeamServiceImpl">
+	</bean>
+	
+	<bean id="teamDao"
+		class="com.workspacemanagement.dao.impl.TeamDaoImpl">
+	</bean>
+
+	<bean id="reallocationService"
+		class="com.workspacemanagement.service.impl.ReallocationServiceImpl">
+	</bean>
+	
+	<bean id="reallocationDao"
+		class="com.workspacemanagement.dao.impl.ReallocationDaoImpl">
+	</bean>
+	
+	<bean id="organisationService"
+		class="com.workspacemanagement.service.impl.OrganisationServiceImpl">
+	</bean>
+	
+	<bean id="organisationDao"
+		class="com.workspacemanagement.dao.impl.OrganisationDaoImpl">
+	</bean>
+	
+	<bean id="seatingDao"
+		class="com.workspacemanagement.dao.impl.SeatingDaoImpl">
+	</bean>
+
+	<bean id="seatingService"
+		class="com.workspacemanagement.service.impl.SeatingServiceImpl">
+	</bean>
+	
+	<bean id="employeeDao"
+		class="com.workspacemanagement.dao.impl.EmployeeDaoImpl">
+	</bean>
+
+	<bean id="employeeService"
+		class="com.workspacemanagement.service.impl.EmployeeServiceImpl">
+	</bean>
+	
+	<bean id="dashboardService"
+		class="com.workspacemanagement.service.impl.DashboardServiceImpl">
+	</bean>
+</beans>
