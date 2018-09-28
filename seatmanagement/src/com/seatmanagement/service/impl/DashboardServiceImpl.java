@@ -73,10 +73,10 @@ public class DashboardServiceImpl implements DashboardService {
 
 		Integer employeeCount = employeeDao.getAll(employee).size();
 		Properties properties = new Properties();
-		properties.put("Employee Count", employeeCount.toString());
-		properties.put("System Count", systemCount.toString());
-		properties.put("Seating Detials Count", seatingDetailsCount.toString());
-		properties.put("Block Count", blockCount.toString());
+		properties.put("Employee_Count", employeeCount.toString());
+		properties.put("System_Count", systemCount.toString());
+		properties.put("Seating_Details_Count", seatingDetailsCount.toString());
+		properties.put("Block_Count", blockCount.toString());
 		totalDashboardCount.add(properties);
 		return totalDashboardCount;
 	}
@@ -105,9 +105,9 @@ public class DashboardServiceImpl implements DashboardService {
 			Integer seatOccupied = seats.stream().mapToInt(Integer::intValue).sum();
 			Integer seatsAvailable =null;
 			seatsAvailable = blockCapacity - seatOccupied;
-			properties.put("Total Seating Capacity", blockCapacity.toString());
-			properties.put("Total Seating Occupied", seatOccupied.toString());
-			properties.put("Total Seating Avaliable", seatsAvailable.toString());
+			properties.put("Total_Seating_Capacity", blockCapacity.toString());
+			properties.put("Total_Seating_Occupied", seatOccupied.toString());
+			properties.put("Total_Seating_Available", seatsAvailable.toString());
 			totalCompanyDetailsCount.add(properties);
 		});
 

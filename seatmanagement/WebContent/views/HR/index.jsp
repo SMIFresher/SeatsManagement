@@ -17,12 +17,10 @@
 	type="text/css" />
 <!-- Font Awesome JS -->
 
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </head>
 
 <body>
@@ -32,12 +30,14 @@
 		
 		
 		<div class="container-fluid ">
-<br><br><br><br>
+			<br><br><br><br>
+			
+			<div id="comp" ng-app="getComp" ng-controller="getCompController"> 
 			<div class="row">
 				<div class="col-sm-6 col-md-3">
 					<div class="content text-center" >
 						<h1>
-							<span class="fa fa-users" airal="true"></span> 29
+							<span class="fa fa-users" airal="true"></span> {{getCountDatas.Employee_Count}}
 						</h1>
 						<p>Total Employee</p>
 					</div>
@@ -46,7 +46,7 @@
 				<div class="col-sm-6 col-md-3">
 					<div class="content text-center" >
 						<h1>
-							<span class="fa fa-desktop" airal="true"></span> 29
+							<span class="fa fa-desktop" airal="true"></span> {{getCountDatas.System_Count}}
 						</h1>
 						<p>Total Systems</p>
 					</div>
@@ -55,7 +55,7 @@
 				<div class="col-sm-6 col-md-3">
 					<div class="content text-center" >
 						<h1>
-							<span class="fa fa-bar-chart" airal="true"></span> 29
+							<span class="fa fa-bar-chart" airal="true"></span> {{getCountDatas.Seating_Details_Count}}
 						</h1>
 						<p>Total Seats</p>
 					</div>
@@ -64,11 +64,12 @@
 				<div class="col-sm-6 col-md-3">
 					<div class="content text-center" >
 						<h1>
-							<span class="fa fa-tasks" airal="true"></span> 29
+							<span class="fa fa-tasks" airal="true"></span> {{getCountDatas.Block_Count}}
 						</h1>
 						<p>Total Blocks</p>
 					</div>
 				</div>
+			</div>
 			</div>
 			<hr>
 			<br>
@@ -100,7 +101,7 @@
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<div class="table-responsive">
+					<div class="table-responsive" id="compdetails" ng-app="getCompany" ng-controller="getCompanyController">
 						<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Company Details</h4>
@@ -111,33 +112,20 @@
 								<tr>
 									<th>Batch</th>
 									<th>Company</th>
-									<th>Total Employe</th>
 									<th>Total Seats</th>
+									<th>Total Seats Occupied</th>
 									<th>Available Seats</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr ng-repeat="compdetails in getCompDetails" ng-init="parentIndex = $index">
 									<td><span class="fa fa-bookmark text-primary"></span></td>
-									<td>SMI</td>
-									<td>100</td>
-									<td>120</td>
-									<td>20</td>
+									<td>{{getCompDetails[$index].BuildingName}}</td>
+									<td>{{getCompDetails[$index].Total_Seating_Capacity}}</td>
+									<td>{{getCompDetails[$index].Total_Seating_Occupied}}</td>
+									<td>{{getCompDetails[$index].Total_Seating_Available}}</td>
 								</tr>
-								<tr>
-									<td><span class="fa fa-share-alt text-info"></span></td>
-									<td>Tech Mango</td>
-									<td>100</td>
-									<td>120</td>
-									<td>20</td>
-								</tr>
-								<tr>
-									<td><span class="fa fa-share-alt text-info"></span></td>
-									<td>VGS</td>
-									<td>100</td>
-									<td>120</td>
-									<td>20</td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -147,7 +135,38 @@
 
 		
 
-		
+<script type="text/javascript">
+		var app = angular.module('getComp', []);
+		app.controller('getCompController', function($scope, $http) {
+		    $http.get("../../dashboard/getAllDashboardCount")
+		        .then(function successCallback(response) {
+		            $scope.getCountDatas = response.data[0];
+		            console.log(response.data);
+		        }, function errorCallback(response) {
+		            alert(response.status);
+		        });
+		});
+
+
+	var app = angular.module('getCompany', ['getComp']);
+	app.controller('getCompanyController', function($scope, $http) {
+	    $http.get("../../dashboard/getAllCompanyDetailsCount")
+	        .then(function successCallback(response) {
+	            $scope.getCompDetails = response.data;
+	            console.log(response.data);
+				
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+
+	    
+	});
+	angular.element(document).ready(function() {
+	    angular.bootstrap(document.getElementById("compdetails"), ['getCompany']);
+	});
+
+	
+</script>
 		
 		
 		
