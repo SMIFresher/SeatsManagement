@@ -33,6 +33,9 @@
 					<div class="col-md-12">
 
 						<h2>Seating Arrangement</h2>
+						<button class="btn btn-primary">View</button>
+						<hr>
+						
 						<form method="post" id="Form"  onsubmit="formSubmit()">
 						
 							<div ng-app="Building" ng-controller="BuildingController"
@@ -97,6 +100,13 @@
 		</div>
 	</div>
 
+
+
+
+
+
+
+
 <script>
 var app = angular.module('Building', []);
 app.controller('BuildingController', function($scope, $http) {
@@ -112,7 +122,7 @@ app.controller('BuildingController', function($scope, $http) {
 	};
 	
 	$scope.floorDetails=function(buildingId){
-		$http.get("../../floor/getFloorsByBuildingId?buildingId="+buildingId)
+		$http.get("../../floor/getFloorByBuildingId?buildingId="+buildingId)
         .then(function successCallback(response) {
             $scope.getFloor = response.data;
             console.log(response.data);

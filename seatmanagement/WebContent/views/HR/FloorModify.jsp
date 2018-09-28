@@ -123,19 +123,9 @@
 					});
 		});
 		
-		angular.element(document).ready(function() {
-		    angular.bootstrap(document.getElementById("floor"), ['floor']);
-		  });
-	</script>
 
 
-
-
-
-
-
-	<script>
-		var app = angular.module('floor', [Flr]);
+		var app = angular.module('floor', ['Flr']);
 		app.controller('FloorController', function($scope, $http) {
 			$http.get("../../floor/getAllFloor").then(
 					function successCallback(response) {
@@ -146,6 +136,13 @@
 						alert(response.status);
 					});
 		});
+
+
+		angular.element(document).ready(function() {
+		    angular.bootstrap(document.getElementById("floor"), ['floor']);
+		  });
+
+		  
 	</script>
 	
 	
