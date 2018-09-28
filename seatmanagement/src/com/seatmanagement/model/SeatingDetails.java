@@ -55,16 +55,49 @@ public class SeatingDetails implements Serializable{
 	@Column(name="seating_date")
 	private String seatingDate;
 	
-	@Column(name="seating_position")
-	private String seatingPosition;
+	@Column(name="seating_accessories")
+	private String seatingAccessories;
 	
+	@Column(name="seating_row")
+	private String seatingRow;
 	
-	public String getSeatingPosition() {
-		return seatingPosition;
+	@Column(name="seating_colum")
+	private String seatingColum;
+	
+	@Column(name="seating_system_no")
+	private String seatingSystemNo;
+
+
+	public String getSeatingAccessories() {
+		return seatingAccessories;
 	}
 
-	public void setSeatingPosition(String seatingPosition) {
-		this.seatingPosition = seatingPosition;
+	public void setSeatingAccessories(String seatingAccessories) {
+		this.seatingAccessories = seatingAccessories;
+	}
+
+	public String getSeatingRow() {
+		return seatingRow;
+	}
+
+	public void setSeatingRow(String seatingRow) {
+		this.seatingRow = seatingRow;
+	}
+
+	public String getSeatingColum() {
+		return seatingColum;
+	}
+
+	public void setSeatingColum(String seatingColum) {
+		this.seatingColum = seatingColum;
+	}
+
+	public String getSeatingSystemNo() {
+		return seatingSystemNo;
+	}
+
+	public void setSeatingSystemNo(String seatingSystemNo) {
+		this.seatingSystemNo = seatingSystemNo;
 	}
 
 	@OneToOne(mappedBy="seatingDetails")

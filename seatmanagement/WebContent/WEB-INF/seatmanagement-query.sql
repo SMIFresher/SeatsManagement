@@ -268,3 +268,10 @@ ALTER TABLE `seatmanagement`.`system`
 CHANGE COLUMN `network_type` `os` VARCHAR(20) NULL DEFAULT NULL ,
 CHANGE COLUMN `allotment_status` `network_type` VARCHAR(45) NULL DEFAULT NULL ,
 CHANGE COLUMN `os` `allotment_status` VARCHAR(20) NULL DEFAULT NULL ;
+
+
+ALTER TABLE `seatmanagement`.`seating_detail` 
+CHANGE COLUMN `seating_position` `seating_accessories` VARCHAR(255) NULL DEFAULT NULL ,
+ADD COLUMN `seating_row` VARCHAR(45) NULL AFTER `seating_accessories`,
+ADD COLUMN `seatingColum` VARCHAR(45) NULL AFTER `seating_row`,
+ADD COLUMN `seatingSystemNo` VARCHAR(45) NULL AFTER `seatingColum`;

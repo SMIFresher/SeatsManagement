@@ -102,7 +102,7 @@ public class SeatingServiceImpl implements SeatingService {
 			Properties properties = new Properties();
 			properties.put("x",k.getX_axis());
 			properties.put("y",k.getY_axis());
-			properties.put("note","<center> <a href> BlockId = " + k.getBlock().getBlockId() + " </a> </center> <br> <p> Seat Oocupied: " + k.getSeat_occupied()+" </p> <br> <p> Block Capacity : "+ k.getBlock().getBlockCapacity()+" </p>");
+			properties.put("note","<center>  BlockType = " + k.getBlock().getBlockName() + "  <p> Seat Oocupied: " + k.getSeat_occupied()+" ||  Block Capacity : "+ k.getBlock().getBlockCapacity()+" </p><a href='blockview.jsp" + k.getBlock().getBlockId() +"'><button class='btn btn-primary btn-sm'>view cabins</button></a></center>");
 		 object.add(properties);	
 		});
 		      

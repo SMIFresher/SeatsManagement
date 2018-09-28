@@ -43,7 +43,7 @@
 				<li><a href="#buldsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Building</a>
 					<ul class="collapse list-unstyled" id="buldsubmenu">
-						<li><a href="viewandAddBuilding.jsp">Add</a></li>
+						<li><a href="viewandAddBuilding.jsp">View</a></li>
 						<li><a href="ModifyBuilding.jsp">Modify</a></li>
 					</ul></li>
 				<li><a href="#floorsubmenu" data-toggle="collapse"

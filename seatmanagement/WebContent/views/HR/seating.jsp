@@ -33,7 +33,6 @@
 					<div class="col-md-12">
 
 						<h2>Seating Arrangement</h2>
-						<button class="btn btn-primary">View</button>
 						<hr>
 						
 						<form method="post" id="Form"  onsubmit="formSubmit()">
