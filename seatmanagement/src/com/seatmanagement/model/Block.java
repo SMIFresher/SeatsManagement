@@ -62,8 +62,8 @@ public class Block implements Serializable{
 	@Transient
 	private String blockMeasurementString;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="floor_id", nullable=false)
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="floor_id", nullable=true)
     private Floor floor;
 	
 	@OneToMany(mappedBy="block")
