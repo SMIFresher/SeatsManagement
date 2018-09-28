@@ -235,11 +235,6 @@ ALTER TABLE block
 ADD CONSTRAINT `floor_id` FOREIGN KEY (floor_id) REFERENCES floor(floor_id) ON DELETE SET NULL;
 
 ALTER TABLE `seatmanagement`.`seating` 
-DROP COLUMN `y`,
-DROP COLUMN `x`;
-
-
-ALTER TABLE `seatmanagement`.`seating` 
 ADD COLUMN `xaxis` VARCHAR(45) NOT NULL AFTER `seat_occupied`,
 ADD COLUMN `yaxis` VARCHAR(45) NOT NULL AFTER `xaxis`;
 
