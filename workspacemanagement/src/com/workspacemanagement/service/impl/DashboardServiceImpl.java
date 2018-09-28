@@ -33,8 +33,9 @@ public class DashboardServiceImpl implements DashboardService {
 	@Autowired
 	GenericDao<Systems> systemDao;
 
-	@Autowired
-	GenericDao<SeatingDetails> seatingDetailsDao;
+	/*
+	 * @Autowired GenericDao<SeatingDetails> seatingDetailsDao;
+	 */
 
 	@Autowired
 	GenericDao<Block> blockGenericDao;
@@ -50,7 +51,7 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Autowired
 	BlockDao blockDao;
-	
+
 	@Autowired
 	SeatingDao seatingDao;
 
@@ -67,7 +68,9 @@ public class DashboardServiceImpl implements DashboardService {
 
 		Integer systemCount = systemDao.getAll(systems).size();
 
-		Integer seatingDetailsCount = seatingDetailsDao.getAll(seatigDetails).size();
+		List<Block> blockList = blockDao.getAll();
+		Integer seatcapacity = blockList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
+				.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
 
 		Integer blockCount = blockGenericDao.getAll(block).size();
 
@@ -75,7 +78,7 @@ public class DashboardServiceImpl implements DashboardService {
 		Properties properties = new Properties();
 		properties.put("Employee Count", employeeCount.toString());
 		properties.put("System Count", systemCount.toString());
-		properties.put("Seating Detials Count", seatingDetailsCount.toString());
+		properties.put("Seating Detials Count", seatcapacity.toString());
 		properties.put("Block Count", blockCount.toString());
 		totalDashboardCount.add(properties);
 		return totalDashboardCount;
@@ -98,12 +101,13 @@ public class DashboardServiceImpl implements DashboardService {
 			Properties properties = new Properties();
 			List<List<Block>> listOfBockCapacitybasedonFloor = getAllFloorByBuilding(p);
 			properties.put("BuildingName", p.getBuildingName());
-			List<Block> flatList = listOfBockCapacitybasedonFloor.stream().flatMap(List::stream).collect(Collectors.toList());
+			List<Block> flatList = listOfBockCapacitybasedonFloor.stream().flatMap(List::stream)
+					.collect(Collectors.toList());
 			Integer blockCapacity = flatList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
 					.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
 			List<Integer> seats = getSeatOccupiedByBlock(flatList);
 			Integer seatOccupied = seats.stream().mapToInt(Integer::intValue).sum();
-			Integer seatsAvailable =null;
+			Integer seatsAvailable = null;
 			seatsAvailable = blockCapacity - seatOccupied;
 			properties.put("Total Seating Capacity", blockCapacity.toString());
 			properties.put("Total Seating Occupied", seatOccupied.toString());
@@ -116,15 +120,15 @@ public class DashboardServiceImpl implements DashboardService {
 
 	private List<Integer> getSeatOccupiedByBlock(List<Block> flatList) {
 		List<Integer> seatOccupiedList = new ArrayList<>();
-		flatList.stream().filter(Objects::nonNull).forEach(z->{
-		List<Seating> seatingList = seatingDao.getSeatingByBlockId(z.getBlockId());
-		int seatOccupied = 0;
-		for(Seating s : seatingList) {
-			seatOccupied = s.getSeat_occupied();
-		}
-		seatOccupiedList.add(seatOccupied);
+		flatList.stream().filter(Objects::nonNull).forEach(z -> {
+			List<Seating> seatingList = seatingDao.getSeatingByBlockId(z.getBlockId());
+			int seatOccupied = 0;
+			for (Seating s : seatingList) {
+				seatOccupied = s.getSeat_occupied();
+			}
+			seatOccupiedList.add(seatOccupied);
 		});
-		
+
 		return seatOccupiedList;
 	}
 
