@@ -78,7 +78,7 @@
 								<td style="display:none;">{{floor.building.buildingId}}</td>
 								
 								<td align="center">
-									<button class="btn btn-danger " >Delete</button>
+									<button class="btn btn-danger deletBtn" >Delete</button>
 								</td>
 							</tr>
 						</tbody>
@@ -94,40 +94,19 @@
 	<script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
+			
 			var col1 = currow.find('td:eq(0)').text();
-			var col2 = currow.find('td:eq(1)').text();
-			var col3 = currow.find('td:eq(2)').text();
+			
 		
 			document.getElementById('fname').value = col1;
-			document.getElementById('bid').value = col2;
-			document.getElementById('ftype').value = col3;
+			
 			
 		})
 	</script>
 
 
 
-<!-- <script>
-		var app = angular.module('floor', []);
-		app.controller('FloorController', function($scope, $http) {
-			$http.get("../../floor/getAllFloor").then(
-					function successCallback(response) {
-						$scope.getFloor = response.data;
-						console.log(response.data);
 
-					}, function errorCallback(response) {
-						alert(response.status);
-					});
-		});
-
-
-		angular.element(document).ready(function() {
-		    angular.bootstrap(document.getElementById("floor"), []);
-		  });
-
-		  
-	</script> -->
-	
 	
 	<script>
 var app = angular.module('floor', []);
@@ -185,27 +164,21 @@ app.controller('FloorController', function($scope, $http) {
 		}
 	
 	
-	/* $('.table tbody').on('click', '.updateBtn', function() {
+	 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
-	var floorId = currow.find('td:eq(2)').text();
+	var floorId = currow.find('td:eq(3)').text();
 	console.log("floorId : " + floorId);
 	
 	 $.post("../../floor/deleteFloorById", {
-		 floorId:floorId
+		 floorId:floorId  
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
             location.replace("Floor.jsp");
 		});
 
 	}
-); */
+); 
 	</script>
-	
-
-
-
-
-
 
 </body>
 </html>
