@@ -1,6 +1,7 @@
 package com.seatmanagement.model;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -66,7 +69,23 @@ public class Block implements Serializable{
 	@OneToMany(mappedBy="block")
 	@JsonIgnore
 	private List<Reallocation> reallocations;
+	
+	@ManyToMany(fetch=FetchType.EAGER,targetEntity = Utilities.class, cascade = { CascadeType.ALL })
+	@JoinTable(name = "block_utilities", 
+				joinColumns = { @JoinColumn(name = "block_id") }, 
+				inverseJoinColumns = { @JoinColumn(name = "utility_id") })
+	
+	private Set<Utilities> utilities;
+	
+	
+	
+	public Set<Utilities> getUtilities() {
+		return utilities;
+	}
 
+	public void setUtilities(Set<Utilities> utilities) {
+		this.utilities = utilities;
+	}
 	public String getBlockMeasurementString() {
 		return blockMeasurementString;
 	}

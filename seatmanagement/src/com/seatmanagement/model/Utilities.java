@@ -3,10 +3,15 @@ package com.seatmanagement.model;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -20,7 +25,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 	public class Utilities implements Serializable{
 
 
-		private static final long serialVersionUID = 8650783024313379209L;
+	
+		private static final long serialVersionUID = -8172143925834195501L;
 
 		@Id
 		@Column(name = "utility_id")
@@ -32,9 +38,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 		@Column(name="utility_name")
 	    private String utilityName;
 		
-		/*@ManyToMany(mappedBy="utilities")
+		@ManyToMany(mappedBy = "utilities")
 		@JsonIgnore
-		private Set<Block> block;
+	    private Set<Block> block;
 
 		public Set<Block> getBlock() {
 			return block;
@@ -42,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 		public void setBlock(Set<Block> block) {
 			this.block = block;
-		}*/
+		}
 
 		public UUID getUtilityId() {
 			return utilityId;

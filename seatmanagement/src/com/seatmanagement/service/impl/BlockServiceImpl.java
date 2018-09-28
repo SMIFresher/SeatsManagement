@@ -42,25 +42,31 @@ public class BlockServiceImpl implements BlockService {
 
 	public boolean saveOrUpdate(Block block,UUID floor_id) {
 		
-		Block newBlock = new Block();
-		Floor floor =  new Floor();
-		 newBlock.setBlockName(block.getBlockName());
-		 newBlock.setBlockType(block.getBlockType());
-		 newBlock.setBlockCapacity(block.getBlockCapacity());
-		 newBlock.setBlockDescription(block.getBlockDescription());
-		 newBlock.setBlockMeasurement(block.getBlockMeasurement());
-		 if(Objects.nonNull(floor_id)) {
+		//Block newBlock = new Block();
+			Floor floor =  new Floor();
+			/* newBlock.setBlockName(block.getBlockName());
+			 newBlock.setBlockType(block.getBlockType());
+			 newBlock.setBlockCapacity(block.getBlockCapacity());
+			 newBlock.setBlockDescription(block.getBlockDescription());
+			 newBlock.setBlockMeasurement(block.getBlockMeasurement());
+			 newBlock.setSquarefeet(block.getSquarefeet());*/
+			 if(Objects.nonNull(floor_id)) {
+				
+				 floor = genericDaoFloor.getById(floor, floor_id);
+			 }
+			 if(Objects.isNull(floor)) {
+				 throw new BusinessException("Floor is not avaliable");
+			 }
 			
-			 floor = genericDaoFloor.getById(floor, floor_id);
-		 }
-		 if(Objects.isNull(floor)) {
-			 throw new BusinessException("Floor is not avaliable");
-		 }
-		
-		newBlock.setFloor(floor);
-		return genericDao.saveOrUpdate( newBlock);
+			block.setFloor(floor);
+			return genericDao.saveOrUpdate(block);
+			
+			/*floor.setFloorId(floor_id);
+			block.setFloor(floor);
+			return genericDao.saveOrUpdate(block);*/
+			
 
-	}
+		}
 
 	
 	public List<Block> getAll() {
