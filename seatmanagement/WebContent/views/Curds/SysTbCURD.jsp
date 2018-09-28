@@ -52,10 +52,10 @@
 						<h2>System</h2>
 						<form action="#">
 							<div class="form-group">
-								<label for="pwd">Employee Identification:</label> <input
+								<label for="pwd">Employee Roll Number:</label> <input
 									type="hidden" value="" name="id" id="id"> <input
 									type="text" class="form-control" id="empId"
-									placeholder="Enter Employee Id" name="empId">
+									placeholder="Enter Employee RollNumber" name="empId">
 							</div>
 							<div class="form-group">
 								<label for="pwd">System Number:</label> <input type="hidden"
@@ -64,67 +64,8 @@
 									placeholder="Enter System Number" name="systemNo">
 							</div>
 
-							<div class="form-group">
-								<label for="systemType">System Type:</label>
-								<div class="custom-control custom-radio mb-3">
-									<div class="row">
-										<div class="col-md-6">
-											<input type="radio" class="custom-control-input"
-												id="Personal Computer" name="example1" value="Personal Computer"> <label
-												class="custom-control-label" for="Personal Computer">Personal Computer</label>
-										</div>
-										<div class="col-md-6">
-											<input type="radio" class="custom-control-input"
-												id="Laptop" name="example1" value="Laptop"> <label
-												class="custom-control-label" for="Laptop">Laptop</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="networkType">Network Type:</label>
-								<div class="custom-control custom-radio mb-3">
-									<div class="row">
-										<div class="col-md-4">
-											<input type="radio" class="custom-control-input"
-												id="Ethernet" name="network" value="Ethernet"> <label
-												class="custom-control-label" for="Ethernet">Ethernet</label>
-										</div>
-										<div class="col-md-4">
-											<input type="radio" class="custom-control-input" id="Wifi"
-												name="network" value="wifi"> <label
-												class="custom-control-label" for="Wifi">Wifi</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="allotmentStatus">Allotment Status:</label>
-								<div class="custom-control custom-radio mb-3">
-								
-									<div class="row">
-										<div class="col-md-4">
-											<input type="radio" class="custom-control-input"
-												id="Allocated" name="allotment" value="Allocated"> <label
-												class="custom-control-label" for="Allocated">Allocated</label>
-										</div>
-										<div class="col-md-4">
-											<input type="radio" class="custom-control-input" id="Deallocated"
-												name="allotment" value="Deallocated"> <label
-												class="custom-control-label" for="Deallocated">Deallocated</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="systemType">Additional Device:</label> <select
-									name="cars" class="custom-select mb-3" id="Device">
-									<option selected>Additional Device</option>
-									<option  value="KeyBoard">KeyBoard</option>
-									<option value="Mouse">Mouse</option>
-									<option value="HeadSet">HeadSet</option>
-								</select>
-							</div>
+					
+							
 
 
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -140,12 +81,10 @@
 
 					<table class="table table-hover">
 						<thead>
-							<td>Employee Id</td>
+							<td>Employee rollNumber</td>
 							<td>System No</td>
-							<td align="center">System Type</td>
-							<td>Network Type</td>
-							<td>Status</td>
-							<td>Device</td>
+							<td>Additional Device</td>
+							<td>status</td>
 							<td align="center">Process</td>
 						</thead>
 						<%
