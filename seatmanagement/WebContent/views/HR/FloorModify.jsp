@@ -36,19 +36,17 @@
 						<form id="Form" method="post" onsubmit="formSubmit();"
 							autocomplete="off">
 							<div class="form-group">
-								<label for="pwd">Floor Id:</label> <input type="text"
-									class="form-control" id="fid" placeholder="Enter Floor Id"
-									name="floorId"> 
+								<label for="pwd">Floor Name:</label> <input type="text"
+									class="form-control" id="fname" placeholder="Enter Floor Name"
+									name="floorName"> 
 							</div>
 							<div class="form-group">
-							<div ng-app="Flr" ng-controller="FlrController" id="Flr">
 								<label for="pwd">Floor Type:</label>
 								<select class="custom-select mb-3" name="floorId">
-										<option ng-repeat="flr in getFlr" value="{{flr.floorId}}">{{flr.floorType}}</option>
+										<option value="Commercial">Commercial</option>
+										<option value="home">Home</option>
 									</select>
 								
-								</div>
-								 
 							</div>
 
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -100,7 +98,7 @@
 			var col2 = currow.find('td:eq(1)').text();
 			var col3 = currow.find('td:eq(2)').text();
 		
-			document.getElementById('fid').value = col1;
+			document.getElementById('fname').value = col1;
 			document.getElementById('bid').value = col2;
 			document.getElementById('ftype').value = col3;
 			
@@ -109,23 +107,8 @@
 
 
 
-<script>
-		var app = angular.module('Flr', []);
-		app.controller('FlrController', function($scope, $http) {
-			$http.get("../../floor/getFloorTypeByBuildingId?buildingId="+buildingId).then(
-					function successCallback(response) {
-						$scope.getFlr = response.data;
-						console.log("response");
-						console.log(response.data);
-
-					}, function errorCallback(response) {
-						alert(response.status);
-					});
-		});
-		
-
-
-		var app = angular.module('floor', ['Flr']);
+<!-- <script>
+		var app = angular.module('floor', []);
 		app.controller('FloorController', function($scope, $http) {
 			$http.get("../../floor/getAllFloor").then(
 					function successCallback(response) {
@@ -139,11 +122,32 @@
 
 
 		angular.element(document).ready(function() {
-		    angular.bootstrap(document.getElementById("floor"), ['floor']);
+		    angular.bootstrap(document.getElementById("floor"), []);
 		  });
 
 		  
-	</script>
+	</script> -->
+	
+	
+	<script>
+var app = angular.module('floor', []);
+app.controller('FloorController', function($scope, $http) {
+	 $http.get("../../floor/getAllFloor")
+     .then(function successCallback(response) {
+         $scope.getFloor = response.data;
+         console.log(response.data);
+			
+     }, function errorCallback(response) {
+         alert(response.status);
+     });
+	 
+	 
+		/* angular.element(document).ready(function() {
+		    angular.bootstrap(document.getElementById("floor"), []);
+		  }); */
+
+});
+</script>
 	
 	
 	
