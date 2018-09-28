@@ -50,7 +50,7 @@
 					aria-expanded="false" class="dropdown-toggle">Floor</a>
 					<ul class="collapse list-unstyled" id="floorsubmenu">
 						<li><a href="Floor.jsp">Add</a></li>
-						<li><a href="FloorModify.jsp">Modify</a></li>
+						<li><a href="#">Modify</a></li>
 					</ul></li>
 				<li><a href="#blocksubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Block</a>
@@ -81,11 +81,12 @@
 				<li><a href="#systemSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">System</a>
 					<ul class="collapse list-unstyled" id="systemSubmenu">
-						<li><a href="System.jsp">Add System Details</a></li>
-						<li><a href="device.jsp">Add Device Details</a></li>
+						<li><a href="#">Add System Details</a></li>
+						<li><a href="#">Add Device Details</a></li>
 					</ul></li>
-				<li><a href="Utilities.jsp">Utilities</a></li>
+				<li><a href="#">Utilities</a></li>
 			</ul></li>
+		<li><a href="ChangePassword.jsp" class="fa fa-exchange"> Change Password</a></li>
 		<li><a href="<c:url value="/pagelogout" />" class="fa fa-sign-out"> Logout</a></li>
 		<br>
 	</ul>
@@ -107,4 +108,4 @@
                 $(this).toggleClass('active');
             });
         });
-    </script>
+ </script>
