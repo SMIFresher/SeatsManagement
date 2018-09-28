@@ -152,7 +152,7 @@
 		}
 		
 		$scope.floorDetails=function(buildingId){
-			$http.get("../../floor/getFloorsByBuildingId?buildingId="+buildingId)
+			$http.get("../../floor/getFloorByBuildingId?buildingId="+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloor = response.data;
 	            console.log(response.data);

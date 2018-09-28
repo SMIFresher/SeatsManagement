@@ -61,6 +61,12 @@
 									class="form-control" id="sqft" placeholder="Enter Square Feet"
 									name="squareFeet">
 							</div> -->
+							<input type="text"
+									class="form-control" id="flrId"
+									name="floorId" hidden="">
+							<input type="text"
+									class="form-control" id="blkType"
+									name="blockType" hidden="">
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
@@ -92,7 +98,7 @@
 								<!-- <td>{{block.squareFeet}}</td> -->
 								<td style="display:none;">{{block.blockId}}</td>
 								<td style="display:none;">{{block.floor.floorId}}</td>
-								
+								<td style="display:none;">{{block.blockType}}</td>
 								
 								<td align="center">
 									<button class="btn btn-danger deleteBtn">Delete</button></td>
@@ -115,14 +121,16 @@
     var  col3=currow.find('td:eq(2)').text();
 	var  col4=currow.find('td:eq(3)').text();
 	var  col5=currow.find('td:eq(4)').text();
-	/* var  col6=currow.find('td:eq(5)').text(); */
+	var  col6=currow.find('td:eq(6)').text();
+	var  col7=currow.find('td:eq(7)').text();
 	
 	 document.getElementById('bid').value=col1;
     document.getElementById('bname').value=col2;
     document.getElementById('bcap').value=col3;
     document.getElementById('bdes').value=col4;
     document.getElementById('bmes').value=col5;
-	/* document.getElementById('sqft').value=col6; */
+	document.getElementById('flrId').value=col6;
+	document.getElementById('blkType').value=col7;
 	
   })
 
