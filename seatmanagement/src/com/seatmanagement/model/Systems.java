@@ -46,6 +46,9 @@ public class Systems implements Serializable{
 
 	@Column(name = "system_type")
 	private String systemType;
+	
+	@Column(name="os")
+	private String operatingSystem;
 
 	@Column(name = "network_type")
 	private String networkType;
@@ -104,6 +107,14 @@ public class Systems implements Serializable{
 
 	public void setSystemType(String systemType) {
 		this.systemType = systemType;
+	}
+	
+	public String getOperatingSystem() {
+		return operatingSystem;
+	}
+
+	public void setOperatingSystem(String operatingSystem) {
+		this.operatingSystem = operatingSystem;
 	}
 
 	public String getNetworkType() {
