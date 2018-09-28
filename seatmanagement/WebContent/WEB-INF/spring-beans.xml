@@ -138,4 +138,8 @@
 	<bean id="employeeService"
 		class="com.seatmanagement.service.impl.EmployeeServiceImpl">
 	</bean>
+	
+	<bean id="dashboardService"
+		class="com.seatmanagement.service.impl.DashboardServiceImpl">
+	</bean>
 </beans>
