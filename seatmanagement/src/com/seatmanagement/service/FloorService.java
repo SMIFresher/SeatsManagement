@@ -15,6 +15,7 @@ public interface FloorService {
 	/*public boolean delete(Floor floor);*/
 	public void deleteFloorById(UUID floorId);
 	public List<Floor> getFloorsByBuildingId(UUID buildingId);
+	public List<Floor> getFloorTypeByBuildingId(UUID buildingId);
 
 
 	

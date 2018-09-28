@@ -57,7 +57,7 @@ public class FloorController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getFloorTypeByBuildingId", method = RequestMethod.GET)
-	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
+	public ResponseEntity getFloorTypeByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
 		
 		if (Objects.isNull(buildingId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -65,7 +65,7 @@ public class FloorController {
 		
 		ResponseEntity responseEntity = null;
 		List<Floor> floors = null;
-		floors = floorService.getFloorsByBuildingId(buildingId);
+		floors = floorService.getFloorTypeByBuildingId(buildingId);
 		responseEntity= new ResponseEntity(floors, HttpStatus.OK);
 
 		return responseEntity;

@@ -10,5 +10,7 @@ public interface FloorDao {
 	public List<Floor> getAll();
 
 	public List<Floor> getFloorsByBuildingId(UUID buildingId);
+	
+	public List<Floor> getFloorType(UUID buildingId);
 
 }

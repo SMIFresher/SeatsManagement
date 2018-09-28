@@ -86,6 +86,14 @@ GenericDao<Building> genericDaoBuilding;
 		List<Floor> floors = floorDao.getFloorsByBuildingId(buildingId);
 		return floors;
 	}
+	
+	
+	
+	@Override
+	public List<Floor> getFloorTypeByBuildingId(UUID buildingId) {
+		List<Floor> floors = floorDao.getFloorType(buildingId);
+		return floors;
+	}
 
 
 }

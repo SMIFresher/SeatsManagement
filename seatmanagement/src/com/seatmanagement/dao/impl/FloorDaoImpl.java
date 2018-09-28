@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -41,6 +43,25 @@ public class FloorDaoImpl implements FloorDao {
 		criteria.add(Restrictions.eq("building.buildingId", buildingId));
 
 		List<Floor> floors = (List<Floor>) hibernateTemplate.findByCriteria(criteria);
+
+		return floors;
+	}
+	
+	
+	
+	
+	@Override
+	public List<Floor> getFloorType(UUID buildingId) {
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(Floor.class);
+		ProjectionList projList = Projections.projectionList();
+	    projList.add(Projections.property("floorType"));
+	    
+	    criteria.setProjection(projList);
+		
+		criteria.add(Restrictions.eq("building.buildingId", buildingId));
+		
+				List<Floor> floors = (List<Floor>) hibernateTemplate.findByCriteria(criteria);
 
 		return floors;
 	}
