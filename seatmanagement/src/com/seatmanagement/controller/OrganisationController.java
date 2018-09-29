@@ -83,10 +83,6 @@ public class OrganisationController {
 
 		ResponseEntity model = null;
 		String status = null;
-		
-		if(true) {
-			throw new RuntimeException("fsfsdfsd");
-		}
 
 		List<Organisation> organisations = organisationService.getAllOrganisations();
 
