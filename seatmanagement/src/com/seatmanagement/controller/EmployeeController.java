@@ -33,27 +33,19 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@RequestMapping("/saveEmployee")
-	public ResponseEntity saveEmployee(Employee employee, @RequestParam(value="teamId") UUID teamId) {
+	public ResponseEntity saveEmployee(Employee employee, @RequestParam(value="teamId") UUID teamId) throws BusinessException {
 
 		logger.info("Controller: EmployeeController Method : saveEmployee request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity responseEntity = null;
-
-		try {
-			if (Objects.isNull(employee)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-
-			employeeService.saveEmployee(employee,teamId);
-
-			responseEntity = new ResponseEntity(HttpStatus.OK);
-
-		} catch (Exception e) {
-			logger.error("Exception at Controller: EmployeeController Method : saveEmployee " + e.getMessage());
-			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (Objects.isNull(employee)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		employeeService.saveEmployee(employee, teamId);
+
+		responseEntity = new ResponseEntity(HttpStatus.OK);
 
 		logger.info("Controller: EmployeeController Method : saveEmployee response sent at : "
 				+ LocalDateTime.now());
@@ -69,17 +61,9 @@ public class EmployeeController {
 
 		ResponseEntity responseEntity = null;
 
-		try {
+		List<Employee> employees = employeeService.getAllEmployees();
 
-			List<Employee> employees = employeeService.getAllEmployees();
-
-			responseEntity = new ResponseEntity(employees, HttpStatus.OK);
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: EmployeeController Method : getAllEmployees " + e.getMessage());
-			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+		responseEntity = new ResponseEntity(employees, HttpStatus.OK);
 
 		logger.info("Controller: EmployeeController Method : getAllEmployees response sent at : "
 				+ LocalDateTime.now());
@@ -88,58 +72,41 @@ public class EmployeeController {
 	}
 
 	@RequestMapping("/getEmployeeById")
-	public ResponseEntity getEmployeeById(@ModelAttribute UUID employeeId) {
+	public ResponseEntity getEmployeeById(@ModelAttribute UUID employeeId) throws BusinessException {
 		logger.info("Controller: EmployeeController Method : getEmployeeById request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity responseEntity = null;
 
-		try {
-
-			if (Objects.isNull(employeeId)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-
-			Employee employee = employeeService.getEmployeeById(employeeId);
-
-			responseEntity = new ResponseEntity(employee, HttpStatus.OK);
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: EmployeeController Method : getEmployeeById " + e.getMessage());
-			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (Objects.isNull(employeeId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 
-		logger.info("Controller: EmployeeController Method : getEmployeeById response sent at : "
-				+ LocalDateTime.now());
+		Employee employee = employeeService.getEmployeeById(employeeId);
+
+		responseEntity = new ResponseEntity(employee, HttpStatus.OK);
+
+		logger.info(
+				"Controller: EmployeeController Method : getEmployeeById response sent at : " + LocalDateTime.now());
 
 		return responseEntity;
 	}
 
 	@RequestMapping("/updateEmployee")
-	public ModelAndView updateEmployee(@ModelAttribute Employee employee) {
+	public ModelAndView updateEmployee(@ModelAttribute Employee employee) throws BusinessException {
 
 		logger.info("Controller: EmployeeController Method : updateEmployee request processing started at : "
 				+ LocalDateTime.now());
 
 		ModelAndView model = null;
 
-		try {
+		model = new ModelAndView();
 
-			model = new ModelAndView();
-
-			if (Objects.isNull(employee)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-
-			employeeService.updateEmployee(employee);
-
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: EmployeeController Method : updateEmployee " + e.getMessage());
-			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (Objects.isNull(employee)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		employeeService.updateEmployee(employee);
 
 		logger.info("Controller: EmployeeController Method : updateEmployee response sent at : "
 				+ LocalDateTime.now());
@@ -148,29 +115,20 @@ public class EmployeeController {
 	}
 
 	@RequestMapping("/deleteEmployeeById")
-	public ResponseEntity deleteEmployeeById(@RequestParam(value="employeeId") UUID employeeId) {
+	public ResponseEntity deleteEmployeeById(@RequestParam(value="employeeId") UUID employeeId) throws BusinessException {
 
 		logger.info("Controller: EmployeeController Method : deleteEmployee request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity responseEntity = null;
 
-		try {
-
-			if (Objects.isNull(employeeId)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-
-			employeeService.deleteEmployeeById(employeeId);
-
-			responseEntity = new ResponseEntity(HttpStatus.OK);
-
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: EmployeeController Method : deleteEmployee " + e.getMessage());
-			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (Objects.isNull(employeeId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		employeeService.deleteEmployeeById(employeeId);
+
+		responseEntity = new ResponseEntity(HttpStatus.OK);
 
 		logger.info("Controller: EmployeeController Method : deleteEmployee response sent at : "
 				+ LocalDateTime.now());

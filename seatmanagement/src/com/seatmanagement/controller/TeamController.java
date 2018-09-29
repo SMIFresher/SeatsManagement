@@ -34,26 +34,19 @@ public class TeamController {
 	private TeamService teamService;
 
 	@RequestMapping("/saveTeam")
-	public ModelAndView saveTeam(@ModelAttribute Team team) {
+	public ModelAndView saveTeam(@ModelAttribute Team team) throws BusinessException {
 		
 		logger.info("Controller: TeamController Method : saveTeam request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView model = null;
 				
-		try {
-			if(Objects.isNull(team)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-
-			teamService.saveTeam(team);
-
-			model = new ModelAndView();
-			
-		}catch(Exception e) {
-			logger.error("Exception at Controller: TeamController Method : saveTeam " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (Objects.isNull(team)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		teamService.saveTeam(team);
+
+		model = new ModelAndView();
 		
 		logger.info("Controller: TeamController Method : saveTeam response sent at : " + LocalDateTime.now());
 		
@@ -68,25 +61,19 @@ public class TeamController {
 	}
 
 	@RequestMapping("/getTeamByName")
-	public ResponseEntity getTeamByName(@ModelAttribute String teamName) {
+	public ResponseEntity getTeamByName(@ModelAttribute String teamName) throws BusinessException {
 
 		logger.info("Controller: TeamController Method : getTeamByName request processing started at : " + LocalDateTime.now());
 		
 		String jsonResponse = null;
 		
-		try {
-			if(StringUtils.isBlank(teamName)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-			
-			Team team = teamService.getTeamByName(teamName);
-			
-			jsonResponse = new Gson().toJson(team);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: TeamController Method : getTeamByName " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (StringUtils.isBlank(teamName)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		Team team = teamService.getTeamByName(teamName);
+
+		jsonResponse = new Gson().toJson(team);
 		
 		logger.info("Controller: TeamController Method : getTeamByName response sent at : " + LocalDateTime.now());
 		
@@ -94,25 +81,19 @@ public class TeamController {
 	}
 	
 	@RequestMapping("/getTeamById")
-	public ResponseEntity getTeamById(@ModelAttribute String teamId) {
+	public ResponseEntity getTeamById(@ModelAttribute String teamId) throws BusinessException {
 		
 		logger.info("Controller: TeamController Method : getTeamById request processing started at : " + LocalDateTime.now());
 		
 		String jsonResponse = null;
-				
-		try {
-			if(StringUtils.isBlank(teamId)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-			
-			Team team = teamService.getTeamById(teamId);
 
-			jsonResponse = new Gson().toJson(team);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: TeamController Method : getTeamById " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (StringUtils.isBlank(teamId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		Team team = teamService.getTeamById(teamId);
+
+		jsonResponse = new Gson().toJson(team);
 		
 		logger.info("Controller: TeamController Method : getTeamById response sent at : " + LocalDateTime.now());
 		
@@ -125,16 +106,11 @@ public class TeamController {
 		logger.info("Controller: TeamController Method : updateTeam request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView model = null;
-		
-		try {
-			model = new ModelAndView();
-			
-			teamService.updateTeam(team);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: TeamController Method : updateTeam " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
+
+		model = new ModelAndView();
+
+		teamService.updateTeam(team);
+
 		if(null == team) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
@@ -145,25 +121,18 @@ public class TeamController {
 	}
 	
 	@RequestMapping("/deleteTeam")
-	public ModelAndView deleteTeam(@ModelAttribute Team team) {
+	public ModelAndView deleteTeam(@ModelAttribute Team team) throws BusinessException {
 		
 		logger.info("Controller: TeamController Method : deleteTeam request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView model = null;
-		
-		try {
-			
-			if(null == team) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-			
-			model = new ModelAndView();
-			teamService.deleteTeam(team);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: TeamController Method : deleteTeam " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+
+		if (null == team) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		model = new ModelAndView();
+		teamService.deleteTeam(team);
 		
 		logger.info("Controller: TeamController Method : deleteTeam response sent at : " + LocalDateTime.now());
 		
@@ -173,29 +142,20 @@ public class TeamController {
 	
 	
 	@RequestMapping("/deleteTeamById")
-	public ResponseEntity deleteTeamById(@RequestParam(value="teamId") UUID teamId) {
+	public ResponseEntity deleteTeamById(@RequestParam(value="teamId") UUID teamId) throws BusinessException {
 
 		logger.info("Controller: TeamController Method : deleteTeam request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity responseEntity = null;
 
-		try {
-
-			if (Objects.isNull(teamId)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
-
-			teamService.deleteTeamById(teamId);
-
-			responseEntity = new ResponseEntity(HttpStatus.OK);
-
-		} catch (Exception e) {
-			logger.error(
-					"Exception at Controller: OrganisationController Method : deleteOrganisation " + e.getMessage());
-			logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (Objects.isNull(teamId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+
+		teamService.deleteTeamById(teamId);
+
+		responseEntity = new ResponseEntity(HttpStatus.OK);
 
 		logger.info("Controller: OrganisationController Method : deleteOrganisation response sent at : "
 				+ LocalDateTime.now());

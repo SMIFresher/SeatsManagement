@@ -31,22 +31,16 @@ public class ReallocationController {
 						+ LocalDateTime.now());
 
 		ModelAndView model = null;
-
-		try {
-			if (StringUtils.isBlank(employeeId)) {
-				throw new RuntimeException("Required Params not present");
-			}
-
-			model = new ModelAndView();
-
-			Reallocation reallocation = reallocationService.getReallocationByEmployeeId(employeeId);
-
-			model.addObject("reallocation", reallocation);
-		} catch (Exception e) {
-			logger.error("Exception at Controller: ReallocationController Method : getReallocationByEmployeeId " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		
+		if (StringUtils.isBlank(employeeId)) {
+			throw new RuntimeException("Required Params not present");
 		}
+
+		model = new ModelAndView();
+
+		Reallocation reallocation = reallocationService.getReallocationByEmployeeId(employeeId);
+
+		model.addObject("reallocation", reallocation);
 
 		logger.info(
 				"Controller: ReallocationController Method : getReallocationByEmployeeId response sent at : "
@@ -62,21 +56,11 @@ public class ReallocationController {
 						+ LocalDateTime.now());
 
 		ModelAndView model = null;
-		
-		try {
-			if (null == reallocation) {
-				throw new RuntimeException("Required Params not present");
-			}
 
-			model = new ModelAndView();
+		model = new ModelAndView();
 
-			reallocationService.saveReallocation(reallocation);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: ReallocationController Method : saveReallocation " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
-		}
-		
+		reallocationService.saveReallocation(reallocation);
+
 		logger.info(
 				"Controller: ReallocationController Method : saveReallocation response sent at : "
 						+ LocalDateTime.now());
@@ -92,20 +76,14 @@ public class ReallocationController {
 						+ LocalDateTime.now());
 		
 		ModelAndView model = null;
-		
-		try {
-			if (null == reallocation) {
-				throw new RuntimeException("Required Params not present");
-			}
 
-			model = new ModelAndView();
-
-			reallocationService.updateReallocation(reallocation);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: ReallocationController Method : updateReallocation " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (null == reallocation) {
+			throw new RuntimeException("Required Params not present");
 		}
+
+		model = new ModelAndView();
+
+		reallocationService.updateReallocation(reallocation);
 
 		logger.info(
 				"Controller: ReallocationController Method : updateReallocation response sent at : "
@@ -122,21 +100,15 @@ public class ReallocationController {
 						+ LocalDateTime.now());
 		
 		ModelAndView model = null;
-		
-		try {
-			if (null == reallocation) {
-				throw new RuntimeException("Required Params not present");
-			}
 
-			model = new ModelAndView();
-
-			reallocationService.deleteReallocation(reallocation);
-		}catch(Exception e) {
-			logger.error("Exception at Controller: ReallocationController Method : deleteReallocation " + e.getMessage());
-    		logger.error("Exception stack : ", e);
-			throw new RuntimeException(e);
+		if (null == reallocation) {
+			throw new RuntimeException("Required Params not present");
 		}
-		
+
+		model = new ModelAndView();
+
+		reallocationService.deleteReallocation(reallocation);
+
 		logger.info(
 				"Controller: ReallocationController Method : deleteReallocation response sent at : "
 						+ LocalDateTime.now());
