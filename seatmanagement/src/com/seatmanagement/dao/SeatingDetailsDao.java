@@ -15,4 +15,6 @@ public interface SeatingDetailsDao {
 	public SeatingDetails getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id);
 	
 	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id);
+	
+	
 }

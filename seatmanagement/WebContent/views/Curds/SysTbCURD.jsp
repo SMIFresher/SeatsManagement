@@ -3,28 +3,13 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 
-	<%
-	String id = request.getParameter("userid");
-	String driver = "com.mysql.jdbc.Driver";
-	String connectionUrl = "jdbc:mysql://localhost:3306/";
-	String database = "seatmanagementexample";
-	String userid = "root";
-	String password = "root";
-	try {
-	Class.forName(driver);
-	} catch (ClassNotFoundException e) {
-	e.printStackTrace();
-	}
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	%>
+	
 
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Curd Application</title>
+<title>System Management</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -52,20 +37,79 @@
 						<h2>System</h2>
 						<form action="#">
 							<div class="form-group">
-								<label for="pwd">Employee Roll Number:</label> <input
-									type="hidden" value="" name="id" id="id"> <input
+								<label for="pwd">Employee Id:</label> <input
+									type="hidden"  name="id" id="id"> <input
 									type="text" class="form-control" id="empId"
-									placeholder="Enter Employee RollNumber" name="empId">
+									placeholder="Enter Employee Id" name="employeeId">
 							</div>
 							<div class="form-group">
 								<label for="pwd">System Number:</label> <input type="hidden"
 									value="" name="id" id="Systemnumber"> <input type="text"
 									class="form-control" id="systemNo"
-									placeholder="Enter System Number" name="systemNo">
+									placeholder="Enter System Number" name="systemName">
 							</div>
 
-					
-							
+							<div class="form-group">
+								<label for="systemType">System Type:</label>
+								<div class="custom-control custom-radio mb-3">
+									<div class="row">
+										<div class="col-md-6">
+											<input type="radio" class="custom-control-input"
+												id="Personal Computer" name="systemType" value=""> <label
+												class="custom-control-label" for="Personal Computer">Personal Computer</label>
+										</div>
+										<div class="col-md-6">
+											<input type="radio" class="custom-control-input"
+												id="Laptop" name="systemType" value="Laptop"> <label
+												class="custom-control-label" for="Laptop">Laptop</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="networkType">Network Type:</label>
+								<div class="custom-control custom-radio mb-3">
+									<div class="row">
+										<div class="col-md-4">
+											<input type="radio" class="custom-control-input"
+												id="Ethernet" name="networkType" value="Ethernet"> <label
+												class="custom-control-label" for="Ethernet">Ethernet</label>
+										</div>
+										<div class="col-md-4">
+											<input type="radio" class="custom-control-input" id="Wifi"
+												name="networkType" value="wifi"> <label
+												class="custom-control-label" for="Wifi">Wifi</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="allotmentStatus">Allotment Status:</label>
+								<div class="custom-control custom-radio mb-3">
+								
+									<div class="row">
+										<div class="col-md-4">
+											<input type="radio" class="custom-control-input"
+												id="Allocated" name="allotmentStatus" value="Allocated"> <label
+												class="custom-control-label" for="Allocated">Allocated</label>
+										</div>
+										<div class="col-md-4">
+											<input type="radio" class="custom-control-input" id="Deallocated"
+												name="allotmentStatus" value="Deallocated"> <label
+												class="custom-control-label" for="Deallocated">Deallocated</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="systemType">Additional Device:</label> <select
+									name="cars" class="custom-select mb-3" id="Device">
+									<option selected>Additional Device</option>
+									<option  value="KeyBoard">KeyBoard</option>
+									<option value="Mouse">Mouse</option>
+									<option value="HeadSet">HeadSet</option>
+								</select>
+							</div>
 
 
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -81,38 +125,16 @@
 
 					<table class="table table-hover">
 						<thead>
-							<td>Employee rollNumber</td>
+							<td>Employee Id</td>
 							<td>System No</td>
-							<td>Additional Device</td>
-							<td>status</td>
+							<td align="center">System Type</td>
+							<td>Network Type</td>
+							<td>Status</td>
+							<td>Device</td>
 							<td align="center">Process</td>
 						</thead>
-						<%
-						try{
-						connection = DriverManager.getConnection(connectionUrl+database, userid, password);
-						statement=connection.createStatement();
-						String sql ="select * from systbcurd";
-						resultSet = statement.executeQuery(sql);
-						while(resultSet.next()){
-						%>
-						<tbody align="center">
-						<tr ng-repeat="x in plan">
-						<td><%=resultSet.getString("empid") %></td>
-						<td><%=resultSet.getString("sysnumber") %></td>
-						<td><%=resultSet.getString("systype") %></td>
-						<td><%=resultSet.getString("networktype") %></td>
-						<td><%=resultSet.getString("allotmentstatus") %></td>
-						<td><%=resultSet.getString("additionaldevice") %></td>
-						<td align="center"><button class="btn btn-danger">Delete</button></td>
-						</tr>
-						</tbody>
-						<%
-						}
-						connection.close();
-						} catch (Exception e) {
-						e.printStackTrace();
-						}
-						%>
+						
+					
 					</table>
 				</div>
 			</div>

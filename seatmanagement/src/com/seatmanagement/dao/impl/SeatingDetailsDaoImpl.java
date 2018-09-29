@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDetailsDao;
 import com.seatmanagement.model.SeatingDetails;
 
@@ -21,6 +22,9 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
+	
+	@Autowired
+	GenericDao<SeatingDetails> genericDao;
 	
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<SeatingDetails> getAllSeatingDetails() {
@@ -78,5 +82,8 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 		
 		return seatingDetails;
 	}
+
+
+
 
 }

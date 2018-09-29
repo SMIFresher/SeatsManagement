@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SystemService;
 
+@Transactional
 public class SystemServiceImpl implements SystemService{
 
 	@Autowired
@@ -47,6 +50,14 @@ public class SystemServiceImpl implements SystemService{
 	public  Systems getSystem(String request) {
 		return systemDao.getSystem(request);
 	}
+
+	@Override
+	public Systems getSystemBySystemName(String systemName) {
+		
+		return systemDao.getSystemId(systemName);
+	}
+
+
 
 	
 }

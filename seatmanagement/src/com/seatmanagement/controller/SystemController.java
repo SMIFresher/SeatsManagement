@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.seatmanagement.model.Systems;
+import com.seatmanagement.service.DashboardService;
 import com.seatmanagement.service.SystemService;
+import com.seatmanagement.service.impl.DashboardServiceImpl;
 
 @RestController
 @RequestMapping("/systems")
@@ -38,6 +40,8 @@ public class SystemController {
 			}
 		return responseEntity;
 	}
+	
+	
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
@@ -83,6 +87,21 @@ public class SystemController {
 		return responseEntity;
 	}
 	
+	/*@RequestMapping(value="/getSystemBySystemName",method=RequestMethod.GET)
+	public ResponseEntity getSystemBySystemName(@RequestParam String systemName){
+		Systems system = new Systems();
+		system=systemService.getSystem(systemName);
+		ResponseEntity responseEntity=null;
+		if(!(system.getSystemId()==null)) {
+			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
+		}
+		else{
+					throw new RuntimeException("Invalid System ID");
+			}
+		
+		return responseEntity;
+	}
+	*/
 	@RequestMapping(value="/deleteById",method=RequestMethod.GET)
 	public ResponseEntity deleteSystemById(@RequestParam UUID systemId){
 		

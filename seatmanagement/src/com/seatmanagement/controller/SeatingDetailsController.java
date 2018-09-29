@@ -39,6 +39,14 @@ public class SeatingDetailsController {
 		return ResponseEntity.ok().build();
 	}
 	
+	@RequestMapping(value="/saveInBatch",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SeatingDetails> saveSeatingDetailsInBatch(@RequestBody SeatingDetails[] seatingDetails ,@RequestParam UUID seatingId){
+		
+		
+		seatingDetailsService.saveSeatingDetailsInbatch(seatingDetails,seatingId);
+		return ResponseEntity.ok().build();
+	}
+	
 	/*@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value="/getEmployeeBySeatId",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SeatingDetails> getEmployeeBySeatId(@RequestParam(value="id") UUID seating_id,SeatingDetails seatingdetails){

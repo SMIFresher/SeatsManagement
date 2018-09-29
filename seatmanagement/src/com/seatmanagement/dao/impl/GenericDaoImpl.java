@@ -52,11 +52,11 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 	}
 
 	@Override
-	public boolean saveAll(List<T> objectList) {
+	public <T>boolean saveAll(T[] objectList) {
 		boolean b=false;
 		try {
-			for(Object obj : objectList) {
-				hibernateTemplate.save(obj);
+			for(T obj : objectList) {
+				hibernateTemplate.saveOrUpdate(obj);
 			}
 			b=true;
 		}catch(Exception e) {

@@ -12,6 +12,6 @@ public interface SystemService {
 	public Systems getById(Systems system,UUID System_id);
 	public boolean delete(Systems system);
 	public  Systems getSystem(String request);
-	
+	public Systems getSystemBySystemName(String systemName);
 	
 }

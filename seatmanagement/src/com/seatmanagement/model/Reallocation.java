@@ -28,6 +28,8 @@ public class Reallocation implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID reallocationId;
 
+	 
+	
 	@OneToOne(cascade=CascadeType.ALL)  
     @JoinColumn(name="reallocated_block_id") 
 	private Block block;
