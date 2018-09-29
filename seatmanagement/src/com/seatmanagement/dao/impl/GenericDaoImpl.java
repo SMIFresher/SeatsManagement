@@ -65,4 +65,11 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		return b;
 	}
 
+	@Override
+	public void saveAll(List<T> objectsList) {
+		for(T obj : objectsList) {
+			hibernateTemplate.saveOrUpdate(obj);
+		}
+	}
+
 }
