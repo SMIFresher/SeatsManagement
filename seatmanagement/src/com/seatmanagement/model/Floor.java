@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -42,7 +44,7 @@ public class Floor implements Serializable{
 	@JoinColumn(name = "building_id", nullable = false)
 	private Building building;
 	
-    @OneToMany(mappedBy="floor")
+    @OneToMany(mappedBy="floor",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Block> blocks;
     

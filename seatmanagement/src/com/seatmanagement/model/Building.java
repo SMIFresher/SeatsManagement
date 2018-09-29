@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -59,8 +61,8 @@ public class Building implements Serializable{
 	@Transient
 	private String squareFeetString;
 	
-	@OneToMany(mappedBy="building")
-	@JsonIgnore
+	@OneToMany(mappedBy="building",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	//@JsonIgnore
 	private Set<Floor> floors;
 
 	public Set<Floor> getFloors() {
