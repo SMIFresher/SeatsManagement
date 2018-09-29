@@ -142,4 +142,9 @@
 	<bean id="dashboardService"
 		class="com.seatmanagement.service.impl.DashboardServiceImpl">
 	</bean>
+	
+		
+	<bean id="globalValidator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	
 </beans>

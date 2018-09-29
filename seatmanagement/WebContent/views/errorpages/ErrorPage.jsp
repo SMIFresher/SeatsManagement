@@ -176,7 +176,7 @@ body {
 				<div></div>
 			</div>
 			<h1>oops!</h1>
-			<h2>${errorMsg}</h2>
+			<h2>${errorMap.exceptionMessage}</h2>
 			<a href="/seatmanagement/">go back</a>
 		</div>
 	</div>

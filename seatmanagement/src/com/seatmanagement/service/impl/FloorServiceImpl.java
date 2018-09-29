@@ -31,7 +31,7 @@ GenericDao<Building> genericDaoBuilding;
 	@Autowired
 	BlockService blockService;
 	
-   public boolean saveOrUpdate(Floor floor,UUID buildingId) {
+   public boolean saveOrUpdate(Floor floor,UUID buildingId) throws BusinessException {
 		
 		Floor newfloor=new Floor();
 		Building newbuilding = new Building();
@@ -62,7 +62,7 @@ GenericDao<Building> genericDaoBuilding;
 	return floorDao.getAll();
 	}
 	@Override
-	public void deleteFloorById(UUID floorId) {
+	public void deleteFloorById(UUID floorId) throws BusinessException {
 		
 		Floor floor = genericDao.getById(new Floor(), floorId);
 		

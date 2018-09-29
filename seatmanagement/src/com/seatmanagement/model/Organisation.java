@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -32,6 +34,8 @@ public class Organisation implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID organisationId;
 
+	@NotEmpty(message = "Organisation name can not be empty")
+	@NotNull(message = "Organisation name can not be null")
 	@Column(name = "organisation_name")
 	private String organisationName;
 	

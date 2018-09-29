@@ -9,10 +9,11 @@
 
 	<context:component-scan base-package="com.seatmanagement.controller"></context:component-scan>
 	<context:component-scan base-package="com.seatmanagement.scheduledtasks"></context:component-scan>
+	<context:component-scan base-package="com.seatmanagement.exception"></context:component-scan>
 	
 	<context:annotation-config />
 	
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven validator="globalValidator"/>
 	
 	<mvc:resources mapping="/**" location="/" />
 	

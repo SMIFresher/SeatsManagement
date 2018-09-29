@@ -120,7 +120,7 @@ public class TeamController {
 	}
 	
 	@RequestMapping("/updateTeam")
-	public ModelAndView updateTeam(@ModelAttribute Team team) {
+	public ModelAndView updateTeam(@ModelAttribute Team team) throws BusinessException {
 		
 		logger.info("Controller: TeamController Method : updateTeam request processing started at : " + LocalDateTime.now());
 		

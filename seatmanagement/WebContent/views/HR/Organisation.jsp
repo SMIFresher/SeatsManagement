@@ -91,28 +91,16 @@
 
 <script>
 var app = angular.module('organisation', []);
+app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+  $httpProvider.defaults.headers.post['RequestType'] = 'AJAX';
+});
 app.controller('OrganisationController', function($scope, $http) {
     $http.post("../../organisation/getAllOrganisations")
         .then(function successCallback(response) {
-            $scope.data = response.data;
-            var status = response.data.RESPONSE_STATUS;
-            if(status == "OK"){
-            	console.log("Success scenario");
-            	$scope.getOrg = response.data.organisations;
-            }
-            if(status == "ERROR"){
-            	 var message = response.data.RESPONSE_MESSAGE;
-            	// Business Error scenario
-            	// provision to display business error message
-            }
+            $scope.getOrg = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
-        	var status = response.data.RESPONSE_STATUS;
-        	var message = response.data.RESPONSE_MESSAGE;
-        	var errorCode = response.data.ERROR_CODE;
-        	console.log("Response Status : " + status);
-        	console.log("Response Message : " + message);
-        	console.log("ErrorCode : " + errorCode);
+        	
         });
 });
 </script>
@@ -124,25 +112,18 @@ function formSubmit(){
      url:'../../organisation/saveOrganisation',
      method : 'POST',
      data: $("#Form").serialize(),
+     beforeSend: function(request) {
+    	    request.setRequestHeader("RequestType", "AJAX");
+    	  },
      success: function (data) {
-    	 var status = data.RESPONSE_STATUS;
-    	 if(status == "OK"){
-         	//console.log("Success scenario");
-         	$('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Organisation.jsp");
-         }
-         if(status == "ERROR"){
-         	 var message = response.data.RESPONSE_MESSAGE;
-         	// Business Error scenario
-         	// provision to display business error message
-         }
-    },error: function (response) {
-    	var status = response.RESPONSE_STATUS;
-    	var message = response.RESPONSE_MESSAGE;
-    	var errorCode = response.ERROR_CODE;
-    	console.log("Response Status : " + status);
-    	console.log("Response Message : " + message);
-    	console.log("ErrorCode : " + errorCode);
+
+    	 console.log("Success scenario Response : " +data);
+         	
+         $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+         location.replace("Organisation.jsp");
+         
+    },error: function (data) {
+    	
     }
  	
 });
@@ -155,36 +136,18 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
 	orgId = currow.find('td:eq(0)').text();
 	console.log("orgId : " + orgId);
-	
-	/*  $.post("../../organisation/deleteOrganisationById", {
-		 organisationId:orgId
-		}, function(data) {
-			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Organisation.jsp");
-		}); */
 	 
 	 $.ajax({
 	     url:'../../organisation/deleteOrganisationById',
 	     method : 'POST',
 	     data: {organisationId:orgId},
+	     beforeSend: function(request) {
+	    	    request.setRequestHeader("RequestType", "AJAX");
+	   	},
 	     success: function (data) {
-	    	 var status = data.RESPONSE_STATUS;
-	    	 if(status == "OK"){
-	         	//console.log("Success scenario");
-	    		 location.replace("Organisation.jsp");
-	         }
-	         if(status == "ERROR"){
-	         	 var message = data.RESPONSE_MESSAGE;
-	         	// Business Error scenario
-	         	// provision to display business error message
-	         }
+	    	 location.replace("Organisation.jsp");
 	    },error: function (response) {
-	    	var status = response.RESPONSE_STATUS;
-	    	var message = response.RESPONSE_MESSAGE;
-	    	var errorCode = response.ERROR_CODE;
-	    	console.log("Response Status : " + status);
-	    	console.log("Response Message : " + message);
-	    	console.log("ErrorCode : " + errorCode);
+	    	
 	    }
 	 	
 	});

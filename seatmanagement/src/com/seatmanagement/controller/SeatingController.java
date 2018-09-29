@@ -53,7 +53,7 @@ public class SeatingController {
 	
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@RequestMapping("/getAllSeatingWithAxis")
-		public ResponseEntity<List<Object>> getAllSeatingWithAxisByFloor(@RequestParam("floorId") UUID floorId) {
+		public ResponseEntity<List<Object>> getAllSeatingWithAxisByFloor(@RequestParam("floorId") UUID floorId) throws BusinessException {
 			logger.info("Controller: SeatingController Method : getAllSeatingWithAxis request processing started at : " + LocalDateTime.now());
 			return new ResponseEntity(seatingService.getAllSeatingWithAxisByFloor(floorId),HttpStatus.OK);
 		}

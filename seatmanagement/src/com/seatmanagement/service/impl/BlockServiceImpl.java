@@ -40,7 +40,7 @@ public class BlockServiceImpl implements BlockService {
 	@Autowired
 	ReallocationService reallocationService;
 
-	public boolean saveOrUpdate(Block block,UUID floor_id) {
+	public boolean saveOrUpdate(Block block,UUID floor_id) throws BusinessException {
 		
 		//Block newBlock = new Block();
 			Floor floor =  new Floor();
@@ -79,7 +79,7 @@ public class BlockServiceImpl implements BlockService {
 
 
 	@Override
-	public void deleteBlocksByFloorId(UUID floorId) {
+	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException {
 		
 		List<Block> blocks = blockDao.getBlocksByFloorId(floorId);
 		
@@ -112,7 +112,7 @@ public class BlockServiceImpl implements BlockService {
 		return blocks;
 	}
 
-	public void delete(Block block) {
+	public void delete(Block block) throws BusinessException {
 		
 		block = genericDao.getById(block, block.getBlockId());
 		

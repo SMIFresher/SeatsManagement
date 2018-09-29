@@ -1,54 +1,33 @@
 package com.seatmanagement.exception;
 
-import java.util.Properties;
+public class ApplicationException extends RuntimeException {
 
-public class ApplicationException extends RuntimeException{
-
-	
 	private static final long serialVersionUID = -7834535542354400068L;
 
-	 private String errorConstant;
+	private String errorConstant;
 
-	    Properties exceptionProperties = new Properties();
+	public ApplicationException(String exceptionMessage) {
+		super(exceptionMessage);
+	}
 
-	    public ApplicationException(String exceptionMessage) {
-	        super(exceptionMessage);
-	    }
+	public ApplicationException(final String msg, final Throwable cause) {
+		super(msg, cause);
+		this.errorConstant = msg;
+	}
 
-	    public ApplicationException(final String msg, final Throwable cause) {
-	        super(msg, cause);
-	        this.errorConstant = msg;
-	    }
+	/**
+	 * @return the errorConstant
+	 */
+	public String getErrorConstant() {
+		return errorConstant;
+	}
 
-	    public void addRuntimeDataToException(String key, String value) {
-	        exceptionProperties.put(key, value);
-	    }
+	/**
+	 * @param errorConstant
+	 *            the errorConstant to set
+	 */
+	public void setErrorConstant(String errorConstant) {
+		this.errorConstant = errorConstant;
+	}
 
-	    /**
-	     * @return the errorConstant
-	     */
-	    public String getErrorConstant() {
-	        return errorConstant;
-	    }
-
-	    /**
-	     * @param errorConstant the errorConstant to set
-	     */
-	    public void setErrorConstant(String errorConstant) {
-	        this.errorConstant = errorConstant;
-	    }
-
-	    /**
-	     * @return the exceptionProperties
-	     */
-	    public Properties getExceptionProperties() {
-	        return exceptionProperties;
-	    }
-
-	    /**
-	     * @param exceptionProperties the exceptionProperties to set
-	     */
-	    public void setExceptionProperties(Properties exceptionProperties) {
-	        this.exceptionProperties = exceptionProperties;
-	    }
 }

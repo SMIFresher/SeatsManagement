@@ -46,7 +46,7 @@ public class BlockController {
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	@RequestMapping(value="/saveblock",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Block> saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId){
+	public ResponseEntity<Block> saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId) throws BusinessException{
 		blockService.saveOrUpdate(block,floorId);
 		ResponseEntity<Block> response =  new ResponseEntity(HttpStatus.OK);
 		return response;
@@ -76,7 +76,7 @@ public class BlockController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getBlockByFloorId", method = RequestMethod.GET)
-	public ResponseEntity getBlocksByFloorId(@RequestParam(value = "floor_id") UUID floorId) {
+	public ResponseEntity getBlocksByFloorId(@RequestParam(value = "floor_id") UUID floorId) throws BusinessException {
 		
 		if (Objects.isNull(floorId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -92,7 +92,7 @@ public class BlockController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getBlockByBlockType", method = RequestMethod.GET)
-	public ResponseEntity getBlocksByBlockType(@RequestParam(value = "block_type") String blockType,@RequestParam(value = "floor_id") UUID floorId ) {
+	public ResponseEntity getBlocksByBlockType(@RequestParam(value = "block_type") String blockType,@RequestParam(value = "floor_id") UUID floorId ) throws BusinessException {
 		if (Objects.isNull(floorId)) {
 		if (Objects.isNull(blockType)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -107,7 +107,7 @@ public class BlockController {
 	}
 	
 	@RequestMapping(value="/deleteBlockById")
-	public ResponseEntity deleteBlockById(@RequestParam(value="blockId") UUID blockId){
+	public ResponseEntity deleteBlockById(@RequestParam(value="blockId") UUID blockId) throws BusinessException{
 		
 		Block block = new Block();
 		block.setBlockId(blockId);

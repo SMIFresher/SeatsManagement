@@ -62,7 +62,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public void deleteSeatingByBlockId(UUID blockId) {
+	public void deleteSeatingByBlockId(UUID blockId) throws BusinessException {
 		// unreference children(seatingdetails) and delete
 		logger.info("Service: SeatingServiceImpl Method : deleteSeatingByBlockId request processing started at : " + LocalDateTime.now());
 		List<Seating> seatings = seatingDao.getSeatingByBlockId(blockId);
@@ -87,7 +87,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId) {
+	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId) throws BusinessException {
 		
 		logger.info("Service: SeatingServiceImpl Method : getAllSeatingWithAxis request processing started at : " + LocalDateTime.now());
 		List<Object> object = new ArrayList<>();                 

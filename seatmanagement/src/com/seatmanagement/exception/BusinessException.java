@@ -1,54 +1,49 @@
 package com.seatmanagement.exception;
 
-import java.util.Properties;
+import org.springframework.validation.Errors;
 
-public class BusinessException extends RuntimeException{
-
+public class BusinessException extends Exception {
 
 	private static final long serialVersionUID = 2597478625120579985L;
 
 	private String errorConstant;
 
-    Properties exceptionProperties = new Properties();
+	private Errors validationErrors;
 
-    public BusinessException(String exceptionMessage) {
-        super(exceptionMessage);
-    }
+	public BusinessException(Errors validationErrors) {
+		super();
+		this.validationErrors = validationErrors;
+	}
 
-    public BusinessException(final String msg, final Throwable cause) {
-        super(msg, cause);
-        this.errorConstant = msg;
-    }
+	public BusinessException(String exceptionMessage) {
+		super(exceptionMessage);
+	}
 
-    public void addRuntimeDataToException(String key, String value) {
-        exceptionProperties.put(key, value);
-    }
+	public BusinessException(final String msg, final Throwable cause) {
+		super(msg, cause);
+		this.errorConstant = msg;
+	}
 
-    /**
-     * @return the errorConstant
-     */
-    public String getErrorConstant() {
-        return errorConstant;
-    }
+	public Errors getValidationErrors() {
+		return validationErrors;
+	}
 
-    /**
-     * @param errorConstant the errorConstant to set
-     */
-    public void setErrorConstant(String errorConstant) {
-        this.errorConstant = errorConstant;
-    }
+	public void setValidationErrors(Errors validationErrors) {
+		this.validationErrors = validationErrors;
+	}
 
-    /**
-     * @return the exceptionProperties
-     */
-    public Properties getExceptionProperties() {
-        return exceptionProperties;
-    }
+	/**
+	 * @return the errorConstant
+	 */
+	public String getErrorConstant() {
+		return errorConstant;
+	}
 
-    /**
-     * @param exceptionProperties the exceptionProperties to set
-     */
-    public void setExceptionProperties(Properties exceptionProperties) {
-        this.exceptionProperties = exceptionProperties;
-    }
+	/**
+	 * @param errorConstant
+	 *            the errorConstant to set
+	 */
+	public void setErrorConstant(String errorConstant) {
+		this.errorConstant = errorConstant;
+	}
 }

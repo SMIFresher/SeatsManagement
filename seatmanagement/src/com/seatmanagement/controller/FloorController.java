@@ -26,7 +26,7 @@ public class FloorController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/floorsave", method = RequestMethod.POST)
-	public ResponseEntity saveOrUpdate(Floor floor, @RequestParam(value = "buildingId") UUID buildingId) {
+	public ResponseEntity saveOrUpdate(Floor floor, @RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
 		ResponseEntity response = null;
 		floorService.saveOrUpdate(floor, buildingId);
 		response = new ResponseEntity(HttpStatus.OK);
@@ -61,7 +61,7 @@ public class FloorController {
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getFloorByBuildingId", method = RequestMethod.GET)
-	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
+	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
 		
 		if (Objects.isNull(buildingId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -77,7 +77,7 @@ public class FloorController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getFloorTypeByBuildingId", method = RequestMethod.GET)
-	public ResponseEntity getFloorTypeByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) {
+	public ResponseEntity getFloorTypeByBuildingId(@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
 		
 		if (Objects.isNull(buildingId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -92,7 +92,7 @@ public class FloorController {
 	}
 	
 	@RequestMapping(value = "/deleteFloorById")
-	public ResponseEntity deleteFloorById(@RequestParam(value = "floorId") UUID floorId) {
+	public ResponseEntity deleteFloorById(@RequestParam(value = "floorId") UUID floorId) throws BusinessException {
 		
 		if (Objects.isNull(floorId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);

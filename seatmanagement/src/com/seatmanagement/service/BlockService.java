@@ -3,6 +3,7 @@ package com.seatmanagement.service;
 import java.util.List;
 import java.util.UUID;
 
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Floor;
 
@@ -16,15 +17,15 @@ import com.seatmanagement.model.Floor;
  */
 public interface BlockService {
 
-	public boolean saveOrUpdate(Block block,UUID floorId);
+	public boolean saveOrUpdate(Block block,UUID floorId) throws BusinessException;
 
 	public List<Block> getAll();
 
 	public Block getById(Block block, UUID blockId);
 
-	public void deleteBlocksByFloorId(UUID floorId);
+	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException;
 
-	public void delete(Block block);
+	public void delete(Block block) throws BusinessException;
 	
 	public List<Block> getBlocksByFloorId(UUID floorId);
 	
