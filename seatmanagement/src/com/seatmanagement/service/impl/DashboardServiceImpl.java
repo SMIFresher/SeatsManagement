@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seatmanagement.dao.BlockDao;
-import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDao;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
+import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Seating;
@@ -37,16 +37,10 @@ public class DashboardServiceImpl implements DashboardService {
 	GenericDao<SeatingDetails> seatingDetailsDao;
 
 	@Autowired
-	GenericDao<Block> blockGenericDao;
-
-	@Autowired
 	GenericDao<Employee> employeeDao;
 
 	@Autowired
 	GenericDao<Building> buildingDao;
-
-	@Autowired
-	FloorDao floorDao;
 
 	@Autowired
 	BlockDao blockDao;
@@ -61,22 +55,21 @@ public class DashboardServiceImpl implements DashboardService {
 						+ LocalDateTime.now());
 
 		Systems systems = new Systems();
-		SeatingDetails seatigDetails = new SeatingDetails();
-		Block block = new Block();
 		Employee employee = new Employee();
-
 		Integer systemCount = systemDao.getAll(systems).size();
+		
+		List<Block> blockList = blockDao.getAll();
+		Integer seatcapacity = blockList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
+				.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
 
-		Integer seatingDetailsCount = seatingDetailsDao.getAll(seatigDetails).size();
-
-		Integer blockCount = blockGenericDao.getAll(block).size();
+		Integer blockCount = blockList.size();
 
 		Integer employeeCount = employeeDao.getAll(employee).size();
 		Properties properties = new Properties();
-		properties.put("Employee_Count", employeeCount.toString());
-		properties.put("System_Count", systemCount.toString());
-		properties.put("Seating_Details_Count", seatingDetailsCount.toString());
-		properties.put("Block_Count", blockCount.toString());
+		properties.put(Constant.EMPLOYEE_COUNT, employeeCount.toString());
+		properties.put(Constant.SYSTEM_COUNT, systemCount.toString());
+		properties.put(Constant.SEATING_DETAILS_COUNT, seatcapacity.toString());
+		properties.put(Constant.BLOCK_COUNT, blockCount.toString());
 		totalDashboardCount.add(properties);
 		return totalDashboardCount;
 	}
@@ -97,17 +90,18 @@ public class DashboardServiceImpl implements DashboardService {
 		buildingList.stream().filter(Objects::nonNull).forEach(p -> {
 			Properties properties = new Properties();
 			List<List<Block>> listOfBockCapacitybasedonFloor = getAllFloorByBuilding(p);
-			properties.put("BuildingName", p.getBuildingName());
-			List<Block> flatList = listOfBockCapacitybasedonFloor.stream().flatMap(List::stream).collect(Collectors.toList());
+			properties.put(Constant.BUILDING_NAME, p.getBuildingName());
+			List<Block> flatList = listOfBockCapacitybasedonFloor.stream().flatMap(List::stream)
+					.collect(Collectors.toList());
 			Integer blockCapacity = flatList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
 					.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
 			List<Integer> seats = getSeatOccupiedByBlock(flatList);
 			Integer seatOccupied = seats.stream().mapToInt(Integer::intValue).sum();
-			Integer seatsAvailable =null;
+			Integer seatsAvailable = null;
 			seatsAvailable = blockCapacity - seatOccupied;
-			properties.put("Total_Seating_Capacity", blockCapacity.toString());
-			properties.put("Total_Seating_Occupied", seatOccupied.toString());
-			properties.put("Total_Seating_Available", seatsAvailable.toString());
+			properties.put(Constant.TOTAL_SEATING_CAPACITY, blockCapacity.toString());
+			properties.put(Constant.TOTAL_SEATING_OCCUPIED, seatOccupied.toString());
+			properties.put(Constant.TOTAL_SEATING_AVALIABLE, seatsAvailable.toString());
 			totalCompanyDetailsCount.add(properties);
 		});
 
@@ -116,22 +110,22 @@ public class DashboardServiceImpl implements DashboardService {
 
 	private List<Integer> getSeatOccupiedByBlock(List<Block> flatList) {
 		List<Integer> seatOccupiedList = new ArrayList<>();
-		flatList.stream().filter(Objects::nonNull).forEach(z->{
-		List<Seating> seatingList = seatingDao.getSeatingByBlockId(z.getBlockId());
-		int seatOccupied = 0;
-		for(Seating s : seatingList) {
-			seatOccupied = s.getSeat_occupied();
-		}
-		seatOccupiedList.add(seatOccupied);
+		flatList.stream().filter(Objects::nonNull).forEach(z -> {
+			List<Seating> seatingList = seatingDao.getSeatingByBlockId(z.getBlockId());
+			int seatOccupied = 0;
+			for (Seating s : seatingList) {
+				seatOccupied = s.getSeat_occupied();
+			}
+			seatOccupiedList.add(seatOccupied);
 		});
-		
+
 		return seatOccupiedList;
 	}
 
 	private List<List<Block>> getAllFloorByBuilding(Building building) {
+		// Convert the Set to List AND GET All Floor From Building
 		List<List<Block>> blockIddsss = new ArrayList<>();
-		List<Floor> floorList = floorDao.getFloorsByBuildingId(building.getBuildingId());
-		floorList.stream().filter(Objects::nonNull).forEach(q -> {
+	    building.getFloors().stream().filter(Objects::nonNull).forEach(q -> {
 			List<Block> blockIds = getAllBlockByFloor(q);
 			blockIddsss.add(blockIds);
 		});
@@ -139,7 +133,8 @@ public class DashboardServiceImpl implements DashboardService {
 	}
 
 	private List<Block> getAllBlockByFloor(Floor floor) {
-		List<Block> blockList = blockDao.getBlocksByFloorId(floor.getFloorId());
+		// Convert the Set to List AND GET All Block From Floor
+		List<Block> blockList = floor.getBlocks().stream().filter(Objects::nonNull).collect(Collectors.toList());
 		return blockList;
 	}
 
