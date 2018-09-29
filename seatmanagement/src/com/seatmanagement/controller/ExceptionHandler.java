@@ -69,9 +69,9 @@ public class ExceptionHandler {
 			}
 		}
 
-		logger.error("Exception caught in Class : ExceptionHandler, Method : renderErrorPageForNonAJAX () at "
+		logger.error("Error logged in Class : ExceptionHandler, Method : renderErrorPageForNonAJAX () at "
 				+ LocalDateTime.now());
-		logger.error("Exception Description : " + errorMsg);
+		logger.error("Error Description : " + errorMsg);
 
 		errorMap.put(Constant.EXCEPTION_MESSAGE, errorMsg);
 		
@@ -149,9 +149,9 @@ public class ExceptionHandler {
 			}
 		}
 
-		logger.error("Exception caught in Class : ExceptionHandler, Method : renderErrorMessagesForAJAX () at "
+		logger.error("Error logged in Class : ExceptionHandler, Method : renderErrorMessagesForAJAX () at "
 				+ LocalDateTime.now());
-		logger.error("Exception Description : " + errorMsg);
+		logger.error("Error Description : " + errorMsg);
 		
 		errorMap.put(Constant.RESPONSE_ERROR_MESSAGE, errorMsg);
 		
