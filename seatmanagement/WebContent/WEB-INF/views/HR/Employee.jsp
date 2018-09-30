@@ -46,19 +46,29 @@
 							</div>
 							<div class="form-group">
 								<label for="designation">Designation:</label> 
-								<input type="text" class="form-control" id="designation" placeholder="Designation" name="designation">
+								<select class="custom-select mb-3" name="designation" id="designation">
+									<option value="PROJECT MANAGER">PROJECT MAMANGER</option>
+									<option value="TECH LEADER">TECH LEADER</option>
+									<option value="TEAM LEADER">TEAM LEADER</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<label for="dateOfJoin">Date of Join:</label> 
        							<input class="form-control" id="date" name="doj" placeholder="DD/MM/YYY" type="date"/>
 							  </div>
-							<div class="form-group">
-		                   		<div ng-app="Team" ng-controller="TeamController" id="team1">
-								<label for="location">Team Name </label>
-									<select class="custom-select mb-3" name="teamId">
+							 <div class="form-group">
+		                   		<div ng-app="Organisation" ng-controller="OrganisationController" id="organisation1">
+								<label for="organisation">Organisation </label>
+									<select class="custom-select mb-3 organisationId" name="organisationId">
+										<option ng-repeat="organisation1 in getOrganisations" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
+									</select>
+								
+
+								<label for="team">Team Name </label>
+									<select class="custom-select mb-3 teamId" name="teamId">
 										<option ng-repeat="team1 in getTeam" value="{{team1.teamId}}">{{team1.teamName}}</option>
 									</select>
-								</div>
+							</div>
 							</div>
 							<button type="submit" class="btn btn-primary" onClick="formSubmit();" >Submit</button>
 						</form>
@@ -79,6 +89,7 @@
 							<td>Last Name</td>
 							<td>Designation</td>
 							<td>Date of Join</td>
+							<td>Organisation Name</td>
 							<td>Team Name</td>
 							<td align="center">Process</td>
 						</thead>
@@ -90,10 +101,12 @@
 						<td>{{emp.lastName}}</td>
 						<td>{{emp.designation}}</td>
 						<td>{{emp.doj}}</td>
+						<td>{{emp.organisation.organisationName}}</td>
 						<td>{{emp.team.teamName}}</td>
 						<td align="center">
 							<form method="post" ><input type="hidden" name="teamId" value="{{emp.team}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
 						</td>
+						<td style="display:none;">{{emp.employeeId}}</td>
 						</tr>
 						</tbody>
 						
@@ -126,20 +139,14 @@
 	
 	<script>
 
-	var app = angular.module('Team', []);
-	app.controller('TeamController', function($scope, $http) {
-	    $http.post("/seatmanagement/team/getAllTeam")
-	        .then(function successCallback(response) {
-	            $scope.getTeam = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
+	var teamApp = angular.module('Team', []);
+	teamApp.controller('TeamController', function($scope, $http) {
+	    
 	});
+	
+	var employeeApp = angular.module('employee', ['Team']);
+	employeeApp.controller('employeeController', function($scope, $http) {
 
-
-	var app = angular.module('employee', ['Team']);
-	app.controller('employeeController', function($scope, $http) {
 	    $http.post("/seatmanagement/employee/getAllEmployees")
 	        .then(function successCallback(response) {
 	            $scope.getemployees = response.data;
@@ -147,6 +154,25 @@
 	        }, function errorCallback(response) {
 	            alert(response.status);
 	        });
+	});
+
+	var organisationApp = angular.module('Organisation', []);
+	organisationApp.controller('OrganisationController', function($scope, $http) {
+	    $http.post("/seatmanagement/organisation/getAllOrganisations")
+	        .then(function successCallback(response) {
+	            $scope.getOrganisations = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	        });
+	    
+	    $http.post("/seatmanagement/team/getAllTeam")
+        .then(function successCallback(response) {
+            $scope.getTeam = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+        });
+	    
+	    
 	});
 
 	angular.element(document).ready(function() {
@@ -158,36 +184,45 @@
 	<script type="text/javascript">
 	function formSubmit(){
 		
-	var formData = $("#Form").serialize();
-	console.log(formData);
-	
-	if()
-		
-	 $.ajax({
-	     url:'/seatmanagement/employee/saveEmployee',
-	     method : 'POST',
-	     data: $("#Form").serialize(),
-	     success: function (data) {
-	    	 alert("success Scenario: " + data);
-	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/employee/getEmployeeView");
-	    },error: function(data){
-	    	 alert("Error Scenario: " + data);
-	    }
-	 	
-	});
+	var teamId = $("#Form .teamId").val();		
+	if(teamId == null){
+		$.ajax({
+		     url:'/seatmanagement/employee/saveEmployeeWithoutTeam',
+		     method : 'POST',
+		     data: $("#Form").serialize(),
+		     success: function (data) {
+		            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+		            location.replace("/seatmanagement/employee/getEmployeeView");
+		    },error: function(data){
+		    }
+		 	
+		});
+	}else{
+		$.ajax({
+		     url:'/seatmanagement/employee/saveEmployeeWithTeam',
+		     method : 'POST',
+		     data: $("#Form").serialize(),
+		     success: function (data) {
+		            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+		            location.replace("/seatmanagement/employee/getEmployeeView");
+		    },error: function(data){
+		    }
+		 	
+		});
+	}
+	 
 	}
 	
 		
-	var tId = null;
+	var eId = null;
 
 	$('.table tbody').on('click', '.deleteBtn', function() {
 		var currow = $(this).closest('tr');
-		tId = currow.find('td:eq(0)').text();
-		console.log("tId : " + tId);
+		eId = currow.find('td:eq(8)').text();
+		console.log("eId : " + eId);
 		
 		 $.post("/seatmanagement/employee/deleteEmployeeById", {
-			 teamId:tId
+			 employeeId:eId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
 	            location.replace("/seatmanagement/employee/getEmployeeView");

@@ -10,7 +10,7 @@ import com.seatmanagement.model.Team;
 
 public interface TeamService {
 
-	public void saveTeam(Team team);
+	public void saveTeam(Team team, UUID organisationId);
 	
 	public List<Team> getAll();
 

@@ -8,7 +8,7 @@ import com.seatmanagement.model.Employee;
 
 public interface EmployeeService {
 	
-	void saveEmployee(Employee employee,UUID team_id);
+	void saveEmployee(Employee employee,UUID team_id, UUID organisationId);
 
 	List<Employee> getAllEmployees();
 
@@ -18,6 +18,8 @@ public interface EmployeeService {
 
 	void deleteEmployeeById(UUID employee);
 
-	void saveEmployeeWithoutTeam(Employee employee);
+	void saveEmployeeWithoutTeam(Employee employee, UUID organisationId);
+
+	List<Employee> getEmployeesByDesignation(String designation);
 	
 }

@@ -287,3 +287,24 @@ ADD CONSTRAINT `floor_fk_1` FOREIGN KEY (building_id) REFERENCES building(buildi
 # Team team_members_count update
 
 ALTER TABLE team DROP COLUMN team_members_count;
+
+# Team Organisation foriegn key mapping
+
+ALTER TABLE team add COLUMN organisation_id VARCHAR(36) NULL;
+
+ALTER TABLE team 
+ADD CONSTRAINT `team_fk_1` FOREIGN KEY (organisation_id) REFERENCES organisation(organisation_id) ON DELETE SET NULL;
+
+# Employee Organisation foriegn key mapping
+
+ALTER TABLE employee add COLUMN organisation_id VARCHAR(36) NULL;
+
+ALTER TABLE employee 
+ADD CONSTRAINT `employee_fk_2` FOREIGN KEY (organisation_id) REFERENCES organisation(organisation_id) ON DELETE SET NULL;
+
+# Team Employee foriegn key mapping
+
+ALTER TABLE employee DROP FOREIGN KEY employee_fk_1;
+
+ALTER TABLE employee 
+ADD CONSTRAINT `employee_fk_1` FOREIGN KEY (team_id) REFERENCES team(team_id) ON DELETE SET NULL;

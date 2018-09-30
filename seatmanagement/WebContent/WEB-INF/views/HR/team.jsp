@@ -17,7 +17,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br>
-	<div class="container">
+	<div class="container" ng-app="onLoadModule" ng-controller="onLoadController" id="organisation1">
 		<div class="row">
 			<div class="col-md-4 border">
 				<br>
@@ -27,22 +27,37 @@
 						<h2>Team</h2>
 						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 							<div class="form-group">
-								<label for="teadId">Team Id:</label> 
-								<input name="teamId" class="form-control" id="team_id" type="text" placeholder="Organization Name"/>
+		                   		<div>
+								<label for="organisation">Organisation </label>
+									<select class="custom-select mb-3 organisationId" name="organisationId">
+										<option ng-repeat="organisation1 in getOrganisations" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
+									</select>
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="systemType">Team Name:</label> <select
-									name="teamName" class="custom-select mb-3" id="teamName">
-									<option selected>Team Name</option>
-									<option value="Corex">Corex</option>
-									<option value="Vision">Vision</option>
-									<option value="Credential Management">Credential Management</option>
+								<label for="systemType">Team Name:</label> 
+								<input name="teamName" class="form-control" id="teamName" type="text" placeholder="Team Name"/>
+							</div>
+							<div class="form-group">
+								<label for="teamHeadDesignation">TeamHead Designation </label>
+								<select class="custom-select mb-3" ng-model="designation" ng-change="onDesignationChange()" name="teamHeadDesignation">
+									<option value="PROJECT MANAGER">PROJECT MAMANGER</option>
+									<option value="TECH LEADER">TECH LEADER</option>
+									<option value="TEAM LEADER">TEAM LEADER</option>
 								</select>
 							</div>
 							<div class="form-group">
+		                   		<div>
+								<label for="teamHead">TeamHead </label>
+									<select class="custom-select mb-3 teamHeadId" name="teamHeadEmployeeId" ng-model="confirmed">
+										<option ng-repeat="teamHead in getTeamHeads" value="{{teamHead.employeeId}}">{{teamHead.firstName}} ({{teamHead.employeeRoll}})</option>
+									</select>
+								</div>
+							</div>
+							<!-- <div class="form-group">
 								<label for="teadhead">Team Head:</label>  
 								<input name="teamHead" class="form-control" id="team" type="text" placeholder="Team head"/>
-							</div>
+							</div> -->
 							<!-- <div class="form-group">
 								<label for="teamMember">Team Member Count:</label> 
 								<input type="text" class="form-control" id="team_member" placeholder="Enter team member count" name="teamMembersCount">
@@ -56,7 +71,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="teamMembers" ng-controller="teamMembersController">
+				<div id="team" ng-app="onLoadModule" ng-controller="onLoadController">
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -104,16 +119,38 @@
 	</script>
 	
 	<script>
-	var app = angular.module('teamMembers', []);
-	app.controller('teamMembersController', function($scope, $http) {
+	var onLoadModule = angular.module('onLoadModule', []);
+	
+	onLoadModule.controller('onLoadController', function($scope, $http) {
 	    $http.post("/seatmanagement/team/getAllTeam")
 	        .then(function successCallback(response) {
+	        	console.log("getAllTeam success");
 	            $scope.getteam = response.data;
 	            console.log(response.data);
 	        }, function errorCallback(response) {
 	            alert(response.status);
 	        });
+	    
+	    $http.post("/seatmanagement/organisation/getAllOrganisations")
+        .then(function successCallback(response) {
+            $scope.getOrganisations = response.data;
+            console.log(response.data);
+        }, function errorCallback(response) {
+        });	
+	    
+	    $scope.onDesignationChange = function() {
+	    	
+	    	//var designation =  $("#designation").val();
+	    	console.log("designation : " + $scope.designation);
+	    	$http.get("/seatmanagement/employee/getEmployeesByDesignation?designation="+ $scope.designation)
+	        .then(function successCallback(response) {
+	            $scope.getTeamHeads = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	      });	
+	    };
 	});
+	
 	</script>
 	
 	<script type="text/javascript">
@@ -125,7 +162,7 @@
 	     data: $("#Form").serialize(),
 	     success: function (data) {
 	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/team/getTeamTB");
+	            location.replace("/seatmanagement/team/getTeamView");
 	    }
 	 	
 	});
@@ -142,7 +179,7 @@
 			 teamId:tId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/team/getTeamTB");
+	            location.replace("/seatmanagement/team/getTeamView");
 			});
 		}
 	);

@@ -50,12 +50,21 @@ public class Employee implements Serializable {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "team_id", nullable = true)
+	@JoinColumn(name = "team_id")
 	private Team team;
+	
+	@ManyToOne
+	@JoinColumn(name = "organisation_id")
+	private Organisation organisation;
+	
+	public Organisation getOrganisation() {
+		return organisation;
+	}
 
-	
-	
-	
+	public void setOrganisation(Organisation organisation) {
+		this.organisation = organisation;
+	}
+
 	public UUID getEmployeeId() {
 		return employeeId;
 	}

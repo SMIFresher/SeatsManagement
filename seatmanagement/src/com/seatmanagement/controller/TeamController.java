@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
-import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.TeamService;
 
@@ -34,19 +33,19 @@ public class TeamController {
 	private TeamService teamService;
 
 	@RequestMapping("/saveTeam")
-	public ModelAndView saveTeam(@ModelAttribute Team team) throws BusinessException {
+	public ResponseEntity saveTeam(Team team, @RequestParam(value = "organisationId") UUID organisationId) throws BusinessException {
 		
 		logger.info("Controller: TeamController Method : saveTeam request processing started at : " + LocalDateTime.now());
 		
-		ModelAndView model = null;
+		ResponseEntity model = null;
 				
 		if (Objects.isNull(team)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 
-		teamService.saveTeam(team);
+		teamService.saveTeam(team, organisationId);
 
-		model = new ModelAndView();
+		model = new ResponseEntity(HttpStatus.OK);
 		
 		logger.info("Controller: TeamController Method : saveTeam response sent at : " + LocalDateTime.now());
 		

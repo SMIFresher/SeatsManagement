@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -34,13 +38,36 @@ public class Team implements Serializable{
 
 	@Column(name = "team_head")
 	private String teamHead;
+	
+	@Transient
+	private UUID teamHeadEmployeeId;
 
 	@Transient
 	private Integer teamMembersCount;
 	
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="team")
+	@OneToMany(mappedBy="team")
 	@JsonIgnore
     private Set<Employee> employees;
+	
+	@ManyToOne
+	@JoinColumn(name = "organisation_id")
+    private Organisation organisation;
+
+	public UUID getTeamHeadEmployeeId() {
+		return teamHeadEmployeeId;
+	}
+
+	public void setTeamHeadEmployeeId(UUID teamHeadEmployeeId) {
+		this.teamHeadEmployeeId = teamHeadEmployeeId;
+	}
+
+	public Organisation getOrganisation() {
+		return organisation;
+	}
+
+	public void setOrganisation(Organisation organisation) {
+		this.organisation = organisation;
+	}
 
 	public UUID getTeamId() {
 		return teamId;

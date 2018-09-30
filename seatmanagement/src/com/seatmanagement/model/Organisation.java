@@ -8,7 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -42,6 +44,30 @@ public class Organisation implements Serializable {
 	 @OneToMany(mappedBy="organisation")
 	 @JsonIgnore
 	private Set<Building> buildings;
+	 
+	 @OneToMany(mappedBy="organisation")
+	 @JsonIgnore
+	private Set<Team> teams;
+	 
+	 @OneToMany(mappedBy="organisation")
+	 @JsonIgnore
+	private Set<Employee> employees;
+
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
 
 	public UUID getOrganisationId() {
 		return organisationId;

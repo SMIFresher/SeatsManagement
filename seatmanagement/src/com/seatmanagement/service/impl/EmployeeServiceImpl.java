@@ -12,6 +12,7 @@ import com.seatmanagement.dao.EmployeeDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.OrganisationDao;
 import com.seatmanagement.model.Employee;
+import com.seatmanagement.model.Organisation;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.EmployeeService;
 
@@ -26,13 +27,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private GenericDao genericDao;
 
 	@Override
-	public void saveEmployee(Employee employee,UUID team_id) {
+	public void saveEmployee(Employee employee,UUID team_id, UUID organisationId) {
 
 		logger.info("Service: EmployeeServiceImpl Method : saveEmployee started at : " + LocalDateTime.now());
 		
 		Team team=new Team();
 		team.setTeamId(team_id);
+		
+		Organisation organisation = new Organisation();
+		organisation.setOrganisationId(organisationId);
+		
 		employee.setTeam(team);
+		employee.setOrganisation(organisation);
+		
 		genericDao.saveOrUpdate(employee);
 
 		logger.info("Service: EmployeeServiceImpl Method : saveEmployee ended at : " + LocalDateTime.now());
@@ -88,8 +95,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public void saveEmployeeWithoutTeam(Employee employee) {
+	public void saveEmployeeWithoutTeam(Employee employee, UUID organisationId) {
+		
+		Organisation organisation = new Organisation();
+		organisation.setOrganisationId(organisationId);
+		
+		employee.setOrganisation(organisation);
+		
 		genericDao.saveOrUpdate(employee);
+	}
+
+	@Override
+	public List<Employee> getEmployeesByDesignation(String designation) {
+		List<Employee> employees = null;
+		employees = employeeDao.getEmployeesByDesignation(designation);
+		return employees;
 	}
 
 

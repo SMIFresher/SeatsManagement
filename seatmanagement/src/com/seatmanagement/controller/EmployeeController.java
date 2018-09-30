@@ -33,7 +33,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@RequestMapping("/saveEmployeeWithoutTeam")
-	public ResponseEntity saveEmployeeWithoutTeam(Employee employee) throws BusinessException {
+	public ResponseEntity saveEmployeeWithoutTeam(Employee employee, @RequestParam(value="organisationId") UUID organisationId) throws BusinessException {
 
 		logger.info("Controller: EmployeeController Method : saveEmployeeWithoutTeam request processing started at : "
 				+ LocalDateTime.now());
@@ -43,7 +43,7 @@ public class EmployeeController {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 
-		employeeService.saveEmployeeWithoutTeam(employee);
+		employeeService.saveEmployeeWithoutTeam(employee, organisationId);
 
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 
@@ -54,7 +54,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping("/saveEmployeeWithTeam")
-	public ResponseEntity saveEmployeeWithTeam(Employee employee, @RequestParam(value="teamId") UUID teamId) throws BusinessException {
+	public ResponseEntity saveEmployeeWithTeam(Employee employee, @RequestParam(value = "teamId") UUID teamId,
+			@RequestParam(value = "organisationId") UUID organisationId) throws BusinessException {
 
 		logger.info("Controller: EmployeeController Method : saveEmployeeWithTeam request processing started at : "
 				+ LocalDateTime.now());
@@ -64,7 +65,7 @@ public class EmployeeController {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 
-		employeeService.saveEmployee(employee, teamId);
+		employeeService.saveEmployee(employee, teamId, organisationId);
 
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 
@@ -171,5 +172,26 @@ public class EmployeeController {
 				+ LocalDateTime.now());
 
 		return model;
+	}
+	
+	@RequestMapping("/getEmployeesByDesignation")
+	public ResponseEntity getEmployeesByDesignation(@RequestParam(value="designation") String designation) throws BusinessException {
+		logger.info("Controller: EmployeeController Method : getEmployeesByDesignation request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity responseEntity = null;
+
+		if (Objects.isNull(designation)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+
+		List<Employee> employees = employeeService.getEmployeesByDesignation(designation);
+
+		responseEntity = new ResponseEntity(employees, HttpStatus.OK);
+
+		logger.info(
+				"Controller: EmployeeController Method : getEmployeesByDesignation response sent at : " + LocalDateTime.now());
+
+		return responseEntity;
 	}
 }
