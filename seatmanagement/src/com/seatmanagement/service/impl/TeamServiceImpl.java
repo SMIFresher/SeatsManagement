@@ -51,12 +51,11 @@ public class TeamServiceImpl implements TeamService{
 		}
 	
 		team.setTeamHead(teamHead.getFirstName());
-		
-		Set<Employee> employees = new HashSet();
-		employees.add(teamHead);
-		team.setEmployees(employees);
-		
 		genericDao.saveOrUpdate(team);
+		
+		// update teamHead
+		teamHead.setTeam(team);
+		genericDao.saveOrUpdate(teamHead);
 		
 		logger.info("Service: TeamServiceImpl Method : saveTeam ended at : " + LocalDateTime.now());
 	}
