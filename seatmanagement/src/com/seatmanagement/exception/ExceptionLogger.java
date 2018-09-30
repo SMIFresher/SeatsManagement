@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
@@ -69,7 +70,6 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 		
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_APPLICATION, RequestAttributes.SCOPE_REQUEST);
 		request.setAttribute(Constant.EXCEPTION_MESSAGE, ex.getMessage(), RequestAttributes.SCOPE_REQUEST);
-
 		
 		throw ex;
 	}
@@ -81,11 +81,31 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 		logger.error("Exception message : "+ ex.getMessage());
 		logger.error("Exception stack : ", ex);
 		
-		String ajaxHeader = httpRequest.getHeader("RequestType");
-		
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_RUNTIME, RequestAttributes.SCOPE_REQUEST);
-
+		request.setAttribute(Constant.EXCEPTION_MESSAGE, ex.getMessage(), RequestAttributes.SCOPE_REQUEST);
+		
 		throw ex;
 	}
 
+	@ExceptionHandler(value = { Exception.class })
+	protected void handleException(Exception ex, WebRequest request, HttpServletRequest httpRequest) throws Exception {
+
+		Exception rootException = (Exception) ExceptionUtils.getRootCause(ex);
+		
+		logger.error("Exception caught in Class : ExceptionLogger, Method : handleException(), at " + LocalDateTime.now());
+		logger.error("Exception message : "+ ex.getMessage());
+		
+		// Log root exception, if any
+		if(!Objects.isNull(rootException)) {
+			logger.error("Exception root cause : " + rootException.getMessage());
+			logger.error("Exception root stack : ", rootException);
+		}
+		
+		logger.error("Exception whole stack : ", ex);
+		
+		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_EXCEPTION, RequestAttributes.SCOPE_REQUEST);
+		request.setAttribute(Constant.EXCEPTION_MESSAGE, ex.getMessage(), RequestAttributes.SCOPE_REQUEST);
+
+		throw ex;
+	}
 }

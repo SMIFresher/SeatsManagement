@@ -43,6 +43,7 @@ public class Constant {
 	public static final String EXCEPTION_TYPE_BUSINESS = "BUSINESS_EXCEPTION";
 	public static final String EXCEPTION_TYPE_APPLICATION = "APPLICATION_EXCEPTION";
 	public static final String EXCEPTION_TYPE_RUNTIME = "RUNTIME_EXCEPTION";
+	public static final String EXCEPTION_TYPE_EXCEPTION = "EXCEPTION";
 	
 	public static final String TRUE = "TRUE";
 	public static final String FALSE = "FALSE";

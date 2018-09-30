@@ -123,7 +123,7 @@ function formSubmit(){
          location.replace("/seatmanagement/organisation/getOrganisationView");
          
     },error: function (data) {
-    	
+    	console.log("Failure scenario Response : " + JSON.stringify(data));
     }
  	
 });

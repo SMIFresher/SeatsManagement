@@ -34,18 +34,16 @@ public class ExceptionHandler {
 
 		if (StringUtils.isNotBlank(exceptionType)) {
 
-			if(!exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
-				errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
-			}else {
-				errorMsg = "Internal Server Error";
-			}
-			
+			errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
+
 			if (exceptionType.equals(Constant.EXCEPTION_TYPE_BUSINESS)) {
 				applicationErrorCode = 9000;
 			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_APPLICATION)) {
 				applicationErrorCode = 9001;
 			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
 				applicationErrorCode = 9002;
+			}	else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
+				applicationErrorCode = 9003;
 			}
 
 		} else {
@@ -106,21 +104,20 @@ public class ExceptionHandler {
 
 		if (StringUtils.isNotBlank(exceptionType)) {
 
-			if(!exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
-				errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
-			}else {
-				errorMsg = "Internal Server Error";
-			}
+			errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
 			
 			if (exceptionType.equals(Constant.EXCEPTION_TYPE_BUSINESS)) {
 				applicationErrorCode = 9000;
-				httpStatus = HttpStatus.CONFLICT;
+				httpStatus = HttpStatus.valueOf(httpErrorCode);
 			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_APPLICATION)) {
 				applicationErrorCode = 9001;
-				httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+				httpStatus = HttpStatus.valueOf(httpErrorCode);
 			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
 				applicationErrorCode = 9002;
-				httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+				httpStatus = HttpStatus.valueOf(httpErrorCode);
+			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
+				applicationErrorCode = 9003;
+				httpStatus = HttpStatus.valueOf(httpErrorCode);
 			}
 
 		} else {
@@ -155,7 +152,7 @@ public class ExceptionHandler {
 		
 		errorMap.put(Constant.RESPONSE_ERROR_MESSAGE, errorMsg);
 		
-		if(applicationErrorCode == 9000 || applicationErrorCode == 9001 || applicationErrorCode == 9002) {
+		if(applicationErrorCode != 0) {
 			errorMap.put(Constant.RESPONSE_ERROR_CODE, applicationErrorCode);
 		}		
 		

@@ -38,13 +38,13 @@ public class OrganisationController {
 	private OrganisationService organisationService;
 
 	@RequestMapping("/getOrganisationView")
-	public ModelAndView getOrganisationView() throws BusinessException {
+	public ModelAndView getOrganisationView(){
 
 		logger.info("Controller: OrganisationController Method : getOrganisationView request processing started at : "
 				+ LocalDateTime.now());
 
 		ModelAndView model = new ModelAndView("/HR/Organisation");
-
+		
 		logger.info("Controller: OrganisationController Method : getOrganisationView response sent at : "
 				+ LocalDateTime.now());
 
