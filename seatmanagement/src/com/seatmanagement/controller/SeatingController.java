@@ -38,6 +38,8 @@ public class SeatingController {
 			return new ResponseEntity(seatingService.getSeatingByBlockId(seating,block_id),HttpStatus.OK);
 		}
 		
+		
+		
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		@RequestMapping(value="/saveSeating")
 		public ResponseEntity<Seating> saveOrUpdateSystems(Seating seating, @RequestParam(value="blockID") UUID blockID) {
@@ -66,8 +68,8 @@ public class SeatingController {
 			return new ResponseEntity(seatingService.getAllSeating(),HttpStatus.OK);
 		}
 		
-		@RequestMapping("/getSeatingView")
-		public ModelAndView getSeatingView() throws BusinessException {
+		@RequestMapping("/getSeating")
+		public ModelAndView getSeating() throws BusinessException {
 
 			logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 					+ LocalDateTime.now());
@@ -79,5 +81,20 @@ public class SeatingController {
 
 			return model;
 		}
+		
+		@RequestMapping("/getSeatingView")
+		public ModelAndView getSeatingView(@RequestParam("floorId") String floorId) throws BusinessException {
+
+			logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
+					+ LocalDateTime.now());
+
+			ModelAndView model = new ModelAndView("/HR/seatingView");
+
+			logger.info("Controller: SeatingController Method : getSeatingView response sent at : "
+					+ LocalDateTime.now());
+			model.addObject("id", floorId);
+			return model;
+		}
+		
 		
 }

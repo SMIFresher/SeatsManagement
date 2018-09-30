@@ -74,10 +74,10 @@
           	<div class="col-sm-8 cc">
           		<div class="row text-center">
           			<div class="col-sm-12" ng-repeat="flr in getFloor | orderBy : '-floorName'">
+          				<a href="/seatmanagement/seating/getSeatingView?floorId={{flr.floorId}}">
           				<div class="container flr">
 							<h4>{{flr.floorName}}</h4>
-          				</div>
-          				
+          				</div></a>
           			</div>
           		</div>
           	</div>
@@ -203,7 +203,7 @@ app.controller('BuildingController', function($scope, $http) {
             alert(response.status);
         });
 		$scope.floorDetails=function(buildingId){
-			$http.get("/seatmanagement/floor/getFloorsByBuildingId?buildingId="+buildingId)
+			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloor = response.data;
 	            console.log(response.data);

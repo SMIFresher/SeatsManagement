@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.exception.BusinessException;
 
 @Controller
-@RequestMapping("/hr")
-public class HRController {
+@RequestMapping("/lead")
+public class LEADController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HRController.class);
 	
@@ -22,11 +22,25 @@ public class HRController {
 		logger.info("Controller: HRController Method : getHRDashboard request processing started at : "
 				+ LocalDateTime.now());
 
-		ModelAndView model = new ModelAndView("/HR/index");
+		ModelAndView model = new ModelAndView("/Lead/index");
 
 		logger.info("Controller: HRController Method : getHRDashboard response sent at : "
 				+ LocalDateTime.now());
 
 		return model;
 	}
+	@RequestMapping("/building")
+	public ModelAndView getBuilding() throws BusinessException {
+
+		logger.info("Controller: HRController Method : building request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/Lead/view");
+
+		logger.info("Controller: HRController Method : Building response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
+
 }

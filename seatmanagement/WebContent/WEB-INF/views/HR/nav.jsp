@@ -10,11 +10,11 @@
 
 
 
-	<a class="navbar-brand" href="index.jsp"> <img
+	<a class="navbar-brand" href="/seatmanagement/hr/index"> <img
 		src="/seatmanagement/Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
 	</a>
 	<div class="collapse navbar-collapse"></div>
-	<form class="form-inline" action="/action_page.php">
+	<form class="form-inline" action="#">
 		<input class="form-control mr-sm-2 search" type="text"
 			placeholder="Search">
 	</form>
@@ -34,7 +34,7 @@
 	</div>
 
 	<ul class="list-unstyled components">
-		<li><a href="/seatmanagement/hr/getHRDashboard" class="fa fa-home"> Home</a></li>
+		<li><a href="/seatmanagement/hr/index" class="fa fa-home"> Home</a></li>
 		<li><a href="/seatmanagement/organisation/getOrganisationView" class="fa fa-sitemap"> Organization</a></li>
 		<li class="active"><a href="#managebuildingSubmenu"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-building"> Manage
@@ -56,7 +56,7 @@
 					aria-expanded="false" class="dropdown-toggle">Block</a>
 					<ul class="collapse list-unstyled" id="blocksubmenu">
 						<li><a href="/seatmanagement/block/getBlockView">Add</a></li>
-						<li><a href="/seatmanagement/seating/getSeatingView">Modify</a></li>
+						<li><a href="/seatmanagement/seating/getSeatingView">Assign Block</a></li>
 					</ul></li>
 			</ul>
 		</li>

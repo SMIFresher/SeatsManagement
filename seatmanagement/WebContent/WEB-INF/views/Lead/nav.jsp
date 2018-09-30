@@ -13,13 +13,13 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-dark" href="index.jsp">Home</a>
+        <a class="nav-link text-dark" href="/seatmanagement/lead/index">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" href="view.jsp">View</a>
+        <a class="nav-link text-dark" href="/seatmanagement/lead/building">View</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" href="">Logout</a>
+        <a class="nav-link text-dark" href="#">Logout</a>
       </li>     
     </ul>
   </div> 
@@ -27,11 +27,15 @@
     <input class="form-control mr-sm-2 search" type="text" placeholder="Search">
   </form> 
 </nav>
-<br><br><br><br>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 
 
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="search">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       

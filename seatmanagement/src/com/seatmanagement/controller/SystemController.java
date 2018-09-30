@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.DashboardService;
+import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
 import com.seatmanagement.service.impl.DashboardServiceImpl;
 
@@ -26,6 +28,11 @@ public class SystemController {
 
 	@Autowired
 	private SystemService systemService;
+	
+	
+	@Autowired
+	SeatingDetailsService seatingDetailsService;
+	
 	
 	@RequestMapping("getAllSystems.do")
 	public ResponseEntity getAllEmployees() {
@@ -41,7 +48,20 @@ public class SystemController {
 		return responseEntity;
 	}
 	
+	@RequestMapping(value="/EditView")
+	public ModelAndView getView(){
+		ModelAndView mav=new ModelAndView("HR/cabins");
+		mav.addObject("list", systemService.getAllSystems());
+		mav.addObject("datasRow", seatingDetailsService.getAllSeatingDetails());
+		return mav;
+	}
 	
+	@RequestMapping(value="/View")
+	public ModelAndView View(){
+		ModelAndView mav=new ModelAndView("HR/Viewcabins");
+
+		return mav;
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )

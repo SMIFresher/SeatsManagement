@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.gson.Gson;
@@ -38,6 +39,9 @@ public class SeatingDetailsController {
 		 seatingDetailsService.saveSeatingDetails(seatingDetails);
 		return ResponseEntity.ok().build();
 	}
+	
+
+	
 	
 	@RequestMapping(value="/saveInBatch",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SeatingDetails> saveSeatingDetailsInBatch(@RequestBody SeatingDetails[] seatingDetails ,@RequestParam UUID seatingId){
