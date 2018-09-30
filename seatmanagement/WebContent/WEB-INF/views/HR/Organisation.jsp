@@ -95,7 +95,7 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
   $httpProvider.defaults.headers.post['RequestType'] = 'AJAX';
 });
 app.controller('OrganisationController', function($scope, $http) {
-    $http.post("../../organisation/getAllOrganisations")
+    $http.post("/seatmanagement/organisation/getAllOrganisations")
         .then(function successCallback(response) {
             $scope.getOrg = response.data;
             console.log(response.data);
@@ -109,7 +109,7 @@ app.controller('OrganisationController', function($scope, $http) {
 function formSubmit(){
 
  $.ajax({
-     url:'../../organisation/saveOrganisation',
+     url:'/seatmanagement/organisation/saveOrganisation',
      method : 'POST',
      data: $("#Form").serialize(),
      beforeSend: function(request) {
@@ -120,7 +120,7 @@ function formSubmit(){
     	 console.log("Success scenario Response : " +data);
          	
          $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-         location.replace("Organisation.jsp");
+         location.replace("/seatmanagement/organisation/getOrganisationView");
          
     },error: function (data) {
     	
@@ -138,14 +138,14 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	console.log("orgId : " + orgId);
 	 
 	 $.ajax({
-	     url:'../../organisation/deleteOrganisationById',
+	     url:'/seatmanagement/organisation/deleteOrganisationById',
 	     method : 'POST',
 	     data: {organisationId:orgId},
 	     beforeSend: function(request) {
 	    	    request.setRequestHeader("RequestType", "AJAX");
 	   	},
 	     success: function (data) {
-	    	 location.replace("Organisation.jsp");
+	    	 location.replace("/seatmanagement/organisation/getOrganisationView");
 	    },error: function (response) {
 	    	
 	    }

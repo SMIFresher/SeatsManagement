@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link href="css/nav.css" rel="stylesheet" type="text/css" />
+<link href="/seatmanagement/css/HR/nav.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <nav
 	class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
@@ -11,7 +11,7 @@
 
 
 	<a class="navbar-brand" href="index.jsp"> <img
-		src="../Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
+		src="/seatmanagement/Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
 	</a>
 	<div class="collapse navbar-collapse"></div>
 	<form class="form-inline" action="/action_page.php">
@@ -34,8 +34,8 @@
 	</div>
 
 	<ul class="list-unstyled components">
-		<li><a href="index.jsp" class="fa fa-home"> Home</a></li>
-		<li><a href="Organisation.jsp" class="fa fa-sitemap"> Organization</a></li>
+		<li><a href="/seatmanagement/hr/getHRDashboard" class="fa fa-home"> Home</a></li>
+		<li><a href="/seatmanagement/organisation/getOrganisationView" class="fa fa-sitemap"> Organization</a></li>
 		<li class="active"><a href="#managebuildingSubmenu"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-building"> Manage
 				Building</a>
@@ -43,20 +43,20 @@
 				<li><a href="#buldsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Building</a>
 					<ul class="collapse list-unstyled" id="buldsubmenu">
-						<li><a href="viewandAddBuilding.jsp">View</a></li>
-						<li><a href="ModifyBuilding.jsp">Modify</a></li>
+						<li><a href="/seatmanagement/building/getBuildingViewAndEdit">View</a></li>
+						<li><a href="/seatmanagement/building/getModifyBuilding">Modify</a></li>
 					</ul></li>
 				<li><a href="#floorsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Floor</a>
 					<ul class="collapse list-unstyled" id="floorsubmenu">
-						<li><a href="Floor.jsp">Add</a></li>
+						<li><a href="/seatmanagement/floor/getFloorView">Add</a></li>
 						<li><a href="#">Modify</a></li>
 					</ul></li>
 				<li><a href="#blocksubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Block</a>
 					<ul class="collapse list-unstyled" id="blocksubmenu">
-						<li><a href="block.jsp">Add</a></li>
-						<li><a href="seating.jsp">Modify</a></li>
+						<li><a href="/seatmanagement/block/getBlockView">Add</a></li>
+						<li><a href="/seatmanagement/seating/getSeatingView">Modify</a></li>
 					</ul></li>
 			</ul>
 		</li>

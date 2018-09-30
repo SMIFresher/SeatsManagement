@@ -3,8 +3,8 @@
 <head>
 	<title>Seats Managament</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="css/nav.css">
+  <link rel="stylesheet" type="text/css" href="/seatmanagement/css/HR/style.css">
+	<link rel="stylesheet" type="text/css" href="/seatmanagement/css/HR/nav.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -12,7 +12,7 @@
     <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	
-	 <script src="../js/angular.ng-modules.js"></script>
+	 <script src="/seatmanagement/js/angular.ng-modules.js"></script>
 	 
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -163,7 +163,7 @@ function formSubmit(){
 	var select_id = document.getElementById("org");
 	
  $.ajax({
-     url:'../../building/build',
+     url:'/seatmanagement/building/build',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
@@ -182,9 +182,9 @@ function formSubmit(){
 
 var app = angular.module('getOrg', ['Building']);
 app.controller('getOrganization', function($scope, $http) {
-    $http.post("../../organisation/getAllOrganisations")
+    $http.post("/seatmanagement/organisation/getAllOrganisations")
         .then(function successCallback(response) {
-            $scope.getOrg = response.data.organisations;
+            $scope.getOrg = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
             alert(response.status);
@@ -194,7 +194,7 @@ app.controller('getOrganization', function($scope, $http) {
 
 var app = angular.module('Building', []);
 app.controller('BuildingController', function($scope, $http) {
-    $http.post("../../building/getAllBuildings")
+    $http.post("/seatmanagement/building/getAllBuildings")
         .then(function successCallback(response) {
             $scope.getBuilding = response.data;
             console.log(response.data);
@@ -203,7 +203,7 @@ app.controller('BuildingController', function($scope, $http) {
             alert(response.status);
         });
 		$scope.floorDetails=function(buildingId){
-			$http.get("../../floor/getFloorsByBuildingId?buildingId="+buildingId)
+			$http.get("/seatmanagement/floor/getFloorsByBuildingId?buildingId="+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloor = response.data;
 	            console.log(response.data);

@@ -275,3 +275,11 @@ CHANGE COLUMN `seating_position` `seating_accessories` VARCHAR(255) NULL DEFAULT
 ADD COLUMN `seating_row` VARCHAR(45) NULL AFTER `seating_accessories`,
 ADD COLUMN `seatingColum` VARCHAR(45) NULL AFTER `seating_row`,
 ADD COLUMN `seatingSystemNo` VARCHAR(45) NULL AFTER `seatingColum`;
+
+# 30/09/2018
+# Floor Foriegn key update
+
+ALTER TABLE floor DROP FOREIGN KEY building_id;
+
+ALTER TABLE floor 
+ADD CONSTRAINT `floor_fk_1` FOREIGN KEY (building_id) REFERENCES building(building_id) ON DELETE CASCADE;

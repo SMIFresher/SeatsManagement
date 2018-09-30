@@ -1,6 +1,7 @@
 package com.seatmanagement.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.service.BuildingService;
 
@@ -53,7 +55,7 @@ public class BuildingController {
 	
 	
 	@RequestMapping(value="/getAllBuildings")
-	public ResponseEntity<List<Building>> getAll(){
+	public ResponseEntity getAll(){
 		//List<Object> objectList = seatingDetailsService.getAllSeatingDetails();
 		
 		
@@ -78,22 +80,32 @@ public class BuildingController {
 	}
 	
 	
-	/*@RequestMapping(value="/deleteBuildingById",method=RequestMethod.GET)
+	@RequestMapping(value="/deleteBuildingById",method=RequestMethod.POST)
 	public ResponseEntity deleteBuildingById(@RequestParam UUID buildingId){
+		
+		if(Objects.isNull(buildingId)){
+			throw new ApplicationException("Required param not present");
+		}
+		
+		ResponseEntity responseEntity = null;
 		
 		Building building = new Building();
 		building.setBuildingId(buildingId);
 		
-		ResponseEntity responseEntity=null;
-		if(building.getBuildingId() !=null){
-		responseEntity = new ResponseEntity(buildingService.delete(building),HttpStatus.OK);
-		}
-		else{
-			throw new RuntimeException("Invalid ID");
-		}
-		return responseEntity;
-	}*/
+		buildingService.delete(building);
 		
+		responseEntity = new ResponseEntity(HttpStatus.OK);
+		
+		return responseEntity;
+	}
+		
+	@RequestMapping(value = "/getBuildingViewAndEdit", method = RequestMethod.GET)
+	public ModelAndView getBuildingViewAndEdit() {
+		return new ModelAndView("/HR/viewandAddBuilding");
+	}
 	
-	
+	@RequestMapping(value = "/getModifyBuilding")
+	public ModelAndView getModifyBuilding() {
+		return new ModelAndView("/HR/ModifyBuilding");
+	}
 }

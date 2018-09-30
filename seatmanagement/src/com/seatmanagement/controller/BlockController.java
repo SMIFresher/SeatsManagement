@@ -45,10 +45,10 @@ public class BlockController {
 	
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
-	@RequestMapping(value="/saveblock",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Block> saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId) throws BusinessException{
+	@RequestMapping(value="/saveblock",method=RequestMethod.POST)
+	public ResponseEntity saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId) throws BusinessException{
 		blockService.saveOrUpdate(block,floorId);
-		ResponseEntity<Block> response =  new ResponseEntity(HttpStatus.OK);
+		ResponseEntity response =  new ResponseEntity(HttpStatus.OK);
 		return response;
 	}
 	
@@ -123,6 +123,9 @@ public class BlockController {
 		return responseEntity;
 	}
 		
-	
+	@RequestMapping(value = "/getBlockView", method = RequestMethod.GET)
+	public ModelAndView getBlockView() {
+		return new ModelAndView("HR/block");
+	}
 	
 }

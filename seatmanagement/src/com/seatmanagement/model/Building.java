@@ -62,7 +62,7 @@ public class Building implements Serializable{
 	private String squareFeetString;
 	
 	@OneToMany(mappedBy="building",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	//@JsonIgnore
+	@JsonIgnore
 	private Set<Floor> floors;
 
 	public Set<Floor> getFloors() {

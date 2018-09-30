@@ -5,7 +5,7 @@
 		if(usr.equals("HR")){
 			%>
 				<script>
-						location.replace("views/HR");
+						location.replace("hr/getHRDashboard");
 				</script>
 			<%
 		}else if(usr.equals("Lead")){
@@ -29,7 +29,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-  <link href="<c:url value="/css/Style.css" />" rel="stylesheet"  type="text/css" />
+  <link href="/seatmanagement/css/Style.css"rel="stylesheet"  type="text/css" />
 </head>
 <body>
 

@@ -11,9 +11,9 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <!-- Our Custom CSS -->
-<link href="<c:url value="css/nav.css" />" rel="stylesheet"
+<link href="/seatmanagement/css/HR/nav.css" rel="stylesheet"
 	type="text/css" />
-	<link href="<c:url value="css/style.css" />" rel="stylesheet"
+	<link href="/seatmanagement/css/HR/style.css" rel="stylesheet"
 	type="text/css" />
 <!-- Font Awesome JS -->
 
@@ -138,7 +138,7 @@
 <script type="text/javascript">
 		var app = angular.module('getComp', []);
 		app.controller('getCompController', function($scope, $http) {
-		    $http.get("../../dashboard/getAllDashboardCount")
+		    $http.get("../dashboard/getAllDashboardCount")
 		        .then(function successCallback(response) {
 		            $scope.getCountDatas = response.data[0];
 		            console.log(response.data);
@@ -150,7 +150,7 @@
 
 	var app = angular.module('getCompany', ['getComp']);
 	app.controller('getCompanyController', function($scope, $http) {
-	    $http.get("../../dashboard/getAllCompanyDetailsCount")
+	    $http.get("../dashboard/getAllCompanyDetailsCount")
 	        .then(function successCallback(response) {
 	            $scope.getCompDetails = response.data;
 	            console.log(response.data);

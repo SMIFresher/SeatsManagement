@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	  <script src="../js/angular.ng-modules.js"></script>
+	  <script src="/seatmanagement/js/angular.ng-modules.js"></script>
 </head>
 <body>
 
@@ -82,18 +82,19 @@
 <script>
 var app = angular.module('Building', []);
 app.controller('BuildingController', function($scope, $http) {
-    $http.post("../../building/getAllBuildings")
+    $http.post("/seatmanagement/building/getAllBuildings")
         .then(function successCallback(response) {
             $scope.getBuilding = response.data;
-            console.log(response.data);
+            console.log("Get All Buildings success : "+ response.data);
         }, function errorCallback(response) {
+        	console.log("Get All Buildings failure : " + response);
             alert(response.status);
         });
 });
 
 var app = angular.module('floor', ['Building']);
 app.controller('floorController', function($scope, $http) {
-    $http.post("../../floor/getAllFloor")
+    $http.post("/seatmanagement/floor/getAllFloor")
         .then(function successCallback(response) {
             $scope.getflr = response.data;
             console.log(response.data);
@@ -107,11 +108,11 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	var floorId = currow.find('td:eq(2)').text();
 	console.log("floorId : " + floorId);
 	
-	 $.post("../../floor/deleteFloorById", {
+	 $.post("/seatmanagement/floor/deleteFloorById", {
 		 floorId:floorId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Floor.jsp");
+            location.replace("/seatmanagement/floor/getFloorView");
 		});
 
 	}
@@ -127,7 +128,7 @@ angular.element(document).ready(function() {
 function formSubmit(){
 	
  $.ajax({
-     url:'../../floor/floorsave',
+     url:'/seatmanagement/floor/floorsave',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {

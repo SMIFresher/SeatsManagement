@@ -142,7 +142,7 @@
 	app.controller('BuildingController', function($scope, $http) {
 		
 		$scope.loadBuilding = function(){ 
-	    $http.post("../../building/getAllBuildings")
+	    $http.post("/seatmanagement/building/getAllBuildings")
 	        .then(function successCallback(response) {
 	            $scope.getBuilding = response.data;
 	            console.log(response.data);
@@ -152,7 +152,7 @@
 		}
 		
 		$scope.floorDetails=function(buildingId){
-			$http.get("../../floor/getFloorByBuildingId?buildingId="+buildingId)
+			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloor = response.data;
 	            console.log(response.data);
@@ -165,7 +165,7 @@
 	});
 	var app = angular.module('block', ['Building']);
 	app.controller('blockController', function($scope, $http) {
-	    $http.post("../../block/getAllBlocks")
+	    $http.post("/seatmanagement/block/getAllBlocks")
 	        .then(function successCallback(response) {
 	            $scope.getBlock = response.data;
 	            console.log(response.data);
@@ -184,13 +184,14 @@
 function formSubmit(){
 	  console.log("hello");
 	 $.ajax({
-	     url:'../../block/saveblock',
+	     url:'/seatmanagement/block/saveblock',
 	     method : 'POST',
+	     async: false,
 	     data: $("#Form").serialize(),
-	   
 	     success: function (data) {
 	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-
+	            location.replace("/seatmanagement/block/getBlockView");
+	    },error: function(data){
 	    }
 	 	
 	});
@@ -204,11 +205,11 @@ function formSubmit(){
 		blockId = currow.find('td:eq(2)').text();
 		console.log("blockId : " + blockId);
 		
-		 $.post("../../block/deleteBlockById", {
+		 $.post("/seatmanagement/block/deleteBlockById", {
 			 blockId:blockId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("block.jsp");
+	            location.replace("/seatmanagement/block/getBlockView");
 			});
 	
 		}

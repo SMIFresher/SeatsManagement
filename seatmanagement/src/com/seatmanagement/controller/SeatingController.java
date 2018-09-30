@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
@@ -63,6 +64,20 @@ public class SeatingController {
 		public ResponseEntity<List<Seating>> getAllSeating(){
 			logger.info("Controller: SeatingController Method : getAllSeating request processing started at : " + LocalDateTime.now());
 			return new ResponseEntity(seatingService.getAllSeating(),HttpStatus.OK);
+		}
+		
+		@RequestMapping("/getSeatingView")
+		public ModelAndView getSeatingView() throws BusinessException {
+
+			logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
+					+ LocalDateTime.now());
+
+			ModelAndView model = new ModelAndView("/HR/seating");
+
+			logger.info("Controller: SeatingController Method : getSeatingView response sent at : "
+					+ LocalDateTime.now());
+
+			return model;
 		}
 		
 }

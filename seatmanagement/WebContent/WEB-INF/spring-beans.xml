@@ -9,7 +9,7 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	    <property name="url" value="jdbc:mysql://192.168.2.171:3306/seatmanagement"/>
+	    <property name="url" value="jdbc:mysql://localhost:3306/seatmanagement"/>
 	    <property name="username" value="root"/>
 	    <property name="password" value="root"/>
 	</bean>
@@ -21,8 +21,8 @@
 	   		<props>
 	   			<prop key="hibernate.hbm2ddl.auto">update</prop>
 	   			 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-	   			 <prop key="format-sql">true</prop>
-	   			 <prop key="hibernate.show_sql">true</prop>
+	   			 <!-- <prop key="hibernate.show_sql">true</prop> -->
+	   			 <prop key="hibernate.format_sql">true</prop>
 	   		</props>
 	   	</property>
     </bean>

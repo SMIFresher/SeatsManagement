@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
@@ -23,6 +24,14 @@ public class FloorController {
 
 	@Autowired
 	private FloorService floorService;
+	
+	@RequestMapping("/getFloorView")
+	public ModelAndView getFloorView() throws BusinessException {
+
+		ModelAndView model = new ModelAndView("/HR/Floor");
+
+		return model;
+	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/floorsave", method = RequestMethod.POST)

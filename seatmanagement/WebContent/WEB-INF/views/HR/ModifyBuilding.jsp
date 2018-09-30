@@ -84,7 +84,7 @@
 								<td align="center">{{build.buildingLocation}}</td>
 								<td>{{build.squareFeet}}</td>
 								<td align="center">
-									<button class="btn btn-danger">Delete</button></td>
+									<button class="btn btn-danger" onclick="deleteBuilding(this)">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -126,7 +126,7 @@
 <script>
 var app = angular.module('Building', []);
 app.controller('BuildingController', function($scope, $http) {
-	 $http.post("../../building/getAllBuildings")
+	 $http.post("/seatmanagement/building/getAllBuildings")
      .then(function successCallback(response) {
          $scope.getBuilding = response.data;
          console.log(response.data);
@@ -141,19 +141,11 @@ app.controller('BuildingController', function($scope, $http) {
 function formSubmit(){
 
  $.ajax({
-     url:'../../building/build',
+     url:'/seatmanagement/building/build',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
-    	 var status = data.RESPONSE_STATUS;
-    	 if(status == "OK"){
-
-         }
-         if(status == "ERROR"){
-         	 var message = response.data.RESPONSE_MESSAGE;
-         	// Business Error scenario
-         	// provision to display business error message
-         }
+    	 location.replace("/seatmanagement/building/getModifyBuilding");
     },error: function (response) {
     	var status = response.RESPONSE_STATUS;
     	var message = response.RESPONSE_MESSAGE;
@@ -166,14 +158,24 @@ function formSubmit(){
 });
 }
 	
-
+function deleteBuilding(button){
+	 var currow=$(button).closest('tr');
+	 var  buildingId=currow.find('td:eq(0)').text();
+	    
+	 $.ajax({
+	     url:'/seatmanagement/building/deleteBuildingById',
+	     method : 'POST',
+	     data: {
+	    	 buildingId:buildingId
+	     },
+	     success: function (data) {
+	    	 location.replace("/seatmanagement/building/getModifyBuilding");
+	    },error: function (response) {
+	    }
+	 	
+	});
+	}
 	
 </script>
-
-
-
-
-
-
 </body>
 </html>

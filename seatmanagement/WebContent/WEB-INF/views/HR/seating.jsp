@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
 <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="imgViewer2.js"></script>
+<script type="text/javascript" src="/seatmanagement/js/imgViewer2.js"></script>
 </head>
 <body>
 
@@ -59,7 +59,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="emp_id">Black</label>
+									<label for="emp_id">Block</label>
 									<select name="blockID" ng-model="block"
 										class="form-control">
 										<option value="">Select Floor</option>
@@ -92,7 +92,7 @@
 			<div class="col-md-8">
 				<div class="borderr text-center">
 
-			      <img  id="image1" src="images/vgs.svg" style="border: 30px solid #555; padding:20px;" width="80%"  />
+			      <img  id="image1" src="/seatmanagement/images/HR/vgs.svg" style="border: 30px solid #555; padding:20px;" width="80%"  />
 			  
 			     </div>
 			</div>
@@ -111,7 +111,7 @@ var app = angular.module('Building', []);
 app.controller('BuildingController', function($scope, $http) {
 	
 	$scope.loadBuilding = function(){ 
-    $http.post("../../building/getAllBuildings")
+    $http.post("/seatmanagement/building/getAllBuildings")
         .then(function successCallback(response) {
             $scope.getBuilding = response.data;
             console.log(response.data);
@@ -121,7 +121,7 @@ app.controller('BuildingController', function($scope, $http) {
 	};
 	
 	$scope.floorDetails=function(buildingId){
-		$http.get("../../floor/getFloorByBuildingId?buildingId="+buildingId)
+		$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
         .then(function successCallback(response) {
             $scope.getFloor = response.data;
             console.log(response.data);
@@ -132,7 +132,7 @@ app.controller('BuildingController', function($scope, $http) {
 	};
 //chages are thare
 	$scope.blockDetails=function(floor){
-		$http.get("../../block/getBlockByBlockType?block_type=Cabins&floor_id="+floor)
+		$http.get("/seatmanagement/block/getBlockByBlockType?block_type=Cabins&floor_id="+floor)
         .then(function successCallback(response) {
             $scope.getBlock = response.data;
             console.log(response.data);
@@ -150,7 +150,7 @@ app.controller('BuildingController', function($scope, $http) {
 function formSubmit(){
 	console.log($('#Form').serialize());
  $.ajax({
-     url:'../../seating/saveSeating',
+     url:'/seatmanagement/seating/saveSeating',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {

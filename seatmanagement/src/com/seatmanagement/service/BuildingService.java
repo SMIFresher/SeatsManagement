@@ -21,6 +21,6 @@ public interface BuildingService {
 
 	public Building getById(Building building, UUID buildingId);
 
-	/*public boolean delete(Building building);
-*/
+	public boolean delete(Building building);
+
 }
