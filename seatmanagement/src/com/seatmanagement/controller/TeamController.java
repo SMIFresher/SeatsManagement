@@ -163,4 +163,32 @@ public class TeamController {
 		return responseEntity;
 	}
 	
+	@RequestMapping("/getTeamView")
+	public ModelAndView getTeamView() {
+		
+		logger.info("Controller: TeamController Method : getTeamView request processing started at : " + LocalDateTime.now());
+		
+		ModelAndView model = null;
+
+		model = new ModelAndView("HR/team");
+		
+		logger.info("Controller: TeamController Method : getTeamView response sent at : " + LocalDateTime.now());
+		
+		return model;
+	}
+	
+	@RequestMapping("/getTeamTB")
+	public ModelAndView getTeamTB() {
+		
+		logger.info("Controller: TeamController Method : getTeamTB request processing started at : " + LocalDateTime.now());
+		
+		ModelAndView model = null;
+
+		model = new ModelAndView("Curds/TeamTbCURD");
+		
+		logger.info("Controller: TeamController Method : getTeamTB response sent at : " + LocalDateTime.now());
+		
+		return model;
+	}
+	
 }

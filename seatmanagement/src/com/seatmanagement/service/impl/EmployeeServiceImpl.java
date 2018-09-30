@@ -87,6 +87,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		logger.info("Service: EmployeeServiceImpl Method : deleteEmployeeById ended at : " + LocalDateTime.now());		
 	}
 
+	@Override
+	public void saveEmployeeWithoutTeam(Employee employee) {
+		genericDao.saveOrUpdate(employee);
+	}
+
 
 
 	

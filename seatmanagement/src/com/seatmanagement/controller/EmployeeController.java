@@ -31,11 +31,32 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@RequestMapping("/saveEmployeeWithoutTeam")
+	public ResponseEntity saveEmployeeWithoutTeam(Employee employee) throws BusinessException {
 
-	@RequestMapping("/saveEmployee")
-	public ResponseEntity saveEmployee(Employee employee, @RequestParam(value="teamId") UUID teamId) throws BusinessException {
+		logger.info("Controller: EmployeeController Method : saveEmployeeWithoutTeam request processing started at : "
+				+ LocalDateTime.now());
 
-		logger.info("Controller: EmployeeController Method : saveEmployee request processing started at : "
+		ResponseEntity responseEntity = null;
+		if (Objects.isNull(employee)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+
+		employeeService.saveEmployeeWithoutTeam(employee);
+
+		responseEntity = new ResponseEntity(HttpStatus.OK);
+
+		logger.info("Controller: EmployeeController Method : saveEmployeeWithoutTeam response sent at : "
+				+ LocalDateTime.now());
+
+		return responseEntity;
+	}
+
+	@RequestMapping("/saveEmployeeWithTeam")
+	public ResponseEntity saveEmployeeWithTeam(Employee employee, @RequestParam(value="teamId") UUID teamId) throws BusinessException {
+
+		logger.info("Controller: EmployeeController Method : saveEmployeeWithTeam request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity responseEntity = null;
@@ -47,7 +68,7 @@ public class EmployeeController {
 
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 
-		logger.info("Controller: EmployeeController Method : saveEmployee response sent at : "
+		logger.info("Controller: EmployeeController Method : saveEmployeeWithTeam response sent at : "
 				+ LocalDateTime.now());
 
 		return responseEntity;
@@ -134,5 +155,21 @@ public class EmployeeController {
 				+ LocalDateTime.now());
 
 		return responseEntity;
+	}
+	
+	@RequestMapping("/getEmployeeView")
+	public ModelAndView getEmployeeView(){
+
+		logger.info("Controller: EmployeeController Method : getEmployeeView request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = null;
+
+		model = new ModelAndView("HR/Employee");
+
+		logger.info("Controller: EmployeeController Method : getEmployeeView response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
 	}
 }

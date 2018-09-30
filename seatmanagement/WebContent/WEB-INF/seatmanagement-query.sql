@@ -283,3 +283,7 @@ ALTER TABLE floor DROP FOREIGN KEY building_id;
 
 ALTER TABLE floor 
 ADD CONSTRAINT `floor_fk_1` FOREIGN KEY (building_id) REFERENCES building(building_id) ON DELETE CASCADE;
+
+# Team team_members_count update
+
+ALTER TABLE team DROP COLUMN team_members_count;

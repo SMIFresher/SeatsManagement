@@ -29,7 +29,7 @@
 					<div class="col-md-12">
 
 						<h2>Employee</h2>
-						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+						<form id="Form" autocomplete="on">
 							
 							<div class="form-group">
 								<label for="employeeRoll">Employee Roll Number:</label>  
@@ -60,7 +60,7 @@
 									</select>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" onClick="formSubmit();" >Submit</button>
 						</form>
 
 					</div>
@@ -128,7 +128,7 @@
 
 	var app = angular.module('Team', []);
 	app.controller('TeamController', function($scope, $http) {
-	    $http.post("../../team/getAllTeam")
+	    $http.post("/seatmanagement/team/getAllTeam")
 	        .then(function successCallback(response) {
 	            $scope.getTeam = response.data;
 	            console.log(response.data);
@@ -140,7 +140,7 @@
 
 	var app = angular.module('employee', ['Team']);
 	app.controller('employeeController', function($scope, $http) {
-	    $http.post("../../employee/getAllEmployees")
+	    $http.post("/seatmanagement/employee/getAllEmployees")
 	        .then(function successCallback(response) {
 	            $scope.getemployees = response.data;
 	            console.log(response.data);
@@ -157,14 +157,22 @@
 	
 	<script type="text/javascript">
 	function formSubmit(){
+		
+	var formData = $("#Form").serialize();
+	console.log(formData);
 	
+	if()
+		
 	 $.ajax({
-	     url:'../../employee/saveEmployee',
+	     url:'/seatmanagement/employee/saveEmployee',
 	     method : 'POST',
 	     data: $("#Form").serialize(),
 	     success: function (data) {
+	    	 alert("success Scenario: " + data);
 	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("Employee.jsp");
+	            location.replace("/seatmanagement/employee/getEmployeeView");
+	    },error: function(data){
+	    	 alert("Error Scenario: " + data);
 	    }
 	 	
 	});
@@ -178,11 +186,11 @@
 		tId = currow.find('td:eq(0)').text();
 		console.log("tId : " + tId);
 		
-		 $.post("../../employee/deleteEmployeeById", {
+		 $.post("/seatmanagement/employee/deleteEmployeeById", {
 			 teamId:tId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("Employee.jsp");
+	            location.replace("/seatmanagement/employee/getEmployeeView");
 			});
 		}
 	);

@@ -63,8 +63,8 @@
 		<li class="active"><a href="#Employee"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-users"> Employee </a>
 			<ul class="collapse list-unstyled" id="Employee">
-				<li><a href="team.jsp">Team</a></li>
-				<li><a href="Employee.jsp">Employee</a></li>
+				<li><a href="/seatmanagement/team/getTeamView">Team</a></li>
+				<li><a href="/seatmanagement/employee/getEmployeeView">Employee</a></li>
 
 			</ul></li>
 		<li class="active"><a href="#manageallotmentSubmenu"

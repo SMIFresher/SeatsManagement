@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -34,7 +35,7 @@ public class Team implements Serializable{
 	@Column(name = "team_head")
 	private String teamHead;
 
-	@Column(name = "team_members_count")
+	@Transient
 	private Integer teamMembersCount;
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy="team")

@@ -43,10 +43,10 @@
 								<label for="teadhead">Team Head:</label>  
 								<input name="teamHead" class="form-control" id="team" type="text" placeholder="Team head"/>
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="teamMember">Team Member Count:</label> 
 								<input type="text" class="form-control" id="team_member" placeholder="Enter team member count" name="teamMembersCount">
-							</div>
+							</div> -->
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
@@ -106,7 +106,7 @@
 	<script>
 	var app = angular.module('teamMembers', []);
 	app.controller('teamMembersController', function($scope, $http) {
-	    $http.post("../../team/getAllTeam")
+	    $http.post("/seatmanagement/team/getAllTeam")
 	        .then(function successCallback(response) {
 	            $scope.getteam = response.data;
 	            console.log(response.data);
@@ -120,12 +120,12 @@
 	function formSubmit(){
 	
 	 $.ajax({
-	     url:'../../team/saveTeam',
+	     url:'/seatmanagement/team/saveTeam',
 	     method : 'POST',
 	     data: $("#Form").serialize(),
 	     success: function (data) {
 	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("TeamTbCURD.jsp");
+	            location.replace("/seatmanagement/team/getTeamTB");
 	    }
 	 	
 	});
@@ -138,11 +138,11 @@
 		tId = currow.find('td:eq(0)').text();
 		console.log("tId : " + tId);
 		
-		 $.post("../../team/deleteTeamById", {
+		 $.post("/seatmanagement/team/deleteTeamById", {
 			 teamId:tId
 			}, function(data) {
 				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("TeamTbCURD.jsp");
+	            location.replace("/seatmanagement/team/getTeamTB");
 			});
 		}
 	);
