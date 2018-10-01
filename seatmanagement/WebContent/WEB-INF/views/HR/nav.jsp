@@ -112,3 +112,6 @@
             });
         });
  </script>
+
+<script src="/seatmanagement/js/error.js"></script>
+

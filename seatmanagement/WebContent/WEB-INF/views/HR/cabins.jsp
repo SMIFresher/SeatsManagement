@@ -214,9 +214,10 @@
               <h3>Are You Soure</h3>
               
               <p>Do You Want To save This Details</p>
-              <form action="" method="get">
+              <form id="Form" onsubmit="formSubmit();">
               	<input type="hidden" id="saveDetails" name="seating_details">
-					<input type="submit" value="Submit" class="btn btn-primary"/>
+              	<input type="hidden" id="seatingID" name="seatingId" value="<%=request.getParameter("seatingId") %>">
+				<input type="submit" value="Submit" class="btn btn-primary"/>
               </form>
             </div>
           </div>
@@ -244,23 +245,54 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 	});
 app.controller('getSystemDetails', function($scope, $http) {
-    $http.get("systems/getAllSystems.do")
+    $http.get("getAllSystems.do")
     .then(function(response) {
         $scope.systems = response.data;
         console.log(response.data);
+    },function errorCallback(response) {
+    	console.log(response.data);
+    	doModal('Some Error',response.data.ERROR_MESSAGE);
     });
 
     $scope.getSysDetails=function(sysno){
     	console.log(sysno);
-    };
-
-    
-    
+    };    
 });
 
 
 </script>
 
+	<script type="text/javascript">
+		function formSubmit() {
+
+			$.ajax({
+				url : '#',
+				method : 'POST',
+				data : $("#Form").serialize(),
+				success : function(data) {
+					var status = data.RESPONSE_STATUS;
+					if (status == "OK") {
+
+					}
+					if (status == "ERROR") {
+						var message = response.data.RESPONSE_MESSAGE;
+						// Business Error scenario
+						// provision to display business error message
+					}
+				},
+				error : function(response) {
+					var status = response.RESPONSE_STATUS;
+					var message = response.RESPONSE_MESSAGE;
+					var errorCode = response.ERROR_CODE;
+					console.log("Response Status : " + status);
+					console.log("Response Message : " + message);
+					console.log("ErrorCode : " + errorCode);
+				}
+
+			});
+		}
+	
+	</script>
 
 
 </body>
