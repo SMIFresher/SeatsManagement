@@ -212,7 +212,7 @@
               
               <p>Do You Want To save This Details</p>
               <form action="" method="get">
-              	<input type="hidden" id="saveDetails" name="sss">
+              	<input type="hidden" id="saveDetails" name="seating_details">
 					<input type="submit" value="Submit" class="btn btn-primary"/>
               </form>
             </div>

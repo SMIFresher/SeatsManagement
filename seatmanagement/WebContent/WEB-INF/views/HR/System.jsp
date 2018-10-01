@@ -15,7 +15,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div ng-app="Systems" ng-controller="SystemController ng-init="loadInitially()">
+	
 	
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -91,6 +91,7 @@
 								</div>
 							</div>
 								<div class="form-group">
+								<div ng-app="AdditinalDevice" ng-controller="AdditinalDeviceController" id="additinal" ng-init="loadInitially()">
 								<label for="networkType">additional Device:</label>
 								<div class="custom-control custom-radio mb-3">
 									<div class="row">
@@ -100,6 +101,7 @@
 								 	</div>
 										</div>
 									</div>
+								</div>
 								</div>
 							</div>
 							
@@ -155,19 +157,15 @@
 
 			document.getElementById('systemId').value = col1;
 		})
-	</script>
+</script>
 
 
 <script>
-var apps= angular.module('Systems',[]);
-apps.controller('SystemController', function($scope, $http) {
-$scope.systemDefault="";
-$scope.networkDefault="";
-$scope.osDefault="";
-
+var apps= angular.module('AdditinalDevice',[]);
+apps.controller('AdditinalDeviceController', function($scope, $http) {
 
 $scope.loadInitially = function(){ 
-    $http.post("../../Additionaldevice/getAllDevice")
+    $http.post("/seatmanagement/Additionaldevice/getAllDevice")
         .then(function successCallback(response) {
             $scope.getAddDev = response.data;
             console.log(response.data);
@@ -175,14 +173,11 @@ $scope.loadInitially = function(){
             alert(response.status);
         });
 	};
-
-
 });
 
-
-var app = angular.module('Systems', []);
+var app = angular.module('System', ['AdditinalDevice']);
 app.controller('SystemController', function($scope, $http) {
-	 $http.post("../../systems/getAllSystems.do")
+	 $http.post("/seatmanagement/systems/getAllSystems.do")
      .then(function successCallback(response) {
          $scope.getsystem = response.data;
          console.log(response.data);
@@ -191,12 +186,23 @@ app.controller('SystemController', function($scope, $http) {
          alert(response.status);
      });
 });
+
+
+angular.element(document).ready(function() {
+    angular.bootstrap(document.getElementById("sys"), ['System']);
+  });
+
 </script>
+
+
+
+
+
 <script type="text/javascript">
 function formSubmit(){
 
  $.ajax({
-     url:'../../systems/saveOrUpdateSystem',
+     url:'/seatmanagement/systems/saveOrUpdateSystem',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
@@ -214,7 +220,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	 systemId = currow.find('td:eq(0)').text();
 	console.log(" systemId : " +  systemId);
 	
-	 $.post("../../systems/deleteById", {
+	 $.post("/seatmanagement/systems/deleteById", {
 		 systemId: systemId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
