@@ -14,7 +14,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
 
@@ -54,7 +53,7 @@
 								</select>
 								</div>
 								
-							</div>
+							
 					
 							
 							<div class="form-group">
@@ -99,12 +98,13 @@
 							<div >
 								<label>Add Utility :</label>
 								<div  ng-repeat="utilities in getUtilities">
-								<input type="checkbox" checklist-value="utilities.utilityId">{{utilities.utilityName}}<br>
+								<input type="checkbox" checklist-value="utilities.utilityId" checklist-model="utilities.getUtilities"
+									name="" ng-model="selected">{{utilities.utilityName}}<br>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" ng-click="showCheckedOnes()">Submit</button>
 						</form>
-
+</div>
 					</div>
 
 				</div>
@@ -122,6 +122,7 @@
 							<td>Block Measurement</td>
 							<td>Block Type</td>
 							<td>Block Capacity</td>
+							<td>Utilities</td>
 							<td align="center">Process</td>
 						</thead>
 						
@@ -134,6 +135,11 @@
 						<td>{{blk.blockMeasurement}}</td>
 						<td>{{blk.blockType}}</td>
 						<td>{{blk.blockCapacity}}</td>
+						<td>
+							<select class="custom-select mb-3" >
+								<option ng-repeat="block in blk.utilities">{{block.utilityName}}</option>
+							</select>
+						</td>
 						<td align="center"><button class="btn btn-danger deleteBtn" value="{{blk.blockId}}">Delete</button></td>
 						
 						</tr>
@@ -147,10 +153,6 @@
 
 	<script>
 	var app = angular.module('Building', []);
-	
-	app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
 	app.controller('BuildingController', function($scope, $http) {
 		
 		$scope.loadBuilding = function(){ 
@@ -172,7 +174,35 @@
 		        }, function errorCallback(response) {
 		            alert(response.status);
 		        });
+		    /* var numbers = [5, 6, 2, 3, 7];
+
+		    var max = Math.max.apply(null, numbers); */
+		    $scope.utilities = {
+		    	    getUtilities: ['utility']
+		    	  }; 
+		    $scope.showCheckedOnes = function() {
+		        var checkedBoxes = "";
+		        for (var i = 0; i < $scope.utilities.getUtilities.length; i++) {
+		          checkedBoxes += $scope.utilities.getUtilities[i] + " ";
+		        }
+		        console.log([ checkedBoxes ]);
+		        alert({checkedBoxes});
+		      };
 			}
+		
+		$scope.selected=[];
+		$scope.exist=function(item){
+			return $scope.selected.indexOf(item) > -1;
+		}
+		$scope.toggleSelection=function(item){
+			var idx=$scope.selected.indexOf(item);
+			if(idx>-1){
+				$scope.selected.splice(idx,1);
+			}else{
+				$scope.selected.push(item);
+			}
+		}
+		
 		
 		$scope.floorDetails=function(buildingId){
 			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
@@ -187,9 +217,6 @@
 	
 	});
 	var app = angular.module('block', ['Building']);
-	app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
 	app.controller('blockController', function($scope, $http) {
 	    $http.post("/seatmanagement/block/getAllBlocks")
 	        .then(function successCallback(response) {
