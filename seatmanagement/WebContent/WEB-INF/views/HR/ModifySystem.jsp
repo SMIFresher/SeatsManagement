@@ -120,7 +120,7 @@
 								<td style="display:none;">{{system.employee.employeeId}}</td>
 								<td style="display:none;">{{system.allotmentStatus}}</td>
 								<td>
-								<select class="custom-select mb-3" name="buildingId" >
+								<select class="custom-select mb-3" name="additionalDevice" >
 										<option ng-repeat="system in system.additionalDevice">{{system.device_name}}</option>
 									</select>
 								</td>
@@ -215,15 +215,30 @@ angular.element(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-function formSubmit(){
-	var Sysid = {}
+function formSubmit($scope){
+	 var Sysid = {};
 	$(':checkbox[name=additional_device_id]').map(function() {
+		if(this.checked){
 			Sysid[this.value] = this.checked;
-	    })
-	});
+			console.log(Sysid);
+		}
+	    }); 
+	
+
+            /* var message = "";
+            for (var i = 0; i < $scope.getAddDev.length; i++) {
+                if ($scope.getAddDev[i].Selected) {
+                    var fruitId = $scope.getAddDev[i].additional_device_id;
+                    var fruitName = $scope.getAddDev[i].device_name;
+                    message += "ID: " + fruitId + " Value: " + fruitName + "\n";
+                }
+            }
+
+            $window.alert(message);
+     */
 	
  $.ajax({
-     url:'/seatmanagement/systems/saveOrUpdateSystem?systemId='+Sysid,
+     url:'/seatmanagement/systems/saveOrUpdateSystem?Sysid='+Sysid,
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
@@ -246,12 +261,10 @@ function formSubmit(){
     }
  	
 });
-}
 	
-
+};
 	
 </script>
-
 
 
 

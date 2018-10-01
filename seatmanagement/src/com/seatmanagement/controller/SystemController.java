@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
@@ -59,11 +60,10 @@ public class SystemController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
-	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system,@RequestParam("systemId")UUID systemId ) {
-		
+	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system,@RequestParam("employeeId")UUID employeeId, @RequestParam("Sysid") Object[] SystemAdditionalDevice ) throws JsonProcessingException {
 		ResponseEntity responseEntity=null;
 		if(system !=null){
-		responseEntity = new ResponseEntity(systemService.addOrUpdateSystem(system,systemId),HttpStatus.OK);
+		responseEntity = new ResponseEntity(systemService.addOrUpdateSystem(system,employeeId,SystemAdditionalDevice),HttpStatus.OK);
 		}
 		else{
 			throw new RuntimeException("Cant save/update");

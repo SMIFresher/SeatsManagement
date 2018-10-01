@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
 import com.seatmanagement.model.Employee;
@@ -19,6 +22,9 @@ public class SystemServiceImpl implements SystemService{
 
 	@Autowired
 	GenericDao<Systems> genericDao;
+	
+	@Autowired
+	GenericDao<Employee> genericDaoEmp;
 	
 	@Autowired
 	SystemDao systemDao;
@@ -43,21 +49,28 @@ public class SystemServiceImpl implements SystemService{
 
 
 	@Override
-	public boolean addOrUpdateSystem(Systems system,UUID systemId) {
-		/*Employee emp = new Employee();
-		system.setEmployee(emp);*/
+	public boolean addOrUpdateSystem(Systems system,UUID employeeId,Object [] SystemAdditionalDevice) throws JsonProcessingException {
+		Employee employee= new Employee();
 		boolean f = false;
-		if(Objects.isNull(systemId)) {
-			Systems updaatedSystem = genericDao.getById(system, systemId);
-			updaatedSystem.setAllotmentStatus(system.getAllotmentStatus());
-			updaatedSystem.setNetworkType(system.getNetworkType());
-			updaatedSystem.setOperatingSystem(system.getOperatingSystem());
-			updaatedSystem.setSystemName(system.getSystemName());
-			updaatedSystem.setSystemType(system.getSystemType());
-			updaatedSystem.setEmployee(system.getEmployee());
-			f = genericDao.saveOrUpdate(updaatedSystem);
+		if(Objects.isNull(employeeId)) {
+			f = genericDao.saveOrUpdate(system);
 		}else {
+		employee = genericDaoEmp.getById(employee, employeeId);
+		/*updaatedSystem.setAllotmentStatus(system.getAllotmentStatus());
+		updaatedSystem.setNetworkType(system.getNetworkType());
+		updaatedSystem.setOperatingSystem(system.getOperatingSystem());
+		updaatedSystem.setSystemName(system.getSystemName());
+		updaatedSystem.setSystemType(system.getSystemType());
+		updaatedSystem.setEmployee(employee);*/
+		system.setEmployee(employee);
 		f = genericDao.saveOrUpdate(system);
+		for(int i=0; i<= SystemAdditionalDevice.length; i++) {
+			/*ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+			String json = ow.writeValueAsString(SystemAdditionalDevice[i]);
+			System.out.println(json);*/
+			System.out.println(SystemAdditionalDevice[i]);
+			
+		}
 		}
 		return f;
 	}
