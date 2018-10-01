@@ -96,7 +96,6 @@
 								<td>{{block.blockDescription}}</td>
 								<td>{{block.blockMeasurement}}</td>
 								<!-- <td>{{block.squareFeet}}</td> -->
-								<td style="display:none;">{{block.blockId}}</td>
 								<td style="display:none;">{{block.floor.floorId}}</td>
 								<td style="display:none;">{{block.blockType}}</td>
 								
@@ -146,7 +145,7 @@
 <script>
 var app = angular.module('Block', []);
 app.controller('BlockController', function($scope, $http) {
-	 $http.get("../../block/getAllBlocks")
+	 $http.get("/seatmanagement/block/getAllBlocks")
      .then(function successCallback(response) {
          $scope.getBlock= response.data;
          console.log(response.data);
@@ -161,7 +160,7 @@ app.controller('BlockController', function($scope, $http) {
 function formSubmit(){
 
  $.ajax({
-     url:'../../block/saveblock',
+     url:'/seatmanagement/block/saveblock',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
@@ -194,7 +193,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	blockId = currow.find('td:eq(0)').text();
 	console.log("blockId : " + blockId);
 	
-	 $.post("../../block/deleteBlockById", {
+	 $.post("/seatmanagement/block/deleteBlockById", {
 		 blockId:blockId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");

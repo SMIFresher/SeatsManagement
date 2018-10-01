@@ -36,18 +36,27 @@
 						<form id="Form" method="post" onsubmit="formSubmit();"
 							autocomplete="off">
 							<div class="form-group">
+								<label for="pwd">Floor Id:</label> <input type="text"
+									class="form-control" id="fid" placeholder="Enter Floor Id"
+									name="floorId"> 
+							</div>
+							
+							<div class="form-group">
 								<label for="pwd">Floor Name:</label> <input type="text"
 									class="form-control" id="fname" placeholder="Enter Floor Name"
 									name="floorName"> 
 							</div>
 							<div class="form-group">
 								<label for="pwd">Floor Type:</label>
-								<select class="custom-select mb-3" name="floorId">
+								<select class="custom-select mb-3" id="ftype" name="floorType">
 										<option value="Commercial">Commercial</option>
 										<option value="home">Home</option>
 									</select>
 								
 							</div>
+							<input type="text"
+									class="form-control" id="bid"
+									name="buildingId" hidden="">
 
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -62,8 +71,8 @@
 
 					<table class="table table-hover">
 						<thead>
+							<td>Floor Id </td>
 							<td>Floor Name</td>
-							<td>Building Name</td>
 							<td>Floor Type</td>
 							
 							
@@ -71,10 +80,10 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="floor in getFloor">
+								<td>{{floor.floorId}}</td>
 								<td>{{floor.floorName}}</td>
-								<td>{{floor.building.buildingName}}</td>
 								<td>{{floor.floorType}}</td>
-								<td style="display:none;">{{floor.floorId}}</td> 
+								
 								<td style="display:none;">{{floor.building.buildingId}}</td>
 								
 								<td align="center">
@@ -96,9 +105,14 @@
 			var currow = $(this).closest('tr');
 			
 			var col1 = currow.find('td:eq(0)').text();
+			var col2 = currow.find('td:eq(1)').text();
+			var col3 = currow.find('td:eq(2)').text();
 			
 		
-			document.getElementById('fname').value = col1;
+			document.getElementById('fid').value = col1;
+			document.getElementById('fname').value = col2;
+			document.getElementById('ftype').value = col3;
+			document.getElementById('bid').value = col4;
 			
 			
 		})
@@ -111,7 +125,7 @@
 	<script>
 var app = angular.module('floor', []);
 app.controller('FloorController', function($scope, $http) {
-	 $http.get("../../floor/getAllFloor")
+	 $http.get("/seatmanagement/floor/getAllFloor")
      .then(function successCallback(response) {
          $scope.getFloor = response.data;
          console.log(response.data);
@@ -137,7 +151,7 @@ app.controller('FloorController', function($scope, $http) {
 		function formSubmit() {
 
 			$.ajax({
-				url : '../../floor/floorsave',
+				url : '/seatmanagement/floor/floorsave',
 				method : 'POST',
 				data : $("#Form").serialize(),
 				success : function(data) {
@@ -164,9 +178,9 @@ app.controller('FloorController', function($scope, $http) {
 		}
 	
 	
-	 $('.table tbody').on('click', '.deleteBtn', function() {
+	 /* $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
-	var floorId = currow.find('td:eq(3)').text();
+	var floorId = currow.find('td:eq(0)').text();
 	console.log("floorId : " + floorId);
 	
 	 $.post("../../floor/deleteFloorById", {
@@ -174,7 +188,7 @@ app.controller('FloorController', function($scope, $http) {
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
             location.replace("Floor.jsp");
-		});
+		}); */
 
 	}
 ); 
