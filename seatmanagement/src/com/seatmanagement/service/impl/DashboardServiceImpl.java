@@ -101,7 +101,7 @@ public class DashboardServiceImpl implements DashboardService {
 			seatsAvailable = blockCapacity - seatOccupied;
 			properties.put(Constant.TOTAL_SEATING_CAPACITY, blockCapacity.toString());
 			properties.put(Constant.TOTAL_SEATING_OCCUPIED, seatOccupied.toString());
-			properties.put(Constant.TOTAL_SEATING_AVALIABLE, seatsAvailable.toString());
+			properties.put(Constant.TOTAL_SEATING_AVAILABLE, seatsAvailable.toString());
 			totalCompanyDetailsCount.add(properties);
 		});
 

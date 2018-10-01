@@ -30,7 +30,7 @@ public class Constant {
 
 	public static final String TOTAL_SEATING_OCCUPIED = "Total_Seating_Occupied";
 
-	public static final String TOTAL_SEATING_AVALIABLE = "Total_Seating_Avaliable";
+	public static final String TOTAL_SEATING_AVAILABLE = "Total_Seating_Available";
 	
 	
 	// Error Constants
