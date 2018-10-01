@@ -142,15 +142,18 @@
               Delete
             </td>
           </tr>
-		<c:forEach items="${list}" var="element"> 
-          <tr >
-            <td>
-	            <div id="${element.systemType}" class="redips-drag  ng-cloak" style="width: 100%;" >
-	              <span class="fa fa-${element.systemType}" style="font-size: 60px;"></span><br>${element.systemName}
-	            </div>
-            </td>
+		 <tr >
+	          <c:forEach items="${list}" var="element" varStatus="i"> 
+	            <td>
+		            <div id="${element.systemType}" class="redips-drag  ng-cloak" style="width: 100%;" >
+		              <span class="fa fa-${element.systemType}" style="font-size: 60px;"></span><br>${element.systemName}
+		            </div>
+	            </td>
+		            <c:if test="${(i.count)%3==0}">
+		            	</tr> <tr>
+		            </c:if>
+	          </c:forEach>
           </tr>
-        </c:forEach>
         </tbody>
       </table>
 
