@@ -6,21 +6,15 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.orm.hibernate5.HibernateTemplate;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.seatmanagement.model.Systems;
-import com.seatmanagement.service.DashboardService;
 import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
-import com.seatmanagement.service.impl.DashboardServiceImpl;
 
 @RestController
 @RequestMapping("/systems")
@@ -65,11 +59,11 @@ public class SystemController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
-	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system) {
+	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system,@RequestParam("systemId")UUID systemId ) {
 		
 		ResponseEntity responseEntity=null;
 		if(system !=null){
-		responseEntity = new ResponseEntity(systemService.addOrUpdateSystem(system),HttpStatus.OK);
+		responseEntity = new ResponseEntity(systemService.addOrUpdateSystem(system,systemId),HttpStatus.OK);
 		}
 		else{
 			throw new RuntimeException("Cant save/update");

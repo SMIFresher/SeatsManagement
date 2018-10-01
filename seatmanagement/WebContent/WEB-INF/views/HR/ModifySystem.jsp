@@ -30,7 +30,7 @@
 						<div id="systemModify" ng-app="SystemModify"
 							ng-controller="SystemModifyController" ng-init="loadInitially()">
 							<h2>Modify System</h2>
-							<form id="Form" method="get" action="" 
+							<form id="Form" method="post" onsubmit="formSubmit()"
 								autocomplete="off">
 								<div class="form-group">
 								 <input type="hidden" class="form-control" id="sid"  name="systemId">
@@ -80,7 +80,7 @@
 								<div class="form-group">
 									<label for="pwd">Additional Devices</label><br>
 							        <div ng-repeat="ad in getAddDev" class="col-md-6">
-										<input type="checkbox" name="gff" checklist-value="ad.additional_device_id"> {{ad.device_name}}
+										<input type="checkbox" name="additional_device_id" value="{{ad.additional_device_id}}"> {{ad.device_name}}
 								 	</div>
 								</div>
 
@@ -203,7 +203,7 @@ angular.element(document).ready(function() {
 function formSubmit(){
 
  $.ajax({
-     url:'/seatmanagement/systems/saveOrUpdateSystem',
+     url:'/seatmanagement/systems/saveOrUpdateSystem?systemId=',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {

@@ -7,7 +7,7 @@ import com.seatmanagement.model.Systems;
 
 public interface SystemService {
 
-	public boolean addOrUpdateSystem(Systems system);
+	public boolean addOrUpdateSystem(Systems system,UUID systemId);
 	public List<Systems> getAllSystems();
 	public Systems getById(Systems system,UUID System_id);
 	public boolean delete(Systems system);
