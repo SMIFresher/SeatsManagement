@@ -143,6 +143,10 @@ public class SystemController {
 		return new ModelAndView("/HR/System");
 	}
 	
+	@RequestMapping(value = "/getModifySystem")
+	public ModelAndView getModifySystem() {
+		return new ModelAndView("/HR/ModifySystem");
+	}
 	
 	
 	
