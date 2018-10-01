@@ -33,6 +33,8 @@
 						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 							<div class="form-group">
 								<label for="pwd">System Name:</label> 
+								<input type="hidden" class="form-control" id="systemId"  name="systemId">
+								<input type="hidden" class="form-control" id="employeeId"  name="employeeId">
 		<input name="systemName" class="form-control" id="systemName" type="text" placeholder="System Name"/>						
 							</div>
 
@@ -42,11 +44,11 @@
 									<div class="row">
 										<div class="col-md-6">
 											<input type="radio" class="custom-control-input"
-												id="Personal Computer" name="type" value="Personal Computer"> 
+												id="Personal Computer" name="systemType" value="Personal Computer"> 
 									<label  class="custom-control-label" for="Personal Computer">Personal Computer</label>
 										</div>
 										<div class="col-md-6">
-					<input type="radio" class="custom-control-input" id="Laptop" name="type" value="Laptop">
+					<input type="radio" class="custom-control-input" id="Laptop" name="systemType" value="Laptop">
 					 <label class="custom-control-label" for="Laptop">Laptop</label>
 										</div>
 									</div>
@@ -58,17 +60,17 @@
 									<div class="row">
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input"
-												id="MAC" name="os" value="MAC"> <label
+												id="MAC" name="operatingSystem" value="MAC"> <label
 												class="custom-control-label" for="MAC">MAC</label>
 										</div>
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input" id="WINDOWS"
-												name="os" value="WINDOWS"> <label
+												name="operatingSystem" value="WINDOWS"> <label
 												class="custom-control-label" for="WINDOWS">WINDOWS</label>
 										</div>
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input" id="LINUX"
-												name="os" value="LINUX"> <label
+												name="operatingSystem" value="LINUX"> <label
 												class="custom-control-label" for="LINUX">LINUX</label>
 										</div>
 									</div>
@@ -80,12 +82,12 @@
 									<div class="row">
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input"
-												id="Ethernet" name="network" value="Ethernet"> <label
+												id="Ethernet" name="networkType" value="Ethernet"> <label
 												class="custom-control-label" for="Ethernet">Ethernet</label>
 										</div>
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input" id="Wifi"
-												name="network" value="wifi"> <label
+												name="networkType" value="wifi"> <label
 												class="custom-control-label" for="Wifi">Wifi</label>
 										</div>
 									</div>
@@ -130,15 +132,15 @@
 							<td >Process</td>
 						</thead>
 						<tbody>
-							<tr ng-repeat="sys in getSystem">
+							<tr ng-repeat="sys in getsystem">
 								<td>{{sys.systemId}}</td>
 								<td>{{sys.systemName}}</td>
 								<td>{{sys.systemType}}</td>
 								<td>{{sys.operatingSystem}}</td>
 								<td>{{sys.networkType}}</td>
 								<td>
-								<select class="custom-select mb-3" >
-										<option ng-repeat="system in system.additionalDevice">{{system.device_name}}</option>
+								<select class="custom-select mb-3" name="additionalDevice" >
+										<option ng-repeat="system in sys.additionalDevice">{{system.device_name}}</option>
 									</select></td>
 								<td>{{sys.allotmentStatus}}</td>
 								<td align="center">
@@ -154,7 +156,7 @@
 <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
-			var col1 = currow.find('td:eq(1)').text();
+			var col1 = currow.find('td:eq(0)').text();
 
 			document.getElementById('systemId').value = col1;
 		})
@@ -229,7 +231,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	 systemId = currow.find('td:eq(0)').text();
 	console.log(" systemId : " +  systemId);
 	
-	 $.post("/seatmanagement/systems/deleteById", {
+	 $.get("/seatmanagement/systems/deleteById", {
 		 systemId: systemId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
