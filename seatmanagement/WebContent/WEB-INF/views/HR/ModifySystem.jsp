@@ -80,7 +80,7 @@
 								<div class="form-group">
 									<label for="pwd">Additional Devices</label><br>
 							        <div ng-repeat="ad in getAddDev" class="col-md-6">
-										<input type="checkbox" checklist-value="ad.additional_device_id"> {{ad.device_name}}
+										<input type="checkbox" name="gff" checklist-value="ad.additional_device_id"> {{ad.device_name}}
 								 	</div>
 								</div>
 

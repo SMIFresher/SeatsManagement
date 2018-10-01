@@ -32,22 +32,11 @@ GenericDao<Building> genericDaoBuilding;
 	BlockService blockService;
 	
    public boolean saveOrUpdate(Floor floor,UUID buildingId) throws BusinessException {
-		
-		Floor newfloor=new Floor();
+
 		Building newbuilding = new Building();
-		
-		newfloor.setFloorType(floor.getFloorType());
-		newfloor.setFloorName(floor.getFloorName());
-		
-		if(Objects.nonNull(newbuilding)) {
-			newbuilding=genericDaoBuilding.getById(newbuilding,buildingId);
-		}
-		 if(Objects.isNull(newbuilding)) {
-			 throw new BusinessException("Building is not avaliable");
-		 }
-		
-		 newfloor.setBuilding(newbuilding);
-		return genericDao.saveOrUpdate( newfloor);
+		newbuilding.setBuildingId(buildingId);
+		 floor.setBuilding(newbuilding);
+		return genericDao.saveOrUpdate(floor);
 	}
 	@Override
 	public Floor getById(Floor floor, UUID floorId) {
