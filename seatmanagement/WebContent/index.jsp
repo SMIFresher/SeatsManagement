@@ -5,13 +5,13 @@
 		if(usr.equals("HR")){
 			%>
 				<script>
-						location.replace("hr/getHRDashboard");
+						location.replace("hr/index");
 				</script>
 			<%
 		}else if(usr.equals("Lead")){
 			%>
 					<script>
-						location.replace("views/Lead");
+						location.replace("lead/index");
 					</script>
 			<%
 		}
