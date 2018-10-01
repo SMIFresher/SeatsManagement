@@ -82,7 +82,7 @@
 				<li><a href="#systemSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">System</a>
 					<ul class="collapse list-unstyled" id="systemSubmenu">
-						<li><a href="#">Add System Details</a></li>
+						<li><a href="/seatmanagement/systems/addSystem">Add System Details</a></li>
 						<li><a href="#">Add Device Details</a></li>
 					</ul></li>
 				<li><a href="#">Utilities</a></li>

@@ -62,10 +62,10 @@ public class SystemController {
 
 		return mav;
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
-	public ResponseEntity<Systems> saveOrUpdateSystems(@RequestBody Systems system) {
+	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system) {
 		
 		ResponseEntity responseEntity=null;
 		if(system !=null){
@@ -137,6 +137,12 @@ public class SystemController {
 		}
 		return responseEntity;
 	}
+
+	@RequestMapping(value = "/addSystem")
+	public ModelAndView getAddsystem() {
+		return new ModelAndView("/HR/System");
+	}
+	
 	
 	
 	
