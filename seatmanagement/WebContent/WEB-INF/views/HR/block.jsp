@@ -32,7 +32,7 @@
 						<form id="Form" method="post" onsubmit="formSubmit()">
 						
 							<div ng-app="Building" ng-controller="BuildingController"
-								ng-init="loadBuilding()">
+								ng-init="loadBuilding(); loadUtilities();">
 								
 								<div class="form-group">
 								<label for="location">Building:</label>
@@ -97,7 +97,7 @@
 							</div>
 							<div >
 								<label>Add Utility :</label>
-								<div  ng-repeat="utilities in getUtilities" ng-init="loadUtilities()">
+								<div  ng-repeat="utilities in getUtilities">
 								<input type="checkbox" checklist-value="utilities.utilityId">{{utilities.utilityName}}<br>
 								</div>
 							</div>
@@ -160,7 +160,7 @@
 		
 		
 		$scope.loadUtilities = function(){ 
-		    $http.post("/seatmanagement/utilities/getAllUtilities")
+		    $http.get("/seatmanagement/utilities/getAllUtilities")
 		        .then(function successCallback(response) {
 		            $scope.getUtilities = response.data;
 		            console.log(response.data);
