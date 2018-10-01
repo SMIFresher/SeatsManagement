@@ -17,6 +17,7 @@
 <script type="text/javascript" src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/seatmanagement/js/imgViewer2.js"></script>
+<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 
 <body>
@@ -72,6 +73,10 @@
 		
 <script>
 var app = angular.module('floorAPP', []);
+//AJAX Request Type Header to prepare error response for AJAX seperately
+app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
 app.controller('FloorController', function($scope, $http) {
     $http.get("/seatmanagement/floor/getFloorById?FloorId="+gett())
     .then(function(response) {
