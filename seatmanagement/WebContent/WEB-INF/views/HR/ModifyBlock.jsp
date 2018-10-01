@@ -53,20 +53,21 @@
 							</div>
 							<div class="form-group">
 								<label for="pwd">Block Measurement:</label>  <input type="text"
-									class="form-control" id="bmes" placeholder="Enter Block Location""
+									class="form-control" id="bmes" placeholder="Enter Block Location"
 									name="blockMeasurement">
 							</div>
-							<!-- <div class="form-group">
-								<label for="pwd">Square Feet:</label>  <input type="text"
-									class="form-control" id="sqft" placeholder="Enter Square Feet"
-									name="squareFeet">
-							</div> -->
+							<div class="form-group">
+										<label for="pwd">Block Type:</label> 
+										<input type="text"
+									class="form-control" id="btype" placeholder="Enter Block Type"
+									name="blockType" >
+									</div>
+							
+							
 							<input type="text"
-									class="form-control" id="flrId"
+									class="form-control" id="flrid"
 									name="floorId" hidden="">
-							<input type="text"
-									class="form-control" id="blkType"
-									name="blockType" hidden="">
+									
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
@@ -80,12 +81,13 @@
 
 					<table class="table table-hover">
 						<thead>
-						<td>Block Id</td>
+							<td>Block Id</td>
 							<td>Block Name</td>
 							<td>Block Capacity</td>
 							<td>Block Description</td>
 							<td>Block Measurement</td>
-							<!-- <td>Square Feet</td> -->
+							<td>Block Type</td>
+							
 							<td align="center">Process</td>
 						</thead>
 						<tbody>
@@ -95,9 +97,10 @@
 								<td>{{block.blockCapacity}}</td>
 								<td>{{block.blockDescription}}</td>
 								<td>{{block.blockMeasurement}}</td>
-								<!-- <td>{{block.squareFeet}}</td> -->
+								<td>{{block.blockType}}</td>
+								
 								<td style="display:none;">{{block.floor.floorId}}</td>
-								<td style="display:none;">{{block.blockType}}</td>
+								
 								
 								<td align="center">
 									<button class="btn btn-danger deleteBtn">Delete</button></td>
@@ -120,16 +123,16 @@
     var  col3=currow.find('td:eq(2)').text();
 	var  col4=currow.find('td:eq(3)').text();
 	var  col5=currow.find('td:eq(4)').text();
-	var  col6=currow.find('td:eq(6)').text();
-	var  col7=currow.find('td:eq(7)').text();
+	var  col6=currow.find('td:eq(5)').text();
+	var  col7=currow.find('td:eq(6)').text();
 	
 	 document.getElementById('bid').value=col1;
     document.getElementById('bname').value=col2;
     document.getElementById('bcap').value=col3;
     document.getElementById('bdes').value=col4;
     document.getElementById('bmes').value=col5;
-	document.getElementById('flrId').value=col6;
-	document.getElementById('blkType').value=col7;
+	document.getElementById('btype').value=col6;
+	document.getElementById('flrid').value=col7;
 	
   })
 
