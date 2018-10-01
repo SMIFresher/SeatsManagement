@@ -201,9 +201,14 @@ angular.element(document).ready(function() {
 
 <script type="text/javascript">
 function formSubmit(){
-
+	var Sysid = {}
+	$(':checkbox[name=additional_device_id]').map(function() {
+			Sysid[this.value] = this.checked;
+	    })
+	});
+	
  $.ajax({
-     url:'/seatmanagement/systems/saveOrUpdateSystem?systemId=',
+     url:'/seatmanagement/systems/saveOrUpdateSystem?systemId='+Sysid,
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
