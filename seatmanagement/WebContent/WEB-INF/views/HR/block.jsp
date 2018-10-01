@@ -116,7 +116,7 @@
 						<thead>
 							<td>Building Name</td>
 							<td>Floor Name</td>
-							<td>Block Id</td>
+							<td>Block Id  </td>   
 							<td>Block Name</td>
 							<td>Block Measurement</td>
 							<td>Block Type</td>
