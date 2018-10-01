@@ -107,7 +107,7 @@
 			var col1 = currow.find('td:eq(0)').text();
 			var col2 = currow.find('td:eq(1)').text();
 			var col3 = currow.find('td:eq(2)').text();
-			
+			var col4 = currow.find('td:eq(3)').text();
 		
 			document.getElementById('fid').value = col1;
 			document.getElementById('fname').value = col2;
@@ -190,8 +190,10 @@ app.controller('FloorController', function($scope, $http) {
             location.replace("Floor.jsp");
 		}); */
 
-	}
+/* 	}
 ); 
+
+ */
 	</script>
 
 </body>
