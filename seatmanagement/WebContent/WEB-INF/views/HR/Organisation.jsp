@@ -11,6 +11,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	 <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
 
@@ -92,8 +93,8 @@
 <script>
 var app = angular.module('organisation', []);
 app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-  $httpProvider.defaults.headers.post['RequestType'] = 'AJAX';
-});
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
 app.controller('OrganisationController', function($scope, $http) {
     $http.post("/seatmanagement/organisation/getAllOrganisations")
         .then(function successCallback(response) {
@@ -112,9 +113,6 @@ function formSubmit(){
      url:'/seatmanagement/organisation/saveOrganisation',
      method : 'POST',
      data: $("#Form").serialize(),
-     beforeSend: function(request) {
-    	    request.setRequestHeader("RequestType", "AJAX");
-    	  },
      success: function (data) {
 
     	 console.log("Success scenario Response : " +data);
@@ -141,9 +139,6 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	     url:'/seatmanagement/organisation/deleteOrganisationById',
 	     method : 'POST',
 	     data: {organisationId:orgId},
-	     beforeSend: function(request) {
-	    	    request.setRequestHeader("RequestType", "AJAX");
-	   	},
 	     success: function (data) {
 	    	 location.replace("/seatmanagement/organisation/getOrganisationView");
 	    },error: function (response) {

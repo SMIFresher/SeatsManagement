@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+   <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 
 <body>
@@ -137,6 +138,10 @@
 
 <script type="text/javascript">
 		var app = angular.module('getComp', []);
+		//AJAX Request Type Header to prepare error response for AJAX seperately
+		app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+			  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+			});
 		app.controller('getCompController', function($scope, $http) {
 		    $http.get("../dashboard/getAllDashboardCount")
 		        .then(function successCallback(response) {
@@ -149,6 +154,10 @@
 
 
 	var app = angular.module('getCompany', ['getComp']);
+	//AJAX Request Type Header to prepare error response for AJAX seperately
+	app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+		});
 	app.controller('getCompanyController', function($scope, $http) {
 	    $http.get("../dashboard/getAllCompanyDetailsCount")
 	        .then(function successCallback(response) {

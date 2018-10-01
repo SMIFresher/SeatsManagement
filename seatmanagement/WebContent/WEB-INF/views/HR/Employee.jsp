@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	 
+	 <script src="/seatmanagement/js/ajaxConfig.js"></script>
 
 	 
 </head>
@@ -145,6 +145,10 @@
 	});
 	
 	var employeeApp = angular.module('employee', ['Team']);
+	//AJAX Request Type Header to prepare error response for AJAX seperately
+	employeeApp.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+		});
 	employeeApp.controller('employeeController', function($scope, $http) {
 
 	    $http.post("/seatmanagement/employee/getAllEmployees")
@@ -157,6 +161,10 @@
 	});
 
 	var organisationApp = angular.module('Organisation', []);
+	//AJAX Request Type Header to prepare error response for AJAX seperately
+	organisationApp.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+		});
 	organisationApp.controller('OrganisationController', function($scope, $http) {
 	    $http.post("/seatmanagement/organisation/getAllOrganisations")
 	        .then(function successCallback(response) {

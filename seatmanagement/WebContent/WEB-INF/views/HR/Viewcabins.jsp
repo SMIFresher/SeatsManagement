@@ -26,7 +26,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+<script src="/seatmanagement/js/ajaxConfig.js"></script>
 
 </head>
 
@@ -210,7 +210,10 @@ app.filter('range', function() {
     return input;
   };
 });
-
+//AJAX Request Type Header to prepare error response for AJAX seperately
+app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
 app.controller('getSeatingDetails', function($scope, $http) {
     $http.get("/seatmanagement/seatingdetails/getAllSeatingDetails")
     .then(function(response) {

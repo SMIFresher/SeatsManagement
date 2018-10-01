@@ -13,6 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body >
 	
@@ -164,6 +165,13 @@
 
   
  var apps= angular.module('SystemModify',[]);
+  
+
+//AJAX Request Type Header to prepare error response for AJAX seperately
+apps.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
+	
 apps.controller('SystemModifyController', function($scope, $http) {
 $scope.systemDefault="";
 $scope.networkDefault="";
@@ -183,6 +191,13 @@ $scope.loadInitially = function(){
 
 });
 var app = angular.module('System', ['SystemModify']);
+
+
+//AJAX Request Type Header to prepare error response for AJAX seperately
+app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
+
 app.controller('SystemController', function($scope, $http) {
 	 $http.post("/seatmanagement/systems/getAllSystems.do")
      .then(function successCallback(response) {

@@ -12,6 +12,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	  <script src="/seatmanagement/js/angular.ng-modules.js"></script>
+	  <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
 
@@ -81,6 +82,10 @@
 
 <script>
 var app = angular.module('Building', []);
+//AJAX Request Type Header to prepare error response for AJAX seperately
+app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
 app.controller('BuildingController', function($scope, $http) {
     $http.post("/seatmanagement/building/getAllBuildings")
         .then(function successCallback(response) {
@@ -93,6 +98,10 @@ app.controller('BuildingController', function($scope, $http) {
 });
 
 var app = angular.module('floor', ['Building']);
+//AJAX Request Type Header to prepare error response for AJAX seperately
+app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+	});
 app.controller('floorController', function($scope, $http) {
     $http.post("/seatmanagement/floor/getAllFloor")
         .then(function successCallback(response) {

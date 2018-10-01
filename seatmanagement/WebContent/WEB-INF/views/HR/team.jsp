@@ -11,6 +11,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	 <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
 <!-- Nav Bar -->
@@ -120,7 +121,10 @@
 	
 	<script>
 	var onLoadModule = angular.module('onLoadModule', []);
-	
+	//AJAX Request Type Header to prepare error response for AJAX seperately
+	onLoadModule.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+		});
 	onLoadModule.controller('onLoadController', function($scope, $http) {
 	    $http.post("/seatmanagement/team/getAllTeam")
 	        .then(function successCallback(response) {
