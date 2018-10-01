@@ -54,6 +54,7 @@
 								</div>
 								
 							</div>
+					
 							
 							<div class="form-group">
 								<label for="blockName">Block Name:</label> 
@@ -93,6 +94,12 @@
 								 <input type="text"
 									class="form-control" id="block_desc"
 									placeholder="Enter Block Description" name="blockDescription">
+							</div>
+							<div >
+								<label>Add Utility :</label>
+								<div  ng-repeat="utilities in getUtilities" ng-init="loadUtilities()">
+								<input type="checkbox" checklist-value="utilities.utilityId">{{utilities.utilityName}}<br>
+								</div>
 							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -150,6 +157,17 @@
 	            alert(response.status);
 	        });
 		}
+		
+		
+		$scope.loadUtilities = function(){ 
+		    $http.post("/seatmanagement/utilities/getAllUtilities")
+		        .then(function successCallback(response) {
+		            $scope.getUtilities = response.data;
+		            console.log(response.data);
+		        }, function errorCallback(response) {
+		            alert(response.status);
+		        });
+			}
 		
 		$scope.floorDetails=function(buildingId){
 			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
