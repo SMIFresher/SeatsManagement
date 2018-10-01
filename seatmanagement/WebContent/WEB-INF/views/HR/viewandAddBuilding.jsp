@@ -166,10 +166,10 @@ function formSubmit(){
  $.ajax({
      url:'/seatmanagement/building/build',
      method : 'POST',
+     async: false,
      data: $("#Form").serialize(),
      success: function (data) {
             $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-
     }
  	
 });

@@ -99,7 +99,7 @@ public class BuildingController {
 		return responseEntity;
 	}
 		
-	@RequestMapping(value = "/getBuildingViewAndEdit", method = RequestMethod.GET)
+	@RequestMapping(value = "/getBuildingViewAndEdit")
 	public ModelAndView getBuildingViewAndEdit() {
 		return new ModelAndView("/HR/viewandAddBuilding");
 	}
