@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
 		//criteria.createAlias("system","systems");
-		criteria.createAlias("seating","seating");
+		criteria.createAlias("seating","seating",CriteriaSpecification.INNER_JOIN);
 		criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.eq("seating.seatingId",seating_id));
 
