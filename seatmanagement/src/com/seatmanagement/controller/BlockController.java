@@ -128,4 +128,9 @@ public class BlockController {
 		return new ModelAndView("HR/block");
 	}
 	
+	@RequestMapping(value = "/getModifyBlock")
+	public ModelAndView getModifyBuilding() {
+		return new ModelAndView("/HR/ModifyBlock");
+	}
+	
 }

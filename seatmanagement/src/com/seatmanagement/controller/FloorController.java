@@ -116,4 +116,9 @@ public class FloorController {
 		return responseEntity;
 	}
 
+	
+	@RequestMapping(value = "/getModifyFloor")
+	public ModelAndView getModifyBuilding() {
+		return new ModelAndView("/HR/FloorModify");
+	}
 }

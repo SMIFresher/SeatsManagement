@@ -50,13 +50,14 @@
 					aria-expanded="false" class="dropdown-toggle">Floor</a>
 					<ul class="collapse list-unstyled" id="floorsubmenu">
 						<li><a href="/seatmanagement/floor/getFloorView">Add</a></li>
-						<li><a href="#">Modify</a></li>
+						<li><a href="/seatmanagement/floor/getModifyFloor">Modify</a></li>
 					</ul></li>
 				<li><a href="#blocksubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Block</a>
 					<ul class="collapse list-unstyled" id="blocksubmenu">
 						<li><a href="/seatmanagement/block/getBlockView">Add</a></li>
-						<li><a href="/seatmanagement/seating/getSeatingView">Assign Block</a></li>
+						<li><a href="/seatmanagement/block/getSeatingView">Assign Block</a></li>
+						<li><a href="/seatmanagement/block/getModifyBlock">Modify</a></li>
 					</ul></li>
 			</ul>
 		</li>
