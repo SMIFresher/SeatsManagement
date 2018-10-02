@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
@@ -34,12 +33,7 @@ public class SystemController {
 		
 		List<Systems> systemList = systemService.getAllSystems();
 		ResponseEntity responseEntity = null;
-		if(!systemList.isEmpty()) {
 		responseEntity=new ResponseEntity(systemList,HttpStatus.OK);
-		}
-		else{
-				throw new RuntimeException("Systems List is empty");
-			}
 		return responseEntity;
 	}
 	
@@ -60,10 +54,13 @@ public class SystemController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
-	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system,@RequestParam("employeeId")UUID employeeId, @RequestParam("Sysid") Object[] SystemAdditionalDevice ) throws JsonProcessingException {
+	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system, 
+			@RequestParam(value="employeeId" , required=false) UUID employeeId,
+			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) {
 		ResponseEntity responseEntity=null;
 		if(system !=null){
-		responseEntity = new ResponseEntity(systemService.addOrUpdateSystem(system,employeeId,SystemAdditionalDevice),HttpStatus.OK);
+			systemService.addOrUpdateSystem(system, employeeId, additionalDevicesUUIDs);
+			responseEntity = new ResponseEntity(HttpStatus.OK);
 		}
 		else{
 			throw new RuntimeException("Cant save/update");

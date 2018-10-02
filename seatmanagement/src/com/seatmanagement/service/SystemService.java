@@ -8,7 +8,7 @@ import com.seatmanagement.model.Systems;
 
 public interface SystemService {
 
-	public boolean addOrUpdateSystem(Systems system,UUID employeeId,Object []SystemAdditionalDevice ) throws JsonProcessingException;
+	public void addOrUpdateSystem(Systems system,UUID employeeId,List<UUID> additionalDevicesUUIDs );
 	public List<Systems> getAllSystems();
 	public Systems getById(Systems system,UUID System_id);
 	public boolean delete(Systems system);

@@ -100,7 +100,8 @@
 									<div class="row">
 										<div class="col-md-4">
 											<div ng-repeat="ad in getAddDev">
-										<input type="checkbox" checklist-value="ad.additional_device_id"> {{ad.device_name}}
+										<input type="checkbox" name="additionalDeviceList" 
+										value="{{ad.additional_device_id}}"> {{ad.device_name}}
 								 	</div>
 										</div>
 									</div>
@@ -211,14 +212,17 @@ angular.element(document).ready(function() {
 
 <script type="text/javascript">
 function formSubmit(){
+	
+	console.log("Serialised Form : " + $("#Form").serialize());
 
  $.ajax({
      url:'/seatmanagement/systems/saveOrUpdateSystem',
      method : 'POST',
      data: $("#Form").serialize(),
+     async:false,
      success: function (data) {
    $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("System.jsp");
+            location.replace("/seatmanagement/systems/addSystem");
     }
  	
 });
@@ -235,7 +239,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 		 systemId: systemId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("System.jsp");
+            location.replace("/seatmanagement/systems/addSystem");
 		});
 
 	}

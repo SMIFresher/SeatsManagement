@@ -1,18 +1,17 @@
 package com.seatmanagement.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SystemService;
@@ -21,7 +20,7 @@ import com.seatmanagement.service.SystemService;
 public class SystemServiceImpl implements SystemService{
 
 	@Autowired
-	GenericDao<Systems> genericDao;
+	GenericDao genericDao;
 	
 	@Autowired
 	GenericDao<Employee> genericDaoEmp;
@@ -38,7 +37,7 @@ public class SystemServiceImpl implements SystemService{
 
 	@Override
 	public Systems getById(Systems system, UUID System_id) {
-		return genericDao.getById(system, System_id);
+		return (Systems) genericDao.getById(system, System_id);
 	}
 
 	@Override
@@ -49,30 +48,39 @@ public class SystemServiceImpl implements SystemService{
 
 
 	@Override
-	public boolean addOrUpdateSystem(Systems system,UUID employeeId,Object [] SystemAdditionalDevice) throws JsonProcessingException {
+	public void addOrUpdateSystem(Systems system,UUID employeeId,List<UUID> additionalDevicesUUIDs ){
 		Employee employee= new Employee();
-		boolean f = false;
+		
+		// Employee Mapping
+		// Scenario 1: employee id is null
 		if(Objects.isNull(employeeId)) {
-			f = genericDao.saveOrUpdate(system);
-		}else {
-		employee = genericDaoEmp.getById(employee, employeeId);
-		/*updaatedSystem.setAllotmentStatus(system.getAllotmentStatus());
-		updaatedSystem.setNetworkType(system.getNetworkType());
-		updaatedSystem.setOperatingSystem(system.getOperatingSystem());
-		updaatedSystem.setSystemName(system.getSystemName());
-		updaatedSystem.setSystemType(system.getSystemType());
-		updaatedSystem.setEmployee(employee);*/
-		system.setEmployee(employee);
-		f = genericDao.saveOrUpdate(system);
-		for(int i=0; i<= SystemAdditionalDevice.length; i++) {
-			/*ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-			String json = ow.writeValueAsString(SystemAdditionalDevice[i]);
-			System.out.println(json);*/
-			System.out.println(SystemAdditionalDevice[i]);
 			
 		}
+		// Scenario 2: employee id is present
+		else {
+			employee = genericDaoEmp.getById(employee, employeeId);
+			system.setEmployee(employee);
 		}
-		return f;
+		
+		// AdditionalDevice mapping
+		// Scenario 1: No AdditionDevice IDs in request
+		if(Objects.isNull(additionalDevicesUUIDs) || additionalDevicesUUIDs.isEmpty()){
+			
+		}
+		// Scenario 2: AdditionDevice IDs present in request
+		else{
+			Set<AdditionalDevice> additionalDevices = new HashSet<AdditionalDevice> ();
+			for(UUID additionalDeviceID : additionalDevicesUUIDs){
+				AdditionalDevice additionalDevice = new AdditionalDevice();
+				additionalDevice = (AdditionalDevice) genericDao.getById(additionalDevice, additionalDeviceID);
+				
+				additionalDevices.add(additionalDevice);
+			}
+			
+			system.setAdditionalDevice(additionalDevices);
+		}
+		
+		genericDao.saveOrUpdate(system);
 	}
 
 	
@@ -86,8 +94,6 @@ public class SystemServiceImpl implements SystemService{
 		
 		return systemDao.getSystemId(systemName);
 	}
-
-
 
 	
 }
