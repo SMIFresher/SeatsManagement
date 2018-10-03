@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seatmanagement.dao.BlockDao;
+import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDao;
 import com.seatmanagement.model.Block;
@@ -41,9 +43,17 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Autowired
 	GenericDao<Building> buildingDao;
+	
+	@Autowired
+	GenericDao<Floor> floorDao;
+	
+	@Autowired
+	GenericDao<Block> blockDao1;
+
 
 	@Autowired
 	BlockDao blockDao;
+	
 	
 	@Autowired
 	SeatingDao seatingDao;
@@ -89,9 +99,9 @@ public class DashboardServiceImpl implements DashboardService {
 
 		buildingList.stream().filter(Objects::nonNull).forEach(p -> {
 			Properties properties = new Properties();
-			List<List<Block>> listOfBockCapacitybasedonFloor = getAllFloorByBuilding(p);
+			List<List<Block>> listOfBlockCapacitybasedonFloor = getAllFloorByBuilding(p);
 			properties.put(Constant.BUILDING_NAME, p.getBuildingName());
-			List<Block> flatList = listOfBockCapacitybasedonFloor.stream().flatMap(List::stream)
+			List<Block> flatList = listOfBlockCapacitybasedonFloor.stream().flatMap(List::stream)
 					.collect(Collectors.toList());
 			Integer blockCapacity = flatList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
 					.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
@@ -111,7 +121,7 @@ public class DashboardServiceImpl implements DashboardService {
 	private List<Integer> getSeatOccupiedByBlock(List<Block> flatList) {
 		List<Integer> seatOccupiedList = new ArrayList<>();
 		flatList.stream().filter(Objects::nonNull).forEach(z -> {
-			List<Seating> seatingList = seatingDao.getSeatingByBlockId(z.getBlockId());
+			List<Seating> seatingList = getSeatOccupiedByBlockId(z.getBlockId());
 			int seatOccupied = 0;
 			for (Seating s : seatingList) {
 				seatOccupied = s.getSeat_occupied();
@@ -128,7 +138,7 @@ public class DashboardServiceImpl implements DashboardService {
 	    building.getFloors().stream().filter(Objects::nonNull).forEach(q -> {
 			List<Block> blockIds = getAllBlockByFloor(q);
 			blockIddsss.add(blockIds);
-		});
+		});               
 		return blockIddsss;
 	}
 
@@ -137,5 +147,106 @@ public class DashboardServiceImpl implements DashboardService {
 		List<Block> blockList = floor.getBlocks().stream().filter(Objects::nonNull).collect(Collectors.toList());
 		return blockList;
 	}
+	
+	/*private List<Block> getAllBlockByBlock(Block block) {
+		// Convert the Set to List AND GET All Block From Floor
+		List<Block> blockList = block.getBlocks().stream().filter(Objects::nonNull).collect(Collectors.toList());
+		return blockList;
+	}
+	*/
+	
+	
+	
+	@SuppressWarnings({ "unused", "unchecked" })
+	@Override
+	public List<Object> getAllFloorDetailsCount(UUID buildingId) {
+		List<Object> totalFloorDetailsCount = new ArrayList<>();
+		logger.info(
+				"ServiceImpl: DashboardServiceImpl Method : getAllFloorDetailsCount request count for total Seat, Seat Occupied and Available Seat  processing started at : "
+						+ LocalDateTime.now());
+		Building b=new Building(); 
+		Floor floor = new Floor();
+		Block block = new Block();
+		Building building=buildingDao.getById(b, buildingId);
+	
+		building.getFloors().stream().filter(Objects::nonNull).forEach(p -> {
+			Properties properties = new Properties();
+			List<Block> listOfBlockCapacitybasedonFloor = getAllBlockByFloor(p);
+			properties.put(Constant.BUILDING_NAME, building.getBuildingName());
+			properties.put(Constant.FLOOR_NAME, p.getFloorName());
+			
+			
+			Integer blockCapacity = listOfBlockCapacitybasedonFloor.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
+					.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
+			List<Integer> seats = getSeatOccupiedByBlock(listOfBlockCapacitybasedonFloor);
+			Integer seatOccupied = seats.stream().mapToInt(Integer::intValue).sum();
+			Integer seatsAvailable = null;
+			seatsAvailable = blockCapacity - seatOccupied;
+			System.out.println(seatsAvailable);
+		
+			properties.put(Constant.TOTAL_SEATING_CAPACITY, blockCapacity.toString());
+			properties.put(Constant.TOTAL_SEATING_OCCUPIED, seatOccupied.toString());
+			properties.put(Constant.TOTAL_SEATING_AVAILABLE, seatsAvailable.toString());
+			totalFloorDetailsCount.add(properties);
+		
+		});
 
+		return totalFloorDetailsCount;
+	
+	
+	}
+	
+	
+	@SuppressWarnings({ "unused", "unchecked" })
+	@Override
+	public List<Object> getAllBlockDetailsCount(UUID floorId) {
+		List<Object> totalBlockDetailsCount = new ArrayList<>();
+		logger.info(
+				"ServiceImpl: DashboardServiceImpl Method : getAllBlockDetailsCount request count for total Seat, Seat Occupied and Available Seat  processing started at : "
+						+ LocalDateTime.now());
+		//Building b= new Building();
+		Floor f = new Floor();
+		Block block = new Block();
+		
+		Floor floor=floorDao.getById(f, floorId);
+		
+		floor.getBlocks().stream().filter(Objects::nonNull).forEach(p -> {
+			Properties properties = new Properties();
+			
+			//properties.put(Constant.BUILDING_NAME, b.getBuildingName());
+			properties.put(Constant.FLOOR_NAME, floor.getFloorName());
+			Integer blockCapacityPerBlock = Integer.valueOf(p.getBlockCapacity());
+			
+			List<Seating> seatOccupiedList = getSeatOccupiedByBlockId(p.getBlockId());
+			Integer seatOccupied = seatOccupiedList.stream().filter(Objects::nonNull).map(Seating::getSeat_occupied).mapToInt(Integer::intValue).sum();
+			
+			Integer seatsAvailable = null;
+			seatsAvailable = blockCapacityPerBlock - seatOccupied;
+			
+			
+			properties.put(Constant.BLOCK_NAME, p.getBlockName());
+			properties.put(Constant.TOTAL_SEATING_CAPACITY, blockCapacityPerBlock.toString());
+			properties.put(Constant.TOTAL_SEATING_OCCUPIED, seatOccupied.toString());
+			properties.put(Constant.TOTAL_SEATING_AVAILABLE, seatsAvailable.toString());
+			totalBlockDetailsCount.add(properties);
+		
+		});
+
+		return totalBlockDetailsCount;
+	
+	
 }
+
+	private List<Seating> getSeatOccupiedByBlockId(UUID blockId) {
+		
+		
+		return seatingDao.getSeatingByBlockId(blockId);
+	}
+}
+
+
+	
+	
+	
+	
+

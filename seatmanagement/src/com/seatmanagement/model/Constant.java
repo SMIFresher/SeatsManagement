@@ -32,6 +32,9 @@ public class Constant {
 
 	public static final String TOTAL_SEATING_AVAILABLE = "Total_Seating_Available";
 	
+	public static final Object FLOOR_NAME = "FloorName";
+	
+	public static final Object BLOCK_NAME = "BlockName";
 	
 	// Error Constants
 	public static final String IS_RUNTIME_EXCEPTION = "isRuntimeException";
@@ -54,6 +57,7 @@ public class Constant {
 	// Organisation Constants
 	public static final String ORGANISATIONS = "organisations";
 
+	
 	private Constant() {
 	}
 }
