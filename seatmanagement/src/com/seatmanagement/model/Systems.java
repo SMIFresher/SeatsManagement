@@ -66,9 +66,19 @@ public class Systems implements Serializable{
 	@JoinTable(name = "system_additional_device", 
 				joinColumns = { @JoinColumn(name = "system_id") }, 
 				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
-	
 	private Set<AdditionalDevice> additionalDevice;
 	
+	@OneToOne(mappedBy = "system", fetch=FetchType.EAGER)
+    private SeatingDetails seatingDetails;
+	
+	public SeatingDetails getSeatingDetails() {
+		return seatingDetails;
+	}
+
+	public void setSeatingDetails(SeatingDetails seatingDetails) {
+		this.seatingDetails = seatingDetails;
+	}
+
 	public Set<AdditionalDevice> getAdditionalDevice() {
 		return additionalDevice;
 	}
