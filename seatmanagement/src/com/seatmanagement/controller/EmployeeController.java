@@ -194,4 +194,25 @@ public class EmployeeController {
 
 		return responseEntity;
 	}
+	
+	@RequestMapping("/getEmployeesByTeamId")
+	public ResponseEntity getEmployeesByTeamId(@RequestParam(value="teamId") UUID teamId) throws BusinessException {
+		logger.info("Controller: EmployeeController Method : getEmployeesByTeamId request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity responseEntity = null;
+
+		if (Objects.isNull(teamId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+
+		List<Employee> employees = employeeService.getEmployeesByTeamId(teamId);
+
+		responseEntity = new ResponseEntity(employees, HttpStatus.OK);
+
+		logger.info(
+				"Controller: EmployeeController Method : getEmployeesByTeamId response sent at : " + LocalDateTime.now());
+
+		return responseEntity;
+	}
 }

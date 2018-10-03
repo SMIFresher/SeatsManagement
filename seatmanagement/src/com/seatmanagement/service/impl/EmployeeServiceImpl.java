@@ -112,11 +112,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employees;
 	}
 
-
-
-	
-
-
-
-
+	@Override
+	public List<Employee> getEmployeesByTeamId(UUID teamId) {
+		List<Employee> employees = null;
+		employees = employeeDao.getEmployeesByTeamId(teamId);
+		return employees;
+	}
 }

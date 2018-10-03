@@ -21,5 +21,7 @@ public interface EmployeeService {
 	void saveEmployeeWithoutTeam(Employee employee, UUID organisationId);
 
 	List<Employee> getEmployeesByDesignation(String designation);
+
+	List<Employee> getEmployeesByTeamId(UUID teamId);
 	
 }
