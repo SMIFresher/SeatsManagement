@@ -43,11 +43,11 @@
 										class="form-control" id="enum" placeholder="Employee Number">
 										
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="pwd">Team Name</label> <input type="text"
 										class="form-control" id="tname" placeholder="Team Name">
 										
-								</div>
+								</div>  -->
 								<div class="form-group">
 									<label for="pwd">System Name</label> <input type="text"
 										class="form-control" id="sysname"
@@ -153,7 +153,7 @@
 	
 	  document.getElementById('sid').value=col1;
     document.getElementById('enum').value=col2;
-    document.getElementById('tname').value=col3;
+  /*   document.getElementById('tname').value=col3; */
     document.getElementById('sysname').value=col4;
     document.getElementById('systemType').value=col5;
 	document.getElementById('networkType').value=col6;

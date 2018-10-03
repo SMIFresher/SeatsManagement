@@ -44,12 +44,12 @@
 									<div class="row">
 										<div class="col-md-6">
 											<input type="radio" class="custom-control-input"
-												id="Personal Computer" name="systemType" value="Personal Computer"> 
-									<label  class="custom-control-label" for="Personal Computer">Personal Computer</label>
+												id="desktop" name="systemType" value="desktop"> 
+									<label  class="custom-control-label" for="desktop">Personal Computer</label>
 										</div>
 										<div class="col-md-6">
-					<input type="radio" class="custom-control-input" id="Laptop" name="systemType" value="Laptop">
-					 <label class="custom-control-label" for="Laptop">Laptop</label>
+					<input type="radio" class="custom-control-input" id="laptop" name="systemType" value="laptop">
+					 <label class="custom-control-label" for="laptop">Laptop</label>
 										</div>
 									</div>
 								</div>
@@ -60,18 +60,18 @@
 									<div class="row">
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input"
-												id="MAC" name="operatingSystem" value="MAC"> <label
-												class="custom-control-label" for="MAC">MAC</label>
+												id="mac" name="operatingSystem" value="mac"> <label
+												class="custom-control-label" for="mac">MAC</label>
 										</div>
 										<div class="col-md-4">
-											<input type="radio" class="custom-control-input" id="WINDOWS"
-												name="operatingSystem" value="WINDOWS"> <label
-												class="custom-control-label" for="WINDOWS">WINDOWS</label>
+											<input type="radio" class="custom-control-input" id="windows"
+												name="operatingSystem" value="windows"> <label
+												class="custom-control-label" for="windows">WINDOWS</label>
 										</div>
 										<div class="col-md-4">
-											<input type="radio" class="custom-control-input" id="LINUX"
-												name="operatingSystem" value="LINUX"> <label
-												class="custom-control-label" for="LINUX">LINUX</label>
+											<input type="radio" class="custom-control-input" id="linux"
+												name="operatingSystem" value="linux"> <label
+												class="custom-control-label" for="linux">LINUX</label>
 										</div>
 									</div>
 								</div>
@@ -82,13 +82,13 @@
 									<div class="row">
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input"
-												id="Ethernet" name="networkType" value="Ethernet"> <label
-												class="custom-control-label" for="Ethernet">Ethernet</label>
+												id="lan" name="networkType" value="lan"> <label
+												class="custom-control-label" for="lan">Ethernet</label>
 										</div>
 										<div class="col-md-4">
-											<input type="radio" class="custom-control-input" id="Wifi"
+											<input type="radio" class="custom-control-input" id="wifi"
 												name="networkType" value="wifi"> <label
-												class="custom-control-label" for="Wifi">Wifi</label>
+												class="custom-control-label" for="wifi">Wifi</label>
 										</div>
 									</div>
 								</div>
