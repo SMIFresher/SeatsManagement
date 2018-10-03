@@ -46,10 +46,17 @@ public class BlockController {
 	
 	@SuppressWarnings({"unchecked","rawtypes"})
 	@RequestMapping(value="/saveblock",method=RequestMethod.POST)
-	public ResponseEntity saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId) throws BusinessException{
-		blockService.saveOrUpdate(block,floorId);
-		ResponseEntity response =  new ResponseEntity(HttpStatus.OK);
-		return response;
+	public ResponseEntity saveOrUpdate(Block block , @RequestParam(value="floorId") UUID floorId,
+			@RequestParam(value="utilityList", required=false) List<UUID> utilitiesUUIDs) throws BusinessException{
+		ResponseEntity responseEntity=null;
+		if(block !=null){
+			blockService.saveOrUpdate(block,floorId,utilitiesUUIDs);
+			responseEntity = new ResponseEntity(HttpStatus.OK);
+		}
+		else{
+			throw new RuntimeException("Cant save/update");
+		}
+		return responseEntity;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

@@ -97,10 +97,10 @@
 							</div>
 							<div >
 								<label>Add Utility :</label>
-								<div  ng-repeat="utilities in getUtilities">
-								<input type="checkbox" checklist-value="utilities.utilityId" checklist-model="utilities.getUtilities"
-									name="" ng-model="selected">{{utilities.utilityName}}<br>
-								</div>
+								<div ng-repeat="utilities in getUtilities">
+										<input type="checkbox" name="utilityList" 
+										value="{{utilities.utilityId}}"> {{utilities.utilityName}}
+								 	</div>
 							</div>
 							<button type="submit" class="btn btn-primary" ng-click="showCheckedOnes()">Submit</button>
 						</form>
@@ -152,6 +152,12 @@
 	</div>
 
 	<script>
+	
+	var apps= angular.module('Building',[]);
+	//AJAX Request Type Header to prepare error response for AJAX seperately
+	apps.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
+		});
 	var app = angular.module('Building', []);
 	app.controller('BuildingController', function($scope, $http) {
 		
@@ -174,35 +180,7 @@
 		        }, function errorCallback(response) {
 		            alert(response.status);
 		        });
-		    /* var numbers = [5, 6, 2, 3, 7];
-
-		    var max = Math.max.apply(null, numbers); */
-		    $scope.utilities = {
-		    	    getUtilities: ['utility']
-		    	  }; 
-		    $scope.showCheckedOnes = function() {
-		        var checkedBoxes = "";
-		        for (var i = 0; i < $scope.utilities.getUtilities.length; i++) {
-		          checkedBoxes += $scope.utilities.getUtilities[i] + " ";
-		        }
-		        console.log([ checkedBoxes ]);
-		        alert({checkedBoxes});
-		      };
-			}
-		
-		$scope.selected=[];
-		$scope.exist=function(item){
-			return $scope.selected.indexOf(item) > -1;
 		}
-		$scope.toggleSelection=function(item){
-			var idx=$scope.selected.indexOf(item);
-			if(idx>-1){
-				$scope.selected.splice(idx,1);
-			}else{
-				$scope.selected.push(item);
-			}
-		}
-		
 		
 		$scope.floorDetails=function(buildingId){
 			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
@@ -235,20 +213,21 @@
 	
 <script type="text/javascript">
 function formSubmit(){
-	  console.log("hello");
-	 $.ajax({
-	     url:'/seatmanagement/block/saveblock',
-	     method : 'POST',
-	     async: false,
-	     data: $("#Form").serialize(),
-	     success: function (data) {
-	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/block/getBlockView");
-	    },error: function(data){
-	    }
-	 	
-	});
-	}
+	
+	console.log("Serialised Form : " + $("#Form").serialize());
+
+ $.ajax({
+     url:'/seatmanagement/block/saveblock',
+     method : 'POST',
+     data: $("#Form").serialize(),
+     async:false,
+     success: function (data) {
+   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+            location.replace("/seatmanagement/block/getBlockView");
+    }
+ 	
+});
+}
 		
 		
 	var blockId = null;

@@ -1,6 +1,8 @@
 package com.seatmanagement.service.impl;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,11 @@ import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.BlockDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Floor;
+import com.seatmanagement.model.Systems;
+import com.seatmanagement.model.Utilities;
 import com.seatmanagement.service.BlockService;
 import com.seatmanagement.service.ReallocationService;
 import com.seatmanagement.service.SeatingService;
@@ -32,6 +37,8 @@ public class BlockServiceImpl implements BlockService {
 	@Autowired
 	GenericDao<Floor> genericDaoFloor;
 	@Autowired
+	GenericDao<Utilities> genericDaoUtility;
+	@Autowired
 	BlockDao blockDao;
 	
 	@Autowired
@@ -40,17 +47,11 @@ public class BlockServiceImpl implements BlockService {
 	@Autowired
 	ReallocationService reallocationService;
 
-	public boolean saveOrUpdate(Block block,UUID floor_id) throws BusinessException {
+	public boolean saveOrUpdate(Block block,UUID floor_id,List<UUID> utilitiesUUIDs) throws BusinessException {
 		
-		//Block newBlock = new Block();
+	
 			Floor floor =  new Floor();
-			/* newBlock.setBlockName(block.getBlockName());
-			 newBlock.setBlockType(block.getBlockType());
-			 newBlock.setBlockCapacity(block.getBlockCapacity());
-			 newBlock.setBlockDescription(block.getBlockDescription());
-			 newBlock.setBlockMeasurement(block.getBlockMeasurement());
-			 newBlock.setSquarefeet(block.getSquarefeet());*/
-			 if(Objects.nonNull(floor_id)) {
+			/* if(Objects.nonNull(floor_id)) {
 				
 				 floor = genericDaoFloor.getById(floor, floor_id);
 			 }
@@ -59,11 +60,38 @@ public class BlockServiceImpl implements BlockService {
 			 }
 			
 			block.setFloor(floor);
-			return genericDao.saveOrUpdate(block);
-			
-			/*floor.setFloorId(floor_id);
-			block.setFloor(floor);
 			return genericDao.saveOrUpdate(block);*/
+			
+		// Floor Mapping
+				// Scenario 1: floor id is null
+				if(Objects.isNull(floor_id)) {
+					
+				}
+				// Scenario 2: floor id is present
+				else {
+					floor = genericDaoFloor.getById(floor, floor_id);
+					block.setFloor(floor);
+				}
+				
+				// utilities mapping
+				// Scenario 1: No utilities IDs in request
+				if(Objects.isNull(utilitiesUUIDs) ||utilitiesUUIDs.isEmpty()){
+					
+				}
+				// Scenario 2: utilities IDs present in request
+				else{
+					Set<Utilities> utilities = new HashSet<Utilities> ();
+					for(UUID utilityId : utilitiesUUIDs){
+						Utilities utility = new Utilities();
+						utility = (Utilities) genericDaoUtility.getById(utility, utilityId);
+						
+						utilities.add(utility);
+					}
+					
+					block.setUtilities(utilities);
+				}
+				
+				return genericDao.saveOrUpdate(block);
 			
 
 		}
@@ -112,7 +140,7 @@ public class BlockServiceImpl implements BlockService {
 		return blocks;
 	}
 
-	public void delete(Block block) throws BusinessException {
+	/*public void delete(Block block) throws BusinessException {
 		
 		block = genericDao.getById(block, block.getBlockId());
 		
@@ -131,6 +159,10 @@ public class BlockServiceImpl implements BlockService {
 			// delete block
 			genericDao.delete(block);
 		}
+	}*/
+	@Override
+	public boolean delete(Block block) {
+		return genericDao.delete(block);
 	}
 
 }
