@@ -188,6 +188,7 @@ function save(type) {
 		//window.open('multiple-parameters.php?' + table_content, 'Mypop', 'width=360,height=260,scrollbars=yes');
 		document.getElementById("saveDetails").value=""+table_content;
 	}
+	return table_content+"";
 }
 
 

@@ -216,7 +216,7 @@
               <p>Do You Want To save This Details</p>
               <form id="Form" onsubmit="formSubmit();">
               	<input type="hidden" id="saveDetails" name="seating_details">
-              	<input type="hidden" id="seatingID" name="seatingId" value="<%=request.getParameter("seatingId") %>">
+             
 				<input type="submit" value="Submit" class="btn btn-primary"/>
               </form>
             </div>
@@ -263,12 +263,15 @@ app.controller('getSystemDetails', function($scope, $http) {
 </script>
 
 	<script type="text/javascript">
-		function formSubmit() {
+	var seatId='<%=request.getParameter("seatingId") %>';
+	function formSubmit() {
 
 			$.ajax({
-				url : '#',
+				url : '/seatmanagement/seatingdetails/saveInBatch?seatingId='+seatId,
 				method : 'POST',
+				contentType:'application/json',
 				data : $("#Form").serialize(),
+				dataType:'json',
 				success : function(data) {
 					var status = data.RESPONSE_STATUS;
 					if (status == "OK") {
