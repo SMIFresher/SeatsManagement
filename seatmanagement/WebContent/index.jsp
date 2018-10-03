@@ -21,7 +21,9 @@
 
 <!DOCTYPE html>
 <html>
- <%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  <%@taglib uri="http://www.springframework.org/tags/form" prefix="Form"%>
+<%@page session="true"%>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -54,12 +56,16 @@
                 <div class="col-md-6 login-form-1 rounded border">
                     <h3>Login</h3>
                     <form action="" method="post">
+                <%--     <form name='loginForm'
+		  action="<c:url value='/j_spring_security_check' />" method='POST'> --%>
                         <div class="form-group">
                             <input type="text" name="username" class="form-control"  placeholder="Employee ID" value="" required="required"/>
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" required="required" />
                         </div>
+                      <%--   <input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" /> --%>
                         <div class="form-group">
                             <input type="submit" class="btnSubmit" value="Login" />
                         </div>

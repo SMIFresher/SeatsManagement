@@ -30,4 +30,9 @@
 		</property>
 	</bean>
 	
+	<!-- Spring Security Bean class Configuration -->
+			<!-- <bean id="securityConfig"
+		class="com.seatmanagement.security.SecurityConfig">
+			</bean> -->
+	
 </beans>
