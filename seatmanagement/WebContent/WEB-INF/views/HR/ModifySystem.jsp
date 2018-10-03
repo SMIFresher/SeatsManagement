@@ -81,7 +81,7 @@
 								<div class="form-group">
 									<label for="pwd">Additional Devices</label><br>
 							        <div ng-repeat="ad in getAddDev" class="col-md-6">
-										<input type="checkbox" name="additional_device_id" value="{{ad.additional_device_id}}"> {{ad.device_name}}
+										<input type="checkbox" name="additionalDeviceList" value="{{ad.additional_device_id}}"> {{ad.device_name}}
 								 	</div>
 								</div>
 
@@ -215,54 +215,22 @@ angular.element(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-function formSubmit($scope){
-	 var Sysid = {};
-	$(':checkbox[name=additional_device_id]').map(function() {
-		if(this.checked){
-			Sysid[this.value] = this.checked;
-			console.log(Sysid);
-		}
-	    }); 
+function formSubmit(){
 	
+	console.log("Serialised Form : " + $("#Form").serialize());
 
-            /* var message = "";
-            for (var i = 0; i < $scope.getAddDev.length; i++) {
-                if ($scope.getAddDev[i].Selected) {
-                    var fruitId = $scope.getAddDev[i].additional_device_id;
-                    var fruitName = $scope.getAddDev[i].device_name;
-                    message += "ID: " + fruitId + " Value: " + fruitName + "\n";
-                }
-            }
-
-            $window.alert(message);
-     */
-	
  $.ajax({
-     url:'/seatmanagement/systems/saveOrUpdateSystem?Sysid='+Sysid,
+     url:'/seatmanagement/systems/saveOrUpdateSystem',
      method : 'POST',
      data: $("#Form").serialize(),
+     async:false,
      success: function (data) {
-    	 var status = data.RESPONSE_STATUS;
-    	 if(status == "OK"){
-
-         }
-         if(status == "ERROR"){
-         	 var message = response.data.RESPONSE_MESSAGE;
-         	// Business Error scenario
-         	// provision to display business error message
-         }
-    },error: function (response) {
-    	var status = response.RESPONSE_STATUS;
-    	var message = response.RESPONSE_MESSAGE;
-    	var errorCode = response.ERROR_CODE;
-    	console.log("Response Status : " + status);
-    	console.log("Response Message : " + message);
-    	console.log("ErrorCode : " + errorCode);
+   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+            location.replace("/seatmanagement/systems/getModifySystem");
     }
  	
 });
-	
-};
+}
 	
 </script>
 
