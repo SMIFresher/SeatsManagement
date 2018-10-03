@@ -101,6 +101,7 @@ public class DashboardServiceImpl implements DashboardService {
 			Properties properties = new Properties();
 			List<List<Block>> listOfBlockCapacitybasedonFloor = getAllFloorByBuilding(p);
 			properties.put(Constant.BUILDING_NAME, p.getBuildingName());
+			properties.put(Constant.BUILDING_ID, p.getBuildingId());
 			List<Block> flatList = listOfBlockCapacitybasedonFloor.stream().flatMap(List::stream)
 					.collect(Collectors.toList());
 			Integer blockCapacity = flatList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
@@ -173,7 +174,9 @@ public class DashboardServiceImpl implements DashboardService {
 			Properties properties = new Properties();
 			List<Block> listOfBlockCapacitybasedonFloor = getAllBlockByFloor(p);
 			properties.put(Constant.BUILDING_NAME, building.getBuildingName());
+			properties.put(Constant.BUILDING_ID, building.getBuildingId());
 			properties.put(Constant.FLOOR_NAME, p.getFloorName());
+			properties.put(Constant.FLOOR_ID, p.getFloorId());
 			
 			
 			Integer blockCapacity = listOfBlockCapacitybasedonFloor.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
@@ -204,7 +207,7 @@ public class DashboardServiceImpl implements DashboardService {
 		logger.info(
 				"ServiceImpl: DashboardServiceImpl Method : getAllBlockDetailsCount request count for total Seat, Seat Occupied and Available Seat  processing started at : "
 						+ LocalDateTime.now());
-		//Building b= new Building();
+		Building building= new Building();
 		Floor f = new Floor();
 		Block block = new Block();
 		
@@ -213,8 +216,10 @@ public class DashboardServiceImpl implements DashboardService {
 		floor.getBlocks().stream().filter(Objects::nonNull).forEach(p -> {
 			Properties properties = new Properties();
 			
-			//properties.put(Constant.BUILDING_NAME, b.getBuildingName());
+			properties.put(Constant.BUILDING_NAME, building.getBuildingName());
+			properties.put(Constant.BUILDING_ID, building.getBuildingId());
 			properties.put(Constant.FLOOR_NAME, floor.getFloorName());
+			properties.put(Constant.FLOOR_ID, floor.getFloorId());
 			Integer blockCapacityPerBlock = Integer.valueOf(p.getBlockCapacity());
 			
 			List<Seating> seatOccupiedList = getSeatOccupiedByBlockId(p.getBlockId());
@@ -225,6 +230,7 @@ public class DashboardServiceImpl implements DashboardService {
 			
 			
 			properties.put(Constant.BLOCK_NAME, p.getBlockName());
+			properties.put(Constant.BLOCK_ID, p.getBlockId());
 			properties.put(Constant.TOTAL_SEATING_CAPACITY, blockCapacityPerBlock.toString());
 			properties.put(Constant.TOTAL_SEATING_OCCUPIED, seatOccupied.toString());
 			properties.put(Constant.TOTAL_SEATING_AVAILABLE, seatsAvailable.toString());

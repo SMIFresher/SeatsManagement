@@ -57,6 +57,12 @@ public class Constant {
 	// Organisation Constants
 	public static final String ORGANISATIONS = "organisations";
 
+	public static final Object BUILDING_ID = "buildingId";
+
+	public static final Object FLOOR_ID = "floorId";
+
+	public static final Object BLOCK_ID = "blockId";
+
 	
 	private Constant() {
 	}
