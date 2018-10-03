@@ -140,7 +140,7 @@ public class BlockServiceImpl implements BlockService {
 		return blocks;
 	}
 
-	/*public void delete(Block block) throws BusinessException {
+	public void delete(Block block) throws BusinessException {
 		
 		block = genericDao.getById(block, block.getBlockId());
 		
@@ -159,10 +159,7 @@ public class BlockServiceImpl implements BlockService {
 			// delete block
 			genericDao.delete(block);
 		}
-	}*/
-	@Override
-	public boolean delete(Block block) {
-		return genericDao.delete(block);
 	}
+	
 
 }

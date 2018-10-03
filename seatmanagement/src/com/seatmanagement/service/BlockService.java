@@ -26,9 +26,8 @@ public interface BlockService {
 
 	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException;
 
-//	public void delete(Block block) throws BusinessException;
+	public void delete(Block block) throws BusinessException;
 	
-	public boolean delete( Block block);
 	
 	public List<Block> getBlocksByFloorId(UUID floorId);
 	
