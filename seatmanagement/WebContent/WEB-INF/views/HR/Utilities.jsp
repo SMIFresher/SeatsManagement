@@ -79,9 +79,9 @@
 <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
-			var col1 = currow.find('td:eq(1)').text();
+			var col1 = currow.find('td:eq(0)').text();
 
-			document.getElementById('utilityName').value = col1;
+			document.getElementById('utilityId').value = col1;
 		})
 </script>
 
@@ -92,7 +92,7 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 	});
 app.controller('UtilitiesController', function($scope, $http) {
-    $http.post("../../utilities/getAllUtilities")
+    $http.post("/seatmanagement/utilities/getAllUtilities")
         .then(function successCallback(response) {
             $scope.getUtilities = response.data;
             console.log(response.data);
@@ -106,12 +106,12 @@ app.controller('UtilitiesController', function($scope, $http) {
 function formSubmit(){
 
  $.ajax({
-     url:'../../utilities/saveUtilities',
+     url:'/seatmanagement/utilities/saveUtilities',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
             $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Utilities.jsp");
+            location.replace("/seatmanagement/utilities/addUtilities");
     }
  	
 });
@@ -125,11 +125,11 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	uId  = currow.find('td:eq(0)').text();
 	console.log("uId  : " + uId );
 	
-	 $.post("../../utilities/deleteUtilityById", {
+	 $.post("/seatmanagement/utilities/deleteUtilityById", {
 		 utilityId:uId 
 		}, function(data) {
 			 $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Utilities.jsp");
+			 location.replace("/seatmanagement/utilities/addUtilities");
 		});
 
 	}

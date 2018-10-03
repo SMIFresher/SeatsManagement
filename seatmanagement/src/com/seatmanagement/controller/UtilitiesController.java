@@ -82,4 +82,9 @@ public class UtilitiesController {
 		}
 		return responseEntity;
 	}
+	@RequestMapping(value = "/addUtilities")
+	public ModelAndView getAddsystem() {
+		return new ModelAndView("/HR/Utilities");
+	}
+	
 }

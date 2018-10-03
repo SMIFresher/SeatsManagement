@@ -96,7 +96,7 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 	});
 app.controller('AdditionalDeviceController', function($scope, $http) {
-    $http.post("../../Additionaldevice/getAllDevice")
+    $http.post("/seatmanagement/Additionaldevice/getAllDevice")
         .then(function successCallback(response) {
             $scope.getdev = response.data;
             console.log(response.data);
@@ -110,12 +110,12 @@ app.controller('AdditionalDeviceController', function($scope, $http) {
 function formSubmit(){
 
  $.ajax({
-     url:'../../Additionaldevice/savedevice',
+     url:'/seatmanagement/Additionaldevice/savedevice',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
    $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("device.jsp");
+       location.replace("/seatmanagement/Additionaldevice/addAdditionalDevice");
     }
  	
 });
@@ -129,11 +129,11 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	devId = currow.find('td:eq(0)').text();
 	console.log("devId : " + devId);
 	
-	 $.post("../../Additionaldevice/deleteByDeviceId", {
+	 $.post("/seatmanagement/Additionaldevice/deleteByDeviceId", {
 		 additional_device_id:devId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("device.jsp");
+			location.replace("/seatmanagement/Additionaldevice/addAdditionalDevice");
 		});
 
 	}

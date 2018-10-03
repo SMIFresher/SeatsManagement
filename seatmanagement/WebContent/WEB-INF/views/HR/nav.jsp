@@ -85,9 +85,9 @@
 					<ul class="collapse list-unstyled" id="systemSubmenu">
 						<li><a href="/seatmanagement/systems/addSystem">Add System Details</a></li>
 							<li><a href="/seatmanagement/systems/getModifySystem">Modify System Details</a></li>
-						<li><a href="#">Add Device Details</a></li>
+						<li><a href="/seatmanagement/Additionaldevice/addAdditionalDevice">Add Device Details</a></li>
 					</ul></li>
-				<li><a href="#">Utilities</a></li>
+				<li><a href="/seatmanagement/utilities/addUtilities">Utilities</a></li>
 			</ul></li>
 		<li><a href="ChangePassword.jsp" class="fa fa-exchange"> Change Password</a></li>
 		<li><a href="<c:url value="/pagelogout" />" class="fa fa-sign-out"> Logout</a></li>

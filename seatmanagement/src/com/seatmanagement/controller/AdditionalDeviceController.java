@@ -60,6 +60,10 @@ public class AdditionalDeviceController {
 		}
 		return responseEntity;
 	}
+	@RequestMapping(value = "/addAdditionalDevice")
+	public ModelAndView getAddsystem() {
+		return new ModelAndView("/HR/device");
+	}
 	
 	
 }
