@@ -63,7 +63,19 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public List<Team> getAll() {
 		// TODO Auto-generated method stub
-	return teamDao.getAll();
+		List<Team> teams = teamDao.getAll();
+		
+		// set team count
+		if(Objects.nonNull(teams) && !teams.isEmpty()) {
+			for(Team team : teams) {
+				Set<Employee> employees = team.getEmployees();
+				if(Objects.nonNull(employees)) {
+					team.setTeamMembersCount(employees.size());
+				}
+			}
+		}
+		
+		return teams;
 	}
 
 	@Override

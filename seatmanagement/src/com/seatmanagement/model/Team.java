@@ -45,7 +45,7 @@ public class Team implements Serializable{
 	@Transient
 	private Integer teamMembersCount;
 	
-	@OneToMany(mappedBy="team")
+	@OneToMany(mappedBy="team", fetch=FetchType.EAGER)
 	@JsonIgnore
     private Set<Employee> employees;
 	

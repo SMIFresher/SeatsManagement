@@ -56,7 +56,14 @@ public class TeamController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/getAllTeam")
 	public ResponseEntity<List<Team>> getAll() {
-		return new ResponseEntity(teamService.getAll(), HttpStatus.OK);
+		
+		ResponseEntity model = null;
+		
+		List<Team> teams = teamService.getAll();
+		
+		model = new ResponseEntity(teams, HttpStatus.OK);
+		
+		return model;
 	}
 
 	@RequestMapping("/getTeamByName")
