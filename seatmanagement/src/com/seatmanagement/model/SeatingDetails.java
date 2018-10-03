@@ -36,6 +36,7 @@ public class SeatingDetails implements Serializable{
 	
 	@OneToOne
     @JoinColumn(name="system_id", nullable=false)
+	@JsonIgnore
     private Systems system;
 	
 	

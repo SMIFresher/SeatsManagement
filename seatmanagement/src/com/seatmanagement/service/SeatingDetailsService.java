@@ -19,6 +19,8 @@ public interface SeatingDetailsService {
 	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id);
 	
 	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId);
+	
+	public void deleteByIdInBatch(UUID seatingId);
 
 	
 

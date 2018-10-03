@@ -59,17 +59,15 @@ public class SystemDaoImpl implements SystemDao {
 		
 		Systems system=null;
 		
+		try {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 		criteria.add(Restrictions.eq("systemName",systemName));
 
 		system =(Systems) hibernateTemplate.findByCriteria(criteria).get(0);
-		
-		/*List<Systems> systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
-		
-		for(Systems sys:systemList) {
-			System.out.println(sys.toString());
 		}
-		*/
+		catch(Exception e) {
+			System.out.println("System name is not found");
+		}
 		return system;
 	}
 

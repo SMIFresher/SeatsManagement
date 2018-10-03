@@ -44,14 +44,12 @@ public class SeatingDetailsController {
 	}
 	
 	@RequestMapping(value="/save",method=RequestMethod.POST ,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SeatingDetails> saveSeatingDetails(@RequestBody SeatingDetails seatingDetails,@RequestParam UUID seatingId){
+	public ResponseEntity<SeatingDetails> saveSeatingDetails(@RequestBody SeatingDetails seatingDetails){
 		 seatingDetailsService.saveSeatingDetails(seatingDetails);
 		return ResponseEntity.ok().build();
 	}
 	
 
-	
-	
 	@PostMapping(value="/saveInBatch")
 	public ResponseEntity<SeatingDetails> saveSeatingDetailsInBatch(@RequestBody String seating_details,@RequestParam UUID seatingId) throws UnsupportedEncodingException{
 		//System.out.println(seatingDeatilsJsonString);

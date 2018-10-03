@@ -87,28 +87,28 @@
    				 <td>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'laptop')) }">
-	   				  	<div id="${element.systemType}" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
+	   				  	<div id="laptop" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-laptop" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'desktop')) }">
-	   				  	<div id="${element.systemType}" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
+	   				  	<div id="desktop" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-desktop" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'exit')) }">
-	   				  	<div id="${element.systemType}" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
+	   				  	<div id="exit" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-bars" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'Emptydesk')) }">
-	   				  	<div id="${element.systemType}" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
+	   				  	<div id="Emptydesk" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-stop" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>
@@ -271,6 +271,7 @@ app.controller('getSystemDetails', function($scope, $http) {
 				method : 'POST',
 				contentType:'application/json',
 				data : $("#Form").serialize(),
+
 				dataType:'json',
 				success : function(data) {
 					var status = data.RESPONSE_STATUS;
@@ -282,6 +283,8 @@ app.controller('getSystemDetails', function($scope, $http) {
 						// Business Error scenario
 						// provision to display business error message
 					}
+					console.log("dfgdgdfg");
+					location.replace('/seatmanagement/systems/EditView?seatingId='+seatId);  
 				},
 				error : function(response) {
 					var status = response.RESPONSE_STATUS;
@@ -290,7 +293,9 @@ app.controller('getSystemDetails', function($scope, $http) {
 					console.log("Response Status : " + status);
 					console.log("Response Message : " + message);
 					console.log("ErrorCode : " + errorCode);
+					location.replace('/seatmanagement/systems/EditView?seatingId='+seatId); 
 				}
+				
 
 			});
 		}

@@ -16,5 +16,6 @@ public interface SeatingDetailsDao {
 	
 	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id);
 	
+	public SeatingDetails deleteBySeatingId(UUID seatingId);
 	
 }

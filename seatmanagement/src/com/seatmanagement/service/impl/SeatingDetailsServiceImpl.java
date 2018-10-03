@@ -6,8 +6,14 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.UUID;
 
+
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDetailsDao;
@@ -15,9 +21,11 @@ import com.seatmanagement.dao.SystemDao;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
+import com.seatmanagement.model.Team;
 import com.seatmanagement.service.SeatingDetailsService;
 
 @Service
+@Transactional
 public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 
 	@Autowired
@@ -31,6 +39,9 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	
 	@Autowired
 	SystemDao system;
+	
+	@Autowired
+	private HibernateTemplate hibernateTemplate;
 	
 	@Override
 	public List<SeatingDetails> getAllSeatingDetails(){
@@ -62,18 +73,32 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 
 	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId) {
 		
+		deleteByIdInBatch(seatingId);
+			
 		Seating seating=new Seating();
 		seating = genericdaoSeating.getById(seating, seatingId);
 		
 		for(SeatingDetails sd:seatingDetails) {
 			sd.setSeating(seating);
 			String systemName=sd.getSeatingSystemNo();
-			sd.setSystem(system.getSystemId(systemName));
+			sd.setSystem(system.getSystemId(systemName.trim()));
 			genericDaoSeatingDetails.saveOrUpdate(sd);
 		}
 		
 		
 		
+	}
+
+	@Override
+	public void deleteByIdInBatch(UUID seatingId) {
+	
+		
+		
+		List<SeatingDetails> sd=getAllSeatingDetails();
+		//hibernateTemplate.deleteAll(sd);
+		for(SeatingDetails sd1:sd) {
+			hibernateTemplate.delete(sd1);
+		}
 	}
 
 	

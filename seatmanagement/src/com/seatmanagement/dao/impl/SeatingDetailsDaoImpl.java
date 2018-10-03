@@ -84,6 +84,15 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 		return seatingDetails;
 	}
 
+	@Override
+	public SeatingDetails deleteBySeatingId(UUID seatingId) {
+
+		
+
+
+		return null;
+	}
+
 
 
 
