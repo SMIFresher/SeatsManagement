@@ -57,10 +57,19 @@ public class SystemDaoImpl implements SystemDao {
 	@Override
 	public Systems getSystemId(String systemName) {
 		
-		DetachedCriteria criteria = DetachedCriteria.forClass(Team.class);
+		Systems system=null;
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 		criteria.add(Restrictions.eq("systemName",systemName));
 
-		Systems system = (Systems) hibernateTemplate.findByCriteria(criteria);
+		system =(Systems) hibernateTemplate.findByCriteria(criteria).get(0);
+		
+		/*List<Systems> systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+		
+		for(Systems sys:systemList) {
+			System.out.println(sys.toString());
+		}
+		*/
 		return system;
 	}
 
