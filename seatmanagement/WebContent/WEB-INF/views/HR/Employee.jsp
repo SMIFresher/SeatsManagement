@@ -47,9 +47,12 @@
 							<div class="form-group">
 								<label for="designation">Designation:</label> 
 								<select class="custom-select mb-3" name="designation" id="designation">
-									<option value="PROJECT MANAGER">PROJECT MAMANGER</option>
+									<option value="PROJECT MANAGER">PROJECT MANAGER</option>
 									<option value="TECH LEADER">TECH LEADER</option>
 									<option value="TEAM LEADER">TEAM LEADER</option>
+									<option value="TRAINEE">TRAINEE</option>
+									<option value="HR">HR</option>
+									<option value="PROJECT MEMBER">PROJECT MEMBER</option>
 								</select>
 							</div>
 							<div class="form-group">

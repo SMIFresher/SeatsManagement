@@ -45,7 +45,7 @@
 										<div class="col-md-6">
 											<input type="radio" class="custom-control-input"
 												id="desktop" name="systemType" value="desktop"> 
-									<label  class="custom-control-label" for="desktop">Personal Computer</label>
+									<label  class="custom-control-label" for="desktop">Desktop</label>
 										</div>
 										<div class="col-md-6">
 					<input type="radio" class="custom-control-input" id="laptop" name="systemType" value="laptop">
@@ -83,19 +83,19 @@
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input"
 												id="lan" name="networkType" value="lan"> <label
-												class="custom-control-label" for="lan">Ethernet</label>
+												class="custom-control-label" for="lan">LAN</label>
 										</div>
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input" id="wifi"
 												name="networkType" value="wifi"> <label
-												class="custom-control-label" for="wifi">Wifi</label>
+												class="custom-control-label" for="wifi">WiFi</label>
 										</div>
 									</div>
 								</div>
 							</div>
 								<div class="form-group">
 								<div ng-app="AdditinalDevice" ng-controller="AdditinalDeviceController" id="additinal" ng-init="loadInitially()">
-								<label for="networkType">additional Device:</label>
+								<label for="AdditinalDevice">Additional Device:</label>
 								<div class="custom-control custom-radio mb-3">
 									<div class="row">
 										<div class="col-md-4">
