@@ -1,29 +1,5 @@
-<%
-	
-	if(request.getParameter("password")!=null){
-		String usr=request.getParameter("username");
-		if(usr.equals("HR")){
-			%>
-				<script>
-						location.replace("hr/index");
-				</script>
-			<%
-		}else if(usr.equals("Lead")){
-			%>
-					<script>
-						location.replace("lead/index");
-					</script>
-			<%
-		}
-	}
-
-%>
-
 <!DOCTYPE html>
 <html>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-  <%@taglib uri="http://www.springframework.org/tags/form" prefix="Form"%>
-<%@page session="true"%>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
