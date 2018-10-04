@@ -43,14 +43,14 @@ public class UtilitiesController {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAllUtilities",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getAllUtilities",produces = MediaType.APPLICATION_JSON_VALUE)
 	public  ResponseEntity<List<Utilities>> getAll(){
 		return new ResponseEntity(utilitiesService.getAll(),HttpStatus.OK);
 	}
 	
 	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/getUtilitiesById",method=RequestMethod.POST)
+	@RequestMapping(value="/getUtilitiesById")
 	public ResponseEntity getBlockById(@RequestParam(value="utilityId") UUID utilityId){
 		Utilities utilities = new Utilities();
 		utilities=utilitiesService.getById(utilities,utilityId);
