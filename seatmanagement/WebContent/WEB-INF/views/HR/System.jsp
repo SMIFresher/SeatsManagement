@@ -17,7 +17,8 @@
 </head>
 <body>
 	
-	
+<div id="sys" ng-app="System" ng-controller="SystemController">	
+<div ng-app="AdditinalDevice" ng-controller="AdditinalDeviceController" id="additinal" ng-init="loadInitially()">
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
@@ -88,21 +89,21 @@
 										<div class="col-md-4">
 											<input type="radio" class="custom-control-input" id="wifi"
 												name="networkType" value="wifi"> <label
-												class="custom-control-label" for="wifi">WiFi</label>
+												class="custom-control-label" for="wifi">WIFI</label>
 										</div>
 									</div>
 								</div>
 							</div>
-								<div class="form-group">
-								<div ng-app="AdditinalDevice" ng-controller="AdditinalDeviceController" id="additinal" ng-init="loadInitially()">
-								<label for="AdditinalDevice">Additional Device:</label>
+							<div class="form-group">
+								<div >
+								<label for="networkType">Additional Device:</label>
 								<div class="custom-control custom-radio mb-3">
 									<div class="row">
 										<div class="col-md-4">
 											<div ng-repeat="ad in getAddDev">
-										<input type="checkbox" name="additionalDeviceList" 
-										value="{{ad.additional_device_id}}"> {{ad.device_name}}
-								 	</div>
+												<input type="checkbox" name="additionalDeviceList" 
+												value="{{ad.additional_device_id}}"> {{ad.device_name}}
+								 			</div>
 										</div>
 									</div>
 								</div>
@@ -110,7 +111,8 @@
 							</div>
 							
 					
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary">Submit</button><br><br>
+							<div class="content text-center btn btn-primary	" data-toggle="modal" data-target="#AssignEmployee">Assign Employee</div>
 					</form>
 
 					</div>
@@ -119,7 +121,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="sys" ng-app="System" ng-controller="SystemController">
+				
 
 					<table class="table table-hover">
 						<thead>
@@ -133,6 +135,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="sys in getsystem">
+								<td style="display: none;">{{sys.systemId}}</td>
 								<td>{{sys.systemName}}</td>
 								<td>{{sys.systemType}}</td>
 								<td>{{sys.operatingSystem}}</td>
@@ -140,18 +143,75 @@
 								<td>
 								<select class="custom-select mb-3" name="additionalDevice" >
 										<option ng-repeat="system in sys.additionalDevice">{{system.device_name}}</option>
-									</select></td>
+								</select></td>
 								<td>{{sys.allotmentStatus}}</td>
 								<td align="center">
 									<button class="btn btn-danger deleteBtn">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
-			   </div>
+			  
 			</div>
 		</div>
 	</div>
 	
+	<div class="modal fade" id="AssignEmployee">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Assign System To Employee</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			<form id="Form1" method="post" onsubmit="formSubmitEmp();" autocomplete="off">
+				<div class="form-group">
+                   		<label for="systemId">System Id </label>
+							<select class="custom-select mb-3" name="systemId" id="systemName">
+								<option ng-repeat="sys in getsystem | filter: {allotmentStatus : '!Active'}" value="{{sys.systemId}}">{{sys.systemName}}</option>
+							</select>
+				</div>
+				<div class="form-group">
+					<label for="team">Employee Id</label>
+						<select class="custom-select mb-3" name="employeeId" id="employeeId">
+							<option ng-repeat="emp in getemp" value="{{emp.employeeId}}">{{emp.employeeRoll}}</option>
+						</select>
+				</div>
+				<div class="modal-footer">
+		          <button type="submit"  class="btn btn-success" >Submit</button>
+		        </div>
+		        </form>
+		  </div>
+		
+           
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>	
+
+<script type="text/javascript">
+		$('.table tbody').on('click', 'tr', function() {
+			var currow = $(this).closest('tr');
+			var col1 = currow.find('td:eq(1)').text();
+			var col2 = currow.find('td:eq(2)').text();
+			var col3 = currow.find('td:eq(3)').text();
+			var col4 = currow.find('td:eq(4)').text();
+			var col5 = currow.find('td:eq(5)').text();
+			
+			document.getElementById('systemName').value = col1;
+			document.getElementById(col2).checked = true;
+			document.getElementById(col3).checked = true;
+			document.getElementById(col4).checked = true;
+			document.getElementById(col5).checked = true;
+		})
+	</script>
+
+
 <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
@@ -179,7 +239,14 @@ $scope.loadInitially = function(){
             alert(response.status);
         });
 	};
+	$http.post("/seatmanagement/employee/getAllEmployees")
+    .then(function successCallback(response) {
+        $scope.getemp = response.data;
+        console.log(response.data);
+    }, function errorCallback(response) {
+    });
 });
+
 
 var app = angular.module('System', ['AdditinalDevice']);
 //AJAX Request Type Header to prepare error response for AJAX seperately
@@ -202,9 +269,8 @@ angular.element(document).ready(function() {
     angular.bootstrap(document.getElementById("sys"), ['System']);
   });
 
+
 </script>
-
-
 
 
 
@@ -226,8 +292,24 @@ function formSubmit(){
 });
 }
 
+function formSubmitEmp(){
+	
+	console.log("Serialised Form : " + $("#Form1").serialize());
 
-                    
+ $.ajax({
+     url:'/seatmanagement/systems/assignEmployee',
+     method : 'POST',
+     data: $("#Form1").serialize(),
+     async:false,
+     success: function (data) {
+   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+            location.replace("/seatmanagement/systems/addSystem");
+    }
+ 	
+});
+}
+
+                   
 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
 	 systemId = currow.find('td:eq(0)').text();
