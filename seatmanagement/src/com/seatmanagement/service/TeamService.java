@@ -16,7 +16,7 @@ public interface TeamService {
 
 	public Team getTeamByName(String teamName);
 
-	public Team getTeamById(String teamId);
+	public Team getTeamById(UUID teamId);
 
 	public void updateTeam(Team team);
 

@@ -90,7 +90,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public Team getTeamById(String teamId) {
+	public Team getTeamById(UUID teamId) {
 		logger.info("Service: TeamServiceImpl Method : getTeamById started at : " + LocalDateTime.now());
 		
 		Team team = teamDao.getTeamById(teamId);
