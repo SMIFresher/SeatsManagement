@@ -19,6 +19,8 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "employee")
 public class Employee implements Serializable {
@@ -47,8 +49,7 @@ public class Employee implements Serializable {
 
 	@Column(name = "date_of_joining")
 	private String doj;
-	
-	
+
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	private Team team;
@@ -56,6 +57,18 @@ public class Employee implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "organisation_id")
 	private Organisation organisation;
+	
+	@OneToOne(mappedBy="employee")
+	@JsonIgnore
+	private Systems systems;
+	
+	public Systems getSystems() {
+		return systems;
+	}
+
+	public void setSystems(Systems systems) {
+		this.systems = systems;
+	}
 	
 	public Organisation getOrganisation() {
 		return organisation;

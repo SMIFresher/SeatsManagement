@@ -87,13 +87,13 @@ public class TeamController {
 	}
 	
 	@RequestMapping("/getTeamById")
-	public ResponseEntity getTeamById(@ModelAttribute String teamId) throws BusinessException {
+	public ResponseEntity getTeamById(@ModelAttribute UUID teamId) throws BusinessException {
 		
 		logger.info("Controller: TeamController Method : getTeamById request processing started at : " + LocalDateTime.now());
 		
 		String jsonResponse = null;
 
-		if (StringUtils.isBlank(teamId)) {
+		if (null==teamId) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 

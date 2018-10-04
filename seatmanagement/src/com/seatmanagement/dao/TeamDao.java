@@ -12,7 +12,7 @@ public interface TeamDao {
 	
 	public List<Team> getAll();
 
-	public Team getTeamById(String teamId);
+	public Team getTeamById(UUID teamId);
 
 	public void deleteTeamById(UUID teamId);
 

@@ -68,6 +68,27 @@ public class SystemController {
 		return responseEntity;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value="/assignEmployee",method=RequestMethod.POST )
+	public ResponseEntity<Systems> saveOrUpdateSystems1(Systems system, 
+			@RequestParam(value="systemId" , required=false) UUID systemId,
+			@RequestParam(value="employeeId" , required=false) UUID employeeId,
+			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) {
+		
+			system=systemService.getById(system, systemId);
+			system.setAllotmentStatus("Active");
+		
+		ResponseEntity responseEntity=null;
+		if(system !=null){
+			systemService.addOrUpdateSystem(system, employeeId, additionalDevicesUUIDs);
+			responseEntity = new ResponseEntity(HttpStatus.OK);
+		}
+		else{
+			throw new RuntimeException("Cant save/update");
+		}
+		return responseEntity;
+	}
+	
 	@RequestMapping(value="/getSystemById",method=RequestMethod.GET)
 	public ResponseEntity getSystemById(@RequestParam UUID systemId){
 		Systems system = new Systems();

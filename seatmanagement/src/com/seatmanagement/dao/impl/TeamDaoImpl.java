@@ -3,6 +3,7 @@ package com.seatmanagement.dao.impl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -14,6 +15,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.TeamDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.impl.TeamServiceImpl;
@@ -50,17 +52,25 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
-	public Team getTeamById(String teamId) {
+	public Team getTeamById(UUID teamId) {
 		
 		logger.info("DAO: TeamDaoImpl Method : getTeamById started at : " + LocalDateTime.now());
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Team.class);
 		criteria.add(Restrictions.eq("teamId", teamId));
 
-		Team team = (Team) hibernateTemplate.findByCriteria(criteria);
+		List<Team> teams = (List<Team>) hibernateTemplate.findByCriteria(criteria);
+		Team team = null;
+		
+		if(Objects.isNull(teams) || teams.isEmpty()) {
+			throw new ApplicationException("No Team record found");
+		}else {
+			team= teams.get(0);
+		}
 		
 		logger.info("DAO: TeamDaoImpl Method : getTeamById ended at : " + LocalDateTime.now());
 		
+	
 		return team;
 	}
 
