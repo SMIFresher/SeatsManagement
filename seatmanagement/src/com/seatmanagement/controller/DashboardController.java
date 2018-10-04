@@ -59,4 +59,12 @@ public class DashboardController {
 		return new ResponseEntity(dashboardService.getAllBlockDetailsCount(floorId), HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value = "/getAllOsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> getAllOsCount() {
+		logger.info("Controller: DashboardController Method : getAllOsCount request processing started at : "
+				+ LocalDateTime.now());
+		return new ResponseEntity(dashboardService.getAllOsCount(), HttpStatus.OK);
+	}
+	
 }

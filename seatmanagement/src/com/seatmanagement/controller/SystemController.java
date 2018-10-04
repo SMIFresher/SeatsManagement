@@ -17,6 +17,7 @@ import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
 
+
 @RestController
 @RequestMapping("/systems")
 public class SystemController {
@@ -148,6 +149,24 @@ public class SystemController {
 		else{
 			throw new RuntimeException("Invalid ID");
 		}
+		return responseEntity;
+	}
+
+ @SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/getOs", method = RequestMethod.GET)
+	public ResponseEntity getOscount() throws BusinessException {
+		
+		/*if (Objects.isNull(systemId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+		*/
+		List<Systems> sys = systemService.getOscount();
+		ResponseEntity responseEntity = null;
+		
+		
+	
+		responseEntity= new ResponseEntity(sys, HttpStatus.OK);
+
 		return responseEntity;
 	}
 

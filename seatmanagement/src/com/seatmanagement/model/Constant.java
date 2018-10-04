@@ -19,6 +19,13 @@ public class Constant {
 	public static final String EMPLOYEE_COUNT = "Employee_Count";
 
 	public static final String SYSTEM_COUNT = "System_Count";
+	
+    public static final String MAC_COUNT = "Mac_Count";
+	
+	public static final String WINDOWS_COUNT = "Windows_Count";
+	
+	public static final String LINUX_COUNT = "Linux_Count";
+	
 
 	public static final String SEATING_DETAILS_COUNT = "Seating_Details_Count";
 

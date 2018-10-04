@@ -249,6 +249,49 @@ public class DashboardServiceImpl implements DashboardService {
 		
 		return seatingDao.getSeatingByBlockId(blockId);
 	}
+	
+	public List<Object> getAllOsCount() {
+		List<Object> totalOsCount = new ArrayList<>();
+		logger.info(
+				"ServiceImpl: DashboardServiceImpl Method : getOsCount request count for system  processing started at : "
+						+ LocalDateTime.now());
+		
+		int windows=0,linux=0,mac=0;
+		
+		Systems system=new Systems();
+		List<Systems> OsList = systemDao.getAll(system);
+		
+		for (Systems s: OsList)
+		{
+			if (s.getOperatingSystem().equalsIgnoreCase("windows")) {
+				
+				windows++;
+			}
+			else if(s.getOperatingSystem().equalsIgnoreCase("linux")) {
+				linux++;
+				
+			}
+			else
+			{
+				mac++;
+			}
+			
+			
+		}
+		System.out.println(windows);
+		System.out.println(linux);
+		System.out.println(mac);
+		Properties properties = new Properties();
+		properties.put(Constant.WINDOWS_COUNT, windows);
+		properties.put(Constant.LINUX_COUNT, linux);
+		properties.put(Constant.MAC_COUNT, mac);
+		totalOsCount.add(properties);
+		
+
+	return totalOsCount;
+		
+	
+	}
 }
 
 

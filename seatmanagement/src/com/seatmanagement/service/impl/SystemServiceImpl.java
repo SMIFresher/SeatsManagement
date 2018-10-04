@@ -95,5 +95,13 @@ public class SystemServiceImpl implements SystemService{
 		return systemDao.getSystemId(systemName);
 	}
 
+	@Override
+	public List<Systems> getOscount(){
+		Systems system=new Systems();
+		List<Systems> list = systemDao.getOs(system);
+		return list;
+		
+	}
+
 	
 }

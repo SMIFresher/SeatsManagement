@@ -14,6 +14,7 @@ public interface SystemService {
 	public boolean delete(Systems system);
 	public  Systems getSystem(String request);
 	public Systems getSystemBySystemName(String systemName);
+	public List<Systems> getOscount();
 	
 	
 }

@@ -13,6 +13,8 @@ import org.hibernate.FetchMode;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
@@ -73,11 +75,25 @@ public class SystemDaoImpl implements SystemDao {
 
 
 
-
-
+	@Override
+	public List<Systems> getOs(Systems system) {
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
+		ProjectionList projList = Projections.projectionList();
+	    projList.add(Projections.property("operatingSystem"));
+	    criteria.setProjection(projList);
+		//criteria.add(Restrictions.eq("systemId", systemId ));
+		List<Systems> syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+		return syss;
 	
-	
-
-	
-
+	}
 }
+
+
+
+	
+	
+
+	
+
+

@@ -3,6 +3,8 @@ package com.seatmanagement.service;
 import java.util.List;
 import java.util.UUID;
 
+import com.seatmanagement.model.Systems;
+
 public interface DashboardService {
 
 	List<Object> getAllDashboardCount();
@@ -12,5 +14,7 @@ public interface DashboardService {
 	List<Object> getAllFloorDetailsCount(UUID buildingId);
 	
 	List<Object> getAllBlockDetailsCount(UUID floorId);
-
+	
+	List<Object> getAllOsCount();
+	
 }
