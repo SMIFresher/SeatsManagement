@@ -91,5 +91,10 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		seatingDetailsDao.deleteByIdInBatch(seatingId);
 	}
 
+	@Override
+	public List<SeatingDetails> getSeatingDetailsBySeatingId(UUID seatingId) {
+		return seatingDetailsDao.getSeatingDetailsBySeatingId(seatingId);
+	}
+
 	
 }

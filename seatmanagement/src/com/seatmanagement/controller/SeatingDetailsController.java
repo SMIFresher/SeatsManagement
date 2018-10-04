@@ -82,18 +82,22 @@ public class SeatingDetailsController {
 		return responseEntity;
 	}
 	
-	/*@RequestMapping(value="/getSeatByEmployeeId",method=RequestMethod.GET)
-	public ResponseEntity<SeatingDetails> getSystemByEmployeeId(@RequestParam(value="empid") UUID employee_id){
-		SeatingDetails seatingDetails = new SeatingDetails();
-		seatingDetails=seatingDetailsService.getSeatByEmployeeId(seatingDetails, employee_id);
-		ResponseEntity<SeatingDetails> responseEntity=null;
-		if(!(seatingDetails.getSeatingDetailsId()==null)) {
-			responseEntity=new ResponseEntity<SeatingDetails>(seatingDetails,HttpStatus.OK);
+	@RequestMapping(value="/getSeatDetailsBySeatId",method=RequestMethod.GET)
+	public ResponseEntity getSeatingDetailBySeatId(@RequestParam(value="seatingId") UUID seatingId){
+		
+		
+		ResponseEntity responseEntity=null;
+		
+		List<SeatingDetails> seatingDetailsList=seatingDetailsService.getSeatingDetailsBySeatingId(seatingId);
+		
+		if(!(seatingDetailsList==null)) {
+			responseEntity= new ResponseEntity<List<SeatingDetails>>(seatingDetailsList,HttpStatus.OK);
 		}
 		else{
-					throw new RuntimeException("Invalid Employee ID");
+					throw new RuntimeException("No Record Found");
 			}
 		
 		return responseEntity;
-	}*/
+	}
+	
 }

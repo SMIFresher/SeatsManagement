@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -106,6 +107,20 @@ public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seati
 		for(SeatingDetails sd1:sd) {
 			hibernateTemplate.delete(sd1);
 		}
+	}
+
+	@Override
+	public List<SeatingDetails> getSeatingDetailsBySeatingId(UUID seatingId) {
+		
+			List<SeatingDetails> seatingDetailsList = null;
+			DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
+			
+			criteria.createAlias("seating","seating").setFetchMode("seating",FetchMode.SELECT);
+			criteria.add(Restrictions.eq("seating.seatingId",seatingId));
+			seatingDetailsList= (List<SeatingDetails>) hibernateTemplate.findByCriteria(criteria);
+			
+		
+		return seatingDetailsList;
 	}
 
 

@@ -14,6 +14,8 @@ public interface SeatingDetailsDao {
 	
 	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id);
 	
+	public List<SeatingDetails> getSeatingDetailsBySeatingId(UUID seatingId);
+	
 	public SeatingDetails deleteBySeatingId(UUID seatingId);
 	
 	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId);
