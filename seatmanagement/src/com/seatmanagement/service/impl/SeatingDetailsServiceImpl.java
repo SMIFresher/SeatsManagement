@@ -31,18 +31,6 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	@Autowired
 	SeatingDetailsDao seatingDetailsDao;
 	
-	@Autowired
-	GenericDao<SeatingDetails> genericDaoSeatingDetails;
-	
-	@Autowired
-	GenericDao<Seating> genericdaoSeating;
-	
-	@Autowired
-	SystemDao system;
-	
-	@Autowired
-	private HibernateTemplate hibernateTemplate;
-	
 	@Override
 	public List<SeatingDetails> getAllSeatingDetails(){
 		@SuppressWarnings("unchecked")
@@ -73,7 +61,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 
 	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId) {
 		
-		deleteByIdInBatch(seatingId);
+		/*deleteByIdInBatch(seatingId);
 			
 		Seating seating=new Seating();
 		seating = genericdaoSeating.getById(seating, seatingId);
@@ -83,7 +71,9 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 			String systemName=sd.getSeatingSystemNo();
 			sd.setSystem(system.getSystemId(systemName.trim()));
 			genericDaoSeatingDetails.saveOrUpdate(sd);
-		}
+		}*/
+		
+		seatingDetailsDao.saveSeatingDetailsInbatch(seatingDetails, seatingId);
 		
 		
 		
@@ -92,13 +82,13 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	@Override
 	public void deleteByIdInBatch(UUID seatingId) {
 	
-		
-		
-		List<SeatingDetails> sd=getAllSeatingDetails();
+		/*List<SeatingDetails> sd=getAllSeatingDetails();
 		//hibernateTemplate.deleteAll(sd);
 		for(SeatingDetails sd1:sd) {
 			hibernateTemplate.delete(sd1);
-		}
+		}*/
+		
+		seatingDetailsDao.deleteByIdInBatch(seatingId);
 	}
 
 	

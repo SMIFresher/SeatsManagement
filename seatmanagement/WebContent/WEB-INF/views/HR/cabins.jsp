@@ -177,7 +177,7 @@
           <div class="row">
             <div class="col-sm-4 text-center">
               <h3>SMI I</h3>
-              <p>SMI I floar architecture.....</p>
+              <p>SMI I floor architecture.....</p>
             </div>
             <div class="col-sm-8 cc">
               <div class="row text-center">
@@ -211,9 +211,9 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12 text-center">
-              <h3>Are You Soure</h3>
+              <h3>Are You Sure</h3>
               
-              <p>Do You Want To save This Details</p>
+              <p>Do you want to save this details</p>
               <form id="Form" onsubmit="formSubmit();">
               	<input type="hidden" id="saveDetails" name="seating_details">
              

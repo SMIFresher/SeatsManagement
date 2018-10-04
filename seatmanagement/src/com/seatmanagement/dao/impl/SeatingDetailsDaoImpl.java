@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDetailsDao;
+import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 
 @Transactional
@@ -25,7 +27,13 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 	private HibernateTemplate hibernateTemplate;
 	
 	@Autowired
-	GenericDao<SeatingDetails> genericDao;
+	GenericDao<SeatingDetails> genericDaoSeatingDetails;
+	
+	@Autowired
+	GenericDao<Seating> genericdaoSeating;
+	
+	@Autowired
+	SystemDao system;
 	
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<SeatingDetails> getAllSeatingDetails() {
@@ -39,48 +47,29 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 	  hibernateTemplate.save(seatingDetails);
 	}
 
-	/*@Override
-	public List<SeatingDetails> getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id) {
-		Seating seating = new Seating();
-		seating.setSeatingId(seating_id);
-		seatingList =  (List<Seating>) hibernateTemplate.find("From Seating  where block_id = '" +block_id + "'" );
-		return seatingList;
-		DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
-		criteria.add(Restrictions.eq("seating", seating));
-		@SuppressWarnings("unchecked")
-		List<SeatingDetails> seat =  (List<SeatingDetails>) hibernateTemplate.findByCriteria(criteria);
-		return seat;
-	}*/
+	
 	
 	@Override
 	public SeatingDetails getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id) {
 		SeatingDetails seatingDetails = null;
-		
 		DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
 		//criteria.createAlias("system","systems");
 		criteria.createAlias("seating","seating",CriteriaSpecification.INNER_JOIN);
-		criteria.add(Restrictions.disjunction());
+		//criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.eq("seating.seatingId",seating_id));
-
 		seatingDetails= (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
-		
-		
 		return seatingDetails;
 	}
 	
 	@Override
 	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id) {
 		SeatingDetails seatingDetails = null;
-		
 		DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
 		criteria.createAlias("systems","systems");
 		//criteria.createAlias("employee","employee");
 		criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.eq("systems.employee",employee_id));
-
 		seatingDetails= (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
-		
-		
 		return seatingDetails;
 	}
 
@@ -88,10 +77,37 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 	public SeatingDetails deleteBySeatingId(UUID seatingId) {
 
 		
-
-
 		return null;
 	}
+	
+public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId) {
+		
+		deleteByIdInBatch(seatingId);
+			
+		Seating seating=new Seating();
+		seating = genericdaoSeating.getById(seating, seatingId);
+		
+		for(SeatingDetails sd:seatingDetails) {
+			sd.setSeating(seating);
+			String systemName=sd.getSeatingSystemNo();
+			sd.setSystem(system.getSystemId(systemName.trim()));
+			genericDaoSeatingDetails.saveOrUpdate(sd);
+		}
+		
+		
+		
+	}
+
+	@Override
+	public void deleteByIdInBatch(UUID seatingId) {
+	
+		List<SeatingDetails> sd=getAllSeatingDetails();
+		//hibernateTemplate.deleteAll(sd);
+		for(SeatingDetails sd1:sd) {
+			hibernateTemplate.delete(sd1);
+		}
+	}
+
 
 
 
