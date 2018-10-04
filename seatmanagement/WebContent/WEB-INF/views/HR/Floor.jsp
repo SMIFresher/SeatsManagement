@@ -112,7 +112,7 @@ app.controller('floorController', function($scope, $http) {
         });
 });
 
-$('.table tbody').on('click', '.deleteBtn', function() {
+/* $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
 	var floorId = currow.find('td:eq(2)').text();
 	console.log("floorId : " + floorId);
@@ -124,7 +124,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
             location.replace("/seatmanagement/floor/getFloorView");
 		});
 
-	}
+	} */
 );
 
 angular.element(document).ready(function() {
