@@ -29,4 +29,18 @@ public class HRController {
 
 		return model;
 	}
+	
+	@RequestMapping("/available")
+	public ModelAndView availableseats() throws BusinessException {
+
+		logger.info("Controller: HRController Method : getHRDashboard request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/HR/availableseats");
+
+		logger.info("Controller: HRController Method : getHRDashboard response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
 }

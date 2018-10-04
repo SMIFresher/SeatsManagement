@@ -61,6 +61,12 @@ public class SeatingController {
 			return new ResponseEntity(seatingService.getAllSeatingWithAxisByFloor(floorId),HttpStatus.OK);
 		}
 		
+		@RequestMapping("/getAllSeatingWithAxisLead")
+		public ResponseEntity<List<Object>> getAllSeatingWithAxisByFloorLead(@RequestParam("floorId") UUID floorId) throws BusinessException {
+			logger.info("Controller: SeatingController Method : getAllSeatingWithAxis request processing started at : " + LocalDateTime.now());
+			return new ResponseEntity(seatingService.getAllSeatingWithAxisByFloorLead(floorId),HttpStatus.OK);
+		}
+		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		@RequestMapping(value="/getAllSeating",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<List<Seating>> getAllSeating(){
@@ -73,23 +79,17 @@ public class SeatingController {
 
 			logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 					+ LocalDateTime.now());
-
 			ModelAndView model = new ModelAndView("/HR/seating");
-
 			logger.info("Controller: SeatingController Method : getSeatingView response sent at : "
 					+ LocalDateTime.now());
-
 			return model;
 		}
 		
 		@RequestMapping("/getSeatingView")
 		public ModelAndView getSeatingView(@RequestParam("floorId") String floorId) throws BusinessException {
-
 			logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 					+ LocalDateTime.now());
-
 			ModelAndView model = new ModelAndView("/HR/seatingView");
-
 			logger.info("Controller: SeatingController Method : getSeatingView response sent at : "
 					+ LocalDateTime.now());
 			model.addObject("id", floorId);

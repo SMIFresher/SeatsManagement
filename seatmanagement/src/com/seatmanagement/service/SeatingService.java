@@ -17,4 +17,6 @@ public interface SeatingService {
 	public void deleteSeatingByBlockId(UUID uuid) throws BusinessException;
 
 	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId) throws BusinessException;
+
+	List<Object> getAllSeatingWithAxisByFloorLead(UUID floorId) throws BusinessException;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
@@ -46,8 +47,8 @@ public class SystemController {
 	}
 	
 	@RequestMapping(value="/View")
-	public ModelAndView View(){
-		ModelAndView mav=new ModelAndView("HR/Viewcabins");
+	public ModelAndView View(@RequestParam("seatingId") String seatingId)throws BusinessException {
+		ModelAndView mav=new ModelAndView("Lead/Viewcabins");
 
 		return mav;
 	}

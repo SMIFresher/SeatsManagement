@@ -73,7 +73,7 @@
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-map-o"> Manage
 				Allotment</a>
 			<ul class="collapse list-unstyled" id="manageallotmentSubmenu">
-				<li><a href="#">Available Seats</a></li>
+				<li><a href="/seatmanagement/hr/available">Available Seats</a></li>
 				<li><a href="#">Reserved Seats</a></li>
 				<li><a href="#">Reallocated Seats</a></li>
 			</ul></li>
@@ -90,7 +90,7 @@
 				<li><a href="/seatmanagement/utilities/addUtilities">Utilities</a></li>
 			</ul></li>
 		<li><a href="ChangePassword.jsp" class="fa fa-exchange"> Change Password</a></li>
-		<li><a href="<c:url value="/pagelogout" />" class="fa fa-sign-out"> Logout</a></li>
+		<li><a href="/seatmanagement/pagelogout" class="fa fa-sign-out"> Logout</a></li>
 		<br>
 	</ul>
 

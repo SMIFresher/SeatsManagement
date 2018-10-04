@@ -32,19 +32,19 @@
 		
 		<div class="container-fluid ">
 			<br><br><br><br>
-			
-			
+			<button onclick="window.print();" class="btn btn-primary">PRINT</button>
 			<hr>
 			<br>
-			<div class="row">
-				
-				<div class="col-lg-8">
-					<div class="table-responsive" id="compdetails" ng-app="Company" ng-controller="getCompanyController" ng-init="getBuilding(); getFloor(); getBlock();">
-						<div class="col-sm-12 bg-primary text-white">
+			<div class="row" id="compdetails" ng-app="getCompany" ng-controller="getCompanyController" ng-init="getBuilding();">
+
+				<div class="col-md-12">
+				<div class="col-sm-12 bg-primary text-white">
 							<br>
-							<h4>Company Details</h4>
+							<h4>Building Details Details</h4>
 							<br>
-						</div>
+				</div>
+					<div class="table-responsive">
+						
 						<table class="table border">
 							<thead>
 								<tr>
@@ -56,10 +56,43 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="compdetails in getCompDetails" >
+								<tr ng-repeat="compdetails in getCompDetails" ng-init="parentIndex = $index1" ng-click="getFloor(compdetails.buildingId)">
 									<td><span class="fa fa-bookmark text-primary"></span></td>
 									<td>{{compdetails.BuildingName}}</td>
+									<td>{{compdetails.Total_Seating_Capacity}}</td>
+									<td>{{compdetails.Total_Seating_Occupied}}{{$index}}</td>
+									<td>{{compdetails.Total_Seating_Available}}</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="col-sm-12 bg-primary text-white">
+							<br>
+							<h4>Floor Details {{getFloorDetails[$index1].BuildingName}}</h4>
+							<br>
+						</div>
+					<div class="table-responsive">
+						
+						<table class="table border">
+							<thead>
+								<tr>
+
+									<th>Company</th>
+									<th>Floor Nmae</th>
+									<th>Total Seats</th>
+									<th>Total Seats Occupied</th>
+									<th>Available Seats</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="compdetails in getFloorDetails" ng-init="parentIndex = $index2" ng-click="getBlock(compdetails.floorId)">
 									
+									<td>{{compdetails.BuildingName}}</td>
+									<td>{{compdetails.FloorName}}</td>
 									<td>{{compdetails.Total_Seating_Capacity}}</td>
 									<td>{{compdetails.Total_Seating_Occupied}}</td>
 									<td>{{compdetails.Total_Seating_Available}}</td>
@@ -67,113 +100,72 @@
 
 							</tbody>
 						</table>
-					
-			
-				
-				
-				
-				
-			
-				<div class="col-md-6">
-						<div class="col-sm-12 bg-primary text-white">
-							<br>
-							<h4>Floor Details</h4>
-							<br>
-						</div>
-						<table class="table border">
-							<thead>
-								<tr>
-									<th>Batch</th>
-									<th>Company</th>
-									<th>Floor</th>
-									<th>Total Seats</th>
-									<th>Total Seats Occupied</th>
-									<th>Available Seats</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="floordetails in getFloorDetails" >
-									<td><span class="fa fa-bookmark text-primary"></span></td>
-									<td>{{floordetails.BuildingName}}</td>
-									<td>{{floordetails.FLoorName}}</td>
-									<td>{{floordetails.Total_Seating_Capacity}}</td>
-									<td>{{floordetails.Total_Seating_Occupied}}</td>
-									<td>{{floordetails.Total_Seating_Available}}</td>
-								</tr>
-
-							</tbody>
-						</table>
-				
+					</div>
 				</div>
 				
-				
-			
 				<div class="col-md-6">
-					
+					<div class="table-responsive">
 						<div class="col-sm-12 bg-primary text-white">
 							<br>
-							<h4>Block Details</h4>
+							<h4>Block Details {{getBlockDetails[$index2].FloorName}}</h4>
 							<br>
 						</div>
 						<table class="table border">
 							<thead>
 								<tr>
-									<th>Batch</th>
-									<th>Floor</th>
-									<th>Block</th>
+
+									<th>Floor Name</th>
+									<th>Block Name</th>
 									<th>Total Seats</th>
 									<th>Total Seats Occupied</th>
 									<th>Available Seats</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="blockdetails in getBlockDetails" >
-									<td><span class="fa fa-bookmark text-primary"></span></td>
+								<tr ng-repeat="compdetails in getBlockDetails" >
 									
-									<td>{{blockdetails.FLoorName}}</td>
-									<td>{{blockdetails.BlockName}}</td>
-									<td>{{blockdetails.Total_Seating_Capacity}}</td>
-									<td>{{blockdetails.Total_Seating_Occupied}}</td>
-									<td>{{blockdetails.Total_Seating_Available}}</td>
+									<td>{{compdetails.FloorName}}</td>
+									<td>{{compdetails.BlockName}}</td>
+									<td>{{compdetails.Total_Seating_Capacity}}</td>
+									<td>{{compdetails.Total_Seating_Occupied}}</td>
+									<td>{{compdetails.Total_Seating_Available}}</td>
 								</tr>
 
 							</tbody>
 						</table>
-					
+					</div>
 				</div>
-				
 			</div>
-			</div>
-
+		</div>
 
 		
 
-	
-	</div>
-	<script>
-	var apps= angular.module('Company',[]);
+<script type="text/javascript">
+
+
+	var app = angular.module('getCompany', []);
 	//AJAX Request Type Header to prepare error response for AJAX seperately
-	apps.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
+	app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 		});
-	
-	
-	var app = angular.module('Company', []);
 	app.controller('getCompanyController', function($scope, $http) {
-		
+
 		$scope.getBuilding = function(){ 
-	    $http.post("/seatmanagement/dashboard/getAllCompanyDetailsCount")
+
+		    $http.get("../dashboard/getAllCompanyDetailsCount")
 	        .then(function successCallback(response) {
 	            $scope.getCompDetails = response.data;
 	            console.log(response.data);
+				
 	        }, function errorCallback(response) {
-	            alert(response.status);
+	           
+	            doModal('Some Error',response.data.ERROR_MESSAGE);
 	        });
-		}
-		
-		
-		  $scope.getFloor = function(){ 
-		    $http.get("/seatmanagement/dashboard/getAllFloorDetailsCount??buildingId="+buildingId)
+
+		};
+
+		$scope.getFloor = function(buildingId){ 
+		    $http.get("/seatmanagement/dashboard/getAllFloorDetailsCount?buildingId="+buildingId)
 		        .then(function successCallback(response) {
 		            $scope.getFloorDetails = response.data;
 		            console.log(response.data);
@@ -182,7 +174,7 @@
 		        });
 		}
 		
-		$scope.getBlock=function(buildingId){
+		$scope.getBlock=function(floorId){
 			$http.get("/seatmanagement/dashboard/getAllBlockDetailsCount?floorId="+floorId)
 	        .then(function successCallback(response) {
 	            $scope.getBlockDetails = response.data;
@@ -192,9 +184,65 @@
 	            alert(response.status);
 	        });
 		};
-	 
+
+	    
 	});
+
+
 	
+</script>
+		
+		
+		
+		
+		
+		
+	</div>
+	
+	
+	<!-- Models -->
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-4 text-center">
+							<h3>SMI I</h3>
+							<p>SMI I floar architecture.....</p>
+						</div>
+						<div class="col-sm-8 cc">
+							<div class="row text-center">
+								<div class="col-sm-12 flr bg-info">
+									<h4>Flr 1</h4>
+								</div>
+								<div class="col-sm-12 flr bg-info">
+									<h4>Flr 1</h4>
+								</div>
+								<div class="col-sm-12 flr">
+									<h4>Flr 1</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 </body>
 

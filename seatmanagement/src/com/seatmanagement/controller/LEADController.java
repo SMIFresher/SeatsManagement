@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.exception.BusinessException;
@@ -62,4 +63,19 @@ public class LEADController {
 
 		return model;
 	}
+	
+	@RequestMapping("/getSeatingView")
+	public ModelAndView getSeatingView(@RequestParam("floorId") String floorId) throws BusinessException {
+
+		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/Lead/seatingView");
+
+		logger.info("Controller: SeatingController Method : getSeatingView response sent at : "
+				+ LocalDateTime.now());
+		model.addObject("id", floorId);
+		return model;
+	}
+	
 }

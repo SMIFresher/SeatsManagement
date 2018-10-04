@@ -49,7 +49,7 @@
 									class="form-control" id="fname" placeholder="Enter Floor Name"
 									name="floorName">
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-success">Submit</button>
 						</form>
 
 					</div>
@@ -71,7 +71,7 @@
 								<td>{{flr.floorName}}</td>
 								<td>{{flr.floorType}}</td>
 								<td style="display:none;">{{flr.floorId}}</td>
-								<td><button class="btn btn-danger deleteBtn">Delete</button></td>
+								<td><a href="/seatmanagement/seating/getSeatingView?floorId={{flr.floorId}}"><button class="btn btn-primary deleteBtn">View</button></a></td>
 							</tr>
 						</tbody>
 					</table>

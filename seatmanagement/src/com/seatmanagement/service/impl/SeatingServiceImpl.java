@@ -110,6 +110,30 @@ public class SeatingServiceImpl implements SeatingService {
 		return object;
 	}
 	
+	@Override
+	public List<Object> getAllSeatingWithAxisByFloorLead(UUID floorId) throws BusinessException {
+		
+		logger.info("Service: SeatingServiceImpl Method : getAllSeatingWithAxis request processing started at : " + LocalDateTime.now());
+		List<Object> object = new ArrayList<>();                 
+		List<Seating> list = seatingDao.getAllSeating();
+	    List<Seating> seatingListByFloor = list.stream().filter(Objects::nonNull).filter(p->p.getBlock().getFloor().getFloorId().equals(floorId)).collect(Collectors.toList());
+	
+	    if(CollectionUtils.isEmpty(seatingListByFloor)) {
+			throw new BusinessException(Constant.NO_RECORD_FOUND_FOR_SEATINGS);
+		}
+		 
+		 seatingListByFloor.stream().filter(Objects::nonNull).forEach(k->{
+			Properties properties = new Properties();
+			properties.put("x",k.getX_axis());
+			properties.put("y",k.getY_axis());
+			properties.put("note","<center>  BlockType = " + k.getBlock().getBlockName() + "  <p> Seat Oocupied: " + k.getSeat_occupied()+" ||  Block Capacity : "+ k.getBlock().getBlockCapacity()+" </p><a href='/seatmanagement/systems/View?seatingId=" + k.getSeatingId() +"'><button class='btn btn-primary btn-sm'>view cabins</button></a></center>");
+		 object.add(properties);	
+		});
+		      
+		
+		return object;
+	}
+	
 
 	
 	

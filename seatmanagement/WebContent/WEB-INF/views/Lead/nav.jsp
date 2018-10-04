@@ -19,7 +19,7 @@
         <a class="nav-link text-dark" href="/seatmanagement/lead/building">View</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" href="#">Logout</a>
+        <a class="nav-link text-dark" href="/seatmanagement/pagelogout">Logout</a>
       </li>     
     </ul>
   </div> 

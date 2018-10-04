@@ -62,7 +62,7 @@ public class Systems implements Serializable{
     @JoinColumn(name="employee_id")  
     private Employee employee;
 	
-	@ManyToMany(fetch=FetchType.LAZY,targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch=FetchType.EAGER,targetEntity = AdditionalDevice.class, cascade = { CascadeType.ALL })
 	@JoinTable(name = "system_additional_device", 
 				joinColumns = { @JoinColumn(name = "system_id") }, 
 				inverseJoinColumns = { @JoinColumn(name = "additional_device_id") })
