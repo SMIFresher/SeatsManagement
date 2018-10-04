@@ -123,7 +123,6 @@
 
 					<table class="table table-hover">
 						<thead>
-					        <td>System id</td>
 							<td>System Name</td>
 							<td >System Type</td>
 							<td>Operating System</td>
@@ -134,7 +133,6 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="sys in getsystem">
-								<td>{{sys.systemId}}</td>
 								<td>{{sys.systemName}}</td>
 								<td>{{sys.systemType}}</td>
 								<td>{{sys.operatingSystem}}</td>
