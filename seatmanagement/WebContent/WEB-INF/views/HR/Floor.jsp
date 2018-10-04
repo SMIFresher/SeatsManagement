@@ -112,19 +112,19 @@ app.controller('floorController', function($scope, $http) {
         });
 });
 
-/* $('.table tbody').on('click', '.deleteBtn', function() {
+$('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
 	var floorId = currow.find('td:eq(2)').text();
 	console.log("floorId : " + floorId);
 	
-	 $.post("/seatmanagement/floor/deleteFloorById", {
+	 $.post("#", {
 		 floorId:floorId
 		}, function(data) {
 			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("/seatmanagement/floor/getFloorView");
+            //location.replace("/seatmanagement/floor/getFloorView");
 		});
 
-	} */
+	}
 );
 
 angular.element(document).ready(function() {
