@@ -38,9 +38,9 @@ public class BuildingServiceImpl implements BuildingService {
 
 	}
 
-	
 	public List<Building> getAll() {
-		return buildingDao.getAll();
+		Building building=new Building();
+		return genericDao.getAll(building);
 	}
 
 	public Building getById(Building building, UUID buildingId) {

@@ -57,7 +57,7 @@ public class SeatingServiceImpl implements SeatingService {
 		logger.info("Service: SeatingServiceImpl Method : getAllSeating request processing started at : " + LocalDateTime.now());
 		Seating seating = new Seating();
 		@SuppressWarnings("unchecked")
-		List<Seating> list = seatingDao.getAllSeating();
+		List<Seating> list = genericDao.getAll(seating);
 		return list;
 	}
 

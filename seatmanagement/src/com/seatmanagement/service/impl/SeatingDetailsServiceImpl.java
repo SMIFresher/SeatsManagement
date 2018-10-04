@@ -31,17 +31,22 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	@Autowired
 	SeatingDetailsDao seatingDetailsDao;
 	
+	@Autowired
+	GenericDao<SeatingDetails> genericDao;
+	
 	@Override
 	public List<SeatingDetails> getAllSeatingDetails(){
 		@SuppressWarnings("unchecked")
-		List<SeatingDetails> list = seatingDetailsDao.getAllSeatingDetails();
+		SeatingDetails seatingDetails=new SeatingDetails();
+		List<SeatingDetails> list = genericDao.getAll(seatingDetails);
 		return list;
 	}
 	
 	@Override
 	public void saveSeatingDetails(SeatingDetails seatingDetails) {
 		//seatingDetailsDao.getAllSeatingDetails();
-		seatingDetailsDao.saveSeatingDetails(seatingDetails);
+		genericDao.saveOrUpdate(seatingDetails);
+		//seatingDetailsDao.saveSeatingDetails(seatingDetails);
 	}
 /*
 	@Override

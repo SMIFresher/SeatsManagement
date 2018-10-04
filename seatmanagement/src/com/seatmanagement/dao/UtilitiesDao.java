@@ -3,5 +3,5 @@ import java.util.List;
 import com.seatmanagement.model.Utilities;
 
 public interface UtilitiesDao {
-	public List<Utilities> getAll();
+	/*public List<Utilities> getAll();*/
 }

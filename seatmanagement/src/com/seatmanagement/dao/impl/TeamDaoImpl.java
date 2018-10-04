@@ -74,7 +74,7 @@ public class TeamDaoImpl implements TeamDao {
 		return team;
 	}
 
-	@Override
+	/*@Override
 	public void deleteTeamById(UUID teamId) {
 		
 		logger.info("DAO: TeamDaoImpl Method : deleteTeamById started at : " + LocalDateTime.now());
@@ -86,6 +86,6 @@ public class TeamDaoImpl implements TeamDao {
 		hibernateTemplate.delete(team);
 		
 		logger.info("DAO: TeamDaoImpl Method : deleteTeamById ended at : " + LocalDateTime.now());
-	}
+	}*/
 
 }

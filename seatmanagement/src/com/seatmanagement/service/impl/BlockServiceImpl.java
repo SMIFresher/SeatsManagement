@@ -98,7 +98,8 @@ public class BlockServiceImpl implements BlockService {
 
 	
 	public List<Block> getAll() {
-		return blockDao.getAll();
+		Block block =new Block();
+		return genericDao.getAll(block);
 	}
 
 	public Block getById(Block block, UUID blockId) {

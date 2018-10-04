@@ -43,11 +43,11 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao{
 		return seatingList;
 	}
 
-	@Override
+	/*@Override
 	public  void saveSeatingDetails(SeatingDetails seatingDetails) {
 	  hibernateTemplate.save(seatingDetails);
 	}
-
+*/
 	
 	
 	@Override
@@ -115,7 +115,7 @@ public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seati
 			List<SeatingDetails> seatingDetailsList = null;
 			DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
 			
-			criteria.createAlias("seating","seating").setFetchMode("seating",FetchMode.SELECT);
+			criteria.createAlias("seating","seating");
 			criteria.add(Restrictions.eq("seating.seatingId",seatingId));
 			seatingDetailsList= (List<SeatingDetails>) hibernateTemplate.findByCriteria(criteria);
 			

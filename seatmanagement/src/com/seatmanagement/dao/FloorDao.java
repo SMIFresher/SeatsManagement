@@ -7,7 +7,7 @@ import com.seatmanagement.model.Floor;
 
 public interface FloorDao {
 
-	public List<Floor> getAll();
+	/*public List<Floor> getAll();*/
 
 	public List<Floor> getFloorsByBuildingId(UUID buildingId);
 	

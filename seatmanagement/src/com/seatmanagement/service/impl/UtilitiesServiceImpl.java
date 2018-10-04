@@ -33,7 +33,10 @@ public class UtilitiesServiceImpl implements UtilitiesService {
 	}
 	
 	public List<Utilities> getAll() {
-		return utilitiesDao.getAll();
+		
+		Utilities util=new Utilities();
+		return genericDao.getAll(util);
+		
 	}
 
 	public Utilities getById(Utilities utilities, UUID utilityId) {

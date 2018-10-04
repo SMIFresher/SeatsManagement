@@ -47,8 +47,8 @@ GenericDao<Building> genericDaoBuilding;
 
 	@Override
 	public List<Floor> getAll() {
-		// TODO Auto-generated method stub
-	return floorDao.getAll();
+		Floor floor=new Floor();
+		return genericDao.getAll(floor);
 	}
 	@Override
 	public void deleteFloorById(UUID floorId) throws BusinessException {

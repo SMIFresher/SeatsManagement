@@ -33,8 +33,8 @@ public class AdditionalDeviceServiceImpl implements AdditionalDeviceService{
 
 	@Override
 	public List<AdditionalDevice> getAll() {
-		AdditionalDevice additionalDevice = null;
-		List<AdditionalDevice> list=additionalDeviceDao.getAll(); 
+		AdditionalDevice additionalDevice = new AdditionalDevice();
+		List<AdditionalDevice> list=genericDao.getAll(additionalDevice); 
 		return list;
 	}
 

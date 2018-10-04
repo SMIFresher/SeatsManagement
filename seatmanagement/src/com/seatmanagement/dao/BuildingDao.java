@@ -23,7 +23,7 @@ public interface BuildingDao {
 	 */
 	// public void saveBuilding(Building building);
 
-	public List<Building> getAll();
+	/*public List<Building> getAll();*/
 	
 	
 }

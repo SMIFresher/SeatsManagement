@@ -10,10 +10,10 @@ public interface TeamDao {
 
 	public Team getTeamByName(String teamName);
 	
-	public List<Team> getAll();
+	/*public List<Team> getAll();*/
 
 	public Team getTeamById(UUID teamId);
 
-	public void deleteTeamById(UUID teamId);
+	/*public void deleteTeamById(UUID teamId);*/
 
 }

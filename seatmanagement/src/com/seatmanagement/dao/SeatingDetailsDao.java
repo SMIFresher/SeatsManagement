@@ -6,9 +6,9 @@ import com.seatmanagement.model.SeatingDetails;
 
 public interface SeatingDetailsDao {
 
-	List<SeatingDetails> getAllSeatingDetails();
+	/*List<SeatingDetails> getAllSeatingDetails();
 
-	void saveSeatingDetails(SeatingDetails seatingDetails);
+	void saveSeatingDetails(SeatingDetails seatingDetails);*/
 	
 	public SeatingDetails getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id);
 	

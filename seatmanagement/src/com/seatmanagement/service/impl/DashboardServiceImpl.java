@@ -66,9 +66,10 @@ public class DashboardServiceImpl implements DashboardService {
 
 		Systems systems = new Systems();
 		Employee employee = new Employee();
+		Block block=new Block();
 		Integer systemCount = systemDao.getAll(systems).size();
 		
-		List<Block> blockList = blockDao.getAll();
+		List<Block> blockList = blockDao1.getAll(block);
 		Integer seatcapacity = blockList.stream().filter(Objects::nonNull).map(Block::getBlockCapacity)
 				.map(Integer::parseInt).mapToInt(Integer::intValue).sum();
 
