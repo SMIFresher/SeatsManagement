@@ -28,6 +28,14 @@ import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Organisation;
 import com.seatmanagement.service.OrganisationService;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ * This class gets all requests for 'Organisation' model object and delegates to service classes 
+ * for business processing
+ *
+ */
 @Controller
 @RequestMapping("/organisation")
 public class OrganisationController {

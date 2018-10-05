@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.seatmanagement.dao.EmployeeDao;
 import com.seatmanagement.dao.GenericDao;
-import com.seatmanagement.dao.OrganisationDao;
 import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Organisation;
 import com.seatmanagement.model.Team;

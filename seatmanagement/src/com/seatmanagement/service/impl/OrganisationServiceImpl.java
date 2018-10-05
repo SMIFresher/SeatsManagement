@@ -1,7 +1,6 @@
 package com.seatmanagement.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,17 +10,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.seatmanagement.dao.GenericDao;
-import com.seatmanagement.dao.OrganisationDao;
-import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Organisation;
 import com.seatmanagement.service.OrganisationService;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ * This class provides implementation for all business logic related
+ * processing to 'Organisation' model object
+ *
+ */
 public class OrganisationServiceImpl implements OrganisationService {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrganisationServiceImpl.class);
-
-	@Autowired
-	private OrganisationDao organisationDao;
 
 	@Autowired
 	private GenericDao genericDao;
