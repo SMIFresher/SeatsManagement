@@ -2,6 +2,7 @@ package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -11,13 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Utilities;
 import com.seatmanagement.service.UtilitiesService;
 
@@ -47,11 +50,19 @@ public class UtilitiesController {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/saveUtilities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Utilities> saveOrUpdate(Utilities utilities) {
+	public ResponseEntity<Utilities> saveOrUpdate(Utilities utilities,Errors errors) throws BusinessException{
 		logger.info("Controller: UtilitiesController Method : saveUtilities request processing started at : "
 				+ LocalDateTime.now());
+		ResponseEntity responseEntity = null;
+		// Validation
+				if (errors.hasErrors()) {
+					throw new BusinessException(errors);
+				}
+
+		utilitiesService.saveOrUpdate(utilities);
+		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: UtilitiesController Method : saveUtilities response sent at : " + LocalDateTime.now());
-		return new ResponseEntity(utilitiesService.saveOrUpdate(utilities), HttpStatus.OK);
+		return responseEntity;
 
 	}
 
@@ -64,9 +75,11 @@ public class UtilitiesController {
 	public ResponseEntity<List<Utilities>> getAll() {
 		logger.info("Controller: UtilitiesController Method : getAllUtilities request processing started at : "
 				+ LocalDateTime.now());
-		logger.info(
-				"Controller: UtilitiesController Method : getAllUtilities response sent at : " + LocalDateTime.now());
-		return new ResponseEntity(utilitiesService.getAll(), HttpStatus.OK);
+		ResponseEntity responseEntity = null;
+		utilitiesService.getAll();
+		responseEntity = new ResponseEntity(HttpStatus.OK);
+		logger.info("Controller: UtilitiesController Method : getAllUtilities response sent at : " + LocalDateTime.now());
+		return responseEntity;
 	}
 
 	/**
@@ -76,7 +89,7 @@ public class UtilitiesController {
 	 */
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getUtilitiesById")
-	public ResponseEntity getBlockById(@RequestParam(value = "utilityId") UUID utilityId) {
+	public ResponseEntity getBlockById(@RequestParam(value = "utilityId") UUID utilityId) throws BusinessException{
 		logger.info("Controller: UtilitiesController Method : getUtilitiesById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities utilities = new Utilities();
@@ -85,7 +98,7 @@ public class UtilitiesController {
 		if (!(utilities.getUtilityId() == null)) {
 			responseEntity = new ResponseEntity<Utilities>(utilities, HttpStatus.OK);
 		} else {
-			throw new RuntimeException("Invalid Utility ID");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		logger.info(
 				"Controller: UtilitiesController Method : getUtilitiesById response sent at : " + LocalDateTime.now());
@@ -99,7 +112,7 @@ public class UtilitiesController {
 	 */
 	@RequestMapping(value = "/deleteUtilityById", method = RequestMethod.POST)
 
-	public ResponseEntity deleteUtilityById(@RequestParam(value = "utilityId") UUID utilityId) {
+	public ResponseEntity deleteUtilityById(@RequestParam(value = "utilityId") UUID utilityId) throws BusinessException {
 		logger.info("Controller: UtilitiesController Method : deleteUtilityById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities utilities = new Utilities();
@@ -109,7 +122,7 @@ public class UtilitiesController {
 		if (utilities.getUtilityId() != null) {
 			responseEntity = new ResponseEntity(utilitiesService.delete(utilities), HttpStatus.OK);
 		} else {
-			throw new RuntimeException("Invalid ID");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		logger.info(
 				"Controller: UtilitiesController Method : deleteUtilityById response sent at : " + LocalDateTime.now());
@@ -121,11 +134,12 @@ public class UtilitiesController {
 	 * @return
 	 */
 	@RequestMapping(value = "/addUtilities")
-	public ModelAndView getAddsystem() {
+	public ModelAndView getAddsystem() throws BusinessException{
 		logger.info("Controller: UtilitiesController Method : addUtilities request processing started at : "
 				+ LocalDateTime.now());
+		ModelAndView model = new ModelAndView("/HR/Utilities");
 		logger.info("Controller: UtilitiesController Method : addUtilities response sent at : " + LocalDateTime.now());
-		return new ModelAndView("/HR/Utilities");
+		return model;
 	}
 
 }
