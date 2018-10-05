@@ -256,36 +256,26 @@ public class DashboardServiceImpl implements DashboardService {
 		logger.info(
 				"ServiceImpl: DashboardServiceImpl Method : getOsCount request count for system  processing started at : "
 						+ LocalDateTime.now());
+		Integer windows=0,linux=0,mac=0;
 		
-		int windows=0,linux=0,mac=0;
-		
-		Systems system=new Systems();
-		List<Systems> OsList = systemDao.getAll(system);
-		
-		for (Systems s: OsList)
+		Systems systems=new Systems();
+		List<Systems> osList = systemDao.getAll(systems);
+		for (Systems s: osList)
 		{
 			if (s.getOperatingSystem().equalsIgnoreCase("windows")) {
-				
 				windows++;
 			}
 			else if(s.getOperatingSystem().equalsIgnoreCase("linux")) {
 				linux++;
-				
 			}
-			else
-			{
+			else if(s.getOperatingSystem().equalsIgnoreCase("mac")){
 				mac++;
 			}
-			
-			
 		}
-		System.out.println(windows);
-		System.out.println(linux);
-		System.out.println(mac);
 		Properties properties = new Properties();
-		properties.put(Constant.WINDOWS_COUNT, windows);
-		properties.put(Constant.LINUX_COUNT, linux);
-		properties.put(Constant.MAC_COUNT, mac);
+		properties.put(Constant.WINDOWS_COUNT, windows.toString());
+		properties.put(Constant.LINUX_COUNT, linux.toString());
+		properties.put(Constant.MAC_COUNT, mac.toString());
 		totalOsCount.add(properties);
 		
 
