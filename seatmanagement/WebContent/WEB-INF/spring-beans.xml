@@ -119,10 +119,6 @@
 		class="com.seatmanagement.service.impl.OrganisationServiceImpl">
 	</bean>
 	
-	<bean id="organisationDao"
-		class="com.seatmanagement.dao.impl.OrganisationDaoImpl">
-	</bean>
-	
 	<bean id="seatingService"
 		class="com.seatmanagement.service.impl.SeatingServiceImpl">
 	</bean>
