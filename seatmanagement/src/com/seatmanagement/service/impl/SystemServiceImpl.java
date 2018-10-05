@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
@@ -18,8 +19,15 @@ import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SystemService;
-
+/**
+ * 
+ * @author prithivi raj
+ *  This class provides implementation for all business logic related
+ *  processing to 'System' model object
+ *
+ */
 @Transactional
+//@Service
 public class SystemServiceImpl implements SystemService{
 	
 	private static final Logger logger = LoggerFactory.getLogger(SystemServiceImpl.class);
@@ -52,7 +60,7 @@ public class SystemServiceImpl implements SystemService{
 		logger.info("Service: SystemServiceImpl Method : get By Id started at : " + LocalDateTime.now());
 		
 		return (Systems) genericDao.getById(system, System_id);
-		
+		  
 	}
 
 	@Override

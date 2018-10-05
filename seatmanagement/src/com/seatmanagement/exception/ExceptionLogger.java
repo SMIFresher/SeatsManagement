@@ -123,7 +123,7 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 		logger.error("Exception stack : ", ex);
 
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_RUNTIME, RequestAttributes.SCOPE_REQUEST);
-		request.setAttribute(Constant.EXCEPTION_MESSAGE, ex.getMessage(), RequestAttributes.SCOPE_REQUEST);
+		request.setAttribute(Constant.EXCEPTION_MESSAGE, Constant.ERROR_MESSAGE_INTERNAL_SERVER_ERROR, RequestAttributes.SCOPE_REQUEST);
 
 		throw ex;
 	}
@@ -156,7 +156,7 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_EXCEPTION,
 				RequestAttributes.SCOPE_REQUEST);
-		request.setAttribute(Constant.EXCEPTION_MESSAGE, ex.getMessage(), RequestAttributes.SCOPE_REQUEST);
+		request.setAttribute(Constant.EXCEPTION_MESSAGE, Constant.ERROR_MESSAGE_INTERNAL_SERVER_ERROR, RequestAttributes.SCOPE_REQUEST);
 
 		throw ex;
 	}

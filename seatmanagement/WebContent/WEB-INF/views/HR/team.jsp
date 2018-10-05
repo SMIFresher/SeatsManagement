@@ -78,7 +78,7 @@
 						
 						<tbody align="center">
 						<tr ng-repeat="team in getteam" align="center">
-						<td>{{team.teamId}}</td>
+						<td style="display:none;">{{team.teamId}}</td>
 						<td>{{team.teamName}}</td>
 						<td>{{team.teamHead}}</td>
 						<td>{{team.teamMembersCount}}</td>

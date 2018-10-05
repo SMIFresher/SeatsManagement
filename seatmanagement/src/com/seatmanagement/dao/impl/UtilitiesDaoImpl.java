@@ -8,6 +8,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.UtilitiesDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Utilities;
 /**
  * 
@@ -24,11 +25,16 @@ public class UtilitiesDaoImpl implements UtilitiesDao{
 	/**
 	 * 
 	 * @return
+	 * @throws BusinessException 
 	 */
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<Utilities> getAll() {
-		List<Utilities> utilityList = new ArrayList<>();
-		utilityList = (List<Utilities>) hibernateTemplate.find("From Utilities");
+	public List<Utilities> getAll() throws BusinessException {
+		List<Utilities> utilityList = null;
+		try {
+			utilityList = (List<Utilities>) hibernateTemplate.find("From Utilities");
+		}catch(Exception e) {
+			throw new BusinessException("Error while retreiving Utility records");
+		}
 		return utilityList;
 	}
 }

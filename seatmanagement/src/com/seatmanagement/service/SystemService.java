@@ -5,7 +5,14 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.seatmanagement.model.Systems;
-
+/**
+ * 
+ * @author Prithivi raj
+ * 			
+ * 			Provides interface for all business logic related processing to
+ *  		'System' model object
+ *
+ */
 public interface SystemService {
 
 	public void addOrUpdateSystem(Systems system,UUID employeeId,List<UUID> additionalDevicesUUIDs );

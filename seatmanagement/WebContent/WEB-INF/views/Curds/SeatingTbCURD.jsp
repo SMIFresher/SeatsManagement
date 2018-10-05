@@ -82,7 +82,7 @@
 
 						<tbody>
 							<tr ng-repeat="flr in getflr" align="center">
-								<td>{{flr.organisationId}}</td>
+								<td style="display:none;">{{flr.organisationId}}</td>
 								<td>{{flr.organisationName}}</td>
 								<td>{{flr.organisationName}}</td>
 								<td>{{flr.organisationName}}</td>

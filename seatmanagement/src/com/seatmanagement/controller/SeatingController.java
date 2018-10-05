@@ -76,14 +76,10 @@ public class SeatingController {
 		ResponseEntity responseEntity = null;
 		logger.info("Controller: SeatingController Method : saveOrUpdateSystems request processing started at : "
 				+ LocalDateTime.now());
-		if (Objects.isNull(blockID)) {
+		if (Objects.isNull(blockID) || Objects.isNull(seating)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
-		if (seating != null) {
-			responseEntity = new ResponseEntity(seatingService.addOrUpdateSeating(seating, blockID), HttpStatus.OK);
-		} else {
-			throw new RuntimeException("Can't save/update");
-		}
+		responseEntity = new ResponseEntity(seatingService.addOrUpdateSeating(seating, blockID), HttpStatus.OK);
 		logger.info(
 				"Controller: SeatingController Method : saveOrUpdateSystems response sent at : " + LocalDateTime.now());
 		return responseEntity;

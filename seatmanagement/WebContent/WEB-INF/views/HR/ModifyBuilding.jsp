@@ -31,12 +31,12 @@
 
 						<h2>Building</h2>
 						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
-							<div class="form-group">
+							 <div class="form-group">
 								<label for="pwd">Building Id:</label>
 								
 									 <input type="text" class="form-control" id="bid" placeholder="Enter Building Id" name="buildingId">
 									 <input type="hidden" class="form-control" id="oid" placeholder="Enter Building Name" name="organisationId">
-							</div>
+							</div> 
 							<div class="form-group">
 								<label for="pwd">Building Name:</label>  <input type="text"
 									class="form-control" id="bname" placeholder="Enter Building Name"

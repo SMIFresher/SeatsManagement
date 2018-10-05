@@ -1,7 +1,6 @@
 package com.seatmanagement.dao;
 
-import java.util.UUID;
-
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Team;
 
 /**
@@ -18,18 +17,8 @@ public interface TeamDao {
 	 * 
 	 * @param teamName
 	 * @return Team
+	 * @throws BusinessException 
 	 */
-	public Team getTeamByName(String teamName);
-
-	/* public List<Team> getAll(); */
-
-	/**
-	 * 
-	 * @param teamId
-	 * @return Team
-	 */
-	public Team getTeamById(UUID teamId);
-
-	/* public void deleteTeamById(UUID teamId); */
+	public Team getTeamByName(String teamName) throws BusinessException;
 
 }

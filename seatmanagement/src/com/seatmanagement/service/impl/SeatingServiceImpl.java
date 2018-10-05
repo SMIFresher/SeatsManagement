@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import com.seatmanagement.controller.SeatingController;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Constant;
@@ -45,7 +46,7 @@ public class SeatingServiceImpl implements SeatingService {
 	@Autowired
 	GenericDao<Block> genericDaoBlock;
 
-	public List<Seating> getSeatingByBlockId(Seating seating, UUID block_id) {
+	public List<Seating> getSeatingByBlockId(Seating seating, UUID block_id) throws BusinessException {
 		logger.info("Service: SeatingServiceImpl Method : getSeatingByBlockId request processing started at : "
 				+ LocalDateTime.now());
 		List<Seating> list = seatingDao.getAll(seating, block_id);
@@ -62,6 +63,9 @@ public class SeatingServiceImpl implements SeatingService {
 		Seating newSeating = seating;
 		Block newBlock = new Block();
 		newBlock = genericDaoBlock.getById(newBlock, blockID);
+		if(Objects.isNull(newBlock)) {
+			throw new ApplicationException("Block record not found");
+		}
 		newSeating.setBlock(newBlock);
 		genericDao.saveOrUpdate(newSeating);
 		logger.info("Service: SeatingServiceImpl Method : addOrUpdateSeating response processing ended at : "
@@ -96,7 +100,7 @@ public class SeatingServiceImpl implements SeatingService {
 		else {
 			// Scenario a: More than 1 seating mapped to a block
 			if (seatings.size() > 1) {
-				throw new BusinessException("More than one Seating mapped to a Block");
+				throw new ApplicationException("More than one Seating mapped to a Block");
 			}
 			// Scenario b: Only 1 seating mapped to a block
 			else {

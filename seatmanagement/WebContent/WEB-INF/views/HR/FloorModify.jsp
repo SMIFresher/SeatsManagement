@@ -71,7 +71,7 @@
 				<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetails();">
 					<table class="table table-hover">
 						<thead>
-							<td>Floor Id </td>
+							
 							<td>Floor Name</td>
 							<td>Floor Type</td>
 							
@@ -80,7 +80,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="floor in getFloor">
-								<td>{{floor.floorId}}</td>
+								<td style="display:none;">{{floor.floorId}}</td>
 								<td>{{floor.floorName}}</td>
 								<td>{{floor.floorType}}</td>
 								

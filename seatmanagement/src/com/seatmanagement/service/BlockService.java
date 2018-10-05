@@ -28,8 +28,8 @@ public interface BlockService {
 
 	public void delete(Block block) throws BusinessException;
 
-	public List<Block> getBlocksByFloorId(UUID floorId);
+	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException;
 
-	public List<Block> getBlocksByBlockType(String blockType, UUID floorId);
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) throws BusinessException;
 
 }

@@ -61,7 +61,7 @@
 						
 						<tbody align="center">
 						<tr ng-repeat="device in getDevice">
-						<td>{{device.additional_device_id}}</td>
+						<td style="display:none;">{{device.additional_device_id}}</td>
 						<td>{{device.device_name}}</td>
 						<td align="center"><button class="btn btn-danger">Delete</button></td>
 						</tr>

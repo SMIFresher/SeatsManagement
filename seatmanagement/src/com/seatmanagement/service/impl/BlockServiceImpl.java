@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.seatmanagement.dao.BlockDao;
 import com.seatmanagement.dao.GenericDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Block;
@@ -60,11 +61,14 @@ public class BlockServiceImpl implements BlockService {
 		// Floor Mapping
 		// Scenario 1: floor id is null
 		if (Objects.isNull(floor_id)) {
-
+			throw new BusinessException("Please select a floor");
 		}
 		// Scenario 2: floor id is present
 		else {
 			floor = genericDaoFloor.getById(floor, floor_id);
+			if(Objects.isNull(floor)) {
+				throw new ApplicationException("Floor record not found");
+			}
 			block.setFloor(floor);
 		}
 
@@ -80,6 +84,9 @@ public class BlockServiceImpl implements BlockService {
 				Utilities utility = new Utilities();
 				utility = (Utilities) genericDaoUtility.getById(utility, utilityId);
 
+				if(Objects.isNull(utility)) {
+					throw new ApplicationException("Utility record not found");
+				}
 				utilities.add(utility);
 			}
 
@@ -105,6 +112,9 @@ public class BlockServiceImpl implements BlockService {
 		logger.info("Service: BlockServiceImpl Method : listAllBlockByBlockId request processing started at : "
 				+ LocalDateTime.now());
 		Block result = genericDao.getById(block, blockId);
+		if(Objects.isNull(result)) {
+			throw new ApplicationException("Block record not found");
+		}
 		logger.info(
 				"Service: BlockServiceImpl Method : listAllBlockByBlockId response sent at : " + LocalDateTime.now());
 		return result;
@@ -133,25 +143,23 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Override
-	public List<Block> getBlocksByFloorId(UUID floorId) {
+	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException {
 		logger.info("Service: BlockServiceImpl Method : listAllBlockByFloorId request processing started at : "
 				+ LocalDateTime.now());
 		List<Block> blocks = blockDao.getBlocksByFloorId(floorId);
-		List<Block> result = blocks;
 		logger.info(
 				"Service: BlockServiceImpl Method : listAllBlockByFloorId response sent at : " + LocalDateTime.now());
-		return result;
+		return blocks;
 	}
 
 	@Override
-	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) {
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) throws BusinessException {
 		logger.info("Service: BlockServiceImpl Method : listAllBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
 		List<Block> blocks = blockDao.getBlocksByBlockType(blockType, floorId);
-		List<Block> result = blocks;
 		logger.info(
 				"Service: BlockServiceImpl Method : listAllBlockByBlockType response sent at : " + LocalDateTime.now());
-		return result;
+		return blocks;
 	}
 
 	public void delete(Block block) throws BusinessException {
@@ -160,7 +168,7 @@ public class BlockServiceImpl implements BlockService {
 
 		// Scenario 1: Block Not present
 		if (Objects.isNull(block)) {
-
+			throw new ApplicationException("Block record not found");
 		}
 		// Scenario 2: Block present
 		else {

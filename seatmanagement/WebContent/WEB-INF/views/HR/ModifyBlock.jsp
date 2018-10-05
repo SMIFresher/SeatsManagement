@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2>Block</h2>
+						<h2>Blocks</h2>
 						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 						
 							<div class="form-group">
@@ -80,7 +80,7 @@
 
 					<table class="table table-hover">
 						<thead>
-							<td>Block Id</td>
+							
 							<td>Block Name</td>
 							<td>Block Capacity</td>
 							<td>Block Description</td>
@@ -91,7 +91,7 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="block in getBlock">
-								<td>{{block.blockId}}</td>
+								<td style="display:none;">{{block.blockId}}</td>
 								<td>{{block.blockName}}</td>
 								<td>{{block.blockCapacity}}</td>
 								<td>{{block.blockDescription}}</td>

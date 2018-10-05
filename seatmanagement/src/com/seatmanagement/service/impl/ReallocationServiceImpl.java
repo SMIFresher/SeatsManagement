@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.ReallocationDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.service.ReallocationService;
 
@@ -80,7 +81,7 @@ public class ReallocationServiceImpl implements ReallocationService {
 	}
 
 	@Override
-	public void deleteReallocationsByBlockId(UUID blockId) {
+	public void deleteReallocationsByBlockId(UUID blockId) throws BusinessException {
 		
 		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId started at : " + LocalDateTime.now());
 		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);

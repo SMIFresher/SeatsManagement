@@ -56,14 +56,14 @@
 
 					<table class="table table-hover">
 						<thead align="center">
-							<td>Floor Id</td>
+							
 							<td>Floor Type</td>
 							<td>Floor Name</td>
 							<td>Process</td>
 						</thead>
 						<tbody>
 							<tr ng-repeat="flr in getflr" align="center">
-								<td>{{flr.organisationId}}</td>
+								<td style="display:none;">{{flr.organisationId}}</td>
 								<td>{{flr.organisationName}}</td>
 								<td>{{flr.organisationName}}</td>
 								<td><button class="btn btn-danger">Delete</button></td>

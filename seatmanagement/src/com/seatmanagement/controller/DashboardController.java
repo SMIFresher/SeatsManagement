@@ -17,6 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seatmanagement.service.DashboardService;
 
+/**
+ * 
+ * @author SaiEswari
+ * 
+ *         This class gets all requests for 'dashboard Service' model object and
+ *         delegates to service classes for business processing
+ *
+ *
+ */
 @Controller
 @RequestMapping("/dashboard")
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -27,44 +36,64 @@ public class DashboardController {
 	@Autowired
 	DashboardService dashboardService;
 
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllDashboardCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> getAllDashboardCount() {
 		logger.info("Controller: DashboardController Method : getAllDashboardCount request processing started at : "
 				+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllDashboardCount(), HttpStatus.OK);
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllCompanyDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> getAllCompanyDetailsCount() {
-		logger.info("Controller: DashboardController Method : getAllCompanyDetailsCount request processing started at : "
-				+ LocalDateTime.now());
+		logger.info(
+				"Controller: DashboardController Method : getAllCompanyDetailsCount request processing started at : "
+						+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllCompanyDetailsCount(), HttpStatus.OK);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param buildingId
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllFloorDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllFloorDetailsCount(@RequestParam (value="buildingId") UUID buildingId) {
-		
+	public ResponseEntity<List<Object>> getAllFloorDetailsCount(@RequestParam(value = "buildingId") UUID buildingId) {
+
 		logger.info("Controller: DashboardController Method : getAllFloorDetailsCount request processing started at : "
 				+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllFloorDetailsCount(buildingId), HttpStatus.OK);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param floorId
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllBlockDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllBlockDetailsCount(@RequestParam (value="floorId") UUID floorId) {
-		
+	public ResponseEntity<List<Object>> getAllBlockDetailsCount(@RequestParam(value = "floorId") UUID floorId) {
+
 		logger.info("Controller: DashboardController Method : getAllFloorDetailsCount request processing started at : "
 				+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllBlockDetailsCount(floorId), HttpStatus.OK);
 	}
-	
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllOsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> getAllOsCount() {
 		logger.info("Controller: DashboardController Method : getAllOsCount request processing started at : "
 				+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllOsCount(), HttpStatus.OK);
 	}
-	
+
 }

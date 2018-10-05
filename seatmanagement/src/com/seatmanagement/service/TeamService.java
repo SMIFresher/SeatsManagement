@@ -3,6 +3,7 @@ package com.seatmanagement.service;
 import java.util.List;
 import java.util.UUID;
 
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Team;
 
 /**
@@ -32,15 +33,17 @@ public interface TeamService {
 	 * 
 	 * @param teamName
 	 * @return Team
+	 * @throws BusinessException 
 	 */
-	public Team getTeamByName(String teamName);
+	public Team getTeamByName(String teamName) throws BusinessException;
 
 	/**
 	 * 
 	 * @param teamId
 	 * @return Team
+	 * @throws BusinessException 
 	 */
-	public Team getTeamById(UUID teamId);
+	public Team getTeamById(UUID teamId) throws BusinessException;
 
 	/**
 	 * 

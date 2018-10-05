@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.controller.UtilitiesController;
 import com.seatmanagement.dao.BlockDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.model.Systems;
@@ -41,33 +42,45 @@ public class BlockDaoImpl implements BlockDao {
 	/**
 	 * 
 	 * @return
+	 * @throws BusinessException 
 	 */
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<Block> getAll() {
+	public List<Block> getAll() throws BusinessException {
 		logger.info("DAO: BlockDaoImpl Method : listAllBlock request processing started at : " + LocalDateTime.now());
-		List<Block> blockList = new ArrayList<>();
-		blockList = (List<Block>) hibernateTemplate.find("From Block");
+		List<Block> blockList = null;
+		try {
+			blockList = (List<Block>) hibernateTemplate.find("From Block");
+		}catch(Exception e) {
+			throw new BusinessException("Error while retreiving Block records");
+		}
+		
 		logger.info("DAO: BlockDaoImpl Method : saveBlock response sent at : " + LocalDateTime.now());
 		return blockList;
 	}
 
 	@Override
-	public List<Block> getBlocksByFloorId(UUID floorId) {
+	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException {
 		logger.info(
 				"DAO: BlockDaoImpl Method : listBlockByFloorId request processing started at : " + LocalDateTime.now());
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
 		criteria.add(Restrictions.eq("floor.floorId", floorId));
-		List<Block> blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
+		List<Block> blocks = null;
+		try {
+			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new BusinessException("Error while retrieving Block record");
+		}
 		logger.info("DAO: BlockDaoImpl Method : listBlockByFloorId response sent at : " + LocalDateTime.now());
 		return blocks;
 	}
 
 	/**
 	 * For loading block details with respect to the blockType and floorId
+	 * @throws BusinessException 
 	 */
 
 	@Override
-	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) {
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) throws BusinessException {
 		logger.info("DAO: BlockDaoImpl Method : listBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
@@ -75,7 +88,12 @@ public class BlockDaoImpl implements BlockDao {
 		criteria.add(Restrictions.disjunction());
 		criteria.add(
 				Restrictions.and(Restrictions.eq("blockType", blockType), Restrictions.eq("floor.floorId", floorId)));
-		List<Block> blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
+		List<Block> blocks = null;
+		try {
+			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new BusinessException("Error while retreiving block records");
+		}
 		logger.info("DAO: BlockDaoImpl Method : listBlockByBlockType response sent at : " + LocalDateTime.now());
 		return blocks;
 	}

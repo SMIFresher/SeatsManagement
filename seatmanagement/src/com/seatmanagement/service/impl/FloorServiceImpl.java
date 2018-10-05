@@ -46,16 +46,11 @@ public class FloorServiceImpl implements FloorService {
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors started at : " + LocalDateTime.now());
 
-		/*
-		 * Building newbuilding = new Building(); newbuilding.setBuildingId(buildingId);
-		 * floor.setBuilding(newbuilding);
-		 */
-
-		genericDao.saveOrUpdate(floor);
+		floor = (Floor)genericDao.saveOrUpdate(floor);
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors ended at : " + LocalDateTime.now());
 
-		return genericDao.saveOrUpdate(floor);
+		return floor;
 	}
 
 	@Override
@@ -112,7 +107,13 @@ public class FloorServiceImpl implements FloorService {
 	public List<Floor> getFloorsByBuildingId(UUID buildingId) {
 		logger.info("Service: FloorServiceImpl Method : getFloorsByBuildingId started at : " + LocalDateTime.now());
 
-		List<Floor> floors = floorDao.getFloorsByBuildingId(buildingId);
+		List<Floor> floors = null;
+		try {
+			floors = floorDao.getFloorsByBuildingId(buildingId);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		logger.info("Service: FloorServiceImpl Method : getFloorsByBuildingId ended at : " + LocalDateTime.now());
 
@@ -124,7 +125,14 @@ public class FloorServiceImpl implements FloorService {
 
 		logger.info("Service: FloorServiceImpl Method : getFloorTypeByBuildingId started at : " + LocalDateTime.now());
 
-		List<Floor> floors = floorDao.getFloorType(buildingId);
+		List<Floor> floors = null;
+		try {
+			floors = floorDao.getFloorType(buildingId);
+
+		} catch (BusinessException e) {
+			
+			e.printStackTrace();
+		}
 
 		logger.info("Service: FloorServiceImpl Method : getFloorTypeByBuildingId ended at : " + LocalDateTime.now());
 

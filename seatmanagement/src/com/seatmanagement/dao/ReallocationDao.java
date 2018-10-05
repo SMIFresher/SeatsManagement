@@ -3,6 +3,7 @@ package com.seatmanagement.dao;
 import java.util.List;
 import java.util.UUID;
 
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Reallocation;
 
 /**
@@ -25,14 +26,16 @@ public interface ReallocationDao {
 	/**
 	 * 
 	 * @param blockId
+	 * @throws BusinessException 
 	 */
-	public void deleteReallocationByBlockId(UUID blockId);
+	public void deleteReallocationByBlockId(UUID blockId) throws BusinessException;
 
 	/**
 	 * 
 	 * @param blockId
 	 * @return List<Reallocation>
+	 * @throws BusinessException 
 	 */
-	public List<Reallocation> getReallocationsByBlockId(UUID blockId);
+	public List<Reallocation> getReallocationsByBlockId(UUID blockId) throws BusinessException;
 
 }

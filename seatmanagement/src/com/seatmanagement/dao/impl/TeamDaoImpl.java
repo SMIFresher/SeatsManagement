@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.TeamDao;
 import com.seatmanagement.exception.ApplicationException;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Team;
 
 /**
@@ -35,69 +36,23 @@ public class TeamDaoImpl implements TeamDao {
 	private HibernateTemplate hibernateTemplate;
 
 	@Override
-	public Team getTeamByName(String teamName) {
+	public Team getTeamByName(String teamName) throws BusinessException {
 
 		logger.info("DAO: TeamDaoImpl Method : getTeamByName started at : " + LocalDateTime.now());
 
 		DetachedCriteria criteria = DetachedCriteria.forClass(Team.class);
 		criteria.add(Restrictions.eq("teamName", teamName));
 
-		Team team = (Team) hibernateTemplate.findByCriteria(criteria);
+		Team team = null;
+		try {
+			team = (Team) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new BusinessException("Error while retrieving team");
+		}
 
 		logger.info("DAO: TeamDaoImpl Method : getTeamByName ended at : " + LocalDateTime.now());
 
 		return team;
 	}
-
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<Team> getAll() {
-		
-		logger.info("DAO: TeamDaoImpl Method : getAll started at : " + LocalDateTime.now());
-
-		List<Team> teamList = new ArrayList<>();
-		teamList = (List<Team>) hibernateTemplate.find("From Team");
-		
-		logger.info("DAO: TeamDaoImpl Method : getAll ended at : " + LocalDateTime.now());
-		
-		return teamList;
-	}
-
-	@Override
-	public Team getTeamById(UUID teamId) {
-
-		logger.info("DAO: TeamDaoImpl Method : getTeamById started at : " + LocalDateTime.now());
-
-		DetachedCriteria criteria = DetachedCriteria.forClass(Team.class);
-		criteria.add(Restrictions.eq("teamId", teamId));
-
-		List<Team> teams = (List<Team>) hibernateTemplate.findByCriteria(criteria);
-		Team team = null;
-
-		if (Objects.isNull(teams) || teams.isEmpty()) {
-			throw new ApplicationException("No Team record found");
-		} else {
-			team = teams.get(0);
-		}
-
-		logger.info("DAO: TeamDaoImpl Method : getTeamById ended at : " + LocalDateTime.now());
-
-		return team;
-	}
-
-	/*
-	 * @Override public void deleteTeamById(UUID teamId) {
-	 * 
-	 * logger.info("DAO: TeamDaoImpl Method : deleteTeamById started at : " +
-	 * LocalDateTime.now());
-	 * 
-	 * DetachedCriteria criteria = DetachedCriteria.forClass(Team.class);
-	 * criteria.add(Restrictions.eq("teamId", teamId));
-	 * 
-	 * Team team = (Team) hibernateTemplate.findByCriteria(criteria);
-	 * hibernateTemplate.delete(team);
-	 * 
-	 * logger.info("DAO: TeamDaoImpl Method : deleteTeamById ended at : " +
-	 * LocalDateTime.now()); }
-	 */
 
 }
