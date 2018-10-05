@@ -168,21 +168,35 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
+          <h3 class="modal-title">
+          <span><b></b></span><span class="fa fa-rss text-success"></span>  {{DetailsSystems.system.allotmentStatus}}</h3>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
           <div class="row">
-            <div class="col-sm-4 text-center">
-              <h3>SMI I</h3>
-              <p>SMI I floor architecture.....</p>
+            <div class="col-sm-5 ">
+              <h3><span class="fa fa-{{DetailsSystems.systemType}}"></span> System Information</h3>
+              <hr>
+              <br>
+              <p><b>System Number :</b>{{DetailsSystems.systemName}}
+              <br> <b>System Type :</b>{{DetailsSystems.systemType}} <br> 
+              <b>System Oprating System :</b>{{DetailsSystems.operatingSystem}}</p>
+              
+              <b>Additinal Device</b>
+              <ul ng-repeat="device in DetailsSystems.additionalDevice">
+              	<li>{{device.device_name}}</li>
+              </ul>
             </div>
-            <div class="col-sm-8 cc">
-              <div class="row text-center">
-                
-              </div>
+            <div class="col-sm-7 cc border border-right-0 border-top-0 border-bottom-0" style="padding-right: 20px;">
+              
+                <h3><span class="fa fa-user"></span> Employee Information</h3>
+              <hr>
+				<br>
+	              <p><b>Employee Name :</b>{{DetailsSystems.employee.firstName}} {{DetailsSystems.employee.lastName}} ({{DetailsSystems.employee.designation}})<br>
+	              <br> <b>Employee Id :</b>{{DetailsSystems.employee.employeeRoll}} <br> <br>
+	              <b>Team Name :</b>{{DetailsSystems.employee.team}}</p>
             </div>
           </div>
         </div>
@@ -195,6 +209,7 @@
       </div>
     </div>
   </div>
+
 
 
 <div class="modal fade " id="saveModel" >
@@ -211,9 +226,9 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12 text-center">
-              <h3>Are You Sure</h3>
+              <h3>Are You Soure</h3>
               
-              <p>Do you want to save this details</p>
+              <p>Do You Want To save This Details</p>
               <form id="Form" onsubmit="formSubmit();">
               	<input type="hidden" id="saveDetails" name="seating_details">
              
@@ -256,6 +271,17 @@ app.controller('getSystemDetails', function($scope, $http) {
 
     $scope.getSysDetails=function(sysno){
     	console.log(sysno);
+		$http.get("/seatmanagement/systems/getSystem?request="+sysno)
+			.then(function(response) {
+			$scope.DetailsSystems = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response.data);
+			if (response.data.ERROR_CODE == "9002")
+				doModal('Information', "Internal server Error");
+			else
+				doModal('Some Error', response.data.ERROR_MESSAGE);
+		});
     };    
 });
 

@@ -148,7 +148,7 @@
 		            $scope.getCountDatas = response.data[0];
 		            console.log(response.data);
 		        }, function errorCallback(response) {
-		            alert(response.status);
+		        	doModal('Some Error',response.data.ERROR_MESSAGE);
 		        });
 		});
 
@@ -165,7 +165,8 @@
 	            console.log(response.data);
 				
 	        }, function errorCallback(response) {
-	            alert(response.status);
+	           
+	            doModal('Some Error',response.data.ERROR_MESSAGE);
 	        });
 
 	    
