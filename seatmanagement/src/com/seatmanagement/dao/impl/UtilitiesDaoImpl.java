@@ -1,13 +1,14 @@
 package com.seatmanagement.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.seatmanagement.dao.UtilitiesDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Utilities;
 /**
@@ -28,12 +29,12 @@ public class UtilitiesDaoImpl implements UtilitiesDao{
 	 * @throws BusinessException 
 	 */
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<Utilities> getAll() throws BusinessException {
+	public List<Utilities> getAll() {
 		List<Utilities> utilityList = null;
 		try {
 			utilityList = (List<Utilities>) hibernateTemplate.find("From Utilities");
 		}catch(Exception e) {
-			throw new BusinessException("Error while retreiving Utility records");
+			throw new ApplicationException("Error while retreiving Utility records");
 		}
 		return utilityList;
 	}

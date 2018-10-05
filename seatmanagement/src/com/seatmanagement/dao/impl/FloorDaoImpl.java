@@ -14,6 +14,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.FloorDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.impl.OrganisationServiceImpl;
@@ -22,9 +23,8 @@ import com.seatmanagement.service.impl.OrganisationServiceImpl;
  * 
  * @author M.Karthika
  * 
- *          This class provides implementation of FloorDao(interface)
- *         for all Database connection related processing to 'Floor' model
- *         object
+ *         This class provides implementation of FloorDao(interface) for all
+ *         Database connection related processing to 'Floor' model object
  * 
  */
 
@@ -38,22 +38,21 @@ public class FloorDaoImpl implements FloorDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Floor> getFloorsByBuildingId(UUID buildingId) throws BusinessException {
+	public List<Floor> getFloorsByBuildingId(UUID buildingId){
 
 		logger.info("DAO: FloorDaoImpl Method : getFloorsByBuildingId started at : " + LocalDateTime.now());
 
 		List<Floor> floors = null;
+		DetachedCriteria criteria = DetachedCriteria.forClass(Floor.class);
+		criteria.add(Restrictions.eq("building.buildingId", buildingId));
 
 		try {
-			
-			DetachedCriteria criteria = DetachedCriteria.forClass(Floor.class);
-			criteria.add(Restrictions.eq("building.buildingId", buildingId));
 
 			floors = (List<Floor>) hibernateTemplate.findByCriteria(criteria);
 
 		} catch (Exception e) {
-			
-			e.printStackTrace();
+
+			throw new ApplicationException("Error while retreiving Floors");
 		}
 		logger.info("DAO: FloorDaoImpl Method : getFloorsByBuildingId ended at : " + LocalDateTime.now());
 
@@ -62,26 +61,26 @@ public class FloorDaoImpl implements FloorDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Floor> getFloorType(UUID buildingId) throws BusinessException {
+	public List<Floor> getFloorType(UUID buildingId){
 
 		logger.info("DAO: FloorDaoImpl Method : getFloorType started at : " + LocalDateTime.now());
-		
+
 		List<Floor> floors = null;
-		
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(Floor.class);
+		ProjectionList projList = Projections.projectionList();
+		projList.add(Projections.property("floorType"));
+
+		criteria.setProjection(projList);
+
+		criteria.add(Restrictions.eq("building.buildingId", buildingId));
+
 		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Floor.class);
-			ProjectionList projList = Projections.projectionList();
-			projList.add(Projections.property("floorType"));
-
-			criteria.setProjection(projList);
-
-			criteria.add(Restrictions.eq("building.buildingId", buildingId));
-			
-            floors = (List<Floor>) hibernateTemplate.findByCriteria(criteria);
+			floors = (List<Floor>) hibernateTemplate.findByCriteria(criteria);
 
 		} catch (Exception e) {
-			
-			e.printStackTrace();
+
+			throw new ApplicationException("Error while retreiving floors");
 		}
 
 		logger.info("DAO: FloorDaoImpl Method : getFloorType ended at : " + LocalDateTime.now());

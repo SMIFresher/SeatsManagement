@@ -17,9 +17,9 @@ import com.seatmanagement.model.Seating;
  */
 public interface SeatingDao {
 
-	public List<Seating> getAll(Seating seating, UUID block_id) throws BusinessException;
+	public List<Seating> getAll(Seating seating, UUID block_id);
 
-	public List<Seating> getAllSeating() throws BusinessException;
+	public List<Seating> getAllSeating();
 
-	public List<Seating> getSeatingByBlockId(UUID blockId) throws BusinessException;
+	public List<Seating> getSeatingByBlockId(UUID blockId);
 }

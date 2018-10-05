@@ -15,7 +15,7 @@ public interface FloorDao {
 	 * @throws BusinessException 
 	 */
 
-	public List<Floor> getFloorsByBuildingId(UUID buildingId) throws BusinessException;
+	public List<Floor> getFloorsByBuildingId(UUID buildingId);
 
 	/**
 	 * 
@@ -24,6 +24,6 @@ public interface FloorDao {
 	 * @throws BusinessException 
 	 */
 
-	public List<Floor> getFloorType(UUID buildingId) throws BusinessException;
+	public List<Floor> getFloorType(UUID buildingId);
 
 }

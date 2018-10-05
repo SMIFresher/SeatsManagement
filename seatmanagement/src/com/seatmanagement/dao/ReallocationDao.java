@@ -28,7 +28,7 @@ public interface ReallocationDao {
 	 * @param blockId
 	 * @throws BusinessException 
 	 */
-	public void deleteReallocationByBlockId(UUID blockId) throws BusinessException;
+	public void deleteReallocationByBlockId(UUID blockId);
 
 	/**
 	 * 
@@ -36,6 +36,6 @@ public interface ReallocationDao {
 	 * @return List<Reallocation>
 	 * @throws BusinessException 
 	 */
-	public List<Reallocation> getReallocationsByBlockId(UUID blockId) throws BusinessException;
+	public List<Reallocation> getReallocationsByBlockId(UUID blockId);
 
 }

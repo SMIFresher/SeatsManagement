@@ -19,6 +19,6 @@ public interface TeamDao {
 	 * @return Team
 	 * @throws BusinessException 
 	 */
-	public Team getTeamByName(String teamName) throws BusinessException;
+	public Team getTeamByName(String teamName);
 
 }

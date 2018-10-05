@@ -108,12 +108,7 @@ public class FloorServiceImpl implements FloorService {
 		logger.info("Service: FloorServiceImpl Method : getFloorsByBuildingId started at : " + LocalDateTime.now());
 
 		List<Floor> floors = null;
-		try {
-			floors = floorDao.getFloorsByBuildingId(buildingId);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		floors = floorDao.getFloorsByBuildingId(buildingId);
 
 		logger.info("Service: FloorServiceImpl Method : getFloorsByBuildingId ended at : " + LocalDateTime.now());
 
@@ -126,13 +121,8 @@ public class FloorServiceImpl implements FloorService {
 		logger.info("Service: FloorServiceImpl Method : getFloorTypeByBuildingId started at : " + LocalDateTime.now());
 
 		List<Floor> floors = null;
-		try {
-			floors = floorDao.getFloorType(buildingId);
-
-		} catch (BusinessException e) {
-			
-			e.printStackTrace();
-		}
+		
+		floors = floorDao.getFloorType(buildingId);
 
 		logger.info("Service: FloorServiceImpl Method : getFloorTypeByBuildingId ended at : " + LocalDateTime.now());
 
