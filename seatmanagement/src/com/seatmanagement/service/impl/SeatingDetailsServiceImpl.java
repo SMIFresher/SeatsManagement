@@ -1,15 +1,16 @@
 package com.seatmanagement.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.UUID;
 
-
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
@@ -24,82 +25,106 @@ import com.seatmanagement.model.Systems;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.SeatingDetailsService;
 
+/**
+ * 
+ * @author vgs-user
+ *
+ *         This class provides implementation for all business logic related
+ *         processing to 'SeatingDetails' model object
+ */
+
 @Service
 @Transactional
 public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 
+	private static final Logger logger = LoggerFactory.getLogger(OrganisationServiceImpl.class);
+	
 	@Autowired
 	SeatingDetailsDao seatingDetailsDao;
-	
+
 	@Autowired
 	GenericDao<SeatingDetails> genericDao;
-	
+
 	@Override
-	public List<SeatingDetails> getAllSeatingDetails(){
+	public List<SeatingDetails> getAllSeatingDetails() {
+		logger.info("Service: SeatingDetailsServiceImpl Method : getAllSeatingDetails started at : " + LocalDateTime.now());
 		@SuppressWarnings("unchecked")
-		SeatingDetails seatingDetails=new SeatingDetails();
+		SeatingDetails seatingDetails = new SeatingDetails();
 		List<SeatingDetails> list = genericDao.getAll(seatingDetails);
+		logger.info("Service: SeatingDetailsServiceImpl Method : getAllSeatingDetails ended at : " + LocalDateTime.now());
 		return list;
 	}
-	
+
 	@Override
 	public void saveSeatingDetails(SeatingDetails seatingDetails) {
-		//seatingDetailsDao.getAllSeatingDetails();
+		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetails started at : " + LocalDateTime.now());
+		// seatingDetailsDao.getAllSeatingDetails();
 		genericDao.saveOrUpdate(seatingDetails);
-		//seatingDetailsDao.saveSeatingDetails(seatingDetails);
-	}
-/*
-	@Override
-	public List<SeatingDetails> getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id) {
-		return seatingDetailsDao.getEmployeeBySeatId(seatingdetails, seating_id);
-	}
-*/
-	@Override
-	public SeatingDetails getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id) {
-		return seatingDetailsDao.getEmployeeBySeatId(seatingdetails, seating_id);
-	}
-	
-	@Override
-	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id) {
-		return seatingDetailsDao.getSeatByEmployeeId(seatingdetails, employee_id);
+		// seatingDetailsDao.saveSeatingDetails(seatingDetails);
+		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetails ended at : " + LocalDateTime.now());
 	}
 
-	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId) {
-		
-		/*deleteByIdInBatch(seatingId);
-			
-		Seating seating=new Seating();
-		seating = genericdaoSeating.getById(seating, seatingId);
-		
-		for(SeatingDetails sd:seatingDetails) {
-			sd.setSeating(seating);
-			String systemName=sd.getSeatingSystemNo();
-			sd.setSystem(system.getSystemId(systemName.trim()));
-			genericDaoSeatingDetails.saveOrUpdate(sd);
-		}*/
-		
+	/*
+	 * @Override public List<SeatingDetails> getEmployeeBySeatId(SeatingDetails
+	 * seatingdetails, UUID seating_id) { return
+	 * seatingDetailsDao.getEmployeeBySeatId(seatingdetails, seating_id); }
+	 */
+	@Override
+	public SeatingDetails getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id) {
+		logger.info("Service: SeatingDetailsServiceImpl Method : getEmployeeBySeatId started at : " + LocalDateTime.now());
+		//return seatingDetailsDao.getEmployeeBySeatId(seatingdetails, seating_id);
+		SeatingDetails seatingDetails = seatingDetailsDao.getEmployeeBySeatId(seatingdetails, seating_id);
+		logger.info("Service: SeatingDetailsServiceImpl Method : getEmployeeBySeatId ended at : " + LocalDateTime.now());
+		return seatingDetails;
+	}
+
+	@Override
+	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id) {
+		logger.info("Service: SeatingDetailsServiceImpl Method : getSeatByEmployeeId started at : " + LocalDateTime.now());
+		SeatingDetails seatingDetails = seatingDetailsDao.getSeatByEmployeeId(seatingdetails, employee_id);
+		logger.info("Service: SeatingDetailsServiceImpl Method : getSeatByEmployeeId ended at : " + LocalDateTime.now());
+		//return seatingDetailsDao.getSeatByEmployeeId(seatingdetails, employee_id);
+		return seatingDetails;
+	}
+
+	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails, UUID seatingId) {
+		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());
+		/*
+		 * deleteByIdInBatch(seatingId);
+		 * 
+		 * Seating seating=new Seating(); seating = genericdaoSeating.getById(seating,
+		 * seatingId);
+		 * 
+		 * for(SeatingDetails sd:seatingDetails) { sd.setSeating(seating); String
+		 * systemName=sd.getSeatingSystemNo();
+		 * sd.setSystem(system.getSystemId(systemName.trim()));
+		 * genericDaoSeatingDetails.saveOrUpdate(sd); }
+		 */
+
 		seatingDetailsDao.saveSeatingDetailsInbatch(seatingDetails, seatingId);
-		
-		
-		
+		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch ended at : " + LocalDateTime.now());
 	}
 
 	@Override
 	public void deleteByIdInBatch(UUID seatingId) {
-	
-		/*List<SeatingDetails> sd=getAllSeatingDetails();
-		//hibernateTemplate.deleteAll(sd);
-		for(SeatingDetails sd1:sd) {
-			hibernateTemplate.delete(sd1);
-		}*/
-		
+		logger.info("Service: SeatingDetailsServiceImpl Method : deleteByIdInBatch started at : " + LocalDateTime.now());
+		/*
+		 * List<SeatingDetails> sd=getAllSeatingDetails();
+		 * //hibernateTemplate.deleteAll(sd); for(SeatingDetails sd1:sd) {
+		 * hibernateTemplate.delete(sd1); }
+		 */
+
 		seatingDetailsDao.deleteByIdInBatch(seatingId);
+		logger.info("Service: SeatingDetailsServiceImpl Method : deleteByIdInBatch ended at : " + LocalDateTime.now());
 	}
 
 	@Override
 	public List<SeatingDetails> getSeatingDetailsBySeatingId(UUID seatingId) {
-		return seatingDetailsDao.getSeatingDetailsBySeatingId(seatingId);
+		logger.info("Service: SeatingDetailsServiceImpl Method : getSeatingDetailsBySeatingId started at : " + LocalDateTime.now());
+		//return seatingDetailsDao.getSeatingDetailsBySeatingId(seatingId);
+		List<SeatingDetails> seatingDetails = seatingDetailsDao.getSeatingDetailsBySeatingId(seatingId);
+		logger.info("Service: SeatingDetailsServiceImpl Method : getSeatingDetailsBySeatingId ended at : " + LocalDateTime.now());
+		return seatingDetails;
 	}
 
-	
 }
