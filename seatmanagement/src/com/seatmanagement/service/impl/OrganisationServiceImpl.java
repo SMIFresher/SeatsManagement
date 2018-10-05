@@ -56,7 +56,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 	}
 
 	@Override
-	public Organisation getOrganisationById(UUID organisationId) throws BusinessException {
+	public Organisation getOrganisationById(UUID organisationId) {
 		logger.info(
 				"Service: OrganisationServiceImpl Method : getOrganisationById started at : " + LocalDateTime.now());
 
@@ -65,7 +65,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 		organisation = (Organisation) genericDao.getById(organisation, organisationId);
 
 		if (Objects.isNull(organisation)) {
-			throw new BusinessException("Organisation record not found");
+			throw new ApplicationException("Organisation record not found");
 		}
 
 		logger.info("Service: OrganisationServiceImpl Method : getOrganisationById ended at : " + LocalDateTime.now());
@@ -83,7 +83,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 	}
 
 	@Override
-	public void deleteOrganisationById(UUID organisationId) throws BusinessException {
+	public void deleteOrganisationById(UUID organisationId) {
 		logger.info(
 				"Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
 
@@ -91,7 +91,7 @@ public class OrganisationServiceImpl implements OrganisationService {
 
 		// Scenario 1 : Organisation does not exist
 		if (Objects.isNull(organisation)) {
-			throw new BusinessException("Organisation record not found");
+			throw new ApplicationException("Organisation record not found");
 		}
 		// Scenario 2 : Organisation exists
 		else {
