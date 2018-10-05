@@ -36,10 +36,6 @@
     </bean>
 	
 	<tx:annotation-driven transaction-manager="transaction" />
-	
-	<bean id="buildingDao"
-		class="com.seatmanagement.dao.impl.BuildingDaoImpl">
-	</bean>
 
 	<bean id="buildingService"
 		class="com.seatmanagement.service.impl.BuildingServiceImpl">
@@ -94,10 +90,6 @@
 		class="com.seatmanagement.service.impl.AdditionalDeviceServiceImpl">
 	</bean>
 	
-	<bean id="additionalDeviceDao" 
-		class="com.seatmanagement.dao.impl.AdditionalDeviceDaoImpl">
-	</bean>
-	
 
 	<bean id="teamService"
 		class="com.seatmanagement.service.impl.TeamServiceImpl">
@@ -142,9 +134,9 @@
 		<bean id="organisationController"
 				class="com.seatmanagement.controller.OrganisationController"/>
 		
-<!-- 	<bean id="globalValidator"
+ 	<bean id="globalValidator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
- --> 
+ 
 
 	
 </beans>
