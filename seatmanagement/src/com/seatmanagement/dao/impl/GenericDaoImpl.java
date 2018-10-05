@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.controller.SystemController;
 import com.seatmanagement.dao.GenericDao;
+import com.seatmanagement.exception.ApplicationException;
+import com.seatmanagement.exception.BusinessException;
 
 @Transactional
 public class GenericDaoImpl<T> implements GenericDao<T>{
@@ -21,14 +23,18 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 	
 	private static final Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);
 	
-	 public T saveOrUpdate(T t) {
+	 public T saveOrUpdate(T t){
 		 
 		 	logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl) Method : saveOrUpdate started at : " + LocalDateTime.now());
 		 
+		 	try {
 			hibernateTemplate.saveOrUpdate(t);
+		 	}
+		 	catch(Exception e) {
+				throw new ApplicationException("Error while inserting records");
+			}
 			
-			logger.info("Dao: GenericDaoImpl Method : saveOrUpdate ended at : " + LocalDateTime.now());
-			
+		 	logger.info("Dao: GenericDaoImpl Method : saveOrUpdate ended at : " + LocalDateTime.now());
 			return t;
 		}
 	 
@@ -36,7 +42,15 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : getById started at : " + LocalDateTime.now());
 		
-		return (T) hibernateTemplate.get(t.getClass(),id);	
+		try{
+			t=(T) hibernateTemplate.get(t.getClass(),id);	
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while retriving records");
+		}
+		
+		logger.info("Dao: GenericDaoImpl Method : getById ended at : " + LocalDateTime.now());
+		return t;		
 		
 	}
 	
@@ -44,7 +58,13 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : getAll started at : " + LocalDateTime.now());
 		
-		List<T> list = (List<T>) hibernateTemplate.loadAll(t.getClass());
+		List<T> list;
+		try {
+			list = (List<T>) hibernateTemplate.loadAll(t.getClass());
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while retriving records");
+		}
 		
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : saveOrUpdate ended at : " + LocalDateTime.now());
 		return list;
@@ -55,9 +75,14 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 		
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : delete started at : " + LocalDateTime.now());
 		
-			hibernateTemplate.delete(t);
-			b=true;
-		
+			try{
+				hibernateTemplate.delete(t);
+				b=true;
+			}
+			catch (Exception e) {
+				throw new ApplicationException("Error while deleting records");
+			}
+			
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : delete ended at : " + LocalDateTime.now());
 		return b;  
 	}
@@ -69,7 +94,12 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 			
 			logger.info("Dao: "+obj.getClass().getSimpleName()+"(GenericDaoImpl)  Method : saveAll started at : " + LocalDateTime.now());
 			
-			hibernateTemplate.saveOrUpdate(obj);
+			try{
+				hibernateTemplate.saveOrUpdate(obj);
+			}
+			catch(Exception e) {
+				throw new ApplicationException("Error while inserting bulk records");
+			}
 			
 			logger.info("Dao: "+obj.getClass().getSimpleName()+"(GenericDaoImpl)  Method : saveAll ended at : " + LocalDateTime.now());
 		}

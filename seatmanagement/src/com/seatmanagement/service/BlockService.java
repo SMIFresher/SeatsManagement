@@ -20,16 +20,16 @@ public interface BlockService {
 
 	public Block saveOrUpdate(Block block, UUID floorId, List<UUID> utilitiesUUIDs) throws BusinessException;
 
-	public List<Block> getAll();
+	public List<Block> getAll() ;
 
-	public Block getById(Block block, UUID blockId);
+	public Block getById(Block block, UUID blockId) throws BusinessException;
 
 	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException;
 
 	public void delete(Block block) throws BusinessException;
 
-	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException;
+	public List<Block> getBlocksByFloorId(UUID floorId);
 
-	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) throws BusinessException;
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId);
 
 }

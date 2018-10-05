@@ -46,7 +46,7 @@ public class SeatingServiceImpl implements SeatingService {
 	@Autowired
 	GenericDao<Block> genericDaoBlock;
 
-	public List<Seating> getSeatingByBlockId(Seating seating, UUID block_id) throws BusinessException {
+	public List<Seating> getSeatingByBlockId(Seating seating, UUID block_id){
 		logger.info("Service: SeatingServiceImpl Method : getSeatingByBlockId request processing started at : "
 				+ LocalDateTime.now());
 		List<Seating> list = seatingDao.getAll(seating, block_id);
@@ -56,7 +56,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public Seating addOrUpdateSeating(Seating seating, UUID blockID) {
+	public Seating addOrUpdateSeating(Seating seating, UUID blockID) throws BusinessException {
 
 		logger.info("Service: SeatingServiceImpl Method : addOrUpdateSeating request processing started at : "
 				+ LocalDateTime.now());
@@ -64,7 +64,7 @@ public class SeatingServiceImpl implements SeatingService {
 		Block newBlock = new Block();
 		newBlock = genericDaoBlock.getById(newBlock, blockID);
 		if(Objects.isNull(newBlock)) {
-			throw new ApplicationException("Block record not found");
+			throw new BusinessException("Block record not found");
 		}
 		newSeating.setBlock(newBlock);
 		genericDao.saveOrUpdate(newSeating);
@@ -86,7 +86,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public void deleteSeatingByBlockId(UUID blockId) throws BusinessException {
+	public void deleteSeatingByBlockId(UUID blockId) throws BusinessException{
 		// unreference children(seatingdetails) and delete
 		logger.info("Service: SeatingServiceImpl Method : deleteSeatingByBlockId request processing started at : "
 				+ LocalDateTime.now());
@@ -100,7 +100,7 @@ public class SeatingServiceImpl implements SeatingService {
 		else {
 			// Scenario a: More than 1 seating mapped to a block
 			if (seatings.size() > 1) {
-				throw new ApplicationException("More than one Seating mapped to a Block");
+				throw new BusinessException("More than one Seating mapped to a Block");
 			}
 			// Scenario b: Only 1 seating mapped to a block
 			else {
@@ -113,7 +113,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId) throws BusinessException {
+	public List<Object> getAllSeatingWithAxisByFloor(UUID floorId) throws BusinessException{
 
 		logger.info("Service: SeatingServiceImpl Method : getAllSeatingWithAxis request processing started at : "
 				+ LocalDateTime.now());
@@ -144,7 +144,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 
 	@Override
-	public List<Object> getAllSeatingWithAxisByFloorLead(UUID floorId) throws BusinessException {
+	public List<Object> getAllSeatingWithAxisByFloorLead(UUID floorId) throws BusinessException{
 
 		logger.info("Service: SeatingServiceImpl Method : getAllSeatingWithAxis request processing started at : "
 				+ LocalDateTime.now());

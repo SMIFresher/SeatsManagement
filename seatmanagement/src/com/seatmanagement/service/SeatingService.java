@@ -15,9 +15,9 @@ import com.seatmanagement.model.Seating;
  */
 public interface SeatingService {
 
-	public List<Seating> getSeatingByBlockId(Seating seating, UUID seating_id) throws BusinessException;
+	public List<Seating> getSeatingByBlockId(Seating seating, UUID seating_id) ;
 
-	public Seating addOrUpdateSeating(Seating seating, UUID blockID);
+	public Seating addOrUpdateSeating(Seating seating, UUID blockID) throws BusinessException;
 
 	public List<Seating> getAllSeating();
 

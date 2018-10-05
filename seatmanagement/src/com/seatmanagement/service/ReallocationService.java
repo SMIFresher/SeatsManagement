@@ -45,6 +45,6 @@ public interface ReallocationService {
 	 * @param blockId
 	 * @throws BusinessException 
 	 */
-	public void deleteReallocationsByBlockId(UUID blockId) throws BusinessException;
+	public void deleteReallocationsByBlockId(UUID blockId);
 
 }

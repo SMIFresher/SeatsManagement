@@ -81,7 +81,7 @@ public class ReallocationServiceImpl implements ReallocationService {
 	}
 
 	@Override
-	public void deleteReallocationsByBlockId(UUID blockId) throws BusinessException {
+	public void deleteReallocationsByBlockId(UUID blockId){
 		
 		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId started at : " + LocalDateTime.now());
 		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);

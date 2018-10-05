@@ -52,7 +52,7 @@ public class BlockServiceImpl implements BlockService {
 	ReallocationService reallocationService;
 	private static final Logger logger = LoggerFactory.getLogger(BlockServiceImpl.class);
 
-	public Block saveOrUpdate(Block block, UUID floor_id, List<UUID> utilitiesUUIDs) throws BusinessException {
+	public Block saveOrUpdate(Block block, UUID floor_id, List<UUID> utilitiesUUIDs) throws BusinessException{
 
 		logger.info(
 				"Service: BlockServiceImpl Method : saveBlock request processing started at : " + LocalDateTime.now());
@@ -67,7 +67,7 @@ public class BlockServiceImpl implements BlockService {
 		else {
 			floor = genericDaoFloor.getById(floor, floor_id);
 			if(Objects.isNull(floor)) {
-				throw new ApplicationException("Floor record not found");
+				throw new BusinessException("Floor record not found");
 			}
 			block.setFloor(floor);
 		}
@@ -85,7 +85,7 @@ public class BlockServiceImpl implements BlockService {
 				utility = (Utilities) genericDaoUtility.getById(utility, utilityId);
 
 				if(Objects.isNull(utility)) {
-					throw new ApplicationException("Utility record not found");
+					throw new BusinessException("Utility record not found");
 				}
 				utilities.add(utility);
 			}
@@ -99,7 +99,7 @@ public class BlockServiceImpl implements BlockService {
 
 	}
 
-	public List<Block> getAll() {
+	public List<Block> getAll(){
 		logger.info("Service: BlockServiceImpl Method : listAllBlock request processing started at : "
 				+ LocalDateTime.now());
 		Block block = new Block();
@@ -108,12 +108,12 @@ public class BlockServiceImpl implements BlockService {
 		return result;
 	}
 
-	public Block getById(Block block, UUID blockId) {
+	public Block getById(Block block, UUID blockId)throws BusinessException{
 		logger.info("Service: BlockServiceImpl Method : listAllBlockByBlockId request processing started at : "
 				+ LocalDateTime.now());
 		Block result = genericDao.getById(block, blockId);
 		if(Objects.isNull(result)) {
-			throw new ApplicationException("Block record not found");
+			throw new BusinessException("Block record not found");
 		}
 		logger.info(
 				"Service: BlockServiceImpl Method : listAllBlockByBlockId response sent at : " + LocalDateTime.now());
@@ -121,7 +121,7 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Override
-	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException {
+	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException{
 
 		List<Block> blocks = blockDao.getBlocksByFloorId(floorId);
 
@@ -143,7 +143,7 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Override
-	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException {
+	public List<Block> getBlocksByFloorId(UUID floorId){
 		logger.info("Service: BlockServiceImpl Method : listAllBlockByFloorId request processing started at : "
 				+ LocalDateTime.now());
 		List<Block> blocks = blockDao.getBlocksByFloorId(floorId);
@@ -153,7 +153,7 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Override
-	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) throws BusinessException {
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId){
 		logger.info("Service: BlockServiceImpl Method : listAllBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
 		List<Block> blocks = blockDao.getBlocksByBlockType(blockType, floorId);
@@ -168,7 +168,7 @@ public class BlockServiceImpl implements BlockService {
 
 		// Scenario 1: Block Not present
 		if (Objects.isNull(block)) {
-			throw new ApplicationException("Block record not found");
+			throw new BusinessException("Block record not found");
 		}
 		// Scenario 2: Block present
 		else {

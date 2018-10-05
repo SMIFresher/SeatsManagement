@@ -20,8 +20,9 @@ public interface TeamService {
 	 * 
 	 * @param team
 	 * @param organisationId
+	 * @throws BusinessException 
 	 */
-	public void saveTeam(Team team, UUID organisationId);
+	public void saveTeam(Team team, UUID organisationId) throws BusinessException;
 
 	/**
 	 * 
@@ -35,7 +36,7 @@ public interface TeamService {
 	 * @return Team
 	 * @throws BusinessException 
 	 */
-	public Team getTeamByName(String teamName) throws BusinessException;
+	public Team getTeamByName(String teamName);
 
 	/**
 	 * 

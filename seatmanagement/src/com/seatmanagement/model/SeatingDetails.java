@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -34,15 +37,19 @@ public class SeatingDetails implements Serializable{
 	private UUID seatingDetailsId;
 	
 	
-	@OneToOne
-    @JoinColumn(name="system_id", nullable=false)
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="system_id", nullable=false)
 	@JsonIgnore
     private Systems system;
 	
-	
+	  
 	@OneToOne
     @JoinColumn(name="seating_id", nullable=false)
     private Seating seating;
+	
+	@OneToOne(mappedBy="seatingDetails")
+	@JsonIgnore
+	private Reallocation reallocation;
 	
 	
 	public Seating getSeating() {
@@ -101,9 +108,7 @@ public class SeatingDetails implements Serializable{
 		this.seatingSystemNo = seatingSystemNo;
 	}
 
-	@OneToOne(mappedBy="seatingDetails")
-	@JsonIgnore
-	private Reallocation reallocation;
+	
 	
 	public Reallocation getReallocation() {
 		return reallocation;

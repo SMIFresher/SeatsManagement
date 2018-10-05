@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.UtilitiesDao;
 import com.seatmanagement.exception.ApplicationException;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Utilities;
 import com.seatmanagement.service.UtilitiesService;
@@ -46,12 +47,12 @@ public class UtilitiesServiceImpl implements UtilitiesService {
 
 	}
 
-	public Utilities getById(Utilities utilities, UUID utilityId) {
+	public Utilities getById(Utilities utilities, UUID utilityId) throws BusinessException {
 		logger.info("Service: UtilitiesServiceImpl Method : listUtilitiesById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities result = genericDao.getById(utilities, utilityId);
 		if(Objects.isNull(result)) {
-			throw new ApplicationException("Utilities record not found");
+			throw new BusinessException("Utilities record not found");
 		}
 		logger.info(
 				"Service: UtilitiesServiceImpl Method : listUtilitiesById response sent at : " + LocalDateTime.now());

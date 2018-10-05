@@ -44,7 +44,7 @@ public class TeamServiceImpl implements TeamService {
 	private EmployeeDao employeeDao;
 
 	@Override
-	public void saveTeam(Team team, UUID organisationId) {
+	public void saveTeam(Team team, UUID organisationId) throws BusinessException {
 		logger.info("Service: TeamServiceImpl Method : saveTeam started at : " + LocalDateTime.now());
 
 		Organisation organisation = new Organisation();
@@ -55,7 +55,7 @@ public class TeamServiceImpl implements TeamService {
 		teamHead = (Employee) genericDao.getById(teamHead, team.getTeamHeadEmployeeId());
 
 		if (Objects.isNull(teamHead)) {
-			throw new ApplicationException("Employee (Teamhead) Record not found");
+			throw new BusinessException("Employee (Teamhead) Record not found");
 		}
 
 		team.setTeamHead(teamHead.getFirstName());
@@ -91,7 +91,7 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public Team getTeamByName(String teamName) throws BusinessException {
+	public Team getTeamByName(String teamName){
 		logger.info("Service: TeamServiceImpl Method : getTeamByName started at : " + LocalDateTime.now());
 
 		Team team = teamDao.getTeamByName(teamName);
@@ -109,7 +109,7 @@ public class TeamServiceImpl implements TeamService {
 		team = (Team) genericDao.getById(team, teamId);
 		
 		if(Objects.isNull(team)) {
-			throw new ApplicationException("Team record not found");
+			throw new BusinessException("Team record not found");
 		}
 
 		logger.info("Service: TeamServiceImpl Method : getTeamById ended at : " + LocalDateTime.now());
