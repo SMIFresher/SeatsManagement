@@ -46,4 +46,3 @@ public interface BuildingService {
 	public boolean delete(Building building);
 
 }
-	

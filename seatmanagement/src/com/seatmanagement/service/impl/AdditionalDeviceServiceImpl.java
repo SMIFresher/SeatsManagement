@@ -15,7 +15,7 @@ import com.seatmanagement.service.AdditionalDeviceService;
  * 
  * @author SaiEswari
  * 
- * This class provides implementation for all business logic related
+ *         This class provides implementation for all business logic related
  *         processing to 'AdditionalDevice' model object
  *
  */
@@ -25,7 +25,6 @@ public class AdditionalDeviceServiceImpl implements AdditionalDeviceService {
 	@Autowired
 	GenericDao<AdditionalDevice> genericDao;
 
-	
 	@Override
 	public AdditionalDevice saveOrUpdate(AdditionalDevice additionalDevice) {
 		logger.info("Service: AdditionalDeviceServiceImpl Method : saveOrUpdate started at : " + LocalDateTime.now());
