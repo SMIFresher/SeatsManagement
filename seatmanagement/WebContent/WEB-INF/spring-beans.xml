@@ -7,48 +7,44 @@
 	http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/seatmanagement" />
-		<property name="username" value="root" />
-		 <property name="password" value="root"/> 
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <property name="url" value="jdbc:mysql://localhost:3306/seatmanagement"/>
+	    <property name="username" value="root"/>
+	    <property name="password" value="root"/>
 	</bean>
-
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan"
-			value="com.seatmanagement.model"></property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<!-- <prop key="hibernate.show_sql">true</prop> -->
-				<prop key="hibernate.format_sql">true</prop>
-			</props>
-		</property>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource" />
+	   	<property name="packagesToScan" value="com.seatmanagement.model"></property>
+	   	<property name="hibernateProperties">
+	   		<props>
+	   			<prop key="hibernate.hbm2ddl.auto">update</prop>
+	   			 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+	   			 <!-- <prop key="hibernate.show_sql">true</prop> -->
+	   			 <prop key="hibernate.format_sql">true</prop>
+	   		</props>
+	   	</property>
+    </bean>
+    
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean id="transaction" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+	
+	<tx:annotation-driven transaction-manager="transaction" />
+	
+	<bean id="buildingDao"
+		class="com.seatmanagement.dao.impl.BuildingDaoImpl">
 	</bean>
-
-	<bean id="hibernateTemplate"
-		class="org.springframework.orm.hibernate5.HibernateTemplate">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-
-	<bean id="transaction"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
-	<tx:annotation-driven
-		transaction-manager="transaction" />
 
 	<bean id="buildingService"
 		class="com.seatmanagement.service.impl.BuildingServiceImpl">
 	</bean>
-
+	
 	<bean id="floorDao"
 		class="com.seatmanagement.dao.impl.FloorDaoImpl">
 	</bean>
@@ -56,8 +52,8 @@
 	<bean id="floorService"
 		class="com.seatmanagement.service.impl.FloorServiceImpl">
 	</bean>
-
-
+	
+		
 	<bean id="blockDao"
 		class="com.seatmanagement.dao.impl.BlockDaoImpl">
 	</bean>
@@ -65,7 +61,7 @@
 	<bean id="blockService"
 		class="com.seatmanagement.service.impl.BlockServiceImpl">
 	</bean>
-
+	
 	<bean id="utilitiesDao"
 		class="com.seatmanagement.dao.impl.UtilitiesDaoImpl">
 	</bean>
@@ -73,7 +69,7 @@
 	<bean id="utilitiesService"
 		class="com.seatmanagement.service.impl.UtilitiesServiceImpl">
 	</bean>
-
+	
 	<bean id="systemDao"
 		class="com.seatmanagement.dao.impl.SystemDaoImpl">
 	</bean>
@@ -81,7 +77,7 @@
 	<bean id="systemService"
 		class="com.seatmanagement.service.impl.SystemServiceImpl">
 	</bean>
-
+	
 	<bean id="seatingDetailsDao"
 		class="com.seatmanagement.dao.impl.SeatingDetailsDaoImpl">
 	</bean>
@@ -89,58 +85,66 @@
 	<bean id="seatingDetailsService"
 		class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 	</bean>
-
+	
 	<bean id="genericDao"
 		class="com.seatmanagement.dao.impl.GenericDaoImpl">
 	</bean>
-
-	<bean id="additionalDeviceService"
+	
+	<bean id="additionalDeviceService" 
 		class="com.seatmanagement.service.impl.AdditionalDeviceServiceImpl">
 	</bean>
-
-
+	
+	<bean id="additionalDeviceDao" 
+		class="com.seatmanagement.dao.impl.AdditionalDeviceDaoImpl">
+	</bean>
+	
 
 	<bean id="teamService"
 		class="com.seatmanagement.service.impl.TeamServiceImpl">
 	</bean>
-
-	<bean id="teamDao" class="com.seatmanagement.dao.impl.TeamDaoImpl">
+	
+	<bean id="teamDao"
+		class="com.seatmanagement.dao.impl.TeamDaoImpl">
 	</bean>
 
 	<bean id="reallocationService"
 		class="com.seatmanagement.service.impl.ReallocationServiceImpl">
 	</bean>
-
+	
 	<bean id="reallocationDao"
 		class="com.seatmanagement.dao.impl.ReallocationDaoImpl">
 	</bean>
-
+	
 	<bean id="organisationService"
 		class="com.seatmanagement.service.impl.OrganisationServiceImpl">
 	</bean>
-
+	
 	<bean id="seatingService"
 		class="com.seatmanagement.service.impl.SeatingServiceImpl">
 	</bean>
-
+	
 	<bean id="seatingDao"
 		class="com.seatmanagement.dao.impl.SeatingDaoImpl">
 	</bean>
-
+	
 	<bean id="employeeService"
 		class="com.seatmanagement.service.impl.EmployeeServiceImpl">
 	</bean>
-
+	
 	<bean id="employeeDao"
 		class="com.seatmanagement.dao.impl.EmployeeDaoImpl">
 	</bean>
-
+	
 	<bean id="dashboardService"
 		class="com.seatmanagement.service.impl.DashboardServiceImpl">
 	</bean>
-
-
-	<bean id="globalValidator"
+	
+		<bean id="organisationController"
+				class="com.seatmanagement.controller.OrganisationController"/>
+		
+<!-- 	<bean id="globalValidator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+ --> 
 
+	
 </beans>
