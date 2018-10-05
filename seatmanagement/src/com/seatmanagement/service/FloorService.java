@@ -10,7 +10,7 @@ public interface FloorService {
 
    
 
-	public boolean saveOrUpdate(Floor floor,UUID buildingId) throws BusinessException;
+	public Floor saveOrUpdate(Floor floor,UUID buildingId) throws BusinessException;
 	public List<Floor> getAll();
 	public Floor getById(Floor floor,UUID floor_id);
 	/*public boolean delete(Floor floor);*/

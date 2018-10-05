@@ -10,7 +10,7 @@ public interface SeatingService {
 
 	public List<Seating> getSeatingByBlockId(Seating seating, UUID seating_id);
 
-	public boolean addOrUpdateSeating(Seating seating, UUID blockID);
+	public Seating addOrUpdateSeating(Seating seating, UUID blockID);
 
 	public List<Seating> getAllSeating();
 

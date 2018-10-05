@@ -28,7 +28,7 @@ public class BuildingServiceImpl implements BuildingService {
 	@Autowired
 	BuildingDao buildingDao;
 
-	public boolean saveOrUpdate(Building building,UUID organisationId) {
+	public Building saveOrUpdate(Building building,UUID organisationId) {
 		
 		
 		Organisation organisation = new Organisation();

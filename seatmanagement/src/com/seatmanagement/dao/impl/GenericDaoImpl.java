@@ -1,12 +1,16 @@
 package com.seatmanagement.dao.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.seatmanagement.controller.SystemController;
 import com.seatmanagement.dao.GenericDao;
 
 @Transactional
@@ -15,17 +19,11 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 	@Autowired
 	public HibernateTemplate hibernateTemplate;
 	
-	 public boolean saveOrUpdate(T t) {
-			boolean b=false;
-			
-			try{
-				hibernateTemplate.saveOrUpdate(t);
-				b=true;
-				//System.out.println("saved/updated");
-			}catch(Exception e) {
-				System.out.println(e);
-			}
-			return b;
+	private static final Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);
+	
+	 public T saveOrUpdate(T t) {
+			hibernateTemplate.saveOrUpdate(t);
+			return t;
 		}
 	 
 	public T getById(T t,UUID id) {
@@ -40,31 +38,14 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 	
 	public boolean delete(T t) {
 		boolean b=false;
-		try{
-			
+		
 			hibernateTemplate.delete(t);
 			b=true;
-			System.out.println("deleeted");
-		}catch(Exception e) {
-			System.out.println(e); 
-		}
+		
 		return b;  
 	}
 
-	@Override
-	public <T>boolean saveAll(T[] objectList) {
-		boolean b=false;
-		try {
-			for(T obj : objectList) {
-				hibernateTemplate.saveOrUpdate(obj);
-			}
-			b=true;
-		}catch(Exception e) {
-			throw new RuntimeException(e);
-		}
-		return b;
-	}
-
+	
 	@Override
 	public void saveAll(List<T> objectsList) {
 		for(T obj : objectsList) {

@@ -31,7 +31,7 @@ GenericDao<Building> genericDaoBuilding;
 	@Autowired
 	BlockService blockService;
 	
-   public boolean saveOrUpdate(Floor floor,UUID buildingId) throws BusinessException {
+   public Floor saveOrUpdate(Floor floor,UUID buildingId) throws BusinessException {
 
 		Building newbuilding = new Building();
 		newbuilding.setBuildingId(buildingId);

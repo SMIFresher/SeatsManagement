@@ -7,7 +7,7 @@ import com.seatmanagement.model.AdditionalDevice;
 public interface AdditionalDeviceService {
 	
 	
-	public boolean saveOrUpdate(AdditionalDevice additionalDevice);
+	public AdditionalDevice saveOrUpdate(AdditionalDevice additionalDevice);
 	
 	public boolean deleteDevice(AdditionalDevice additionalDevice);
 	

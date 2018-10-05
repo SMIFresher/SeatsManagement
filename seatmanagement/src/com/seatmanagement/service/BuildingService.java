@@ -15,7 +15,7 @@ import com.seatmanagement.model.Building;
  */
 public interface BuildingService {
 
-	public boolean saveOrUpdate(Building building,UUID organisationId);
+	public Building saveOrUpdate(Building building,UUID organisationId);
 
 	public List<Building> getAll();
 

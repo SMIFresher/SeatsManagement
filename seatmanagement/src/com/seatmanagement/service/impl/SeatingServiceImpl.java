@@ -43,7 +43,7 @@ public class SeatingServiceImpl implements SeatingService {
 	}
 	
 	@Override
-	public boolean addOrUpdateSeating(Seating seating,UUID blockID) {
+	public Seating addOrUpdateSeating(Seating seating,UUID blockID) {
 		logger.info("Service: SeatingServiceImpl Method : addOrUpdateSeating request processing started at : " + LocalDateTime.now());
 		Seating newSeating = seating;
 		Block newBlock = new Block();

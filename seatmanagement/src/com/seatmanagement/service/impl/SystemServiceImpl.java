@@ -1,11 +1,14 @@
 package com.seatmanagement.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,9 @@ import com.seatmanagement.service.SystemService;
 
 @Transactional
 public class SystemServiceImpl implements SystemService{
+	
+	private static final Logger logger = LoggerFactory.getLogger(SystemServiceImpl.class);
+
 
 	@Autowired
 	GenericDao genericDao;
@@ -30,18 +36,30 @@ public class SystemServiceImpl implements SystemService{
 	
 	@Override
 	public List<Systems> getAllSystems() {
+		
+		logger.info("Service: SystemServiceImpl Method : Get all systems started at : " + LocalDateTime.now());
+		
 		Systems system=new Systems();
 		List<Systems> list = genericDao.getAll(system);
+		
+		logger.info("Service: SystemServiceImpl Method : Get all systems ended at : " + LocalDateTime.now());
 		return list;
 	}
 
 	@Override
 	public Systems getById(Systems system, UUID System_id) {
+		
+		logger.info("Service: SystemServiceImpl Method : get By Id started at : " + LocalDateTime.now());
+		
 		return (Systems) genericDao.getById(system, System_id);
+		
 	}
 
 	@Override
 	public boolean delete(Systems system) {
+		
+		logger.info("Service: SystemServiceImpl Method : delete by id started at : " + LocalDateTime.now());
+		
 		return genericDao.delete(system);
 	}
 
@@ -49,6 +67,9 @@ public class SystemServiceImpl implements SystemService{
 
 	@Override
 	public void addOrUpdateSystem(Systems system,UUID employeeId,List<UUID> additionalDevicesUUIDs ){
+		
+		logger.info("Service: SystemServiceImpl Method : addOrUpdateSystem started at : " + LocalDateTime.now());
+		
 		Employee employee= new Employee();
 		
 		// Employee Mapping
@@ -81,22 +102,32 @@ public class SystemServiceImpl implements SystemService{
 		}
 		
 		genericDao.saveOrUpdate(system);
+		
+		logger.info("Service: SystemServiceImpl Method : addOrUpdateSystem ended at : " + LocalDateTime.now());
 	}
 
 	
 
 	public  Systems getSystem(String request) {
+		
+		logger.info("Service: SystemServiceImpl Method : getSystem started at : " + LocalDateTime.now());
+		
 		return systemDao.getSystem(request);
 	}
 
 	@Override
 	public Systems getSystemBySystemName(String systemName) {
 		
+		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName started at : " + LocalDateTime.now());
+		
 		return systemDao.getSystemId(systemName);
 	}
-
+	
 	@Override
 	public List<Systems> getOscount(){
+		
+		logger.info("Service: SystemServiceImpl Method : getOscount started at : " + LocalDateTime.now());
+		
 		Systems system=new Systems();
 		List<Systems> list = systemDao.getOs(system);
 		return list;
