@@ -1,10 +1,6 @@
 package com.seatmanagement.dao.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -16,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.TeamDao;
 import com.seatmanagement.exception.ApplicationException;
-import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Team;
 
 /**
@@ -36,7 +31,7 @@ public class TeamDaoImpl implements TeamDao {
 	private HibernateTemplate hibernateTemplate;
 
 	@Override
-	public Team getTeamByName(String teamName) throws BusinessException {
+	public Team getTeamByName(String teamName) {
 
 		logger.info("DAO: TeamDaoImpl Method : getTeamByName started at : " + LocalDateTime.now());
 
@@ -47,7 +42,7 @@ public class TeamDaoImpl implements TeamDao {
 		try {
 			team = (Team) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new BusinessException("Error while retrieving team");
+			throw new ApplicationException("Error while retrieving team");
 		}
 
 		logger.info("DAO: TeamDaoImpl Method : getTeamByName ended at : " + LocalDateTime.now());

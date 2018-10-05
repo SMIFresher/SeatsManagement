@@ -1,13 +1,11 @@
 package com.seatmanagement.dao.impl;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +14,10 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.seatmanagement.controller.UtilitiesController;
 import com.seatmanagement.dao.BlockDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
-import com.seatmanagement.model.Floor;
-import com.seatmanagement.model.Systems;
 
 /**
  * 
@@ -45,13 +41,13 @@ public class BlockDaoImpl implements BlockDao {
 	 * @throws BusinessException 
 	 */
 	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<Block> getAll() throws BusinessException {
+	public List<Block> getAll(){
 		logger.info("DAO: BlockDaoImpl Method : listAllBlock request processing started at : " + LocalDateTime.now());
 		List<Block> blockList = null;
 		try {
 			blockList = (List<Block>) hibernateTemplate.find("From Block");
 		}catch(Exception e) {
-			throw new BusinessException("Error while retreiving Block records");
+			throw new ApplicationException("Error while retreiving Block records");
 		}
 		
 		logger.info("DAO: BlockDaoImpl Method : saveBlock response sent at : " + LocalDateTime.now());
@@ -59,7 +55,7 @@ public class BlockDaoImpl implements BlockDao {
 	}
 
 	@Override
-	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException {
+	public List<Block> getBlocksByFloorId(UUID floorId){
 		logger.info(
 				"DAO: BlockDaoImpl Method : listBlockByFloorId request processing started at : " + LocalDateTime.now());
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
@@ -68,7 +64,7 @@ public class BlockDaoImpl implements BlockDao {
 		try {
 			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new BusinessException("Error while retrieving Block record");
+			throw new ApplicationException("Error while retrieving Block record");
 		}
 		logger.info("DAO: BlockDaoImpl Method : listBlockByFloorId response sent at : " + LocalDateTime.now());
 		return blocks;
@@ -80,7 +76,7 @@ public class BlockDaoImpl implements BlockDao {
 	 */
 
 	@Override
-	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) throws BusinessException {
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId) {
 		logger.info("DAO: BlockDaoImpl Method : listBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
@@ -92,7 +88,7 @@ public class BlockDaoImpl implements BlockDao {
 		try {
 			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new BusinessException("Error while retreiving block records");
+			throw new ApplicationException("Error while retreiving block records");
 		}
 		logger.info("DAO: BlockDaoImpl Method : listBlockByBlockType response sent at : " + LocalDateTime.now());
 		return blocks;

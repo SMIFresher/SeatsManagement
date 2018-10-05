@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDetailsDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 
@@ -44,8 +45,12 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<SeatingDetails> getAllSeatingDetails() {
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getAllSeatingDetails started at : " + LocalDateTime.now());
-		List<SeatingDetails> seatingList = new ArrayList<>();
-		seatingList = (List<SeatingDetails>) hibernateTemplate.find("From SeatingDetails");
+		List<SeatingDetails> seatingList = null;
+		try {
+			seatingList = (List<SeatingDetails>) hibernateTemplate.find("From SeatingDetails");
+		}catch(Exception e) {
+			throw new ApplicationException("Error while retreiving SeatingDetails");
+		}
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getAllSeatingDetails ended at : " + LocalDateTime.now());
 		return seatingList;
 	}
@@ -64,7 +69,11 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		criteria.createAlias("seating", "seating", CriteriaSpecification.INNER_JOIN);
 		// criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.eq("seating.seatingId", seating_id));
-		seatingDetails = (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
+		try {
+			seatingDetails = (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
+		}catch(Exception e) {
+			throw new ApplicationException("Error while retreiving SeatingDetail");
+		}
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getEmployeeBySeatId ended at : " + LocalDateTime.now());
 		return seatingDetails;
 	}
@@ -78,7 +87,11 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		// criteria.createAlias("employee","employee");
 		criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.eq("systems.employee", employee_id));
-		seatingDetails = (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
+		try {
+			seatingDetails = (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
+		}catch(Exception e) {
+			throw new ApplicationException("Error whi;e retreiving SeatingDetail");
+		}
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getSeatByEmployeeId ended at : " + LocalDateTime.now());
 		return seatingDetails;
 	}

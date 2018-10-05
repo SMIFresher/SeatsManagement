@@ -56,7 +56,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 	}
 
 	@Override
-	public void deleteReallocationByBlockId(UUID blockId) throws BusinessException {
+	public void deleteReallocationByBlockId(UUID blockId) {
 		
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId started at : " + LocalDateTime.now());
@@ -69,7 +69,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		try {
 			reallocation = (Reallocation) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new BusinessException("Error while retreiving reallocation record");
+			throw new ApplicationException("Error while retreiving reallocation record");
 		}
 
 		// Scenario 1: No reallocation in DB
@@ -81,7 +81,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 			try {
 				hibernateTemplate.delete(reallocation);
 			}catch(Exception e) {
-				throw new BusinessException("Error while deleting reallocation record");
+				throw new ApplicationException("Error while deleting reallocation record");
 			}
 		}
 		
@@ -90,7 +90,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 	}
 
 	@Override
-	public List<Reallocation> getReallocationsByBlockId(UUID blockId) throws BusinessException {
+	public List<Reallocation> getReallocationsByBlockId(UUID blockId){
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId started at : " + LocalDateTime.now());
 		
@@ -102,7 +102,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		try {
 			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new BusinessException("Error while retreiving reallocation records");
+			throw new ApplicationException("Error while retreiving reallocation records");
 		}
 
 		logger.info(

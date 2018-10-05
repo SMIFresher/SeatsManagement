@@ -10,6 +10,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.EmployeeDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Employee;
 
@@ -23,8 +24,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> getEmployeesByDesignation(String designation) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
 		criteria.add(Restrictions.eq("designation", designation));
-
-		List<Employee> employees = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
+		List<Employee> employees = null;
+		try {
+			employees = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new ApplicationException("Error while retreiving employees");
+		}
+		
 		return employees;
 	}
 
@@ -32,8 +38,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> getEmployeesByTeamId(UUID teamId) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Employee.class);
 		criteria.add(Restrictions.eq("team.teamId", teamId));
-
-		List<Employee> employees = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
+		List<Employee> employees = null;
+		try {
+			employees = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new ApplicationException("Error while retreiving employees");
+		}
+		
 		return employees;
 	}
 

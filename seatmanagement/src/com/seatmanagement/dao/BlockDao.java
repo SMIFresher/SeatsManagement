@@ -21,9 +21,9 @@ public interface BlockDao {
 	 */
 	
 
-	public List<Block> getBlocksByFloorId(UUID floorId) throws BusinessException;
+	public List<Block> getBlocksByFloorId(UUID floorId);
 	
-	public List<Block> getBlocksByBlockType(String blockType,UUID floorId) throws BusinessException;
+	public List<Block> getBlocksByBlockType(String blockType,UUID floorId);
 	
 	
 	
