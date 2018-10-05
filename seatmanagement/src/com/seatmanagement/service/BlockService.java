@@ -10,15 +10,15 @@ import com.seatmanagement.model.Systems;
 
 /**
  * 
- * @author Adithya Prabhu
+ * @author Harshanaa Ramdas
  * 
  *         Provides interface for all business logic related processing to
- *         'Building' model object
+ *         'Block' model object
  *
  */
 public interface BlockService {
 
-	public Block saveOrUpdate(Block block,UUID floorId,List<UUID> utilitiesUUIDs) throws BusinessException;
+	public Block saveOrUpdate(Block block, UUID floorId, List<UUID> utilitiesUUIDs) throws BusinessException;
 
 	public List<Block> getAll();
 
@@ -27,10 +27,9 @@ public interface BlockService {
 	public void deleteBlocksByFloorId(UUID floorId) throws BusinessException;
 
 	public void delete(Block block) throws BusinessException;
-	
-	
+
 	public List<Block> getBlocksByFloorId(UUID floorId);
-	
-	public List<Block> getBlocksByBlockType(String blockType,UUID floorId);
+
+	public List<Block> getBlocksByBlockType(String blockType, UUID floorId);
 
 }
