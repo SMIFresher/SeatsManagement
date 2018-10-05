@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.ReallocationDao;
+import com.seatmanagement.exception.ApplicationException;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Reallocation;
 
 /**
@@ -54,7 +56,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 	}
 
 	@Override
-	public void deleteReallocationByBlockId(UUID blockId) {
+	public void deleteReallocationByBlockId(UUID blockId) throws BusinessException {
 		
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId started at : " + LocalDateTime.now());
@@ -62,15 +64,25 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
-		Reallocation reallocation = (Reallocation) hibernateTemplate.findByCriteria(criteria);
+		Reallocation reallocation = null;
+		
+		try {
+			reallocation = (Reallocation) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new BusinessException("Error while retreiving reallocation record");
+		}
 
 		// Scenario 1: No reallocation in DB
 		if (Objects.isNull(reallocation)) {
-
+			throw new ApplicationException("Reallocation record not found");
 		}
 		// Scenario 2: Reallocation present in DB
 		else {
-			hibernateTemplate.delete(reallocation);
+			try {
+				hibernateTemplate.delete(reallocation);
+			}catch(Exception e) {
+				throw new BusinessException("Error while deleting reallocation record");
+			}
 		}
 		
 		logger.info(
@@ -78,14 +90,20 @@ public class ReallocationDaoImpl implements ReallocationDao {
 	}
 
 	@Override
-	public List<Reallocation> getReallocationsByBlockId(UUID blockId) {
+	public List<Reallocation> getReallocationsByBlockId(UUID blockId) throws BusinessException {
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId started at : " + LocalDateTime.now());
 		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
-		List<Reallocation> reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
+		List<Reallocation> reallocations = null;
+		
+		try {
+			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
+		}catch(Exception e) {
+			throw new BusinessException("Error while retreiving reallocation records");
+		}
 
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());

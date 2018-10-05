@@ -157,14 +157,14 @@ public class TeamController {
 				+ LocalDateTime.now());
 
 		ModelAndView model = null;
+		
+		if (null == team) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
 
 		model = new ModelAndView();
 
 		teamService.updateTeam(team);
-
-		if (null == team) {
-			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-		}
 
 		logger.info("Controller: TeamController Method : updateTeam response sent at : " + LocalDateTime.now());
 
