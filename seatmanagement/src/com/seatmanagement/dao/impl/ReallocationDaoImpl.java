@@ -55,6 +55,10 @@ public class ReallocationDaoImpl implements ReallocationDao {
 
 	@Override
 	public void deleteReallocationByBlockId(UUID blockId) {
+		
+		logger.info(
+				"DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId started at : " + LocalDateTime.now());
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
@@ -68,16 +72,24 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		else {
 			hibernateTemplate.delete(reallocation);
 		}
+		
+		logger.info(
+				"DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId ended at : " + LocalDateTime.now());
 	}
 
 	@Override
 	public List<Reallocation> getReallocationsByBlockId(UUID blockId) {
-
+		logger.info(
+				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId started at : " + LocalDateTime.now());
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
 		List<Reallocation> reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
 
+		logger.info(
+				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
+		
 		return reallocations;
 	}
 

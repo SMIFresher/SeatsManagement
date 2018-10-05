@@ -76,13 +76,17 @@ public class TeamController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/getAllTeam")
 	public ResponseEntity<List<Team>> getAll() {
-
+		logger.info(
+				"Controller: TeamController Method : getAll request processing started at : " + LocalDateTime.now());
+		
 		ResponseEntity model = null;
 
 		List<Team> teams = teamService.getAll();
 
 		model = new ResponseEntity(teams, HttpStatus.OK);
-
+		
+		logger.info(
+				"Controller: TeamController Method : getAll response sent at : " + LocalDateTime.now());
 		return model;
 	}
 
