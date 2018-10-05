@@ -21,6 +21,9 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br>
+
+
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="OrganizationDetails(); employeeDetails(); TeamDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -60,18 +63,17 @@
        							<input class="form-control" id="date" name="doj" placeholder="DD/MM/YYY" type="date"/>
 							  </div>
 							 <div class="form-group">
-		                   		<div ng-app="Organisation" ng-controller="OrganisationController" id="organisation1">
+		                   		
 								<label for="organisation">Organisation </label>
 									<select class="custom-select mb-3 organisationId" name="organisationId">
-										<option ng-repeat="organisation1 in getOrganisations" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
+										<option ng-repeat="organisation1 in getOrg" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
 									</select>
 								
 
 								<label for="team">Team Name </label>
 									<select class="custom-select mb-3 teamId" name="teamId">
-										<option ng-repeat="team1 in getTeam" value="{{team1.teamId}}">{{team1.teamName}}</option>
+										<option ng-repeat="team1 in getteam" value="{{team1.teamId}}">{{team1.teamName}}</option>
 									</select>
-							</div>
 							</div>
 							<button type="submit" class="btn btn-primary" onClick="formSubmit();" >Submit</button>
 						</form>
@@ -83,7 +85,7 @@
 			</div>
 			
 			<div class="col-md-8">
-				<div id="emp" ng-app="employee" ng-controller="employeeController">
+
 				<!-- <div class="table-resposive" style="overflow-x: auto; height: 700px;"> -->
 					<table class="table table-hover">
 						<thead align="center">
@@ -98,7 +100,7 @@
 						</thead>
 						
 						<tbody align="center">
-						<tr ng-repeat="emp in getemployees" align="center">
+						<tr ng-repeat="emp in getemp" align="center">
 						<td>{{emp.employeeRoll}}</td>
 						<td>{{emp.firstName}}</td>
 						<td>{{emp.lastName}}</td>
@@ -116,82 +118,10 @@
 					</table>
 					<!-- </div> -->
 				</div>
-			</div>
 		</div>
 	</div>
 
-
-	<!-- <script type="text/javascript">
-		$('.table tbody').on('click', 'tr', function() {
-			var currow = $(this).closest('tr');
-			var col1 = currow.find('td:eq(0)').text();
-			var col2 = currow.find('td:eq(1)').text();
-			var col3 = currow.find('td:eq(2)').text();
-			var col4 = currow.find('td:eq(3)').text();
-			var col5 = currow.find('td:eq(4)').text();
-			var col6 = currow.find('td:eq(5)').text();
-
-			document.getElementById('employeeRoll').value = col1;
-			document.getElementById('"firstName"').value = col2;
-			document.getElementById('lastName').value = col3;
-			document.getElementById('designation').value = col4;
-			document.getElementById('date').value = col5;
-			document.getElementById('teamId').value = col6;
-		})
-	</script> -->
-	
-	<script>
-
-	var teamApp = angular.module('Team', []);
-	teamApp.controller('TeamController', function($scope, $http) {
-	    
-	});
-	
-	var employeeApp = angular.module('employee', ['Team']);
-	//AJAX Request Type Header to prepare error response for AJAX seperately
-	employeeApp.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
-	employeeApp.controller('employeeController', function($scope, $http) {
-
-	    $http.post("/seatmanagement/employee/getAllEmployees")
-	        .then(function successCallback(response) {
-	            $scope.getemployees = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-	});
-
-	var organisationApp = angular.module('Organisation', []);
-	//AJAX Request Type Header to prepare error response for AJAX seperately
-	organisationApp.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
-	organisationApp.controller('OrganisationController', function($scope, $http) {
-	    $http.post("/seatmanagement/organisation/getAllOrganisations")
-	        .then(function successCallback(response) {
-	            $scope.getOrganisations = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	        });
-	    
-	    $http.post("/seatmanagement/team/getAllTeam")
-        .then(function successCallback(response) {
-            $scope.getTeam = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-        });
-	    
-	    
-	});
-
-	angular.element(document).ready(function() {
-	    angular.bootstrap(document.getElementById("emp"), ['employee']);
-	});
-	
-	</script>
-	
+	</div>
 	<script type="text/javascript">
 	function formSubmit(){
 		
@@ -243,6 +173,6 @@
 		 
 		
 	</script>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

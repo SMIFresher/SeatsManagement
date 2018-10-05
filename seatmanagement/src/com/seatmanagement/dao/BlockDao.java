@@ -7,23 +7,17 @@ import com.seatmanagement.model.Block;
 
 /**
  * 
- * @author Adithya Prabhu
- * 
- *         Provides interface for all Database related activities to 'Building'
- *         model object
+ * @author Harshanaa Ramdas
  *
  */
 public interface BlockDao {
 
 	/**
 	 * 
-	 * Saves a 'Building' model in DB
-	 * 
-	 * @param building
+	 * @param floorId
+	 * @return
 	 */
-	// public void saveBuilding(Building building);
-
-//	public List<Block> getAll();
+	
 
 	public List<Block> getBlocksByFloorId(UUID floorId);
 	

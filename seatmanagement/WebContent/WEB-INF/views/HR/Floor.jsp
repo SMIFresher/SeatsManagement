@@ -21,7 +21,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
-
+<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); FloorDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -32,12 +32,11 @@
 						<h2>Floor</h2>
 						<form method="post" onsubmit="formSubmit()" id="Form">
 							<div class="form-group">
-		                   		<div ng-app="Building" ng-controller="BuildingController" id="build">
 								<label for="location">Building Name </label>
 									<select class="custom-select mb-3" name="buildingId">
 										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
 									</select>
-								</div>
+
 							</div>
 							<div class="form-group">
 								<label for="ftype">Floor Type:</label>  <input type="text"
@@ -58,8 +57,6 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="floor" ng-app="floor" ng-controller="floorController">
-
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Floor Name</td>
@@ -67,7 +64,7 @@
 							<td>Process</td>
 						</thead>
 						<tbody>
-							<tr ng-repeat="flr in getflr" align="center">
+							<tr ng-repeat="flr in getFloor" align="center">
 								<td>{{flr.floorName}}</td>
 								<td>{{flr.floorType}}</td>
 								<td style="display:none;">{{flr.floorId}}</td>
@@ -75,42 +72,12 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				
 			</div>
 		</div>
 	</div>
-
+</div>
 <script>
-var app = angular.module('Building', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('BuildingController', function($scope, $http) {
-    $http.post("/seatmanagement/building/getAllBuildings")
-        .then(function successCallback(response) {
-            $scope.getBuilding = response.data;
-            console.log("Get All Buildings success : "+ response.data);
-        }, function errorCallback(response) {
-        	console.log("Get All Buildings failure : " + response);
-            alert(response.status);
-        });
-});
-
-var app = angular.module('floor', ['Building']);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('floorController', function($scope, $http) {
-    $http.post("/seatmanagement/floor/getAllFloor")
-        .then(function successCallback(response) {
-            $scope.getflr = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-});
 
 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
@@ -127,12 +94,8 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	}
 );
 
-angular.element(document).ready(function() {
-    angular.bootstrap(document.getElementById("floor"), ['floor']);
-  });
-  
 </script>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 <script type="text/javascript">
 function formSubmit(){
 	

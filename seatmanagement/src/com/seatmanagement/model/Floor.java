@@ -15,17 +15,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+/**
+ * 
+ * @author M.Karthika Model object - Floor
+ *
+ */
 @Entity
-@Table(name="floor")
-public class Floor implements Serializable{
-	
-	private static final long serialVersionUID = 8650783024313379209L;
+@Table(name = "floor")
+public class Floor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "floor_id")
 	@Type(type = "uuid-char")
@@ -33,21 +40,24 @@ public class Floor implements Serializable{
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID floorId;
 
-    @Column(name="floor_type")
-    private String floorType;
-    
-    @Column(name="floor_name")
-    private String floorName;
-    
-  
-    @ManyToOne
+	@NotEmpty(message = "FloorType can not be empty")
+	@NotNull(message = "FloorType can not be null")
+	@Column(name = "floor_type")
+	private String floorType;
+
+	@NotEmpty(message = "FloorName can not be empty")
+	@NotNull(message = "FloorName can not be null")
+	@Column(name = "floor_name")
+	private String floorName;
+
+	@ManyToOne
 	@JoinColumn(name = "building_id", nullable = false)
 	private Building building;
-	
-    @OneToMany(mappedBy="floor",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "floor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Block> blocks;
-    
+
 	public Set<Block> getBlocks() {
 		return blocks;
 	}
@@ -87,6 +97,5 @@ public class Floor implements Serializable{
 	public void setBuilding(Building building) {
 		this.building = building;
 	}
-
 
 }

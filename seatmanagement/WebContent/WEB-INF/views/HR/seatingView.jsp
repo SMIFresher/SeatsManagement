@@ -36,7 +36,7 @@
 					<div class="col-md-12">
 						<h2>Seating Arrangement</h2>
 						<hr>
-							<div ng-app="floorAPP" ng-controller="FloorController" >
+							<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById();">
 								<h3> <span class="fa fa-th" aria-hidden="true"></span>{{FloorDetails.floorName}}</h3>
 							      <p>{{FloorDetails.floorType}}</p>
 							      <hr>
@@ -70,21 +70,11 @@
 
 
 
-		
-<script>
-var app = angular.module('floorAPP', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('FloorController', function($scope, $http) {
-    $http.get("/seatmanagement/floor/getFloorById?FloorId="+gett())
-    .then(function(response) {
-        $scope.FloorDetails = response.data;
-        console.log(response.data);
-    });
-});
-</script>
+
+
+
+    
+
 
 <script type="text/javascript">
 
@@ -151,5 +141,9 @@ function gett(){
 })(jQuery);
 
 </script>
+
+<script src="/seatmanagement/js/AngulerController.js"></script>
+
+
 </body>
 </html>

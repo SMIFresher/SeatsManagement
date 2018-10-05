@@ -38,8 +38,7 @@
 						
 						<form method="post" id="Form"  onsubmit="formSubmit()">
 						
-							<div ng-app="Building" ng-controller="BuildingController"
-								ng-init="loadBuilding()">
+							<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">
 								<div class="form-group">
 									 <label for="emp_id">Building</label>
 									<select ng-model="building" class="form-control"
@@ -106,50 +105,7 @@
 
 
 
-
-<script>
-var app = angular.module('Building', []);
-
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('BuildingController', function($scope, $http) {
-	
-	$scope.loadBuilding = function(){ 
-    $http.post("/seatmanagement/building/getAllBuildings")
-        .then(function successCallback(response) {
-            $scope.getBuilding = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-	};
-	
-	$scope.floorDetails=function(buildingId){
-		$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
-        .then(function successCallback(response) {
-            $scope.getFloor = response.data;
-            console.log(response.data);
-			
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-	};
-//chages are thare
-	$scope.blockDetails=function(floor){
-		$http.get("/seatmanagement/block/getBlockByBlockType?block_type=Cabins&floor_id="+floor)
-        .then(function successCallback(response) {
-            $scope.getBlock = response.data;
-            console.log(response.data);
-			
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-	};
-});
-
-</script>	
+<script src="/seatmanagement/js/AngulerController.js"></script>
 		
 		
 <script type="text/javascript">
@@ -160,9 +116,7 @@ function formSubmit(){
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
-            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> Successfully Inserted</div>");
-
-    }
+   	 }
  	
 });
 }

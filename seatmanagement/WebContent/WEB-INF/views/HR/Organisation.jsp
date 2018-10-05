@@ -16,7 +16,7 @@
 <body>
 
 
-<div ng-app="organisation" ng-controller="OrganisationController">
+
 
 	
 <!-- Nav Bar -->
@@ -51,8 +51,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="organisation" ng-controller="OrganisationController">
-
+				<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails();">
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Organization Id</td>
@@ -68,43 +67,24 @@
 						</td>
 						</tr>
 						</tbody>
-					
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 
+<script src="/seatmanagement/js/AngulerController.js"></script>
 <script type="text/javascript">
-		$('.table tbody').on('click', 'tr', function() {
-			var currow = $(this).closest('tr');
-			var col1 = currow.find('td:eq(1)').text();
+	$('.table tbody').on('click', 'tr', function() {
+		var currow = $(this).closest('tr');
+		var col1 = currow.find('td:eq(1)').text();
 
-			document.getElementById('orgName').value = col1;
-		})
-	</script>
-
-
-
-
-
-<script>
-var app = angular.module('organisation', []);
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('OrganisationController', function($scope, $http) {
-    $http.post("/seatmanagement/organisation/getAllOrganisations")
-        .then(function successCallback(response) {
-            $scope.getOrg = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-        	
-        });
-});
+		document.getElementById('orgName').value = col1;
+	})
 </script>
+
+
 
 <script type="text/javascript">
 function formSubmit(){
@@ -149,8 +129,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 
 	}
 );
-	 
-	
 </script>
+
 </body>
 </html>

@@ -24,12 +24,12 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br>
-<div id="build" ng-app="Building" ng-controller="BuildingController">
+<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); OrganizationDetails();">
 <div class="container">
   <div class="row" >
   
     <div class="col-md-4" ng-repeat="Building in getBuilding">
-    	<div ng-click="floorDetails(Building.buildingId)" class="content text-center" data-toggle="modal" data-target="#myModal" >
+    	<div ng-click="floorDetails(Building.buildingId)" class="content text-center" data-toggle="modal" data-target="#getFloor" >
     	<br><br><br>
     	  <h3>{{Building.buildingName}}</h3>
 	      <p>{{Building.buildingName}} Building architecture</p>
@@ -55,7 +55,7 @@
 
 <!-- Models -->
 
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="getFloor">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
@@ -94,7 +94,7 @@
     </div>
   </div>
 
-</div>
+
   <div class="modal fade" id="AddBuilding">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -138,12 +138,10 @@
                       required="required" placeholder="Square Feet">
                   </div>
                    <div class="form-group">
-                   		<div ng-app="getOrg" ng-controller="getOrganization" id="orgFiled">
 						<label for="location">Organization </label>
 							<select class="custom-select mb-3" name="organisationId">
 								<option ng-repeat="org in getOrg" value="{{org.organisationId}}">{{org.organisationName}}</option>
 							</select>
-						</div>
 					</div>
               
             </div>
@@ -159,6 +157,10 @@
       </div>
     </div>
   </div>
+  
+</div>
+
+
 <script type="text/javascript">
 function formSubmit(){
 	var select_id = document.getElementById("org");
@@ -178,55 +180,7 @@ function formSubmit(){
 
 
 </script>
+<script src="/seatmanagement/js/AngulerController.js"></script>
 
-<script>
-
-var app = angular.module('getOrg', ['Building']);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('getOrganization', function($scope, $http) {
-    $http.post("/seatmanagement/organisation/getAllOrganisations")
-        .then(function successCallback(response) {
-            $scope.getOrg = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-});
-
-
-var app = angular.module('Building', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('BuildingController', function($scope, $http) {
-    $http.post("/seatmanagement/building/getAllBuildings")
-        .then(function successCallback(response) {
-            $scope.getBuilding = response.data;
-            console.log(response.data);
-			
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-		$scope.floorDetails=function(buildingId){
-			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
-	        .then(function successCallback(response) {
-	            $scope.getFloor = response.data;
-	            console.log(response.data);
-				
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-		};
-    	
-    
-});
-angular.element(document).ready(function() {
-    angular.bootstrap(document.getElementById("orgFiled"), ['getOrg']);
-  });
-</script>
 </body>
 </html>
