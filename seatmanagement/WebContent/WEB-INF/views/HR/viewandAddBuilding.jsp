@@ -49,11 +49,6 @@
 </div>
 
 
-<script type="text/javascript">
-doModal("header","message");
-</script>
-
-
 
 <!-- Models -->
 

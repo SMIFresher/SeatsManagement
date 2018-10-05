@@ -22,7 +22,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	doModal("Information","Building Added Successfully");
+		    	$scope.buildingDetails();
+		    	doModal("Information","Building Added Successfully....!");
 		    }, 
 		    function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);
