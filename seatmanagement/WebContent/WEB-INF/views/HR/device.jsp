@@ -32,13 +32,12 @@
 
 						<h2>Additional Device</h2>
 						<div>
-							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
-					  		<div class="form-group">
-							<label>Device Name</label>
-					  		<input name="device_name" class="form-control" id="device_name" type="text" placeholder="Device Name"/>
-					  		</div>
-					  		<button type="submit" class="btn btn-primary">Submit</button>
-					  		
+							<form id="Form" method="post" ng-submit="saveDevices();" autocomplete="off">
+						  		<div class="form-group">
+								<label>Device Name</label>
+						  		<input name="device_name" class="form-control" id="device_name" type="text" placeholder="Device Name"/>
+						  		</div>
+					  			<button type="submit" class="btn btn-primary">Submit</button>
 					  		</form>	
 					    </div>
 					    
@@ -86,20 +85,6 @@
 	</script>
 
 <script type="text/javascript">
-function formSubmit(){
-
- $.ajax({
-     url:'/seatmanagement/Additionaldevice/savedevice',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     success: function (data) {
-   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-       location.replace("/seatmanagement/Additionaldevice/addAdditionalDevice");
-    }
- 	
-});
-}
-	
 	
 var devId = null;
 

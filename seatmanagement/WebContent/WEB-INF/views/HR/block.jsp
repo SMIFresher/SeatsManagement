@@ -29,7 +29,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<h2>Blocks</h2>
-						<form id="Form" method="post" onsubmit="formSubmit()">
+						<form id="Form" method="post" ng-submit="saveBlocks();">
 														
 								<div class="form-group">
 								<label for="location">Building:</label>
@@ -148,25 +148,6 @@
 </div>
 	
 <script type="text/javascript">
-function formSubmit(){
-	
-	console.log("Serialised Form : " + $("#Form").serialize());
-
- $.ajax({
-     url:'/seatmanagement/block/saveblock',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     async:false,
-     success: function (data) {
-   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("/seatmanagement/block/getBlockView");
-    },error:function(data){
-    	location.replace("/seatmanagement/block/getBlockView");
-    }
- 	
-});
-}
-		
 		
 	var blockId = null;
 	

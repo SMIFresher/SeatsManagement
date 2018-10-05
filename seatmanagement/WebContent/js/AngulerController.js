@@ -29,8 +29,74 @@ app.controller('workplaceManagementController', function($scope, $http) {
 		    	doModal("Information",response.data.ERROR_MESSAGE);
 		    });
 	 };
-
 	 
+	 
+	 /**
+	 * Save Blocks
+	 */
+	 $scope.saveBlocks = function(){ 
+		 $http({
+		        url: '/seatmanagement/block/saveblock',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.blockDetails();
+	    	doModal("Information","Block Added Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	 /**
+	 * Save Cabins
+	 */
+	 $scope.saveCabins = function(){ 
+		 $http({
+		        url: '/seatmanagement/seatingdetails/saveInBatch?seatingId='+seatId,
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/json'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.replace('');  
+	    	doModal("Information","Cabin Added Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+
+	 /**
+	 * Save Cabins
+	 */
+	 $scope.saveDevices = function(){ 
+		 $http({
+		        url: '/seatmanagement/Additionaldevice/savedevice',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.deviceDetails();
+	    	doModal("Information","Devices Added Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+
+	
 	 
 	/**
 	 * Get all Devices
@@ -176,7 +242,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
     /**
      * Get Block Details by Floor Id and Block Type Cabin
      */
-    $scope.blockDetails=function(floor){
+    $scope.blockDetailsByFloor=function(floor){
 		$http.get("/seatmanagement/block/getBlockByBlockType?block_type=Cabins&floor_id="+floor)
         .then(function successCallback(response) {
             $scope.getBlock = response.data;
