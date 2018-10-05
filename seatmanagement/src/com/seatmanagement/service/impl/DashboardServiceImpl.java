@@ -17,6 +17,7 @@ import com.seatmanagement.dao.BlockDao;
 import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Constant;
@@ -139,10 +140,21 @@ public class DashboardServiceImpl implements DashboardService {
 						+ LocalDateTime.now());
 		List<Integer> seatOccupiedList = new ArrayList<>();
 		flatList.stream().filter(Objects::nonNull).forEach(z -> {
-			List<Seating> seatingList = getSeatOccupiedByBlockId(z.getBlockId());
+			List<Seating> seatingList = null;
+			try {
+				seatingList = getSeatOccupiedByBlockId(z.getBlockId());
+			} catch (BusinessException e) {
+				logger.error("BusinessException caught in Class : DashboardServiceImpl, Method : getSeatOccupiedByBlock(), at "
+						+ LocalDateTime.now());
+				logger.error("Exception message : " + e.getMessage());
+				logger.error("Exception stack : ", e);
+				throw new RuntimeException(e);
+			}
 			int seatOccupied = 0;
-			for (Seating s : seatingList) {
-				seatOccupied = s.getSeat_occupied();
+			if(Objects.nonNull(seatingList)) {
+				for (Seating s : seatingList) {
+					seatOccupied = s.getSeat_occupied();
+				}
 			}
 			seatOccupiedList.add(seatOccupied);
 		});
@@ -243,10 +255,21 @@ public class DashboardServiceImpl implements DashboardService {
 			properties.put(Constant.FLOOR_NAME, floor.getFloorName());
 			properties.put(Constant.FLOOR_ID, floor.getFloorId().toString());
 			Integer blockCapacityPerBlock = Integer.valueOf(p.getBlockCapacity());
-
-			List<Seating> seatOccupiedList = getSeatOccupiedByBlockId(p.getBlockId());
-			Integer seatOccupied = seatOccupiedList.stream().filter(Objects::nonNull).map(Seating::getSeat_occupied)
-					.mapToInt(Integer::intValue).sum();
+			Integer seatOccupied = 0;
+			List<Seating> seatOccupiedList = null;
+			try {
+				seatOccupiedList = getSeatOccupiedByBlockId(p.getBlockId());
+			} catch (BusinessException e) {
+				logger.error("BusinessException caught in Class : DashboardServiceImpl, Method : getAllBlockDetailsCount(), at "
+						+ LocalDateTime.now());
+				logger.error("Exception message : " + e.getMessage());
+				logger.error("Exception stack : ", e);
+				throw new RuntimeException(e);
+			}
+			if(Objects.nonNull(seatOccupiedList)) {
+				seatOccupiedList.stream().filter(Objects::nonNull).map(Seating::getSeat_occupied)
+				.mapToInt(Integer::intValue).sum();
+			}
 
 			Integer seatsAvailable = null;
 			seatsAvailable = blockCapacityPerBlock - seatOccupied;
@@ -267,7 +290,7 @@ public class DashboardServiceImpl implements DashboardService {
 
 	}
 
-	private List<Seating> getSeatOccupiedByBlockId(UUID blockId) {
+	private List<Seating> getSeatOccupiedByBlockId(UUID blockId) throws BusinessException {
 
 		return seatingDao.getSeatingByBlockId(blockId);
 	}

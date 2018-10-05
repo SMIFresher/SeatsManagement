@@ -63,12 +63,11 @@ public class BlockController {
 		logger.info("Controller: BlockController Method : saveBlock request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
-		if (block != null) {
-			blockService.saveOrUpdate(block, floorId, utilitiesUUIDs);
-			responseEntity = new ResponseEntity(HttpStatus.OK);
-		} else {
-			throw new RuntimeException("Cant save/update");
-		}
+		if (Objects.isNull(block) || Objects.isNull(floorId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		} 
+		blockService.saveOrUpdate(block, floorId, utilitiesUUIDs);
+		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
@@ -90,19 +89,19 @@ public class BlockController {
 	 * 
 	 * @param blockId
 	 * @return
+	 * @throws BusinessException 
 	 */
 	@RequestMapping(value = "/getBlockById", method = RequestMethod.GET)
-	public ResponseEntity getBlockById(@RequestParam(value = "blockId") UUID blockId) {
+	public ResponseEntity getBlockById(@RequestParam(value = "blockId") UUID blockId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockById request processing started at : "
 				+ LocalDateTime.now());
+		ResponseEntity responseEntity = null;
+		if(Objects.isNull(blockId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
 		Block block = new Block();
 		block = blockService.getById(block, blockId);
-		ResponseEntity responseEntity = null;
-		if (!(block.getBlockId() == null)) {
-			responseEntity = new ResponseEntity<Block>(block, HttpStatus.OK);
-		} else {
-			throw new RuntimeException("Invalid Block ID");
-		}
+		responseEntity = new ResponseEntity<Block>(block, HttpStatus.OK);
 		logger.info("Controller: BlockController Method : getBlockById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
@@ -143,10 +142,8 @@ public class BlockController {
 			@RequestParam(value = "floor_id") UUID floorId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
-		if (Objects.isNull(floorId)) {
-			if (Objects.isNull(blockType)) {
-				throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-			}
+		if (Objects.isNull(floorId) || Objects.isNull(blockType)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		ResponseEntity responseEntity = null;
 		List<Block> blocks = null;
@@ -167,17 +164,15 @@ public class BlockController {
 	public ResponseEntity deleteBlockById(@RequestParam(value = "blockId") UUID blockId) throws BusinessException {
 		logger.info("Controller: BlockController Method : deleteBlockById request processing started at : "
 				+ LocalDateTime.now());
-
+		ResponseEntity responseEntity = null;
+		
+		if(Objects.isNull(blockId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
 		Block block = new Block();
 		block.setBlockId(blockId);
-
-		ResponseEntity responseEntity = null;
-		if (block.getBlockId() != null) {
-			blockService.delete(block);
-			responseEntity = new ResponseEntity(HttpStatus.OK);
-		} else {
-			throw new RuntimeException("Invalid ID");
-		}
+		blockService.delete(block);
+		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: BlockController Method : deleteBlockById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}

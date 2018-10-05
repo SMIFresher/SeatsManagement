@@ -3,6 +3,7 @@ package com.seatmanagement.dao;
 import java.util.List;
 import java.util.UUID;
 
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Seating;
 
 /**
@@ -16,9 +17,9 @@ import com.seatmanagement.model.Seating;
  */
 public interface SeatingDao {
 
-	public List<Seating> getAll(Seating seating, UUID block_id);
+	public List<Seating> getAll(Seating seating, UUID block_id) throws BusinessException;
 
-	public List<Seating> getAllSeating();
+	public List<Seating> getAllSeating() throws BusinessException;
 
-	public List<Seating> getSeatingByBlockId(UUID blockId);
+	public List<Seating> getSeatingByBlockId(UUID blockId) throws BusinessException;
 }

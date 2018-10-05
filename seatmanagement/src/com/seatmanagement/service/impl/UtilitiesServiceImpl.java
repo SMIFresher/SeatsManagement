@@ -2,6 +2,7 @@ package com.seatmanagement.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.UtilitiesDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Utilities;
 import com.seatmanagement.service.UtilitiesService;
@@ -48,6 +50,9 @@ public class UtilitiesServiceImpl implements UtilitiesService {
 		logger.info("Service: UtilitiesServiceImpl Method : listUtilitiesById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities result = genericDao.getById(utilities, utilityId);
+		if(Objects.isNull(result)) {
+			throw new ApplicationException("Utilities record not found");
+		}
 		logger.info(
 				"Service: UtilitiesServiceImpl Method : listUtilitiesById response sent at : " + LocalDateTime.now());
 		return result;
