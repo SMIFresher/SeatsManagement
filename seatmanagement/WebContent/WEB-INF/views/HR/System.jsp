@@ -27,6 +27,7 @@
 		<div class="row">
 			<div class="col-md-4 border">
 				<br>
+				<div class="content text-center btn btn-primary	" data-toggle="modal" data-target="#AssignEmployee" style="margin-left: 200px;">Assign Employee</div>
 				<div class="row">
 					<div class="col-md-12">
 
@@ -112,7 +113,7 @@
 							
 					
 							<button type="submit" class="btn btn-primary">Submit</button><br><br>
-							<div class="content text-center btn btn-primary	" data-toggle="modal" data-target="#AssignEmployee">Assign Employee</div>
+							
 					</form>
 
 					</div>
