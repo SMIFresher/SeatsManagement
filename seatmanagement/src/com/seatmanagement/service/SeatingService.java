@@ -6,6 +6,13 @@ import java.util.UUID;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Seating;
 
+/**
+ * 
+ * @author Sithaara Sivasankar
+ * 
+ *         Provides interface for all business logic related processing to
+ *         'Seating' model object
+ */
 public interface SeatingService {
 
 	public List<Seating> getSeatingByBlockId(Seating seating, UUID seating_id);
