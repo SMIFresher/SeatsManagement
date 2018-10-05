@@ -24,6 +24,7 @@
 </head>
 
 <body>
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="companyDetailsCount();">
 	<div class="wrapper">
 		<!-- Sidebar Holder -->
 		<jsp:include page="nav.jsp"></jsp:include>
@@ -37,13 +38,12 @@
 			<button onclick="window.print();" class="btn btn-primary">PRINT</button>
 			<hr>
 			<br>
-			<div class="row" id="compdetails" ng-app="getCompany"
-				ng-controller="getCompanyController" ng-init="getBuilding();">
-
+			
+			<div class="row">
 				<div class="col-md-12">
 					<div class="col-sm-12 bg-primary text-white">
 						<br>
-						<h4>Building Details Details</h4>
+						<h4>Building Details</h4>
 						<br>
 					</div>
 					<div class="table-responsive">
@@ -59,9 +59,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="compdetails in getCompDetails"
-									ng-init="parentIndex = $index1"
-									ng-click="getFloor(compdetails.buildingId)">
+								<tr ng-repeat="compdetails in getCompDetails" ng-click="getFloor(compdetails.buildingId)">
 									<td><span class="fa fa-bookmark text-primary"></span></td>
 									<td>{{compdetails.BuildingName}}</td>
 									<td>{{compdetails.Total_Seating_Capacity}}</td>
@@ -94,7 +92,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="compdetails in getFloorDetails" ng-init="parentIndex = $index2" ng-click="getBlock(compdetails.floorId)">
+								<tr ng-repeat="compdetails in getFloorDetails" ng-click="getBlock(compdetails.floorId)">
 
 									<td>{{compdetails.BuildingName}}</td>
 									<td>{{compdetails.FloorName}}</td>
@@ -138,58 +136,9 @@
 						</table>
 					</div>
 				</div>
+				</div>
 			</div>
 		</div>
-
-
-
-<script type="text/javascript">
-	var app = angular.module('getCompany', []);
-	//AJAX Request Type Header to prepare error response for AJAX seperately
-	app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
-	app.controller('getCompanyController', function($scope, $http) {
-
-		$scope.getBuilding = function(){ 
-
-		    $http.get("../dashboard/getAllCompanyDetailsCount")
-	        .then(function successCallback(response) {
-	            $scope.getCompDetails = response.data;
-	            console.log(response.data);
-				
-	        }, function errorCallback(response) {
-	           
-	            doModal('Some Error',response.data.ERROR_MESSAGE);
-	        });
-
-		};
-
-		$scope.getFloor = function(buildingId){ 
-		    $http.get("/seatmanagement/dashboard/getAllFloorDetailsCount?buildingId="+buildingId)
-		        .then(function successCallback(response) {
-		            $scope.getFloorDetails = response.data;
-		            console.log(response.data);
-		        }, function errorCallback(response) {
-		            alert(response.status);
-		        });
-		}
-		
-		$scope.getBlock=function(floorId){
-			$http.get("/seatmanagement/dashboard/getAllBlockDetailsCount?floorId="+floorId)
-	        .then(function successCallback(response) {
-	            $scope.getBlockDetails = response.data;
-	            console.log(response.data);
-				
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-		};
-
-	    
-	});
-
-</script>
 
 
 	</div>
@@ -236,7 +185,7 @@
 			</div>
 		</div>
 	</div>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 
 </html>

@@ -21,7 +21,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br><br>
-
+	<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="buildingDetails(); UtilitiesDetails(); blockDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -30,10 +30,7 @@
 					<div class="col-md-12">
 						<h2>Blocks</h2>
 						<form id="Form" method="post" onsubmit="formSubmit()">
-						
-							<div ng-app="Building" ng-controller="BuildingController"
-								ng-init="loadBuilding(); loadUtilities();">
-								
+														
 								<div class="form-group">
 								<label for="location">Building:</label>
 								<select name="building" ng-model="building" class="form-control"
@@ -109,15 +106,14 @@
 
 				</div>
 				<br>
-			</div>
+			
 			<div class="col-md-8">
-				<div id="block" ng-app="block" ng-controller="blockController">
+	
 
 					<table class="table table-hover">
 						<thead>
 							<td>Building Name</td>
-							<td>Floor Name</td>
-							
+							<td>Floor Name</td>  
 							<td>Block Name</td>
 							<td>Block Measurement</td>
 							<td>Block Type</td>
@@ -130,7 +126,7 @@
 						<tr ng-repeat="blk in getBlock" align="center">
 						<td>{{blk.floor.building.buildingName}}</td>
 						<td>{{blk.floor.floorName}}</td>
-						<!-- <td style="display:none;">{{blk.blockId}}</td> -->
+						<td style="display: none;">{{blk.blockId}}</td>
 						<td>{{blk.blockName}}</td>
 						<td>{{blk.blockMeasurement}}</td>
 						<td>{{blk.blockType}}</td>
@@ -149,67 +145,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<script>
-	
-	var apps= angular.module('Building',[]);
-	//AJAX Request Type Header to prepare error response for AJAX seperately
-	apps.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
-	var app = angular.module('Building', []);
-	app.controller('BuildingController', function($scope, $http) {
-		
-		$scope.loadBuilding = function(){ 
-	    $http.post("/seatmanagement/building/getAllBuildings")
-	        .then(function successCallback(response) {
-	            $scope.getBuilding = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-		}
-		
-		
-		$scope.loadUtilities = function(){ 
-		    $http.get("/seatmanagement/utilities/getAllUtilities")
-		        .then(function successCallback(response) {
-		            $scope.getUtilities = response.data;
-		            console.log(response.data);
-		        }, function errorCallback(response) {
-		            alert(response.status);
-		        });
-		}
-		
-		$scope.floorDetails=function(buildingId){
-			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
-	        .then(function successCallback(response) {
-	            $scope.getFloor = response.data;
-	            console.log(response.data);
-				
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-		};
-	
-	});
-	var app = angular.module('block', ['Building']);
-	app.controller('blockController', function($scope, $http) {
-	    $http.post("/seatmanagement/block/getAllBlocks")
-	        .then(function successCallback(response) {
-	            $scope.getBlock = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-	});
-
-	angular.element(document).ready(function() {
-	    angular.bootstrap(document.getElementById("block"), ['block']);
-	  });
-
-</script>
+</div>
 	
 <script type="text/javascript">
 function formSubmit(){
@@ -250,8 +186,8 @@ function formSubmit(){
 	);
 		 
 		
-	</script>
-
+</script>
+<script src="/seatmanagement/js/AngulerController.js"></script>
 	
 </body>
 </html>

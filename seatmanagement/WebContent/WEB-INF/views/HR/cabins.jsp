@@ -42,7 +42,7 @@
 
 
 
-<div id="viewSystems" class="content" ng-app="Systems" ng-controller="getSystemDetails">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  >
 
 <div class="container-fluid" id="redips-drag">
   <div class="row">
@@ -123,7 +123,7 @@
 
   </div>
   <div class="col-md-3 text-center" style="overflow:auto;">
-    <div id="sys" ng-app="Systems" ng-controller="getSystemDetails">
+    
       <table class="table table-borderless">
         <tbody >
            <tr>
@@ -157,7 +157,7 @@
         </tbody>
       </table>
 
-    </div>
+    
   </div>
 
 
@@ -250,44 +250,6 @@
 </div>
 </div>
 
-
-<script type="text/javascript">
-
-
-var app = angular.module('Systems', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('getSystemDetails', function($scope, $http) {
-    $http.get("getAllSystems.do")
-    .then(function(response) {
-        $scope.systems = response.data;
-        console.log(response.data);
-    },function errorCallback(response) {
-    	console.log(response.data);
-    	doModal('Some Error',response.data.ERROR_MESSAGE);
-    });
-
-    $scope.getSysDetails=function(sysno){
-    	console.log(sysno);
-		$http.get("/seatmanagement/systems/getSystem?request="+sysno)
-			.then(function(response) {
-			$scope.DetailsSystems = response.data;
-			console.log(response.data);
-		}, function errorCallback(response) {
-			console.log(response.data);
-			if (response.data.ERROR_CODE == "9002")
-				doModal('Information', "Internal server Error");
-			else
-				doModal('Some Error', response.data.ERROR_MESSAGE);
-		});
-    };    
-});
-
-
-</script>
-
 	<script type="text/javascript">
 	var seatId='<%=request.getParameter("seatingId") %>';
 	function formSubmit() {
@@ -327,7 +289,7 @@ app.controller('getSystemDetails', function($scope, $http) {
 		}
 	
 	</script>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 
 </body>
 </html>

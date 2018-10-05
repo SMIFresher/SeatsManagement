@@ -16,7 +16,7 @@
 <body>
 
 
-<div ng-app="AdditionalDevice" ng-controller="AdditionalDeviceController">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="deviceDetails();">
 
 	
 <!-- Nav Bar -->
@@ -51,7 +51,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="AdditionalDevice" ng-app="AdditionalDevice" ng-controller="AdditionalDeviceController">
+				
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -59,7 +59,7 @@
 							<td align="center">Process</td>
 						</thead>
 						<tbody align="center">
-						<tr ng-repeat="dev in getdev" align="center">
+						<tr ng-repeat="dev in getAddDev" align="center">
 						<td style="display:none;">{{dev.additional_device_id}}</td>
 						<td>{{dev.device_name}}</td>
 						<td align="center">
@@ -69,7 +69,7 @@
 						</tbody>
 					
 					</table>
-				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -84,27 +84,6 @@
 			document.getElementById('device_name').value = col1;
 		})
 	</script>
-
-
-
-
-
-<script>
-var app = angular.module('AdditionalDevice', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('AdditionalDeviceController', function($scope, $http) {
-    $http.post("/seatmanagement/Additionaldevice/getAllDevice")
-        .then(function successCallback(response) {
-            $scope.getdev = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-});
-</script>
 
 <script type="text/javascript">
 function formSubmit(){
@@ -138,8 +117,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 
 	}
 );
-	 
-	
 </script>
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

@@ -65,6 +65,23 @@ app.controller('workplaceManagementController', function($scope, $http) {
      });
 	};
 	 
+	/**
+	 * get All System by system Number
+	 */
+	$scope.getSysDetails=function(sysno){
+    	console.log(sysno);
+		$http.get("/seatmanagement/systems/getSystem?request="+sysno)
+			.then(function(response) {
+			$scope.DetailsSystems = response.data;
+			console.log(response.data);
+		}, function errorCallback(response) {
+			console.log(response.data);
+			if (response.data.ERROR_CODE == "9002")
+				doModal('Information', "Internal server Error");
+			else
+				doModal('Some Error', response.data.ERROR_MESSAGE);
+		});
+    };
 	 
 	/**
 	 * get All Building
@@ -110,7 +127,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor by Building ID
      */
     $scope.floorDetails=function(buildingId){
-        $http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
+        $http.get("/seatmanagement/floor/viewfloor/buildingId?buildingId="+buildingId)
         .then(function successCallback(response) {
             $scope.getFloor = response.data;
             console.log(response.data);
@@ -213,6 +230,33 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	        doModal('Some Error',response.data.ERROR_MESSAGE);
 	    });
     };
+    
+    /**
+     * get All Floor Details Count BuildingId
+     */
+    $scope.getFloor = function(buildingId){ 
+	    $http.get("/seatmanagement/dashboard/getAllFloorDetailsCount?buildingId="+buildingId)
+	        .then(function successCallback(response) {
+	            $scope.getFloorDetails = response.data;
+	            console.log(response.data);
+	        }, function errorCallback(response) {
+	            alert(response.status);
+	        });
+	};
+	
+	/**
+	 * get All Block Details Count FloorId
+	 */
+	$scope.getBlock=function(floorId){
+		$http.get("/seatmanagement/dashboard/getAllBlockDetailsCount?floorId="+floorId)
+        .then(function successCallback(response) {
+            $scope.getBlockDetails = response.data;
+            console.log(response.data);
+			
+        }, function errorCallback(response) {
+            alert(response.status);
+        });
+	};
     
     /**
      * get All OS Count
