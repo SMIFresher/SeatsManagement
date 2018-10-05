@@ -61,6 +61,8 @@ public class Constant {
 	public static final String HTTP_ERROR_CODE = "HTTP_ERROR_CODE";
 	public static final String ERROR_MAP = "errorMap";
 	
+	public static final String ERROR_MESSAGE_INTERNAL_SERVER_ERROR = "Internal Server Error";
+	
 	// Organisation Constants
 	public static final String ORGANISATIONS = "organisations";
 
