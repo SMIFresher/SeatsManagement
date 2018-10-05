@@ -66,8 +66,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.replace('');  
-	    	doModal("Information","Cabin Added Successfully....!");
+		    location.replace("");  
+	    	//doModal("Information","Cabin Added Successfully....!");
 		    }, 
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);

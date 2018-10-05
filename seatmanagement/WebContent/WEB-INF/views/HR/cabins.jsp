@@ -100,14 +100,14 @@
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
-	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'exit')) }">
+	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingSystemNo,'Exit')) }">
 	   				  	<div id="exit" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-bars" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
-	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'Emptydesk')) }">
+	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingSystemNo,'Emptydesk')) }">
 	   				  	<div id="Emptydesk" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-stop" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
@@ -229,8 +229,8 @@
               <h3>Are You Soure</h3>
               
               <p>Do You Want To save This Details</p>
-              <form id="Form" onsubmit="formSubmit();">
-              	<input type="text" id="saveDetails" name="seating_details">
+              <form id="Form" ng-submit="saveCabins();">
+              	<input type="hidden" id="saveDetails" name="seating_details">
              
 				<input type="submit" value="Submit" class="btn btn-primary"/>
               </form>
@@ -252,42 +252,6 @@
 
 	<script type="text/javascript">
 	var seatId='<%=request.getParameter("seatingId") %>';
-	function formSubmit() {
-
-			$.ajax({
-				url : '/seatmanagement/seatingdetails/saveInBatch?seatingId='+seatId,
-				method : 'POST',
-				contentType:'application/json',
-				data : $("#Form").serialize(),
-
-				dataType:'json',
-				success : function(data) {
-					var status = data.RESPONSE_STATUS;
-					if (status == "OK") {
-
-					}
-					if (status == "ERROR") {
-						var message = response.data.RESPONSE_MESSAGE;
-						// Business Error scenario
-						// provision to display business error message
-					}
-					console.log("dfgdgdfg");
-					location.replace('/seatmanagement/systems/EditView?seatingId='+seatId);  
-				},
-				error : function(response) {
-					var status = response.RESPONSE_STATUS;
-					var message = response.RESPONSE_MESSAGE;
-					var errorCode = response.ERROR_CODE;
-					console.log("Response Status : " + status);
-					console.log("Response Message : " + message);
-					console.log("ErrorCode : " + errorCode);
-					location.replace('/seatmanagement/systems/EditView?seatingId='+seatId); 
-				}
-				
-
-			});
-		}
-	
 	</script>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 
