@@ -117,7 +117,7 @@
 						<thead>
 							<td>Building Name</td>
 							<td>Floor Name</td>
-							<td>Block Id  </td>   
+							
 							<td>Block Name</td>
 							<td>Block Measurement</td>
 							<td>Block Type</td>
@@ -130,7 +130,7 @@
 						<tr ng-repeat="blk in getBlock" align="center">
 						<td>{{blk.floor.building.buildingName}}</td>
 						<td>{{blk.floor.floorName}}</td>
-						<td>{{blk.blockId}}</td>
+						<!-- <td style="display:none;">{{blk.blockId}}</td> -->
 						<td>{{blk.blockName}}</td>
 						<td>{{blk.blockMeasurement}}</td>
 						<td>{{blk.blockType}}</td>

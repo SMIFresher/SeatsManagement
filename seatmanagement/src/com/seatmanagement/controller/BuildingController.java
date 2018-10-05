@@ -56,7 +56,7 @@ public class BuildingController {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/build", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Building> saveOrUpdate(Building building,
+	public  ResponseEntity<Building> saveOrUpdate(Building building,
 			@RequestParam(value = "organisationId") UUID organisationId) {
 
 		logger.info("Controller: BuildingController Method : saveOrUpdate request processing started at : "

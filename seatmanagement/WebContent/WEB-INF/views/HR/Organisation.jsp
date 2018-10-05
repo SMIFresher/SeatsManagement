@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2>Seating Arrangement</h2>
+						<h2>Organisation</h2>
 						<div>
 							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
 					  		<div class="form-group">
@@ -54,13 +54,13 @@
 				<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails();">
 					<table class="table table-hover">
 						<thead align="center">
-							<td>Organization Id</td>
+						
 							<td>Organization Name</td>
 							<td align="center">Process</td>
 						</thead>
 						<tbody align="center">
 						<tr ng-repeat="org in getOrg">
-						<td>{{org.organisationId}}</td>
+						<td style="display:none;">{{org.organisationId}}</td>
 						<td>{{org.organisationName}}</td>
 						<td align="center">
 							<form method="post" ><input type="hidden" name="organisationId" value="{{org.organisationId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
