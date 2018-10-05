@@ -81,6 +81,8 @@ public class ReallocationServiceImpl implements ReallocationService {
 
 	@Override
 	public void deleteReallocationsByBlockId(UUID blockId) {
+		
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId started at : " + LocalDateTime.now());
 		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);
 
 		// Scenario 1: No reallocations mapped
@@ -94,6 +96,8 @@ public class ReallocationServiceImpl implements ReallocationService {
 				reallocationDao.deleteReallocationByBlockId(blockId);
 			}
 		}
+		
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId ended at : " + LocalDateTime.now());
 	}
 
 }

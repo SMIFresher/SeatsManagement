@@ -69,6 +69,7 @@ public class TeamServiceImpl implements TeamService {
 
 	@Override
 	public List<Team> getAll() {
+		logger.info("Service: TeamServiceImpl Method : getAll started at : " + LocalDateTime.now());
 		// TODO Auto-generated method stub
 		Team team = new Team();
 		List<Team> teams = genericDao.getAll(team);
@@ -82,6 +83,8 @@ public class TeamServiceImpl implements TeamService {
 				}
 			}
 		}
+		
+		logger.info("Service: TeamServiceImpl Method : getAll ended at : " + LocalDateTime.now());
 
 		return teams;
 	}
@@ -128,7 +131,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public void deleteTeamById(UUID teamId) {
 		logger.info(
-				"Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
+				"Service: TeamServiceImpl Method : deleteTeamById started at : " + LocalDateTime.now());
 
 		Team team = new Team();
 
@@ -137,7 +140,7 @@ public class TeamServiceImpl implements TeamService {
 		genericDao.delete(team);
 
 		logger.info(
-				"Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());
+				"Service: TeamServiceImpl Method : deleteTeamById ended at : " + LocalDateTime.now());
 	}
 
 }

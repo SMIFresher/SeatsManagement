@@ -51,9 +51,14 @@ public class TeamDaoImpl implements TeamDao {
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<Team> getAll() {
+		
+		logger.info("DAO: TeamDaoImpl Method : getAll started at : " + LocalDateTime.now());
 
 		List<Team> teamList = new ArrayList<>();
 		teamList = (List<Team>) hibernateTemplate.find("From Team");
+		
+		logger.info("DAO: TeamDaoImpl Method : getAll ended at : " + LocalDateTime.now());
+		
 		return teamList;
 	}
 
