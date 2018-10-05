@@ -49,7 +49,9 @@
 </div>
 
 
-
+<script type="text/javascript">
+doModal("header","message");
+</script>
 
 
 
@@ -74,7 +76,7 @@
           	</div>
           	<div class="col-sm-8 cc">
           		<div class="row text-center">
-          			<div class="col-sm-12" ng-repeat="flr in getFloor | orderBy : '-floorName'">
+          			<div class="col-sm-12" ng-repeat="flr in getFloor">
           				<a href="/seatmanagement/seating/getSeatingView?floorId={{flr.floorId}}">
           				<div class="container flr">
 							<h4>{{flr.floorName}}</h4>
@@ -98,7 +100,7 @@
   <div class="modal fade" id="AddBuilding">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      <form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+      <form id="Form" method="post" autocomplete="off" ng-submit="saveBuildings();">
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add Buliding</h4>
@@ -120,7 +122,7 @@
                   <div class="form-group">
                     <label for="buildingName">Building Name :</label> <input
                       type="text" class="form-control" id="buildingName"
-                      name="buildingName" required="required"
+                      name="buildingName" ng-model="building.buildingName" required="required"
                       placeholder="Building Name">
                   </div>
                   <div class="form-group">
@@ -159,27 +161,6 @@
   </div>
   
 </div>
-
-
-<script type="text/javascript">
-function formSubmit(){
-	var select_id = document.getElementById("org");
-	
- $.ajax({
-     url:'/seatmanagement/building/build',
-     method : 'POST',
-     async: false,
-     data: $("#Form").serialize(),
-     success: function (data) {
-            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-    }
- 	
-});
-}
-
-
-
-</script>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 
 </body>

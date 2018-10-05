@@ -8,7 +8,29 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 
 app.controller('workplaceManagementController', function($scope, $http) {
 	
-	
+
+	/**
+	 * Save Building
+	 */
+	 $scope.saveBuildings = function(){ 
+		 $http({
+		        url: '/seatmanagement/building/build',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	doModal("Information","Building Added Successfully");
+		    }, 
+		    function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+		    });
+	 };
+
+	 
+	 
 	/**
 	 * Get all Devices
 	 */
@@ -19,7 +41,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            $scope.getAddDev = response.data;
 	            console.log(response.data);
 	        }, function errorCallback(response) {
-	            alert(response.status);
+	        	doModal("Information",response.data.ERROR_MESSAGE);
         });
 	  };
 	    
@@ -168,7 +190,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor Details By Floor ID
      */
     $scope.FloorDetailsById = function() {
-	    $http.get("/seatmanagement/floor/getFloorById?FloorId="+gett())
+	    $http.get("/seatmanagement/floor/viewfloor/floorId?FloorId="+gett())
 	    .then(function(response) {
 	        $scope.FloorDetails = response.data;
 	        console.log(response.data);
