@@ -50,15 +50,10 @@ public class UtilitiesController {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/saveUtilities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Utilities> saveOrUpdate(Utilities utilities,Errors errors) throws BusinessException{
+	public ResponseEntity<Utilities> saveOrUpdate(Utilities utilities) throws BusinessException{
 		logger.info("Controller: UtilitiesController Method : saveUtilities request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
-		// Validation
-				if (errors.hasErrors()) {
-					throw new BusinessException(errors);
-				}
-
 		utilitiesService.saveOrUpdate(utilities);
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: UtilitiesController Method : saveUtilities response sent at : " + LocalDateTime.now());
@@ -93,13 +88,14 @@ public class UtilitiesController {
 		logger.info("Controller: UtilitiesController Method : getUtilitiesById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities utilities = new Utilities();
-		utilities = utilitiesService.getById(utilities, utilityId);
 		ResponseEntity responseEntity = null;
 		if (!(utilities.getUtilityId() == null)) {
+			utilities = utilitiesService.getById(utilities, utilityId);
 			responseEntity = new ResponseEntity<Utilities>(utilities, HttpStatus.OK);
 		} else {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+	
 		logger.info(
 				"Controller: UtilitiesController Method : getUtilitiesById response sent at : " + LocalDateTime.now());
 		return responseEntity;
