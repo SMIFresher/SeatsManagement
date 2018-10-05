@@ -17,11 +17,26 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.model.Constant;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ *         Second and last filter in Exception Handling. Generates appropriate
+ *         error responses for AJAX and Non AJAX requests
+ *
+ */
 @Controller
 public class ExceptionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
 
+	/**
+	 * 
+	 * Generates error response for Non AJAX requests
+	 * 
+	 * @param httpRequest
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "errors")
 	public ModelAndView renderErrorPageForNonAJAX(HttpServletRequest httpRequest) {
 
@@ -42,7 +57,7 @@ public class ExceptionHandler {
 				applicationErrorCode = 9001;
 			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
 				applicationErrorCode = 9002;
-			}	else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
+			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
 				applicationErrorCode = 9003;
 			}
 
@@ -72,11 +87,11 @@ public class ExceptionHandler {
 		logger.error("Error Description : " + errorMsg);
 
 		errorMap.put(Constant.EXCEPTION_MESSAGE, errorMsg);
-		
-		if(applicationErrorCode!= 0) {
+
+		if (applicationErrorCode != 0) {
 			errorMap.put(Constant.RESPONSE_ERROR_CODE, applicationErrorCode);
 		}
-		
+
 		errorPage.addObject(Constant.HTTP_ERROR_CODE, httpErrorCode);
 		errorPage.addObject(Constant.ERROR_MAP, errorMap);
 
@@ -90,6 +105,12 @@ public class ExceptionHandler {
 	// headers = "X-Requested-With=XMLHttpRequest","RequestType=AJAX",
 	// "Accept=application/json"
 
+	/**
+	 * Generates error response for AJAX requests
+	 * 
+	 * @param httpRequest
+	 * @return ResponseEntity
+	 */
 	@RequestMapping(value = "errors", headers = { "RequestType=AJAX" })
 	public ResponseEntity renderErrorMessagesForAJAX(HttpServletRequest httpRequest) {
 
@@ -105,7 +126,7 @@ public class ExceptionHandler {
 		if (StringUtils.isNotBlank(exceptionType)) {
 
 			errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
-			
+
 			if (exceptionType.equals(Constant.EXCEPTION_TYPE_BUSINESS)) {
 				applicationErrorCode = 9000;
 				httpStatus = HttpStatus.valueOf(httpErrorCode);
@@ -149,13 +170,13 @@ public class ExceptionHandler {
 		logger.error("Error logged in Class : ExceptionHandler, Method : renderErrorMessagesForAJAX () at "
 				+ LocalDateTime.now());
 		logger.error("Error Description : " + errorMsg);
-		
+
 		errorMap.put(Constant.RESPONSE_ERROR_MESSAGE, errorMsg);
-		
-		if(applicationErrorCode != 0) {
+
+		if (applicationErrorCode != 0) {
 			errorMap.put(Constant.RESPONSE_ERROR_CODE, applicationErrorCode);
-		}		
-		
+		}
+
 		model = new ResponseEntity(errorMap, httpStatus);
 
 		return model;

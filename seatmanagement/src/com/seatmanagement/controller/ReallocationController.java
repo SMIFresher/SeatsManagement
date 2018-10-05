@@ -14,6 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.service.ReallocationService;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ *         This class gets all requests for 'Reallocation' model object and
+ *         delegates to service classes for business processing
+ *
+ */
 @Controller
 @RequestMapping("/reallocation")
 public class ReallocationController {
@@ -23,6 +31,11 @@ public class ReallocationController {
 	@Autowired
 	private ReallocationService reallocationService;
 
+	/**
+	 * 
+	 * @param employeeId
+	 * @return ModelAndView
+	 */
 	@RequestMapping("/getReallocationByEmployeeId")
 	public ModelAndView getReallocationByEmployeeId(@ModelAttribute String employeeId) {
 
@@ -31,7 +44,7 @@ public class ReallocationController {
 						+ LocalDateTime.now());
 
 		ModelAndView model = null;
-		
+
 		if (StringUtils.isBlank(employeeId)) {
 			throw new RuntimeException("Required Params not present");
 		}
@@ -42,18 +55,21 @@ public class ReallocationController {
 
 		model.addObject("reallocation", reallocation);
 
-		logger.info(
-				"Controller: ReallocationController Method : getReallocationByEmployeeId response sent at : "
-						+ LocalDateTime.now());
+		logger.info("Controller: ReallocationController Method : getReallocationByEmployeeId response sent at : "
+				+ LocalDateTime.now());
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param reallocation
+	 * @return ModelAndView
+	 */
 	@RequestMapping("/saveReallocation")
 	public ModelAndView saveReallocation(@ModelAttribute Reallocation reallocation) {
-		
-		logger.info(
-				"Controller: ReallocationController Method : saveReallocation request processing started at : "
-						+ LocalDateTime.now());
+
+		logger.info("Controller: ReallocationController Method : saveReallocation request processing started at : "
+				+ LocalDateTime.now());
 
 		ModelAndView model = null;
 
@@ -61,20 +77,23 @@ public class ReallocationController {
 
 		reallocationService.saveReallocation(reallocation);
 
-		logger.info(
-				"Controller: ReallocationController Method : saveReallocation response sent at : "
-						+ LocalDateTime.now());
+		logger.info("Controller: ReallocationController Method : saveReallocation response sent at : "
+				+ LocalDateTime.now());
 
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param reallocation
+	 * @return ModelAndView
+	 */
 	@RequestMapping("/updateReallocation")
 	public ModelAndView updateReallocation(@ModelAttribute Reallocation reallocation) {
-		
-		logger.info(
-				"Controller: ReallocationController Method : updateReallocation request processing started at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Controller: ReallocationController Method : updateReallocation request processing started at : "
+				+ LocalDateTime.now());
+
 		ModelAndView model = null;
 
 		if (null == reallocation) {
@@ -85,20 +104,23 @@ public class ReallocationController {
 
 		reallocationService.updateReallocation(reallocation);
 
-		logger.info(
-				"Controller: ReallocationController Method : updateReallocation response sent at : "
-						+ LocalDateTime.now());
-		
+		logger.info("Controller: ReallocationController Method : updateReallocation response sent at : "
+				+ LocalDateTime.now());
+
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param reallocation
+	 * @return ModelAndView
+	 */
 	@RequestMapping("/deleteReallocation")
 	public ModelAndView deleteReallocation(@ModelAttribute Reallocation reallocation) {
-		
-		logger.info(
-				"Controller: ReallocationController Method : deleteReallocation request processing started at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Controller: ReallocationController Method : deleteReallocation request processing started at : "
+				+ LocalDateTime.now());
+
 		ModelAndView model = null;
 
 		if (null == reallocation) {
@@ -109,9 +131,8 @@ public class ReallocationController {
 
 		reallocationService.deleteReallocation(reallocation);
 
-		logger.info(
-				"Controller: ReallocationController Method : deleteReallocation response sent at : "
-						+ LocalDateTime.now());
+		logger.info("Controller: ReallocationController Method : deleteReallocation response sent at : "
+				+ LocalDateTime.now());
 
 		return model;
 	}

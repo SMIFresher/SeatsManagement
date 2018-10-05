@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -22,9 +20,16 @@ import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ *         Model object to represent a team
+ *
+ */
 @Entity
 @Table(name = "team")
-public class Team implements Serializable{
+public class Team implements Serializable {
 
 	@Id
 	@Column(name = "team_id")
@@ -38,20 +43,20 @@ public class Team implements Serializable{
 
 	@Column(name = "team_head")
 	private String teamHead;
-	
+
 	@Transient
 	private UUID teamHeadEmployeeId;
 
 	@Transient
 	private Integer teamMembersCount;
-	
-	@OneToMany(mappedBy="team", fetch=FetchType.EAGER)
+
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
 	@JsonIgnore
-    private Set<Employee> employees;
-	
+	private Set<Employee> employees;
+
 	@ManyToOne
 	@JoinColumn(name = "organisation_id")
-    private Organisation organisation;
+	private Organisation organisation;
 
 	public UUID getTeamHeadEmployeeId() {
 		return teamHeadEmployeeId;

@@ -16,6 +16,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ *         Model object to represent a Reallocation request
+ *
+ */
 @Entity
 @Table(name = "reallocation")
 public class Reallocation implements Serializable {
@@ -28,14 +35,12 @@ public class Reallocation implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID reallocationId;
 
-	 
-	
-	@OneToOne(cascade=CascadeType.ALL)  
-    @JoinColumn(name="reallocated_block_id") 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "reallocated_block_id")
 	private Block block;
 
-	@OneToOne(cascade=CascadeType.ALL)  
-    @JoinColumn(name="seating_detail_id") 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "seating_detail_id")
 	private SeatingDetails seatingDetails;
 
 	@Column(name = "reallocation_date")
@@ -46,7 +51,7 @@ public class Reallocation implements Serializable {
 
 	@Column(name = "alloted_by")
 	private String allotedBy;
-	
+
 	@Column(name = "reallocated_position")
 	private String reallocatedPosition;
 

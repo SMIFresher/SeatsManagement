@@ -17,8 +17,8 @@ import com.seatmanagement.service.OrganisationService;
  * 
  * @author Vijayakumar Selvaraj
  * 
- * This class provides implementation for all business logic related
- * processing to 'Organisation' model object
+ *         This class provides implementation for all business logic related
+ *         processing to 'Organisation' model object
  *
  */
 public class OrganisationServiceImpl implements OrganisationService {
@@ -40,35 +40,37 @@ public class OrganisationServiceImpl implements OrganisationService {
 
 	@Override
 	public List<Organisation> getAllOrganisations() {
-		
-		logger.info("Service: OrganisationServiceImpl Method : getAllOrganisations started at : " + LocalDateTime.now());
+
+		logger.info(
+				"Service: OrganisationServiceImpl Method : getAllOrganisations started at : " + LocalDateTime.now());
 
 		Organisation organisation = new Organisation();
-		
+
 		List<Organisation> organisations = genericDao.getAll(organisation);
 
 		logger.info("Service: OrganisationServiceImpl Method : getAllOrganisations ended at : " + LocalDateTime.now());
-		
+
 		return organisations;
 	}
 
 	@Override
 	public Organisation getOrganisationById(UUID organisationId) {
-		logger.info("Service: OrganisationServiceImpl Method : getOrganisationById started at : " + LocalDateTime.now());
-	
+		logger.info(
+				"Service: OrganisationServiceImpl Method : getOrganisationById started at : " + LocalDateTime.now());
+
 		Organisation organisation = null;
-		
+
 		organisation = (Organisation) genericDao.getById(organisation, organisationId);
 
 		logger.info("Service: OrganisationServiceImpl Method : getOrganisationById ended at : " + LocalDateTime.now());
-		
+
 		return organisation;
 	}
 
 	@Override
 	public void updateOrganisation(Organisation organisation) {
 		logger.info("Service: OrganisationServiceImpl Method : updateOrganisation started at : " + LocalDateTime.now());
-		
+
 		genericDao.saveOrUpdate(organisation);
 
 		logger.info("Service: OrganisationServiceImpl Method : updateOrganisation ended at : " + LocalDateTime.now());
@@ -76,21 +78,23 @@ public class OrganisationServiceImpl implements OrganisationService {
 
 	@Override
 	public void deleteOrganisationById(UUID organisationId) {
-		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
-		
+		logger.info(
+				"Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
+
 		Organisation organisation = (Organisation) genericDao.getById(new Organisation(), organisationId);
-		
+
 		// Scenario 1 : Organisation does not exist
-		if(Objects.isNull(organisation)) {
-			
+		if (Objects.isNull(organisation)) {
+
 		}
 		// Scenario 2 : Organisation exists
 		else {
-			
+
 			genericDao.delete(organisation);
 		}
 
-		logger.info("Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());		
+		logger.info(
+				"Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());
 	}
 
 }

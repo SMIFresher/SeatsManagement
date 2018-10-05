@@ -13,17 +13,16 @@ import org.slf4j.LoggerFactory;
 
 import com.seatmanagement.model.Employee;
 
-
 /**
  * 
  * @author Vijayakumar Selvaraj
  *
- * Util class to parse XML documents using Dom4j API
+ *         Util class to parse XML documents using Dom4j API
  */
 public class XMLParser {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(XMLParser.class);
-	
+
 	/**
 	 * 
 	 * Parses Employee objects from XML file
@@ -31,11 +30,11 @@ public class XMLParser {
 	 * @return List<Employee>
 	 */
 	public static List<Employee> parseEmployees() {
-		
+
 		logger.info("Begining parsing employees from XML");
-		
+
 		List<Employee> employees = null;
-		
+
 		try {
 			// Must replace with rest call
 			File inputFile = new File("D:\\Vijay\\DBXML\\employees.xml");
@@ -44,30 +43,30 @@ public class XMLParser {
 
 			// Select all employee Nodes
 			List<Node> nodes = document.selectNodes("/employees/employee");
-			
-			if(null != nodes && !nodes.isEmpty()) {
+
+			if (null != nodes && !nodes.isEmpty()) {
 				employees = new ArrayList<Employee>();
 
 				for (Node node : nodes) {
 					Employee employee = new Employee();
-					
+
 					employee.setFirstName(node.selectSingleNode("firstName").getText());
 					employee.setLastName(node.selectSingleNode("lastName").getText());
 					employee.setEmployeeRoll(node.selectSingleNode("empId").getText());
 					// Must add remaining employee fields
-					
+
 					employees.add(employee);
 				}
 			}
-			
+
 			logger.info("Parsing employees from XML finished");
 		} catch (DocumentException e) {
 			logger.error("Exception during Employees XML parsing : " + e.getMessage());
-    		logger.error("Exception : ", e);
+			logger.error("Exception : ", e);
 		}
 		return employees;
 	}
-	
+
 	public static void main(String args[]) {
 		logger.info("info log");
 		logger.error("error log");
