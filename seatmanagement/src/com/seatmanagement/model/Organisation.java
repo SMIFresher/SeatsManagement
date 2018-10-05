@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 
  * @author Vijayakumar Selvaraj
  * 
- * Model object to represent an organisation
+ *         Model object to represent an organisation
  *
  */
 @Entity
@@ -33,7 +33,7 @@ public class Organisation implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "organisation_id")
 	@Type(type = "uuid-char")
@@ -45,17 +45,17 @@ public class Organisation implements Serializable {
 	@NotNull(message = "Organisation name can not be null")
 	@Column(name = "organisation_name")
 	private String organisationName;
-	
-	 @OneToMany(mappedBy="organisation")
-	 @JsonIgnore
+
+	@OneToMany(mappedBy = "organisation")
+	@JsonIgnore
 	private Set<Building> buildings;
-	 
-	 @OneToMany(mappedBy="organisation")
-	 @JsonIgnore
+
+	@OneToMany(mappedBy = "organisation")
+	@JsonIgnore
 	private Set<Team> teams;
-	 
-	 @OneToMany(mappedBy="organisation")
-	 @JsonIgnore
+
+	@OneToMany(mappedBy = "organisation")
+	@JsonIgnore
 	private Set<Employee> employees;
 
 	public Set<Employee> getEmployees() {
@@ -97,5 +97,5 @@ public class Organisation implements Serializable {
 	public void setBuildings(Set<Building> buildings) {
 		this.buildings = buildings;
 	}
-	 
+
 }

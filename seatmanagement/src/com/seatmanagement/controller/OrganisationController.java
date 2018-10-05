@@ -1,9 +1,7 @@
 package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,10 +17,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Organisation;
@@ -32,8 +28,8 @@ import com.seatmanagement.service.OrganisationService;
  * 
  * @author Vijayakumar Selvaraj
  * 
- * This class gets all requests for 'Organisation' model object and delegates to service classes 
- * for business processing
+ *         This class gets all requests for 'Organisation' model object and
+ *         delegates to service classes for business processing
  *
  */
 @Controller
@@ -45,20 +41,31 @@ public class OrganisationController {
 	@Autowired
 	private OrganisationService organisationService;
 
+	/**
+	 * 
+	 * @return ModelAndView
+	 */
 	@RequestMapping("/getOrganisationView")
-	public ModelAndView getOrganisationView(){
+	public ModelAndView getOrganisationView() {
 
 		logger.info("Controller: OrganisationController Method : getOrganisationView request processing started at : "
 				+ LocalDateTime.now());
 
 		ModelAndView model = new ModelAndView("/HR/Organisation");
-		
+
 		logger.info("Controller: OrganisationController Method : getOrganisationView response sent at : "
 				+ LocalDateTime.now());
 
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param organisation
+	 * @param errors
+	 * @return ResponseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping("/saveOrganisation")
 	public ResponseEntity saveOrganisation(@Valid Organisation organisation, Errors errors) throws BusinessException {
 
@@ -83,6 +90,10 @@ public class OrganisationController {
 		return model;
 	}
 
+	/**
+	 * 
+	 * @return ResponseEntity
+	 */
 	@RequestMapping("/getAllOrganisations")
 	public ResponseEntity getAllOrganisations() {
 
@@ -102,6 +113,12 @@ public class OrganisationController {
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param organisationId
+	 * @return ResponseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping("/getOrganisationById")
 	public ResponseEntity getOrganisationById(@ModelAttribute UUID organisationId) throws BusinessException {
 
@@ -117,8 +134,7 @@ public class OrganisationController {
 
 		Organisation organisation = organisationService.getOrganisationById(organisationId);
 
-		
-		model = new ResponseEntity (organisation, HttpStatus.OK);
+		model = new ResponseEntity(organisation, HttpStatus.OK);
 
 		logger.info("Controller: OrganisationController Method : getOrganisationById response sent at : "
 				+ LocalDateTime.now());
@@ -126,6 +142,12 @@ public class OrganisationController {
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param organisation
+	 * @return ResponseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping("/updateOrganisation")
 	public ResponseEntity updateOrganisation(@ModelAttribute Organisation organisation) throws BusinessException {
 
@@ -149,6 +171,12 @@ public class OrganisationController {
 		return model;
 	}
 
+	/**
+	 * 
+	 * @param organisationId
+	 * @return ResponseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping("/deleteOrganisationById")
 	public ResponseEntity deleteOrganisationById(@RequestParam(value = "organisationId") UUID organisationId)
 			throws BusinessException {

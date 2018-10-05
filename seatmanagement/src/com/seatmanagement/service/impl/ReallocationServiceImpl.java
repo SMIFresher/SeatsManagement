@@ -15,91 +15,89 @@ import com.seatmanagement.dao.ReallocationDao;
 import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.service.ReallocationService;
 
+/**
+ * 
+ * @author Vijayakumar Selvaraj
+ * 
+ *         This class provides implementation for all business logic related
+ *         processing to 'Reallocation' model object
+ *
+ */
 @Service
-public class ReallocationServiceImpl implements ReallocationService{
+public class ReallocationServiceImpl implements ReallocationService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReallocationServiceImpl.class);
-	
+
 	@Autowired
 	private ReallocationDao reallocationDao;
-	
+
 	@Autowired
 	private GenericDao genericDao;
-	
+
 	@Override
 	public Reallocation getReallocationByEmployeeId(String employeeId) {
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : getReallocationByEmployeeId started at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Service: ReallocationServiceImpl Method : getReallocationByEmployeeId started at : "
+				+ LocalDateTime.now());
+
 		// Must implement logic through employee dao
 		Reallocation reallocation = reallocationDao.getReallocationByEmployeeId(employeeId);
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : getReallocationByEmployeeId ended at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Service: ReallocationServiceImpl Method : getReallocationByEmployeeId ended at : "
+				+ LocalDateTime.now());
+
 		return reallocation;
 	}
 
 	@Override
 	public void saveReallocation(Reallocation reallocation) {
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : saveReallocation started at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Service: ReallocationServiceImpl Method : saveReallocation started at : " + LocalDateTime.now());
+
 		genericDao.saveOrUpdate(reallocation);
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : saveReallocation ended at : "
-						+ LocalDateTime.now());
+
+		logger.info("Service: ReallocationServiceImpl Method : saveReallocation ended at : " + LocalDateTime.now());
 	}
 
 	@Override
 	public void updateReallocation(Reallocation reallocation) {
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : updateReallocation started at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Service: ReallocationServiceImpl Method : updateReallocation started at : " + LocalDateTime.now());
+
 		genericDao.saveOrUpdate(reallocation);
-	
-		logger.info(
-				"Service: ReallocationServiceImpl Method : updateReallocation ended at : "
-						+ LocalDateTime.now());
+
+		logger.info("Service: ReallocationServiceImpl Method : updateReallocation ended at : " + LocalDateTime.now());
 	}
 
 	@Override
 	public void deleteReallocation(Reallocation reallocation) {
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : deleteReallocation started at : "
-						+ LocalDateTime.now());
-		
+
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocation started at : " + LocalDateTime.now());
+
 		genericDao.delete(reallocation);
-		
-		logger.info(
-				"Service: ReallocationServiceImpl Method : deleteReallocation ended at : "
-						+ LocalDateTime.now());
+
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocation ended at : " + LocalDateTime.now());
 	}
 
 	@Override
 	public void deleteReallocationsByBlockId(UUID blockId) {
-		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);
 		
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId started at : " + LocalDateTime.now());
+		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);
+
 		// Scenario 1: No reallocations mapped
-		if(Objects.isNull(reallocations) || reallocations.isEmpty()) {
-			
+		if (Objects.isNull(reallocations) || reallocations.isEmpty()) {
+
 		}
 		// Scenario 2 : Reallocations mapped
 		else {
-			for(Reallocation reallocation : reallocations) {
-				
+			for (Reallocation reallocation : reallocations) {
+
 				reallocationDao.deleteReallocationByBlockId(blockId);
 			}
 		}
+		
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId ended at : " + LocalDateTime.now());
 	}
 
 }

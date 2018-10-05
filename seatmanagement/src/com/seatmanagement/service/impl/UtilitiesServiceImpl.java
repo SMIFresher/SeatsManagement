@@ -27,7 +27,7 @@ public class UtilitiesServiceImpl implements UtilitiesService {
 	}
 */
 	@Override
-	public boolean saveOrUpdate(Utilities utilities) {
+	public Utilities saveOrUpdate(Utilities utilities) {
 		
 		return genericDao.saveOrUpdate(utilities);
 	}

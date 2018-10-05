@@ -47,7 +47,7 @@ public class BlockServiceImpl implements BlockService {
 	@Autowired
 	ReallocationService reallocationService;
 
-	public boolean saveOrUpdate(Block block,UUID floor_id,List<UUID> utilitiesUUIDs) throws BusinessException {
+	public Block saveOrUpdate(Block block,UUID floor_id,List<UUID> utilitiesUUIDs) throws BusinessException {
 		
 	
 			Floor floor =  new Floor();

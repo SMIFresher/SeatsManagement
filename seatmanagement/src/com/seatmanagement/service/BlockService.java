@@ -18,7 +18,7 @@ import com.seatmanagement.model.Systems;
  */
 public interface BlockService {
 
-	public boolean saveOrUpdate(Block block,UUID floorId,List<UUID> utilitiesUUIDs) throws BusinessException;
+	public Block saveOrUpdate(Block block,UUID floorId,List<UUID> utilitiesUUIDs) throws BusinessException;
 
 	public List<Block> getAll();
 
