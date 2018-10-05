@@ -22,7 +22,13 @@ import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
 import com.seatmanagement.service.impl.SystemServiceImpl;
 
-
+/**
+ * 
+ * @author Prithivi raj
+ * 		This class gets all requests for 'system' model object and delegates to
+ *      service classes for business processing
+ *
+ */
 @RestController
 @RequestMapping("/systems")
 public class SystemController {
@@ -30,12 +36,16 @@ public class SystemController {
 	@Autowired
 	private SystemService systemService;
 	
-	
 	@Autowired
 	SeatingDetailsService seatingDetailsService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(SystemController.class);
 	
+	/**
+	 * 
+	 * @return ResponseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping("getAllSystems.do")
 	public ResponseEntity getAllEmployees() throws BusinessException {
 		
@@ -52,6 +62,11 @@ public class SystemController {
 		return responseEntity;
 	}
 	
+	
+	/**
+	 * 
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value="/EditView")
 	public ModelAndView getView(){
 		
@@ -65,6 +80,13 @@ public class SystemController {
 		return mav;
 	}
 	
+	
+	/**
+	 * 
+	 * @param seatingId
+	 * @return ModelAndView
+	 * @throws BusinessException
+	 */
 	@RequestMapping(value="/View")
 	public ModelAndView View(@RequestParam("seatingId") String seatingId)throws BusinessException {
 		
@@ -75,12 +97,21 @@ public class SystemController {
 		logger.info("controller: SystemController Method : View response sent at :  : " + LocalDateTime.now());
 		return mav;
 	}
-
+	
+	
+	/**
+	 * 
+	 * @param system
+	 * @param employeeId
+	 * @param additionalDevicesUUIDs
+	 * @return responseEntity
+	 * @throws BusinessException
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
 	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system, 
 			@RequestParam(value="employeeId" , required=false) UUID employeeId,
-			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) {
+			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) throws BusinessException {
 		
 		logger.info("controller: SystemController Method : saveOrUpdateSystems request processing started at : " + LocalDateTime.now());
 		
@@ -90,19 +121,28 @@ public class SystemController {
 			responseEntity = new ResponseEntity(HttpStatus.OK);
 		}
 		else{
-			throw new RuntimeException("Cant save/update");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		
 		logger.info("controller: SystemController Method : saveOrUpdateSystems response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
 	
+	/**
+	 * 
+	 * @param system
+	 * @param systemId
+	 * @param employeeId
+	 * @param additionalDevicesUUIDs
+	 * @return responseEntity
+	 * @throws BusinessException
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/assignEmployee",method=RequestMethod.POST )
 	public ResponseEntity<Systems> saveOrUpdateSystems1(Systems system, 
-			@RequestParam(value="systemId" , required=false) UUID systemId,
-			@RequestParam(value="employeeId" , required=false) UUID employeeId,
-			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) {
+			@RequestParam(value="systemId" , required=true) UUID systemId,
+			@RequestParam(value="employeeId" , required=true) UUID employeeId,
+			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) throws BusinessException {
 		
 		logger.info("controller: SystemController Method : saveOrUpdateSystems1 request processing started at : " + LocalDateTime.now());
 		
@@ -115,15 +155,21 @@ public class SystemController {
 			responseEntity = new ResponseEntity(HttpStatus.OK);
 		}
 		else{
-			throw new RuntimeException("Cant save/update");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		
 		logger.info("controller: SystemController Method : saveOrUpdateSystems1 response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
 	
+	/**
+	 * 
+	 * @param systemId
+	 * @return responseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping(value="/getSystemById",method=RequestMethod.GET)
-	public ResponseEntity getSystemById(@RequestParam UUID systemId){
+	public ResponseEntity getSystemById(@RequestParam UUID systemId) throws BusinessException{
 		
 		logger.info("controller: SystemController Method : getSystemById request processing started at : " + LocalDateTime.now());
 		
@@ -134,15 +180,21 @@ public class SystemController {
 			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
 		}
 		else{
-					throw new RuntimeException("Invalid System ID");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 		
 		logger.info("controller: SystemController Method : getSystemById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @return responseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping(value="/getSystem",method=RequestMethod.GET)
-	public ResponseEntity getSystem(@RequestParam String request){
+	public ResponseEntity getSystem(@RequestParam String request) throws BusinessException{
 		
 		logger.info("controller: SystemController Method : getSystem request processing started at : " + LocalDateTime.now());
 		
@@ -153,7 +205,7 @@ public class SystemController {
 			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
 		}
 		else{
-					throw new RuntimeException("Invalid System ID");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 			}
 		
 		logger.info("controller: SystemController Method : getSystem response sent at : " + LocalDateTime.now());
@@ -175,8 +227,15 @@ public class SystemController {
 		return responseEntity;
 	}
 	*/
+	
+	/**
+	 * 
+	 * @param systemId
+	 * @return responseEntity
+	 * @throws BusinessException
+	 */
 	@RequestMapping(value="/deleteById",method=RequestMethod.GET)
-	public ResponseEntity deleteSystemById(@RequestParam UUID systemId){
+	public ResponseEntity deleteSystemById(@RequestParam UUID systemId) throws BusinessException{
 		
 		logger.info("controller: SystemController Method : deleteSystemById request processing started at : " + LocalDateTime.now());
 		
@@ -188,13 +247,18 @@ public class SystemController {
 		responseEntity = new ResponseEntity(systemService.delete(system),HttpStatus.OK);
 		}
 		else{
-			throw new RuntimeException("Invalid ID");
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		
 		logger.info("controller: SystemController Method : deleteSystemById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
 
+	/**
+	 * 
+	 * @return responseEntity
+	 * @throws BusinessException
+	 */
  @SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getOs", method = RequestMethod.GET)
 	public ResponseEntity getOscount() throws BusinessException {
@@ -214,6 +278,11 @@ public class SystemController {
 		return responseEntity;
 	}
 
+ 
+ 	/**
+ 	 * 
+ 	 * @return ModelAndView
+ 	 */
 	@RequestMapping(value = "/addSystem")
 	public ModelAndView getAddsystem() {
 		
@@ -222,6 +291,10 @@ public class SystemController {
 		return new ModelAndView("/HR/System");
 	}
 	
+	/**
+	 * 
+	 * @return ModelAndView
+	 */
 	@RequestMapping(value = "/getModifySystem")
 	public ModelAndView getModifySystem() {
 		
