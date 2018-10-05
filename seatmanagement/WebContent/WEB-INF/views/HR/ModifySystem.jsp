@@ -21,15 +21,14 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
-
+<div  ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="deviceDetails(); systemDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
 				<br>
 				<div class="row">
 					<div class="col-md-12">
-						<div id="systemModify" ng-app="SystemModify"
-							ng-controller="SystemModifyController" ng-init="loadInitially()">
+						
 							<h2>Modify System</h2>
 							<form id="Form" method="post" onsubmit="formSubmit()"
 								autocomplete="off">
@@ -87,14 +86,11 @@
 
 								<button type="submit" class="btn btn-primary">Update</button>
 							</form>
-
-						</div>
 					</div>
 				</div>
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="system" ng-app="System" ng-controller="SystemController">
 
 					<table class="table table-hover">
 					
@@ -109,7 +105,7 @@
 						<!-- 	<td align="center">Process</td> -->
 						</thead>
 						<tbody>
-							<tr ng-repeat="system in getSystem">
+							<tr ng-repeat="system in getsystem">
 								<td style="display:none;">{{system.systemId}}</td>
 								<td>{{system.employee.employeeRoll}}</td>
 								<td>{{system.employee.team.teamName}}</td>
@@ -137,8 +133,9 @@
 
 
 
-	<script type="text/javascript">
-  $('.table tbody').on('click','tr',function() {
+<script type="text/javascript">
+
+$('.table tbody').on('click','tr',function() {
     var currow=$(this).closest('tr');
     var  col1=currow.find('td:eq(0)').text();
     var  col2=currow.find('td:eq(1)').text();
@@ -163,57 +160,9 @@
  	/* document.getElementById('adDevice').value=col10;  */
   })
 
-  
- var apps= angular.module('SystemModify',[]);
-  
 
-//AJAX Request Type Header to prepare error response for AJAX seperately
-apps.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-	
-apps.controller('SystemModifyController', function($scope, $http) {
-$scope.systemDefault="";
-$scope.networkDefault="";
-$scope.osDefault="";
-
-
-$scope.loadInitially = function(){ 
-    $http.post("/seatmanagement/Additionaldevice/getAllDevice")
-        .then(function successCallback(response) {
-            $scope.getAddDev = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-	};
-
-
-});
-var app = angular.module('System', ['SystemModify']);
-
-
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-
-app.controller('SystemController', function($scope, $http) {
-	 $http.post("/seatmanagement/systems/getAllSystems.do")
-     .then(function successCallback(response) {
-         $scope.getSystem = response.data;
-         console.log(response.data);
-			
-     }, function errorCallback(response) {
-         alert(response.status);
-     });
-});
-
-angular.element(document).ready(function() {
-    angular.bootstrap(document.getElementById("system"), ['System']);
-  });
 </script>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 <script type="text/javascript">
 function formSubmit(){
 	

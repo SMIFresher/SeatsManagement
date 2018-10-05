@@ -68,8 +68,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="floor" ng-app="floor" ng-controller="FloorController">
-
+				<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetails();">
 					<table class="table table-hover">
 						<thead>
 							<td>Floor Id </td>
@@ -97,55 +96,30 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<script type="text/javascript">
-		$('.table tbody').on('click', 'tr', function() {
-			var currow = $(this).closest('tr');
-			
-			var col1 = currow.find('td:eq(0)').text();
-			var col2 = currow.find('td:eq(1)').text();
-			var col3 = currow.find('td:eq(2)').text();
-			var col4 = currow.find('td:eq(3)').text();
+<script src="/seatmanagement/js/AngulerController.js"></script>
+<script type="text/javascript">
+	$('.table tbody').on('click', 'tr', function() {
+		var currow = $(this).closest('tr');
 		
-			document.getElementById('fid').value = col1;
-			document.getElementById('fname').value = col2;
-			document.getElementById('ftype').value = col3;
-			document.getElementById('bid').value = col4;
-			
-			
-		})
-	</script>
+		var col1 = currow.find('td:eq(0)').text();
+		var col2 = currow.find('td:eq(1)').text();
+		var col3 = currow.find('td:eq(2)').text();
+		var col4 = currow.find('td:eq(3)').text();
+	
+		document.getElementById('fid').value = col1;
+		document.getElementById('fname').value = col2;
+		document.getElementById('ftype').value = col3;
+		document.getElementById('bid').value = col4;
+		
+		
+	})
+</script>
 
 
 
 
 	
-	<script>
-var app = angular.module('floor', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('FloorController', function($scope, $http) {
-	 $http.get("/seatmanagement/floor/getAllFloor")
-     .then(function successCallback(response) {
-         $scope.getFloor = response.data;
-         console.log(response.data);
-			
-     }, function errorCallback(response) {
-         alert(response.status);
-     });
-	 
-	 
-		/* angular.element(document).ready(function() {
-		    angular.bootstrap(document.getElementById("floor"), []);
-		  }); */
 
-});
-</script>
 	
 	
 	
@@ -182,23 +156,7 @@ app.controller('FloorController', function($scope, $http) {
 			});
 		}
 	
-	
-	 /* $('.table tbody').on('click', '.deleteBtn', function() {
-	var currow = $(this).closest('tr');
-	var floorId = currow.find('td:eq(0)').text();
-	console.log("floorId : " + floorId);
-	
-	 $.post("../../floor/deleteFloorById", {
-		 floorId:floorId  
-		}, function(data) {
-			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("Floor.jsp");
-		}); */
 
-/* 	}
-); 
-
- */
 	</script>
 
 </body>

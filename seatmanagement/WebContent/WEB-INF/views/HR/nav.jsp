@@ -49,8 +49,8 @@
 				<li><a href="#floorsubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Floor</a>
 					<ul class="collapse list-unstyled" id="floorsubmenu">
-						<li><a href="/seatmanagement/floor/getFloorView">Add</a></li>
-						<li><a href="/seatmanagement/floor/getModifyFloor">Modify</a></li>
+						<li><a href="/seatmanagement/floor/FloorView">Add</a></li>
+						<li><a href="/seatmanagement/floor/FloorModify">Modify</a></li>
 					</ul></li>
 				<li><a href="#blocksubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">Block</a>
@@ -101,8 +101,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <!-- Bootstrap JS -->
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
         $(document).ready(function () {

@@ -18,7 +18,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br>
-	<div class="container" ng-app="onLoadModule" ng-controller="onLoadController" id="organisation1">
+	<div class="container" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails(); TeamDetails();">
 		<div class="row">
 			<div class="col-md-4 border">
 				<br>
@@ -31,7 +31,7 @@
 		                   		<div>
 								<label for="organisation">Organisation </label>
 									<select class="custom-select mb-3 organisationId" name="organisationId">
-										<option ng-repeat="organisation1 in getOrganisations" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
+										<option ng-repeat="organisation in getOrg" value="{{organisation.organisationId}}">{{organisation.organisationName}}</option>
 									</select>
 								</div>
 							</div>
@@ -55,14 +55,7 @@
 									</select>
 								</div>
 							</div>
-							<!-- <div class="form-group">
-								<label for="teadhead">Team Head:</label>  
-								<input name="teamHead" class="form-control" id="team" type="text" placeholder="Team head"/>
-							</div> -->
-							<!-- <div class="form-group">
-								<label for="teamMember">Team Member Count:</label> 
-								<input type="text" class="form-control" id="team_member" placeholder="Enter team member count" name="teamMembersCount">
-							</div> -->
+
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
@@ -72,7 +65,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="team" ng-app="onLoadModule" ng-controller="onLoadController">
+	
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -97,7 +90,7 @@
 						
 					</table>
 				</div>
-			</div>
+		
 		</div>
 	</div>
 
@@ -119,43 +112,6 @@
 		})
 	</script>
 	
-	<script>
-	var onLoadModule = angular.module('onLoadModule', []);
-	//AJAX Request Type Header to prepare error response for AJAX seperately
-	onLoadModule.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
-	onLoadModule.controller('onLoadController', function($scope, $http) {
-	    $http.post("/seatmanagement/team/getAllTeam")
-	        .then(function successCallback(response) {
-	        	console.log("getAllTeam success");
-	            $scope.getteam = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-	    
-	    $http.post("/seatmanagement/organisation/getAllOrganisations")
-        .then(function successCallback(response) {
-            $scope.getOrganisations = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-        });	
-	    
-	    $scope.onDesignationChange = function() {
-	    	
-	    	//var designation =  $("#designation").val();
-	    	console.log("designation : " + $scope.designation);
-	    	$http.get("/seatmanagement/employee/getEmployeesByDesignation?designation="+ $scope.designation)
-	        .then(function successCallback(response) {
-	            $scope.getTeamHeads = response.data;
-	            console.log(response.data);
-	        }, function errorCallback(response) {
-	      });	
-	    };
-	});
-	
-	</script>
 	
 	<script type="text/javascript">
 	function formSubmit(){
@@ -190,6 +146,6 @@
 		 
 		
 	</script>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

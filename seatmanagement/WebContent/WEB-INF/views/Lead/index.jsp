@@ -25,6 +25,7 @@
 </head>
 
 <body>
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="dashboardCount(); companyDetailsCount(); osDetailsCount();">
 	<div class="wrapper">
 		<!-- Sidebar Holder -->
 		<jsp:include page="nav.jsp"></jsp:include>
@@ -32,8 +33,6 @@
 		
 		<div class="container-fluid ">
 			<br><br><br><br>
-			
-			<div id="comp" ng-app="getComp" ng-controller="getCompController"> 
 			<div class="row">
 				<div class="col-sm-6 col-md-3">
 					<div class="content text-center" >
@@ -71,7 +70,7 @@
 					</div>
 				</div>
 			</div>
-			</div>
+
 			<hr>
 			<br>
 			<div class="row">
@@ -89,11 +88,15 @@
 								<tbody>
 									<tr>
 										<td>Windows</td>
-										<td><span class="badge badge-pill badge-primary">50</span></td>
+										<td><span class="badge badge-pill badge-primary">{{getOsDetails[0].Windows_Count}}</span></td>
 									</tr>
 									<tr>
 										<td>Linux</td>
-										<td><span class="badge badge-pill badge-primary">20</span></td>
+										<td><span class="badge badge-pill badge-primary">{{getOsDetails[0].Linux_Count}}</span></td>
+									</tr>
+									<tr>
+										<td>Mac</td>
+										<td><span class="badge badge-pill badge-primary">{{getOsDetails[0].Mac_Count}}</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -102,7 +105,6 @@
 					</div>
 				</div>
 				<div class="col-lg-8">
-					<div class="table-responsive" id="compdetails" ng-app="getCompany" ng-controller="getCompanyController">
 						<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Company Details</h4>
@@ -121,10 +123,10 @@
 							<tbody>
 								<tr ng-repeat="compdetails in getCompDetails" ng-init="parentIndex = $index">
 									<td><span class="fa fa-bookmark text-primary"></span></td>
-									<td>{{getCompDetails[$index].BuildingName}}</td>
-									<td>{{getCompDetails[$index].Total_Seating_Capacity}}</td>
-									<td>{{getCompDetails[$index].Total_Seating_Occupied}}</td>
-									<td>{{getCompDetails[$index].Total_Seating_Available}}</td>
+									<td>{{compdetails.BuildingName}}</td>
+									<td>{{compdetails.Total_Seating_Capacity}}</td>
+									<td>{{compdetails.Total_Seating_Occupied}}</td>
+									<td>{{compdetails.Total_Seating_Available}}</td>
 								</tr>
 
 							</tbody>
@@ -134,56 +136,7 @@
 			</div>
 		</div>
 
-		
 
-<script type="text/javascript">
-		var app = angular.module('getComp', []);
-		//AJAX Request Type Header to prepare error response for AJAX seperately
-		app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-			  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-			});
-		app.controller('getCompController', function($scope, $http) {
-		    $http.get("../dashboard/getAllDashboardCount")
-		        .then(function successCallback(response) {
-		            $scope.getCountDatas = response.data[0];
-		            console.log(response.data);
-		        }, function errorCallback(response) {
-		            alert(response.status);
-		        });
-		});
-
-
-	var app = angular.module('getCompany', ['getComp']);
-	//AJAX Request Type Header to prepare error response for AJAX seperately
-	app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-		  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-		});
-	app.controller('getCompanyController', function($scope, $http) {
-	    $http.get("../dashboard/getAllCompanyDetailsCount")
-	        .then(function successCallback(response) {
-	            $scope.getCompDetails = response.data;
-	            console.log(response.data);
-				
-	        }, function errorCallback(response) {
-	            alert(response.status);
-	        });
-
-	    
-	});
-	angular.element(document).ready(function() {
-	    angular.bootstrap(document.getElementById("compdetails"), ['getCompany']);
-	});
-
-	
-</script>
-		
-		
-		
-		
-		
-		
-	</div>
-	
 	
 	<!-- Models -->
 	<div class="modal fade" id="myModal">
@@ -228,7 +181,9 @@
 			</div>
 		</div>
 	</div>
+</div>
 
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 
 </html>

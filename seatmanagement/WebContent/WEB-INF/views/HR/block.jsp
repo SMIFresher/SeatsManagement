@@ -224,6 +224,8 @@ function formSubmit(){
      success: function (data) {
    $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
             location.replace("/seatmanagement/block/getBlockView");
+    },error:function(data){
+    	location.replace("/seatmanagement/block/getBlockView");
     }
  	
 });

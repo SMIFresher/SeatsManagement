@@ -63,8 +63,6 @@
 									class="form-control" id="btype" placeholder="Enter Block Type"
 									name="blockType" >
 									</div>
-							
-							
 							<input type="text"
 									class="form-control" id="flrid"
 									name="floorId" hidden="">
@@ -78,7 +76,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id=block ng-app="Block" ng-controller="BlockController">
+				<div id=block ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="blockDetails();">
 
 					<table class="table table-hover">
 						<thead>
@@ -139,30 +137,7 @@
 
 </script>
 
-
-
-
-
-
-
-
-<script>
-var app = angular.module('Block', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('BlockController', function($scope, $http) {
-	 $http.get("/seatmanagement/block/getAllBlocks")
-     .then(function successCallback(response) {
-         $scope.getBlock= response.data;
-         console.log(response.data);
-			
-     }, function errorCallback(response) {
-         alert(response.status);
-     });
-});
-</script>
+<script src="/seatmanagement/js/AngulerController.js"></script>
 
 <script type="text/javascript">
 function formSubmit(){
@@ -178,16 +153,10 @@ function formSubmit(){
          }
          if(status == "ERROR"){
          	 var message = response.data.RESPONSE_MESSAGE;
-         	// Business Error scenario
-         	// provision to display business error message
+         	doModal('Some Error',response.data.ERROR_MESSAGE);
          }
     },error: function (response) {
-    	var status = response.RESPONSE_STATUS;
-    	var message = response.RESPONSE_MESSAGE;
-    	var errorCode = response.ERROR_CODE;
-    	console.log("Response Status : " + status);
-    	console.log("Response Message : " + message);
-    	console.log("ErrorCode : " + errorCode);
+    	doModal('Some Error',response.data.ERROR_MESSAGE);
     }
  	
 });

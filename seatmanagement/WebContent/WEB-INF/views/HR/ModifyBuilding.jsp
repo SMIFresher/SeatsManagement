@@ -66,7 +66,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="build" ng-app="Building" ng-controller="BuildingController">
+				<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">
 
 					<table class="table table-hover">
 						<thead>
@@ -95,9 +95,9 @@
 	</div>
 
 
+<script src="/seatmanagement/js/AngulerController.js"></script>
 
-
-	<script type="text/javascript">
+<script type="text/javascript">
   $('.table tbody').on('click','tr',function() {
     var currow=$(this).closest('tr');
     var  col1=currow.find('td:eq(0)').text();
@@ -123,24 +123,6 @@
 
 
 
-
-<script>
-var app = angular.module('Building', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('BuildingController', function($scope, $http) {
-	 $http.post("/seatmanagement/building/getAllBuildings")
-     .then(function successCallback(response) {
-         $scope.getBuilding = response.data;
-         console.log(response.data);
-			
-     }, function errorCallback(response) {
-         alert(response.status);
-     });
-});
-</script>
 
 <script type="text/javascript">
 function formSubmit(){

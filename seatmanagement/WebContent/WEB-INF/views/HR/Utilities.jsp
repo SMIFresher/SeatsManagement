@@ -16,7 +16,7 @@
 <body>
 
 
-<div ng-app="Utilities" ng-controller="UtilitiesController">
+
 
 	
 <!-- Nav Bar -->
@@ -51,7 +51,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="Utilities" ng-controller="UtilitiesController">
+				<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="UtilitiesDetails();">
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -73,7 +73,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 
 
 <script type="text/javascript">
@@ -83,23 +83,6 @@
 
 			document.getElementById('utilityId').value = col1;
 		})
-</script>
-
-<script>
-var app = angular.module('Utilities', []);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('UtilitiesController', function($scope, $http) {
-    $http.post("/seatmanagement/utilities/getAllUtilities")
-        .then(function successCallback(response) {
-            $scope.getUtilities = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-});
 </script>
 
 <script type="text/javascript">
@@ -116,8 +99,7 @@ function formSubmit(){
  	
 });
 }
-
-		
+	
 var uId = null;
 
 $('.table tbody').on('click', '.deleteBtn', function() {
@@ -135,5 +117,6 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	}
 );
 </script>
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

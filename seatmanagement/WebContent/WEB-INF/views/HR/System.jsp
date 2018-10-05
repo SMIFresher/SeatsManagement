@@ -17,8 +17,8 @@
 </head>
 <body>
 	
-<div id="sys" ng-app="System" ng-controller="SystemController">	
-<div ng-app="AdditinalDevice" ng-controller="AdditinalDeviceController" id="additinal" ng-init="loadInitially()">
+
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" id="additinal" ng-init="deviceDetails(); systemDetails(); employeeDetails();">
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
@@ -191,8 +191,8 @@
       </div>
     </div>
   </div>
-  </div>
-</div>	
+
+	
 
 <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
@@ -221,56 +221,6 @@
 		})
 </script>
 
-
-<script>
-var apps= angular.module('AdditinalDevice',[]);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-apps.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-apps.controller('AdditinalDeviceController', function($scope, $http) {
-
-$scope.loadInitially = function(){ 
-    $http.post("/seatmanagement/Additionaldevice/getAllDevice")
-        .then(function successCallback(response) {
-            $scope.getAddDev = response.data;
-            console.log(response.data);
-        }, function errorCallback(response) {
-            alert(response.status);
-        });
-	};
-	$http.post("/seatmanagement/employee/getAllEmployees")
-    .then(function successCallback(response) {
-        $scope.getemp = response.data;
-        console.log(response.data);
-    }, function errorCallback(response) {
-    });
-});
-
-
-var app = angular.module('System', ['AdditinalDevice']);
-//AJAX Request Type Header to prepare error response for AJAX seperately
-app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
-	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
-	});
-app.controller('SystemController', function($scope, $http) {
-	 $http.post("/seatmanagement/systems/getAllSystems.do")
-     .then(function successCallback(response) {
-         $scope.getsystem = response.data;
-         console.log(response.data);
-			
-     }, function errorCallback(response) {
-         alert(response.status);
-     });
-});
-
-
-angular.element(document).ready(function() {
-    angular.bootstrap(document.getElementById("sys"), ['System']);
-  });
-
-
-</script>
 
 
 
@@ -326,6 +276,6 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 );
 
 </script>
-
+<script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>
