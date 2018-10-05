@@ -7,7 +7,7 @@ import com.seatmanagement.model.Building;
 
 /**
  * 
- * @author Adithya Prabhu
+ * @author SaiEswari
  * 
  *         Provides interface for all business logic related processing to
  *         'Building' model object
