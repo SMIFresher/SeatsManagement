@@ -52,6 +52,7 @@ public class Constant {
 	public static final String EXCEPTION_TYPE = "EXCEPTION_TYPE";
 	public static final String EXCEPTION_TYPE_BUSINESS = "BUSINESS_EXCEPTION";
 	public static final String EXCEPTION_TYPE_APPLICATION = "APPLICATION_EXCEPTION";
+	public static final String EXCEPTION_TYPE_STANDARD_SPRING_MVC_EXCEPTION = "STANDARD_SPRING_MVC_EXCEPTION";
 	public static final String EXCEPTION_TYPE_RUNTIME = "RUNTIME_EXCEPTION";
 	public static final String EXCEPTION_TYPE_EXCEPTION = "EXCEPTION";
 	
@@ -62,6 +63,8 @@ public class Constant {
 	public static final String ERROR_MAP = "errorMap";
 	
 	public static final String ERROR_MESSAGE_INTERNAL_SERVER_ERROR = "Internal Server Error";
+	
+	public static final String HTTP_HEADER = "httpHeader";
 	
 	// Organisation Constants
 	public static final String ORGANISATIONS = "organisations";

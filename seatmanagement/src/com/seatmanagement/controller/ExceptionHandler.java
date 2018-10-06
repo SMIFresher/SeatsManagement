@@ -2,14 +2,21 @@ package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,48 +45,30 @@ public class ExceptionHandler {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value = "errors")
-	public ModelAndView renderErrorPageForNonAJAX(HttpServletRequest httpRequest) {
+	public ModelAndView renderErrorPageForNonAJAX(HttpServletRequest httpRequest, HttpServletResponse response) {
 
 		ModelAndView errorPage = new ModelAndView("/errorpages/ErrorPage");
 		String errorMsg = "";
 		int httpErrorCode = getErrorCode(httpRequest);
 		int applicationErrorCode = 0;
+		HttpStatus httpStatus = null;
 		String exceptionType = (String) httpRequest.getAttribute(Constant.EXCEPTION_TYPE);
 		Map errorMap = new HashMap();
+		HttpHeaders headers = (HttpHeaders) httpRequest.getAttribute(Constant.HTTP_HEADER);
+
+		// populate response headers if any
+		if (Objects.nonNull(headers)) {
+			populateHeadersInResponse(response, headers);
+		}
+
+		httpStatus = HttpStatus.valueOf(httpErrorCode);
 
 		if (StringUtils.isNotBlank(exceptionType)) {
-
 			errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
 
-			if (exceptionType.equals(Constant.EXCEPTION_TYPE_BUSINESS)) {
-				applicationErrorCode = 9000;
-			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_APPLICATION)) {
-				applicationErrorCode = 9001;
-			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
-				applicationErrorCode = 9002;
-			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
-				applicationErrorCode = 9003;
-			}
-
+			applicationErrorCode = populateApplicationErrorCodes(exceptionType);
 		} else {
-			switch (httpErrorCode) {
-			case 400: {
-				errorMsg = "Http Error Code: 400. Bad Request";
-				break;
-			}
-			case 401: {
-				errorMsg = "Http Error Code: 401. Unauthorized";
-				break;
-			}
-			case 404: {
-				errorMsg = "Http Error Code: 404. Resource not found";
-				break;
-			}
-			default: {
-				errorMsg = "Http Error Code: 500. Internal Server Error";
-				break;
-			}
-			}
+			errorMsg = generateErrorMessageFromHttpStatus(httpStatus);
 		}
 
 		logger.error("Error logged in Class : ExceptionHandler, Method : renderErrorPageForNonAJAX () at "
@@ -94,16 +83,10 @@ public class ExceptionHandler {
 
 		errorPage.addObject(Constant.HTTP_ERROR_CODE, httpErrorCode);
 		errorPage.addObject(Constant.ERROR_MAP, errorMap);
+		errorPage.setStatus(httpStatus);
 
 		return errorPage;
 	}
-
-	private int getErrorCode(HttpServletRequest httpRequest) {
-		return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
-	}
-
-	// headers = "X-Requested-With=XMLHttpRequest","RequestType=AJAX",
-	// "Accept=application/json"
 
 	/**
 	 * Generates error response for AJAX requests
@@ -112,7 +95,7 @@ public class ExceptionHandler {
 	 * @return ResponseEntity
 	 */
 	@RequestMapping(value = "errors", headers = { "RequestType=AJAX" })
-	public ResponseEntity renderErrorMessagesForAJAX(HttpServletRequest httpRequest) {
+	public ResponseEntity renderErrorMessagesForAJAX(HttpServletRequest httpRequest, HttpServletResponse response) {
 
 		ResponseEntity model = null;
 		String errorMsg = null;
@@ -120,51 +103,24 @@ public class ExceptionHandler {
 		int applicationErrorCode = 0;
 		HttpStatus httpStatus = null;
 		Map errorMap = new HashMap();
-
 		String exceptionType = (String) httpRequest.getAttribute(Constant.EXCEPTION_TYPE);
+		HttpHeaders headers = (HttpHeaders) httpRequest.getAttribute(Constant.HTTP_HEADER);
+
+		// populate response headers if any
+		if (Objects.nonNull(headers)) {
+			populateHeadersInResponse(response, headers);
+		}
+
+		httpStatus = HttpStatus.valueOf(httpErrorCode);
 
 		if (StringUtils.isNotBlank(exceptionType)) {
 
 			errorMsg = (String) httpRequest.getAttribute(Constant.EXCEPTION_MESSAGE);
 
-			if (exceptionType.equals(Constant.EXCEPTION_TYPE_BUSINESS)) {
-				applicationErrorCode = 9000;
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_APPLICATION)) {
-				applicationErrorCode = 9001;
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
-				applicationErrorCode = 9002;
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-			} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
-				applicationErrorCode = 9003;
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-			}
+			applicationErrorCode = populateApplicationErrorCodes(exceptionType);
 
 		} else {
-
-			switch (httpErrorCode) {
-			case 400: {
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-				errorMsg = "Http Error Code: 400. Bad Request";
-				break;
-			}
-			case 401: {
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-				errorMsg = "Http Error Code: 401. Unauthorized";
-				break;
-			}
-			case 404: {
-				httpStatus = HttpStatus.valueOf(httpErrorCode);
-				errorMsg = "Http Error Code: 404. Resource not found";
-				break;
-			}
-			default: {
-				httpStatus = HttpStatus.valueOf(500);
-				errorMsg = "Http Error Code: 500. Internal Server Error";
-				break;
-			}
-			}
+			errorMsg = generateErrorMessageFromHttpStatus(httpStatus);
 		}
 
 		logger.error("Error logged in Class : ExceptionHandler, Method : renderErrorMessagesForAJAX () at "
@@ -177,8 +133,66 @@ public class ExceptionHandler {
 			errorMap.put(Constant.RESPONSE_ERROR_CODE, applicationErrorCode);
 		}
 
-		model = new ResponseEntity(errorMap, httpStatus);
+		// if any header generated add it in response
+		if (Objects.nonNull(headers)) {
+			model = new ResponseEntity(errorMap, headers, httpStatus);
+		} else {
+			model = new ResponseEntity(errorMap, httpStatus);
+		}
 
 		return model;
+	}
+
+	private String generateErrorMessageFromHttpStatus(HttpStatus httpStatus) {
+		String errorMessage = httpStatus.value() + " " + httpStatus.getReasonPhrase();
+		return errorMessage;
+	}
+
+	private int populateApplicationErrorCodes(String exceptionType) {
+		int applicationErrorCode = 0;
+
+		if (exceptionType.equals(Constant.EXCEPTION_TYPE_BUSINESS)) {
+			applicationErrorCode = 9000;
+		} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_APPLICATION)) {
+			applicationErrorCode = 9001;
+		} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_STANDARD_SPRING_MVC_EXCEPTION)) {
+			applicationErrorCode = 9002;
+		} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_RUNTIME)) {
+			applicationErrorCode = 9003;
+		} else if (exceptionType.equals(Constant.EXCEPTION_TYPE_EXCEPTION)) {
+			applicationErrorCode = 9004;
+		}
+		
+		return applicationErrorCode;
+	}
+
+	/**
+	 * sets response headers
+	 * 
+	 * At the moment only used when headers are set when headers are generated
+	 * while handling Standard Spring MVC Exceptions in 'ExceptionLogger' class
+	 * 
+	 * @param response
+	 * @param headers
+	 */
+	private void populateHeadersInResponse(HttpServletResponse response, HttpHeaders headers) {
+		List<MediaType> mediaTypes = headers.getAccept();
+		Set<HttpMethod> allowedMethods = headers.getAllow();
+
+		if (Objects.nonNull(mediaTypes)) {
+			for (MediaType mediaType : mediaTypes) {
+				response.addHeader(HttpHeaders.ACCEPT, mediaType.toString());
+			}
+		}
+
+		if (Objects.nonNull(allowedMethods)) {
+			for (HttpMethod httpMethod : allowedMethods) {
+				response.addHeader(HttpHeaders.ALLOW, httpMethod.name());
+			}
+		}
+	}
+
+	private int getErrorCode(HttpServletRequest httpRequest) {
+		return (Integer) httpRequest.getAttribute("javax.servlet.error.status_code");
 	}
 }
