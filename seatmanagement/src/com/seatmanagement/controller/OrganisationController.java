@@ -120,7 +120,7 @@ public class OrganisationController {
 	 * @throws BusinessException
 	 */
 	@RequestMapping("/getOrganisationById")
-	public ResponseEntity getOrganisationById(@ModelAttribute UUID organisationId) throws BusinessException {
+	public ResponseEntity getOrganisationById(@RequestParam(value = "organisationId") UUID organisationId) throws BusinessException {
 
 		logger.info("Controller: OrganisationController Method : getOrganisationById request processing started at : "
 				+ LocalDateTime.now());
