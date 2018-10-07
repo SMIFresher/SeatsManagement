@@ -69,7 +69,7 @@
 
 					<table class="table table-hover">
 						<thead align="center">
-							<td>Team Id</td>
+							<td style="display:none;">Team Id</td>
 							<td>Team Name</td>
 							<td>Team Head</td>
 							<td>Team Member Count</td>

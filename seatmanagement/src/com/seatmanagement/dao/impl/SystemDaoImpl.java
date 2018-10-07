@@ -2,20 +2,11 @@ package com.seatmanagement.dao.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
-import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Systems;
-import com.seatmanagement.model.Team;
-import com.seatmanagement.service.impl.SystemServiceImpl;
 
 @Transactional
 public class SystemDaoImpl implements SystemDao {
@@ -97,6 +84,17 @@ public class SystemDaoImpl implements SystemDao {
 		logger.info("Dao: SystemDaoImpl Method : getOs ended at : " + LocalDateTime.now());
 		return syss;
 	
+	}
+
+	@Override
+	public Systems mergeSystem(Systems system) {
+		logger.info("Dao: SystemDaoImpl Method : mergeSystem started at : " + LocalDateTime.now());
+		
+		system = hibernateTemplate.merge(system);
+		
+		logger.info("Dao: SystemDaoImpl Method : mergeSystem ended at : " + LocalDateTime.now());
+		
+		return system;
 	}
 }
 

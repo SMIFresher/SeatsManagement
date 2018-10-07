@@ -70,11 +70,10 @@ public class Block implements Serializable{
 	@JsonIgnore
 	private List<Reallocation> reallocations;
 	
-	@ManyToMany(fetch=FetchType.EAGER,targetEntity = Utilities.class, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch=FetchType.EAGER,targetEntity = Utilities.class)
 	@JoinTable(name = "block_utilities", 
 				joinColumns = { @JoinColumn(name = "block_id") }, 
 				inverseJoinColumns = { @JoinColumn(name = "utility_id") })
-	
 	private Set<Utilities> utilities;
 	
 	

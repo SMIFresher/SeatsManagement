@@ -87,7 +87,7 @@
 								<td style="display:none;">{{floor.building.buildingId}}</td>
 								
 								<td align="center">
-									<button class="btn btn-danger deletBtn" >Delete</button>
+									<button class="btn btn-danger deletBtn" onclick="deleteFloor(this)">Delete</button>
 								</td>
 							</tr>
 						</tbody>
@@ -156,7 +156,19 @@
 			});
 		}
 	
+		function deleteFloor(button){
+			var currow = $(button).closest('tr');
+			var floorId = currow.find('td:eq(0)').text();
+			console.log("floorId : " + floorId);
+			
+			 $.post("/seatmanagement/floor/delete/floorId", {
+				 floorId:floorId
+				}, function(data) {
+					// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
+		            //location.replace("/seatmanagement/floor/getFloorView");
+				});
 
+			}
 	</script>
 
 </body>

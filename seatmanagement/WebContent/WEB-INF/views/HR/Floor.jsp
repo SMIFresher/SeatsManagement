@@ -77,24 +77,6 @@
 		</div>
 	</div>
 </div>
-<script>
-
-$('.table tbody').on('click', '.deleteBtn', function() {
-	var currow = $(this).closest('tr');
-	var floorId = currow.find('td:eq(2)').text();
-	console.log("floorId : " + floorId);
-	
-	 $.post("#", {
-		 floorId:floorId
-		}, function(data) {
-			// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            //location.replace("/seatmanagement/floor/getFloorView");
-		});
-
-	}
-);
-
-</script>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 <script type="text/javascript">
 function formSubmit(){

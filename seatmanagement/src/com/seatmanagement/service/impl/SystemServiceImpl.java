@@ -109,7 +109,12 @@ public class SystemServiceImpl implements SystemService{
 			system.setAdditionalDevice(additionalDevices);
 		}
 		
-		genericDao.saveOrUpdate(system);
+		if(Objects.nonNull(system.getEmployee()) || 
+				(Objects.nonNull(system.getAdditionalDevice()) && (system.getAdditionalDevice().size()>0))){
+			systemDao.mergeSystem(system);
+		}else{
+			genericDao.saveOrUpdate(system);
+		}
 		
 		logger.info("Service: SystemServiceImpl Method : addOrUpdateSystem ended at : " + LocalDateTime.now());
 	}

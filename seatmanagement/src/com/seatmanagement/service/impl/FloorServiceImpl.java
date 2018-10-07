@@ -46,6 +46,11 @@ public class FloorServiceImpl implements FloorService {
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors started at : " + LocalDateTime.now());
 
+		Building building = new Building();
+		building.setBuildingId(buildingId);
+		
+		// set building reference in floor
+		floor.setBuilding(building);
 		floor = (Floor)genericDao.saveOrUpdate(floor);
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors ended at : " + LocalDateTime.now());

@@ -85,7 +85,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes" })
-	@RequestMapping(value = "/save/buildingId", method = RequestMethod.POST)
+	@RequestMapping(value = "/floorsave", method = RequestMethod.POST)
 	public ResponseEntity saveOrUpdate(@Valid Floor floor, Errors errors,
 			@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
 
@@ -119,9 +119,8 @@ public class FloorController {
 				+ LocalDateTime.now());
 
 		ResponseEntity response = null;
-		@SuppressWarnings("unused")
 		List<Floor> floors = floorService.getAllFloors();
-		response = new ResponseEntity(HttpStatus.OK);
+		response = new ResponseEntity(floors, HttpStatus.OK);
 
 		logger.info("Controller: FloorController Method : getAllFloors response sent at : " + LocalDateTime.now());
 

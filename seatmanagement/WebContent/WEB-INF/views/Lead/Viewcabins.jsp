@@ -8,8 +8,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <!-- <link rel="stylesheet" href="style.css" type="text/css" media="screen" /> -->
-<script type="text/javascript" src="../redips-drag-min.js"></script>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="/seatmanagement/js/redips-drag-min.js"></script>
+<script type="text/javascript" src="/seatmanagement/js/script.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script

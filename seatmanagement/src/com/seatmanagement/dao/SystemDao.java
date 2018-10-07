@@ -12,4 +12,5 @@ public interface SystemDao {
 	public  Systems getSystem(String request);
 	public Systems getSystemId(String systemName);
 	public List<Systems> getOs(Systems system );
+	public Systems mergeSystem(Systems system);
 }

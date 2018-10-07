@@ -198,12 +198,14 @@
 <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
+			var col0 = currow.find('td:eq(0)').text();
 			var col1 = currow.find('td:eq(1)').text();
 			var col2 = currow.find('td:eq(2)').text();
 			var col3 = currow.find('td:eq(3)').text();
 			var col4 = currow.find('td:eq(4)').text();
 			var col5 = currow.find('td:eq(5)').text();
 			
+			document.getElementById('systemId').value = col0;
 			document.getElementById('systemName').value = col1;
 			document.getElementById(col2).checked = true;
 			document.getElementById(col3).checked = true;

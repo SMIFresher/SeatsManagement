@@ -122,7 +122,7 @@ app.controller('BuildingController', function($scope, $http) {
             alert(response.status);
         });
 		$scope.floorDetails=function(buildingId){
-			$http.get("/seatmanagement/floor/getFloorByBuildingId?buildingId="+buildingId)
+			$http.get("/seatmanagement/floor/viewfloor/buildingId?buildingId="+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloor = response.data;
 	            console.log(response.data);

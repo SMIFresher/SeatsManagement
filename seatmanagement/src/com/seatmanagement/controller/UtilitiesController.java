@@ -71,8 +71,8 @@ public class UtilitiesController {
 		logger.info("Controller: UtilitiesController Method : getAllUtilities request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
-		utilitiesService.getAll();
-		responseEntity = new ResponseEntity(HttpStatus.OK);
+		List<Utilities> utilities = utilitiesService.getAll();
+		responseEntity = new ResponseEntity(utilities, HttpStatus.OK);
 		logger.info("Controller: UtilitiesController Method : getAllUtilities response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}

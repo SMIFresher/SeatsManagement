@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/nav.css">
+<link rel="stylesheet" type="text/css" href="/seatmanagement/css/Lead/nav.css">
 <!-- Nav Bar -->
 
 <nav class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
