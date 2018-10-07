@@ -109,8 +109,9 @@ public class SystemServiceImpl implements SystemService{
 			system.setAdditionalDevice(additionalDevices);
 		}
 		
-		if(Objects.nonNull(system.getEmployee()) || 
-				(Objects.nonNull(system.getAdditionalDevice()) && (system.getAdditionalDevice().size()>0))){
+		// TO sync system from view with already existing system in hibernate persistence context we use merge
+		if(Objects.nonNull(system.getSystemId()) && (Objects.nonNull(system.getEmployee()) || 
+				(Objects.nonNull(system.getAdditionalDevice()) && (system.getAdditionalDevice().size()>0)))){
 			systemDao.mergeSystem(system);
 		}else{
 			genericDao.saveOrUpdate(system);
