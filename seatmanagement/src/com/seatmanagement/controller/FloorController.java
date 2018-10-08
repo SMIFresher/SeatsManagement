@@ -4,19 +4,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.exception.BusinessException;
+
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.FloorService;
@@ -86,17 +87,11 @@ public class FloorController {
 
 	@SuppressWarnings({ "rawtypes" })
 	@RequestMapping(value = "/floorsave", method = RequestMethod.POST)
-	public ResponseEntity saveOrUpdate(@Valid Floor floor, Errors errors,
-			@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
+	public ResponseEntity saveOrUpdate( Floor floor,@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : saveOrUpdate request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity response = null;
-
-		// Validation
-		if (errors.hasErrors()) {
-			throw new BusinessException(errors);
-		}
 
 		floorService.saveOrUpdateFloors(floor, buildingId);
 		response = new ResponseEntity(HttpStatus.OK);
@@ -112,7 +107,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/view")
+	@RequestMapping(value = "/getAllFloors" ,method = RequestMethod.GET)
 	public ResponseEntity<List<Floor>> getAllFloors() {
 
 		logger.info("Controller: FloorController Method : getAllFloors request processing started at : "
@@ -121,7 +116,7 @@ public class FloorController {
 		ResponseEntity response = null;
 		@SuppressWarnings("unused")
 		List<Floor> floors = floorService.getAllFloors();
-		response = new ResponseEntity(HttpStatus.OK);
+		response = new ResponseEntity(floors,HttpStatus.OK);
 
 		logger.info("Controller: FloorController Method : getAllFloors response sent at : " + LocalDateTime.now());
 
@@ -132,29 +127,34 @@ public class FloorController {
 	 * 
 	 * @param FloorId
 	 * @return responseEntity
+	 * @throws BusinessException 
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/viewfloor/floorId", method = RequestMethod.GET)
-	public ResponseEntity getFloorById(@RequestParam(value = "FloorId") UUID FloorId) {
+	@RequestMapping(value = "/floorId", method = RequestMethod.GET)
+	public ResponseEntity getFloorById(@RequestParam(value = "floorId") UUID floorId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorById request processing started at : "
 				+ LocalDateTime.now());
 
-		Floor floor = new Floor();
-		floor = floorService.getByFloorId(floor, FloorId);
+		
 		ResponseEntity response = null;
-
-		if (!(floor.getFloorId() == null)) {
-			response = new ResponseEntity<Floor>(floor, HttpStatus.OK);
-		} else {
-			throw new RuntimeException("Invalid Floor ID");
+		
+		if(Objects.isNull(floorId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
+		Floor floor = new Floor();
+		floor = floorService.getByFloorId(floor, floorId);
+
+		response = new ResponseEntity<Floor>(floor, HttpStatus.OK);
+		
 
 		logger.info("Controller: FloorController Method : getFloorById response sent at : " + LocalDateTime.now());
 
 		return response;
 	}
+	
+
 
 	/**
 	 * 
@@ -164,7 +164,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/viewfloor/buildingId", method = RequestMethod.GET)
+	@RequestMapping(value = "/floorbuildingId", method = RequestMethod.GET)
 	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId)
 			throws BusinessException {
 

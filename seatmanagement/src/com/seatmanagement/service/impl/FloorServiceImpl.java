@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.BlockService;
