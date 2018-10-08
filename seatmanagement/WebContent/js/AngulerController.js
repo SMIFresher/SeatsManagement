@@ -206,6 +206,70 @@ app.controller('workplaceManagementController', function($scope, $http) {
 			});
 	};
 	
+	
+	/**
+	 * Save Team
+	 */
+	$scope.saveTeam = function(){ 
+		 $http({
+		        url: '/seatmanagement/team/saveTeam',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.deviceDetails();
+		    	doModal("Information","Team Updated Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	/**
+	 * Save Employee
+	 */
+	$scope.saveEmployee = function(){ 
+		var teamId = $("#Form .teamId").val();		
+		if(teamId == null){
+			$http({
+		        url: '/seatmanagement/employee/saveEmployeeWithoutTeam',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.employeeDetails();
+		    	doModal("Information","Employee Updated Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+		}else{
+			 $http({
+			        url: '/seatmanagement/employee/saveEmployeeWithTeam',
+			        method: "POST",
+			        data: $("#Form").serialize(),
+		        headers : {
+		                'Content-Type' : 'application/x-www-form-urlencoded'
+		            }
+			    })
+			    .then(function(response) {
+			    	$scope.employeeDetails();
+			    	doModal("Information","Team Updated Successfully....!");
+			    }, 
+				function(response) { // optional
+			    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+		}
+	}
+
+	
 	 
 	/**
 	 * Get all Devices
@@ -486,5 +550,103 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	        doModal('Some Error',response.data.ERROR_MESSAGE);
 	    });
     };
+    
+
+
+    /**
+     * *************************************************************************
+     */
+    
+    /**
+     * Delete Methods
+     */
+    
+    
+    /**
+     * **************************************************************************
+     */
+    
+    
+    /**
+     * Organization Delete
+     */
+    
+    $scope.deleteOrganisation = function(orgId){ 
+		 $http({
+		        url: '/seatmanagement/organisation/deleteOrganisationById?organisationId='+orgId,
+		        method: "GET",
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.OrganizationDetails();
+	    	doModal("Information","Organization Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	/**
+	 * Delete Building
+	 */
+	$scope.deleteBuilding = function(buildingId){ 
+		 $http({
+		        url: '/seatmanagement/building/deleteBuildingById?buildingId='+buildingId,
+		        method: "GET",
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.buildingDetails();
+		    	doModal("Information","Building Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	/**
+	 * Delete Team
+	 */
+	$scope.deleteTeam = function(teamId){ 
+		 $http({
+		        url: '/seatmanagement/team/deleteTeamById?teamId='+teamId,
+		        method: "GET",
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.TeamDetails();
+		    	doModal("Information","Team Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	/**
+	 * Delete Employee
+	 */
+	
+	$scope.deleteEmployee = function(employeeId){ 
+		 $http({
+		        url: '/seatmanagement/employee/deleteEmployeeById?employeeId='+employeeId,
+		        method: "GET",
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.employeeDetails();
+		    	doModal("Information","Employee Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
     
 });

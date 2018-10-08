@@ -32,7 +32,7 @@
 					<div class="col-md-12">
 
 						<h2>Employee</h2>
-						<form id="Form" autocomplete="on" ng-submit="saveEmployees();">
+						<form id="Form" autocomplete="on" ng-submit="saveEmployee();">
 							
 							<div class="form-group">
 								<label for="employeeRoll">Employee Roll Number:</label>  
@@ -66,7 +66,7 @@
 		                   		
 								<label for="organisation">Organisation </label>
 									<select class="custom-select mb-3 organisationId" name="organisationId">
-										<option ng-repeat="organisation1 in Org" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
+										<option ng-repeat="organisation1 in getOrg" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
 									</select>
 								
 
@@ -75,7 +75,7 @@
 										<option ng-repeat="team1 in getteam" value="{{team1.teamId}}">{{team1.teamName}}</option>
 									</select>
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" onClick="formSubmit();" >Submit</button>
 						</form>
 
 					</div>
@@ -109,7 +109,7 @@
 						<td>{{emp.organisation.organisationName}}</td>
 						<td>{{emp.team.teamName}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="teamId" value="{{emp.team}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<button type="submit" class="btn btn-danger deleteBtn" ng-click="deleteEmployee(emp.employeeId)">Delete</button>
 						</td>
 						<td style="display:none;">{{emp.employeeId}}</td>
 						</tr>
@@ -122,27 +122,6 @@
 	</div>
 
 	</div>
-	<script type="text/javascript">
-	
-			
-	var eId = null;
-
-	$('.table tbody').on('click', '.deleteBtn', function() {
-		var currow = $(this).closest('tr');
-		eId = currow.find('td:eq(8)').text();
-		console.log("eId : " + eId);
-		
-		 $.post("/seatmanagement/employee/deleteEmployeeById", {
-			 employeeId:eId
-			}, function(data) {
-				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/employee/getEmployeeView");
-			});
-		}
-	);
-		 
-		
-	</script>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

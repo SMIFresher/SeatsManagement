@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="/seatmanagement/css/HR/nav.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/seatmanagement/images/favicon.ico" type="image/x-icon">
+
 <nav
 	class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
 

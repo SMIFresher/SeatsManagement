@@ -26,7 +26,7 @@
 					<div class="col-md-12">
 
 						<h2>Team</h2>
-						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+						<form id="Form" method="post" ng-submit="saveTeam();" autocomplete="off">
 							<div class="form-group">
 		                   		<div>
 								<label for="organisation">Organisation </label>
@@ -83,7 +83,7 @@
 						<td>{{team.teamHead}}</td>
 						<td>{{team.teamMembersCount}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="teamId" value="{{team.teamId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<button class="btn btn-danger deleteBtn" ng-click="deleteTeam(team.teamId)">Delete</button>
 						</td>
 						</tr>
 						</tbody>
@@ -111,39 +111,8 @@
 			document.getElementById('team_member').value = col4;
 		})
 	</script>
-		
-	<script type="text/javascript">
-	function formSubmit(){	
-	 $.ajax({
-	     url:'/seatmanagement/team/saveTeam',
-	     method : 'POST',
-	     data: $("#Form").serialize(),
-	     success: function (data) {
-	            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/team/getTeamView");
-	    }
-	 	
-	});
-	}
-		
-	var tId = null;
-
-	$('.table tbody').on('click', '.deleteBtn', function() {
-		var currow = $(this).closest('tr');
-		tId = currow.find('td:eq(0)').text();
-		console.log("tId : " + tId);
-		
-		 $.post("/seatmanagement/team/deleteTeamById", {
-			 teamId:tId
-			}, function(data) {
-				// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-	            location.replace("/seatmanagement/team/getTeamView");
-			});
-		}
-	);
-		 
-		
-	</script>
+	
+	
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>
