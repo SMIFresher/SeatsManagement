@@ -196,7 +196,7 @@
 				<br>
 	              <p><b>Employee Name :</b>{{DetailsSystems.employee.firstName}} {{DetailsSystems.employee.lastName}} ({{DetailsSystems.employee.designation}})<br>
 	              <br> <b>Employee Id :</b>{{DetailsSystems.employee.employeeRoll}} <br> <br>
-	              <b>Team Name :</b>{{DetailsSystems.employee.team}}</p>
+	              <b>Team Name :</b>{{DetailsSystems.employee.team.teamName}}</p>
             </div>
           </div>
         </div>
