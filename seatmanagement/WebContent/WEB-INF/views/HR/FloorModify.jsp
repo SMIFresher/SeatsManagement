@@ -115,17 +115,6 @@
 	})
 </script>
 
-
-
-
-	
-
-	
-	
-	
-	
-	
-
 	<script type="text/javascript">
 		function formSubmit() {
 
@@ -161,7 +150,7 @@
 			var floorId = currow.find('td:eq(0)').text();
 			console.log("floorId : " + floorId);
 			
-			 $.post("/seatmanagement/floor/delete/floorId", {
+			 $.post("/seatmanagement/floor/deleteFloorById", {
 				 floorId:floorId
 				}, function(data) {
 					// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");

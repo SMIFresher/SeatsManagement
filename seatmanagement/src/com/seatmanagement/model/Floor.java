@@ -15,12 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -40,13 +36,10 @@ public class Floor implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID floorId;
 
-	@NotEmpty(message = "FloorType can not be empty")
-	@NotNull(message = "FloorType can not be null")
+
 	@Column(name = "floor_type")
 	private String floorType;
 
-	@NotEmpty(message = "FloorName can not be empty")
-	@NotNull(message = "FloorName can not be null")
 	@Column(name = "floor_name")
 	private String floorName;
 
