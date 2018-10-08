@@ -86,11 +86,17 @@ public class FloorController {
 
 	@SuppressWarnings({ "rawtypes" })
 	@RequestMapping(value = "/floorsave", method = RequestMethod.POST)
-	public ResponseEntity saveOrUpdate(Floor floor,@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
+	public ResponseEntity saveOrUpdate(@Valid Floor floor, Errors errors,
+			@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : saveOrUpdate request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity response = null;
+
+		// Validation
+		if (errors.hasErrors()) {
+			throw new BusinessException(errors);
+		}
 
 		floorService.saveOrUpdateFloors(floor, buildingId);
 		response = new ResponseEntity(HttpStatus.OK);
@@ -113,8 +119,9 @@ public class FloorController {
 				+ LocalDateTime.now());
 
 		ResponseEntity response = null;
+		@SuppressWarnings("unused")
 		List<Floor> floors = floorService.getAllFloors();
-		response = new ResponseEntity(floors, HttpStatus.OK);
+		response = new ResponseEntity(HttpStatus.OK);
 
 		logger.info("Controller: FloorController Method : getAllFloors response sent at : " + LocalDateTime.now());
 
@@ -128,7 +135,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getFloorById", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewfloor/floorId", method = RequestMethod.GET)
 	public ResponseEntity getFloorById(@RequestParam(value = "FloorId") UUID FloorId) {
 
 		logger.info("Controller: FloorController Method : getFloorById request processing started at : "
@@ -157,7 +164,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getFloorsByBuildingId", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewfloor/buildingId", method = RequestMethod.GET)
 	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId)
 			throws BusinessException {
 
@@ -187,7 +194,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getFloorTypeByBuildingId", method = RequestMethod.GET)
+	@RequestMapping(value = "/viewfloorType/buildingId", method = RequestMethod.GET)
 	public ResponseEntity getFloorTypeByBuildingId(@RequestParam(value = "buildingId") UUID buildingId)
 			throws BusinessException {
 
@@ -211,7 +218,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/deleteFloorById",method = RequestMethod.POST)
+	@RequestMapping(value = "/delete/floorId")
 	public ResponseEntity deleteFloorById(@RequestParam(value = "floorId") UUID floorId) throws BusinessException {
 
 		if (Objects.isNull(floorId)) {
