@@ -1,8 +1,8 @@
 package com.seatmanagement.controller;
 
-/*import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;*/
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
-/*import org.hamcrest.collection.IsEmptyCollection;*/
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -117,11 +117,11 @@ public class OrganisationControllerTest {
 
 			ResponseEntity<String> result = restTemplate.postForEntity(saveOrganisationUrl, entityReq, String.class);
 			/*assertThat(result.getBody(), containsString("Organisation name can not be empty"));*/
-
+			/*System.out.println("debug");*/
 		} catch (Exception e) {
-			/*assertThat(e.getMessage(), containsString("Organisation name can not be empty"));
+			assertThat(e.getMessage(), containsString("Organisation name can not be empty"));
 			assertThat(e.getMessage(), containsString("9000"));
-			assertThat(e.getMessage(), containsString("500"));*/
+			assertThat(e.getMessage(), containsString("500"));
 		}
 	}
 
