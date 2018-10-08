@@ -29,6 +29,7 @@ import com.seatmanagement.service.FloorService;
  *
  */
 
+
 @Controller
 @RequestMapping("/floor")
 public class FloorController {

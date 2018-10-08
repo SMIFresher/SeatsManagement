@@ -390,9 +390,9 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor by Building ID
      */
     $scope.floorDetails=function(buildingId){
-        $http.get("/seatmanagement/floor/viewfloor/buildingId?buildingId="+buildingId)
+        $http.get("/seatmanagement/floor/floorbuildingId?buildingId="+buildingId)
         .then(function successCallback(response) {
-            $scope.getFloor = response.data;
+            $scope.getFloor= response.data;
             console.log(response.data);
             
         }, function errorCallback(response) {
@@ -431,7 +431,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor Details By Floor ID
      */
     $scope.FloorDetailsById = function() {
-	    $http.get("/seatmanagement/floor/viewfloor/floorId?FloorId="+gett())
+	    $http.get("/seatmanagement/floor/floorId?FloorId="+gett())
 	    .then(function(response) {
 	        $scope.FloorDetails = response.data;
 	        console.log(response.data);
@@ -442,7 +442,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * Get Floor Details
      */
     $scope.FloorDetails = function() {
-	    $http.get("/seatmanagement/floor/view")
+	    $http.get("/seatmanagement/floor/getAllFloors")
 	    .then(function successCallback(response) {
 	        $scope.getFloor = response.data;
 	        console.log(response.data);
