@@ -76,7 +76,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	
 
 	 /**
-	 * Save Cabins
+	 * Save Devices
 	 */
 	 $scope.saveDevices = function(){ 
 		 $http({
@@ -96,6 +96,115 @@ app.controller('workplaceManagementController', function($scope, $http) {
 			});
 	};
 
+	
+	/**
+	 * Save Floors
+	 */
+	 $scope.saveFloors = function(){ 
+		 $http({
+		        url: '/seatmanagement/floor/floorsave',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.FloorDetails();
+	    	doModal("Information","Floors Added Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	 /**
+	 * Save Systems
+	 */
+	 $scope.saveSystems = function(){ 
+		 $http({
+		        url: '/seatmanagement/systems/saveOrUpdateSystem',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.systemDetails();
+	    	doModal("Information","Systems Updated Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	 /**
+	 * Assign System to Employee
+	 */
+	 $scope.assignSystems = function(){ 
+		 $http({
+		        url: '/seatmanagement/systems/assignEmployee',
+		        method: "POST",
+		        data: $("#Form1").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.systemDetails();
+	    	doModal("Information","System Assigned Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	/**
+	 * save Seats
+	 */
+	 $scope.saveSeats = function(){ 
+		 $http({
+		        url: '/seatmanagement/seating/saveSeating',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.getAllSeats();
+	    	doModal("Information","Seats Added Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	/**
+	 * save Utilities
+	 */
+	 $scope.saveUtilities = function(){ 
+		 $http({
+		        url: '/seatmanagement/utilities/saveUtilities',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.UtilitiesDetails();
+	    	doModal("Information","Utilities Added Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
 	
 	 
 	/**
@@ -131,14 +240,15 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * Get All Employee
 	 */
 	$scope.employeeDetails=function(){
-		$http.post("/seatmanagement/employee/getAllEmployees")
-	    .then(function successCallback(response) {
-	        $scope.getemp = response.data;
-	        console.log(response.data);
-	    }, function errorCallback(response) {
-	    });
-	};
-	
+		 $http.post("/seatmanagement/employee/getAllEmployees")
+	     .then(function successCallback(response) {
+	         $scope.getemp = response.data;
+	         console.log(response.data);
+				
+	     }, function errorCallback(response) {
+	         alert(response.status);
+	     });
+		};
 	
 	/**
 	 * Get All systems
@@ -352,6 +462,21 @@ app.controller('workplaceManagementController', function($scope, $http) {
      */
     $scope.osDetailsCount = function() {
 	    $http.get("../dashboard/getAllOsCount")
+	    .then(function successCallback(response) {
+	        $scope.getOsDetails = response.data;
+	        console.log(response.data);
+			
+	    }, function errorCallback(response) {
+	       
+	        doModal('Some Error',response.data.ERROR_MESSAGE);
+	    });
+    };
+    
+    /**
+     * get All Seats
+     */
+    $scope.getAllSeats = function() {
+	    $http.get("/seatmanagement/seating/getAllSeating")
 	    .then(function successCallback(response) {
 	        $scope.getOsDetails = response.data;
 	        console.log(response.data);

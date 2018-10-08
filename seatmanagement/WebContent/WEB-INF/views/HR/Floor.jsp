@@ -30,7 +30,7 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form method="post" onsubmit="formSubmit()" id="Form">
+						<form id="Form" method="post" ng-submit="saveFloors();">
 							<div class="form-group">
 								<label for="location">Building Name </label>
 									<select class="custom-select mb-3" name="buildingId">
@@ -78,20 +78,5 @@
 	</div>
 </div>
 <script src="/seatmanagement/js/AngulerController.js"></script>
-<script type="text/javascript">
-function formSubmit(){
-	
- $.ajax({
-     url:'/seatmanagement/floor/floorsave',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     success: function (data) {
-            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-
-    }
- 	
-});
-}
-</script>
 </body>
 </html>

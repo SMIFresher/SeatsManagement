@@ -23,6 +23,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="UtilitiesDetails();">
     <div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -32,7 +33,7 @@
 
 						<h2>Utilities</h2>
 						<div>
-							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+							<form id="Form" method="post" ng-submit="saveUtilities();" autocomplete="off">
 					  		<div class="form-group">
 							<label>Utility Name</label>
 					  		<input name="utilityName" class="form-control" id="utilityName" type="text" placeholder="Utilities Name "/>
@@ -51,7 +52,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="UtilitiesDetails();">
+				
 
 					<table class="table table-hover">
 						<thead align="center">
@@ -69,11 +70,11 @@
 						</tbody>
 					
 					</table>
-				</div>
+				
 			</div>
 		</div>
 	</div>
-
+</div>
 
 
 <script type="text/javascript">
@@ -86,20 +87,7 @@
 </script>
 
 <script type="text/javascript">
-function formSubmit(){
 
- $.ajax({
-     url:'/seatmanagement/utilities/saveUtilities',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     success: function (data) {
-            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("/seatmanagement/utilities/addUtilities");
-    }
- 	
-});
-}
-	
 var uId = null;
 
 $('.table tbody').on('click', '.deleteBtn', function() {

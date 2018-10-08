@@ -30,8 +30,7 @@
 					<div class="col-md-12">
 						
 							<h2>Modify System</h2>
-							<form id="Form" method="post" onsubmit="formSubmit()"
-								autocomplete="off">
+							<form id="Form" method="post" ng-submit="saveSystems();" autocomplete="off">
 								<div class="form-group">
 								 <input type="hidden" class="form-control" id="sid"  name="systemId">
 								  <input type="hidden" class="form-control" id="eid"  name="employeeId">
@@ -162,30 +161,7 @@ $('.table tbody').on('click','tr',function() {
 
 
 </script>
+
 <script src="/seatmanagement/js/AngulerController.js"></script>
-<script type="text/javascript">
-function formSubmit(){
-	
-	console.log("Serialised Form : " + $("#Form").serialize());
-
- $.ajax({
-     url:'/seatmanagement/systems/saveOrUpdateSystem',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     async:false,
-     success: function (data) {
-   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("/seatmanagement/systems/getModifySystem");
-    }
- 	
-});
-}
-	
-</script>
-
-
-
-
-
 </body>
 </html>

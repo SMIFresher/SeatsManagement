@@ -21,7 +21,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
-
+	<div id=block ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="blockDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -30,7 +30,7 @@
 					<div class="col-md-12">
 
 						<h2>Blocks</h2>
-						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+						<form id="Form" method="post" ng-submit="saveBlocks();" autocomplete="off">
 						
 							<div class="form-group">
 								<label for="pwd">Block Id:</label> <input type="text"
@@ -76,7 +76,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id=block ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="blockDetails();">
+				
 
 					<table class="table table-hover">
 						<thead>
@@ -106,7 +106,7 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+		
 			</div>
 		</div>
 	</div>
@@ -140,28 +140,6 @@
 <script src="/seatmanagement/js/AngulerController.js"></script>
 
 <script type="text/javascript">
-function formSubmit(){
-
- $.ajax({
-     url:'/seatmanagement/block/saveblock',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     success: function (data) {
-    	 var status = data.RESPONSE_STATUS;
-    	 if(status == "OK"){
-
-         }
-         if(status == "ERROR"){
-         	 var message = response.data.RESPONSE_MESSAGE;
-         	doModal('Some Error',response.data.ERROR_MESSAGE);
-         }
-    },error: function (response) {
-    	doModal('Some Error',response.data.ERROR_MESSAGE);
-    }
- 	
-});
-}
-
 
  var blockId = null;
 

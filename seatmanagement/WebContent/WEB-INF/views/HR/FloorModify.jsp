@@ -25,7 +25,7 @@
 	<br>
 	<br>
 	<br>
-
+	<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -34,8 +34,7 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form id="Form" method="post" onsubmit="formSubmit();"
-							autocomplete="off">
+						<form id="Form" method="post" ng-submit="saveFloors();" autocomplete="off">
 							<div class="form-group">
 								<label for="pwd">Floor Id:</label> <input type="text"
 									class="form-control" id="fid" placeholder="Enter Floor Id"
@@ -51,7 +50,7 @@
 								<label for="pwd">Floor Type:</label>
 								<select class="custom-select mb-3" id="ftype" name="floorType">
 										<option value="Commercial">Commercial</option>
-										<option value="home">Home</option>
+										<option value="Home">Home</option>
 									</select>
 								
 							</div>
@@ -68,7 +67,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetails();">
+				
 					<table class="table table-hover">
 						<thead>
 							
@@ -92,10 +91,12 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				
 			</div>
 		</div>
 	</div>
+	</div>
+	
 <script src="/seatmanagement/js/AngulerController.js"></script>
 <script type="text/javascript">
 	$('.table tbody').on('click', 'tr', function() {
@@ -115,42 +116,14 @@
 	})
 </script>
 
-	<script type="text/javascript">
-		function formSubmit() {
-
-			$.ajax({
-				url : '/seatmanagement/floor/floorsave',
-				method : 'POST',
-				data : $("#Form").serialize(),
-				success : function(data) {
-					var status = data.RESPONSE_STATUS;
-					if (status == "OK") {
-
-					}
-					if (status == "ERROR") {
-						var message = response.data.RESPONSE_MESSAGE;
-						// Business Error scenario
-						// provision to display business error message
-					}
-				},
-				error : function(response) {
-					var status = response.RESPONSE_STATUS;
-					var message = response.RESPONSE_MESSAGE;
-					var errorCode = response.ERROR_CODE;
-					console.log("Response Status : " + status);
-					console.log("Response Message : " + message);
-					console.log("ErrorCode : " + errorCode);
-				}
-
-			});
-		}
-	
+<script type="text/javascript">
+		
 		function deleteFloor(button){
 			var currow = $(button).closest('tr');
 			var floorId = currow.find('td:eq(0)').text();
 			console.log("floorId : " + floorId);
 			
-			 $.post("/seatmanagement/floor/deleteFloorById", {
+			 $.post("/seatmanagement/floor/delete/floorId", {
 				 floorId:floorId
 				}, function(data) {
 					// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");

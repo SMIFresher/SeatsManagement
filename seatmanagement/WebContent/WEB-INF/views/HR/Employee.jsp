@@ -32,7 +32,7 @@
 					<div class="col-md-12">
 
 						<h2>Employee</h2>
-						<form id="Form" autocomplete="on">
+						<form id="Form" autocomplete="on" ng-submit="saveEmployees();">
 							
 							<div class="form-group">
 								<label for="employeeRoll">Employee Roll Number:</label>  
@@ -66,7 +66,7 @@
 		                   		
 								<label for="organisation">Organisation </label>
 									<select class="custom-select mb-3 organisationId" name="organisationId">
-										<option ng-repeat="organisation1 in getOrg" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
+										<option ng-repeat="organisation1 in Org" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
 									</select>
 								
 
@@ -75,7 +75,7 @@
 										<option ng-repeat="team1 in getteam" value="{{team1.teamId}}">{{team1.teamName}}</option>
 									</select>
 							</div>
-							<button type="submit" class="btn btn-primary" onClick="formSubmit();" >Submit</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 
 					</div>
@@ -123,38 +123,8 @@
 
 	</div>
 	<script type="text/javascript">
-	function formSubmit(){
-		
-	var teamId = $("#Form .teamId").val();		
-	if(teamId == null){
-		$.ajax({
-		     url:'/seatmanagement/employee/saveEmployeeWithoutTeam',
-		     method : 'POST',
-		     data: $("#Form").serialize(),
-		     success: function (data) {
-		            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-		            location.replace("/seatmanagement/employee/getEmployeeView");
-		    },error: function(data){
-		    }
-		 	
-		});
-	}else{
-		$.ajax({
-		     url:'/seatmanagement/employee/saveEmployeeWithTeam',
-		     method : 'POST',
-		     data: $("#Form").serialize(),
-		     success: function (data) {
-		            $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-		            location.replace("/seatmanagement/employee/getEmployeeView");
-		    },error: function(data){
-		    }
-		 	
-		});
-	}
-	 
-	}
 	
-		
+			
 	var eId = null;
 
 	$('.table tbody').on('click', '.deleteBtn', function() {

@@ -25,7 +25,7 @@
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
-
+	<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -36,9 +36,7 @@
 						<h2>Seating Arrangement</h2>
 						<hr>
 						
-						<form method="post" id="Form"  onsubmit="formSubmit()">
-						
-							<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">
+						<form method="post" id="Form"  ng-submit="saveSeats();">
 								<div class="form-group">
 									 <label for="emp_id">Building</label>
 									<select ng-model="building" class="form-control"
@@ -67,7 +65,7 @@
 											{{block.blockName}}</option>
 									</select>
 								</div>
-							</div>
+							
 							<div class="form-group">
 					          <label for="xax">x</label>  
 							<input type="text" class="form-control" id="xax" placeholder="X Axis" name="x_axis">
@@ -98,7 +96,7 @@
 			</div>
 		</div>
 	</div>
-
+</div>
 
 
 
@@ -106,21 +104,6 @@
 
 
 <script src="/seatmanagement/js/AngulerController.js"></script>
-		
-		
-<script type="text/javascript">
-function formSubmit(){
-	console.log($('#Form').serialize());
- $.ajax({
-     url:'/seatmanagement/seating/saveSeating',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     success: function (data) {
-   	 }
- 	
-});
-}
-</script>
 
 
 <script type="text/javascript">
@@ -138,6 +121,6 @@ function formSubmit(){
 					});
 				});
 			})(jQuery);
-		</script>
+</script>
 </body>
 </html>

@@ -111,11 +111,9 @@
 			document.getElementById('team_member').value = col4;
 		})
 	</script>
-	
-	
+		
 	<script type="text/javascript">
-	function formSubmit(){
-	
+	function formSubmit(){	
 	 $.ajax({
 	     url:'/seatmanagement/team/saveTeam',
 	     method : 'POST',
