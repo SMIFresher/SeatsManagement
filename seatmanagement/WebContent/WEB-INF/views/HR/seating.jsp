@@ -40,7 +40,7 @@
 								<div class="form-group">
 									 <label for="emp_id">Building</label>
 									<select ng-model="building" class="form-control"
-										ng-change="floorDetails(building)">
+										ng-change="floorDetailsByBuilding(building)">
 										<option value="">Select Building</option>
 										<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
 									</select>

@@ -74,3 +74,15 @@ p:after{
 	border-bottom: 2px solid #007bff;
 	border-radius: 0px;
 }
+.option{
+	padding: 10px;
+	border-radius: 50%;
+}
+.option:hover{
+	background-color: #e91e63;
+	color:white;
+	transition:0.3s;
+}
+
+
+

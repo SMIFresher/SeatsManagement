@@ -296,7 +296,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	         $scope.getteam = response.data;
 	         console.log(response.data);
 	     }, function errorCallback(response) {
-	         alert(response.status);
+	          
 	     });
 	};
 	 
@@ -310,7 +310,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	         console.log(response.data);
 				
 	     }, function errorCallback(response) {
-	         alert(response.status);
+	          
 	     });
 		};
 	
@@ -324,7 +324,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
          console.log(response.data);
 			
      }, function errorCallback(response) {
-         alert(response.status);
+          
      });
 	};
 	 
@@ -356,7 +356,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
             console.log(response.data);
             
         }, function errorCallback(response) {
-            alert(response.status);
+             
         });
     };
     
@@ -369,7 +369,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	        $scope.getUtilities = response.data;
 	        console.log(response.data);
 	    }, function errorCallback(response) {
-	        alert(response.status);
+	         
 	    });
     };
     
@@ -382,21 +382,21 @@ app.controller('workplaceManagementController', function($scope, $http) {
             $scope.getOrg = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
-            alert(response.status);
+             
         });
     };
 
     /**
      * get Floor by Building ID
      */
-    $scope.floorDetails=function(buildingId){
+    $scope.floorDetailsByBuilding=function(buildingId){
         $http.get("/seatmanagement/floor/floorbuildingId?buildingId="+buildingId)
         .then(function successCallback(response) {
             $scope.getFloor= response.data;
             console.log(response.data);
             
         }, function errorCallback(response) {
-            alert(response.status);
+             
         });
     };
 
@@ -423,7 +423,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
             console.log(response.data);
 			
         }, function errorCallback(response) {
-            alert(response.status);
+             
         });
 	};
 	
@@ -431,7 +431,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor Details By Floor ID
      */
     $scope.FloorDetailsById = function() {
-	    $http.get("/seatmanagement/floor/floorId?FloorId="+gett())
+	    $http.get("/seatmanagement/floor/floorId?floorId="+gett())
 	    .then(function(response) {
 	        $scope.FloorDetails = response.data;
 	        console.log(response.data);
@@ -448,7 +448,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	        console.log(response.data);
 				
 	    }, function errorCallback(response) {
-	        alert(response.status);
+	         
 	    });
     };
     
@@ -503,7 +503,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            $scope.getFloorDetails = response.data;
 	            console.log(response.data);
 	        }, function errorCallback(response) {
-	            alert(response.status);
+	             
 	        });
 	};
 	
@@ -517,7 +517,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
             console.log(response.data);
 			
         }, function errorCallback(response) {
-            alert(response.status);
+             
         });
 	};
     

@@ -34,7 +34,7 @@
 								<div class="form-group">
 								<label for="location">Building:</label>
 								<select name="building" ng-model="building" class="form-control"
-									ng-change="floorDetails(building)">
+									ng-change="floorDetailsByBuilding(building)">
 									<option value="">--Select Building--</option>
 									<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
 								</select>
@@ -43,7 +43,7 @@
 								<div class="form-group">
 									<label for="location">Floor:</label>
 								<select name="floorId" ng-model="floor"
-									class="form-control" ng-change="blockDetails(floor)">
+									class="form-control" ng-change="blockDetails()">
 									<option value="">--Select Floor--</option>
 									<option ng-repeat="floor in getFloor" value="{{floor.floorId}}">
 										{{floor.floorName}}</option>

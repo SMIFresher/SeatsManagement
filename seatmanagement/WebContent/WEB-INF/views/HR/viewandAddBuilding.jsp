@@ -29,10 +29,22 @@
   <div class="row" >
   
     <div class="col-md-4" ng-repeat="Building in getBuilding">
-    	<div ng-click="floorDetails(Building.buildingId)" class="content text-center" data-toggle="modal" data-target="#getFloor" >
-    	<br><br><br>
+   		
+    	<div class="content text-center" ng-click="floorDetailsByBuilding(Building.buildingId);" data-toggle="modal" data-target="#getFloor">
+    	
+    		<br>
     	  <h3>{{Building.buildingName}}</h3>
-	      <p>{{Building.buildingName}} Building architecture</p>
+    	  <p>{{Building.buildingName}} Building architecture</p>
+    	 
+    	  <div class="row d-flex justify-content-center details" align="center" >
+    		<div class=" col-sm-3 " ><a href="getModifyBuilding"><div class="option"><span class="fa fa-cogs"></span></div></a></div>
+    		<div class=" col-sm-3 " >
+    			<div class="option">
+    				<span class="fa fa-info"></span>
+    			</div>
+    		</div>
+    	</div> 
+	      
     	</div>
     </div> 
     <div class="col-md-4 ">
@@ -65,9 +77,17 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="row">
-          	<div class="col-sm-4 text-center">
-          		<h3>SMI I</h3>
-          		<p>SMI I floar architecture.....</p>
+          	<div class="col-sm-4">
+          		<h3>Building Details</h3>
+          		<hr>
+          		<p>
+          			<b>Building Name : </b> {{getFloor[0].building.buildingName}} <br> <br>
+          			<b>Building Address</b><br> {{getFloor[0].building.buildingAddress}}  <br>
+          			<b>Location :</b> {{getFloor[0].building.buildingLocation}}  <br>
+          		</p>
+          		
+          		
+          		
           	</div>
           	<div class="col-sm-8 cc">
           		<div class="row text-center">
@@ -76,6 +96,14 @@
           				<div class="container flr">
 							<h4>{{flr.floorName}}</h4>
           				</div></a>
+          			</div>
+          			<div class="col-sm-12" ng-repeat="flr in getFloor">
+          				<a href="/seatmanagement/floor/FloorView">
+          				<div class="container flr">
+							<h2>+</h2>
+							<p>Add</p>
+          				</div>
+          				</a>
           			</div>
           		</div>
           	</div>
@@ -140,7 +168,6 @@
 								<option ng-repeat="org in getOrg" value="{{org.organisationId}}">{{org.organisationName}}</option>
 							</select>
 					</div>
-              
             </div>
           </div>
            
@@ -155,6 +182,7 @@
     </div>
   </div>
   
+
 </div>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 
