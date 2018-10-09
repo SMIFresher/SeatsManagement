@@ -308,3 +308,20 @@ ALTER TABLE employee DROP FOREIGN KEY employee_fk_1;
 
 ALTER TABLE employee 
 ADD CONSTRAINT `employee_fk_1` FOREIGN KEY (team_id) REFERENCES team(team_id) ON DELETE SET NULL;
+
+# alter on 09/10/18
+ALTER TABLE `seatmanagement`.`reallocation` 
+DROP FOREIGN KEY `reallocation_fk_3`;
+ALTER TABLE `seatmanagement`.`reallocation` 
+DROP COLUMN `reallocated_position`,
+DROP COLUMN `reallocated_seating_detail_id`,
+DROP COLUMN `seating_detail_id`,
+ADD COLUMN `employee_id` VARCHAR(36) NOT NULL AFTER `alloted_by`,
+ADD INDEX `employee_id_idx` (`employee_id` ASC),
+DROP INDEX `reallocation_fk_3` ;
+ALTER TABLE `seatmanagement`.`reallocation` 
+ADD CONSTRAINT `employee_id`
+  FOREIGN KEY (`employee_id`)
+  REFERENCES `seatmanagement`.`employee` (`employee_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
