@@ -6,8 +6,6 @@ public class BusinessException extends Exception {
 
 	private static final long serialVersionUID = 2597478625120579985L;
 
-	private String errorConstant;
-
 	private Errors validationErrors;
 
 	public BusinessException(Errors validationErrors) {
@@ -21,7 +19,6 @@ public class BusinessException extends Exception {
 
 	public BusinessException(final String msg, final Throwable cause) {
 		super(msg, cause);
-		this.errorConstant = msg;
 	}
 
 	public Errors getValidationErrors() {
@@ -32,18 +29,4 @@ public class BusinessException extends Exception {
 		this.validationErrors = validationErrors;
 	}
 
-	/**
-	 * @return the errorConstant
-	 */
-	public String getErrorConstant() {
-		return errorConstant;
-	}
-
-	/**
-	 * @param errorConstant
-	 *            the errorConstant to set
-	 */
-	public void setErrorConstant(String errorConstant) {
-		this.errorConstant = errorConstant;
-	}
 }
