@@ -40,7 +40,7 @@
 		<li><a href="/seatmanagement/organisation/getOrganisationView" class="fa fa-sitemap"> Organization</a></li>
 		<li><a href="/seatmanagement/building/getBuildingViewAndEdit" class="fa fa-building"> Manage Buildings</a></li>
 		<li class="active"><a href="#managebuildingSubmenu"
-			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle "> Manage
+			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-building"> Manage
 				Floors</a>
 			<ul class="collapse list-unstyled" id="managebuildingSubmenu">
 				<li><a href="#floorsubmenu" data-toggle="collapse"

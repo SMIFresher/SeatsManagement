@@ -62,7 +62,7 @@ public class Block implements Serializable{
 	@Transient
 	private String blockMeasurementString;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="floor_id", nullable=true)
     private Floor floor;
 	
