@@ -16,7 +16,7 @@
 	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-	
+<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -66,7 +66,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">
+				
 
 					<table class="table table-hover">
 						<thead>
@@ -92,6 +92,7 @@
 				</div>
 			</div>
 		</div>
+		<div ng-include="'/seatmanagement/models/search.html'"></div>
 	</div>
 
 

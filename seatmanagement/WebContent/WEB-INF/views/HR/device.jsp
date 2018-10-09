@@ -72,6 +72,7 @@
 			</div>
 		</div>
 	</div>
+	<div ng-include="'/seatmanagement/models/search.html'"></div>
 </div>
 
 

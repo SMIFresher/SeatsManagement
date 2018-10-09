@@ -22,7 +22,7 @@
 
 <body>
 
-
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById();">
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -36,7 +36,7 @@
 					<div class="col-md-12">
 						<h2>Seating Arrangement</h2>
 						<hr>
-							<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById();">
+							
 								<h3> <span class="fa fa-th" aria-hidden="true"></span>{{FloorDetails.floorName}}</h3>
 							      <p>{{FloorDetails.floorType}}</p>
 							      <hr>
@@ -47,7 +47,7 @@
 							      </p>
 								
 								
-							</div>
+							
 					</div>
 
 				</div>
@@ -62,8 +62,8 @@
 			</div>
 		</div>
 	</div>
-
-
+	<div ng-include="'/seatmanagement/models/search.html'"></div>
+</div>
 
 
 

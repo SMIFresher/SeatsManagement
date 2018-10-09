@@ -1,0 +1,48 @@
+
+<div class="modal fade " id="search" >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <input type="hidden" id="click" data-toggle="modal" data-target="#search"> 
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h3 class="modal-title">
+          <span><b></b></span><span class="fa fa-rss text-success"></span>  {{DetailsSystems.system.allotmentStatus}}</h3>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-5 ">
+              <h3><span class="fa fa-{{DetailsSystems.systemType}}"></span> System Information</h3>
+              <hr>
+              <br>
+              <p><b>System Number :</b>{{DetailsSystems.systemName}}
+              <br> <b>System Type :</b>{{DetailsSystems.systemType}} <br> 
+              <b>System Oprating System :</b>{{DetailsSystems.operatingSystem}}</p>
+              
+              <b>Additinal Device</b>
+              <ul ng-repeat="device in DetailsSystems.additionalDevice">
+              	<li>{{device.device_name}}</li>
+              </ul>
+            </div>
+            <div class="col-sm-7 cc border border-right-0 border-top-0 border-bottom-0" style="padding-right: 20px;">
+              
+                <h3><span class="fa fa-user"></span> Employee Information</h3>
+              <hr>
+				<br>
+	              <p><b>Employee Name :</b>{{DetailsSystems.employee.firstName}} {{DetailsSystems.employee.lastName}} ({{DetailsSystems.employee.designation}})<br>
+	              <br> <b>Employee Id :</b>{{DetailsSystems.employee.employeeRoll}} <br> <br>
+	              <b>Team Name :</b>{{DetailsSystems.employee.team.teamName}}</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

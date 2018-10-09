@@ -17,7 +17,7 @@
 
 
 
-
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -51,7 +51,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails();">
+				
 					<table class="table table-hover">
 						<thead align="center">
 						
@@ -71,6 +71,7 @@
 				</div>
 			</div>
 		</div>
+		<div ng-include="'/seatmanagement/models/search.html'"></div>
 	</div>
 
 

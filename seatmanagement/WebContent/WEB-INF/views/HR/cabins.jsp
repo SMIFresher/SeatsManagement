@@ -36,13 +36,13 @@
 <body>
 
 
+
+
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  >
 <jsp:include page="nav.jsp"></jsp:include>
 <br><br><br><br>
 
 
-
-
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  >
 
 <div class="container-fluid" id="redips-drag">
   <div class="row">
@@ -248,6 +248,7 @@
   
   </div>
 </div>
+<div ng-include="'/seatmanagement/models/search.html'"></div>
 </div>
 
 	<script type="text/javascript">

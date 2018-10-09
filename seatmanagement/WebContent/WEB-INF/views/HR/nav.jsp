@@ -16,12 +16,10 @@
 		src="/seatmanagement/Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
 	</a>
 	<div class="collapse navbar-collapse"></div>
-	<form class="form-inline" action="#">
-		<input class="form-control mr-sm-2 search" type="text"
-			placeholder="Search">
+	<form class="form-inline" id="src" action="#" ng-submit="getSysDetails(search)"  >
+		<input class="form-control mr-sm-2 search" ng-model="search" type="text" placeholder="Search" >
 	</form>
 </nav>
-
 
 <nav id="sidebar" class="active">
 	<br>
@@ -94,6 +92,9 @@
 
 </nav>
 
+
+
+
 <!-- Popper.JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -106,6 +107,9 @@
                 $('#sidebar').toggleClass('active');
                 $(this).toggleClass('active');
             });
+        });
+        $('#src').on('submit', function(e){
+        	$('#click').trigger('click');
         });
  </script>
 

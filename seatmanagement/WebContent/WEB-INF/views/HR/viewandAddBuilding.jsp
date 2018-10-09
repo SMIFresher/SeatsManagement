@@ -19,12 +19,12 @@
 </head>
 <body>
 
+<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); OrganizationDetails();">
 
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br>
-<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); OrganizationDetails();">
 <div class="container">
   <div class="row" >
   
@@ -182,7 +182,7 @@
     </div>
   </div>
   
-
+	<div ng-include="'/seatmanagement/models/search.html'"></div>
 </div>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 

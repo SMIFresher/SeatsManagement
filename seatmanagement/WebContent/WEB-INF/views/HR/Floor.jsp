@@ -15,13 +15,13 @@
 	  <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-
+<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); FloorDetails();">
+	
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
-<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); FloorDetails();">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 border">
@@ -76,6 +76,7 @@
 			</div>
 		</div>
 	</div>
+	<div ng-include="'/seatmanagement/models/search.html'"></div>
 </div>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
