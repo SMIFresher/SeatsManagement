@@ -47,7 +47,7 @@ public class Floor implements Serializable {
 	@JoinColumn(name = "building_id", nullable = false)
 	private Building building;
 
-	@OneToMany(mappedBy = "floor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "floor",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Block> blocks;
 

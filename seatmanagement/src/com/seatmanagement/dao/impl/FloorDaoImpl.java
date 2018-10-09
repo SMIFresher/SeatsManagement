@@ -3,6 +3,8 @@ package com.seatmanagement.dao.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -45,7 +47,7 @@ public class FloorDaoImpl implements FloorDao {
 		List<Floor> floors = null;
 		DetachedCriteria criteria = DetachedCriteria.forClass(Floor.class);
 		criteria.add(Restrictions.eq("building.buildingId", buildingId));
-
+		criteria.setFetchMode("blocks", FetchMode.SELECT); 
 		try {
 
 			floors = (List<Floor>) hibernateTemplate.findByCriteria(criteria);
