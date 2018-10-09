@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -38,7 +39,7 @@ public class SystemDaoImpl implements SystemDao {
 	
 		criteria.add(Restrictions.disjunction());
 		criteria.add(Restrictions.or
-				(Restrictions.eq("systemName",request),Restrictions.eq("employee.employeeRoll",request),Restrictions.like("employee.firstName",request)));
+				(Restrictions.like("systemName",request,MatchMode.START),Restrictions.like("employee.employeeRoll",request,MatchMode.START),Restrictions.like("employee.firstName",request,MatchMode.START)));
  
 		system= (Systems) hibernateTemplate.findByCriteria(criteria).get(0);
 		
