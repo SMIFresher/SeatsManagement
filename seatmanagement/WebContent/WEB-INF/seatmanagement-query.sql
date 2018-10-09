@@ -325,3 +325,7 @@ ADD CONSTRAINT `employee_id`
   REFERENCES `seatmanagement`.`employee` (`employee_id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+  #seating table add system_occupied Column
+  ALTER TABLE `seatmanagement`.`seating` 
+ADD COLUMN `system_occupied` INT(11) NOT NULL AFTER `seat_occupied`;
