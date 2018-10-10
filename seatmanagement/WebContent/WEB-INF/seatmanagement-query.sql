@@ -329,3 +329,8 @@ ADD CONSTRAINT `employee_id`
   #seating table add system_occupied Column
   ALTER TABLE `seatmanagement`.`seating` 
 ADD COLUMN `system_occupied` INT(11) NOT NULL AFTER `seat_occupied`;
+
+
+#10/09/2018
+alter table seating_detail add column system_occupied varchar(45); 
+alter table seating_detail drop column system_occupied; 
