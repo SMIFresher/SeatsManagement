@@ -32,8 +32,13 @@
               <hr>
 				<br>
 	              <p><b>Employee Name :</b>{{DetailsSystems.employee.firstName}} {{DetailsSystems.employee.lastName}} ({{DetailsSystems.employee.designation}})<br>
-	              <br> <b>Employee Id :</b>{{DetailsSystems.employee.employeeRoll}} <br> <br>
-	              <b>Team Name :</b>{{DetailsSystems.employee.team.teamName}}</p>
+	               <b>Employee Id :</b>{{DetailsSystems.employee.employeeRoll}} <br>
+	              <b>Team Name :</b>{{DetailsSystems.employee.team.teamName}}</p>   
+	              <hr>
+	              <b>Building :</b> {{DetailsSystems.seatingDetails.seating.block.floor.building.buildingName}}<br>
+	              <b>Floor :</b> {{DetailsSystems.seatingDetails.seating.block.floor.floorName}}<br>
+	             	<a href="/seatmanagement/systems/EditView?seatingId={{DetailsSystems.seatingDetails.seating.seatingId}}"> <b class="text-primary"><span class="fa fa-map-marker"></span> Click hear to Get Location</b></a><br>
+	              
             </div>
           </div>
         </div>

@@ -83,6 +83,14 @@ p:after{
 	color:white;
 	transition:0.3s;
 }
-
+.erase{
+	position: relative;
+    margin-top: -25px;
+    margin-right: -14px;
+    padding: 7px;
+}
+.erase:hover{
+	color: #dc3545;
+}
 
 
