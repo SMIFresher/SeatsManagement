@@ -305,4 +305,27 @@ public class SystemController {
 	
 	
 	
+	
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value="/getAllAvailableSystems", method = RequestMethod.GET)
+	public ResponseEntity getAllAvailableSystems()
+	{
+		logger.info("Controller: ReallocationController Method : getAllAvailableSystems request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity model = null;
+		String status = null;
+
+		List<Systems> systems = systemService.getAllAvailableSystems();
+
+		model = new ResponseEntity(systems, HttpStatus.OK);
+
+		logger.info("Controller: ReallocationController Method : getAllAvailableSystems request processing ended at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
+	
+	
 }
