@@ -67,7 +67,12 @@
 			</div>
 			<div class="col-md-8">
 				
-
+					<div class="col-sm-12 bg-primary text-white">
+							<br>
+							<h4>Building Details</h4>
+							<br>
+						</div>
+					<div class="col-sm-12 table-responsive">
 					<table class="table table-hover">
 						<thead>
 							<td>Building Name</td>
@@ -89,6 +94,7 @@
 							</tr>
 						</tbody>
 					</table>
+				</div>
 				</div>
 			</div>
 		</div>

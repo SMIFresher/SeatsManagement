@@ -76,8 +76,12 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				
-
+					<div class="col-sm-12 bg-primary text-white">
+							<br>
+							<h4>Block Details</h4>
+							<br>
+						</div>
+					<div class="col-sm-12 table-responsive">
 					<table class="table table-hover">
 						<thead>
 							
@@ -106,7 +110,7 @@
 							</tr>
 						</tbody>
 					</table>
-		
+				</div>
 			</div>
 		</div>
 		<div ng-include="'/seatmanagement/models/search.html'"></div>

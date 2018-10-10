@@ -111,6 +111,7 @@
 							<h4>Company Details</h4>
 							<br>
 						</div>
+						<div class="col-sm-12 table-responsive">
 						<table class="table border">
 							<thead>
 								<tr>
@@ -132,6 +133,7 @@
 
 							</tbody>
 						</table>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -85,8 +85,13 @@
 			</div>
 			
 			<div class="col-md-8">
-
-				<!-- <div class="table-resposive" style="overflow-x: auto; height: 700px;"> -->
+					
+					<div class="col-sm-12 bg-primary text-white">
+							<br>
+							<h4>Company Details</h4>
+							<br>
+						</div>
+					<div class="col-sm-12 table-responsive">
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Roll Number</td>
@@ -116,7 +121,7 @@
 						</tbody>
 						
 					</table>
-					<!-- </div> -->
+				 </div>
 				</div>
 		</div>
 	</div>

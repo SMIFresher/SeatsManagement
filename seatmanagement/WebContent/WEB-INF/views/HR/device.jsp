@@ -50,8 +50,12 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				
-
+					<div class="col-sm-12 bg-primary text-white">
+							<br>
+							<h4>Company Details</h4>
+							<br>
+						</div>
+					<div class="col-sm-12 table-responsive">
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Device Name</td>
@@ -68,7 +72,7 @@
 						</tbody>
 					
 					</table>
-				
+				</div>
 			</div>
 		</div>
 	</div>
