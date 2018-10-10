@@ -28,7 +28,7 @@ import com.seatmanagement.service.SystemService;
  *
  */
 @Transactional
-// @Service
+@Service
 public class SystemServiceImpl implements SystemService {
 
 	private static final Logger logger = LoggerFactory.getLogger(SystemServiceImpl.class);
@@ -123,15 +123,29 @@ public class SystemServiceImpl implements SystemService {
 
 		logger.info("Service: SystemServiceImpl Method : getSystem started at : " + LocalDateTime.now());
 
-		return systemDao.getSystem(request);
+		Systems system;
+		List<Systems> list= (List<Systems>) systemDao.getSystem(request);
+		
+		if(list.isEmpty()) {
+			throw new BusinessException("Enter a valid Id");
+		}
+		else {
+			system=list.get(0);
+		}
+		logger.info("Service: SystemServiceImpl Method : getSystem ended at : " + LocalDateTime.now());
+		return system;
 	}
 
 	@Override
-	public Systems getSystemBySystemName(String systemName) {
+	public Systems getSystemBySystemName(String systemName){
 
 		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName started at : " + LocalDateTime.now());
 
-		return systemDao.getSystemId(systemName);
+		List<Systems> systemList= systemDao.getSystemId(systemName.trim());
+		Systems system=systemList.get(0);
+		
+		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName ended at : " + LocalDateTime.now());
+		return system;
 	}
 
 	@Override
@@ -141,6 +155,8 @@ public class SystemServiceImpl implements SystemService {
 
 		Systems system = new Systems();
 		List<Systems> list = systemDao.getOs(system);
+		
+		logger.info("Service: SystemServiceImpl Method : getOscount ended at : " + LocalDateTime.now());
 		return list;
 
 	}

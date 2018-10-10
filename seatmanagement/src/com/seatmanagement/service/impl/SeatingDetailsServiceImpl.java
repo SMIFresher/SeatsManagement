@@ -19,11 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDetailsDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.model.Team;
 import com.seatmanagement.service.SeatingDetailsService;
+import com.seatmanagement.service.SystemService;
 
 /**
  * 
@@ -43,14 +45,23 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	SeatingDetailsDao seatingDetailsDao;
 
 	@Autowired
-	GenericDao<SeatingDetails> genericDao;
+	GenericDao<SeatingDetails> genericDaoSeatingDetails;
+
+	@Autowired
+	GenericDao<Seating> genericdaoSeating;
+
+	@Autowired
+	SystemDao systemDao;
+	
+	@Autowired
+	SystemService systemService;
 
 	@Override
 	public List<SeatingDetails> getAllSeatingDetails() {
 		logger.info("Service: SeatingDetailsServiceImpl Method : getAllSeatingDetails started at : " + LocalDateTime.now());
 		@SuppressWarnings("unchecked")
 		SeatingDetails seatingDetails = new SeatingDetails();
-		List<SeatingDetails> list = genericDao.getAll(seatingDetails);
+		List<SeatingDetails> list = genericDaoSeatingDetails.getAll(seatingDetails);
 		logger.info("Service: SeatingDetailsServiceImpl Method : getAllSeatingDetails ended at : " + LocalDateTime.now());
 		return list;
 	}
@@ -59,7 +70,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	public void saveSeatingDetails(SeatingDetails seatingDetails) {
 		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetails started at : " + LocalDateTime.now());
 		// seatingDetailsDao.getAllSeatingDetails();
-		genericDao.saveOrUpdate(seatingDetails);
+		genericDaoSeatingDetails.saveOrUpdate(seatingDetails);
 		// seatingDetailsDao.saveSeatingDetails(seatingDetails);
 		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetails ended at : " + LocalDateTime.now());
 	}
@@ -87,21 +98,31 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		return seatingDetails;
 	}
 
-	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails, UUID seatingId) {
+	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails, UUID seatingId) throws BusinessException {
 		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());
-		/*
-		 * deleteByIdInBatch(seatingId);
-		 * 
-		 * Seating seating=new Seating(); seating = genericdaoSeating.getById(seating,
-		 * seatingId);
-		 * 
-		 * for(SeatingDetails sd:seatingDetails) { sd.setSeating(seating); String
-		 * systemName=sd.getSeatingSystemNo();
-		 * sd.setSystem(system.getSystemId(systemName.trim()));
-		 * genericDaoSeatingDetails.saveOrUpdate(sd); }
-		 */
+		
+		  deleteByIdInBatch(seatingId);
+		 
+		  Seating seating=new Seating();
+		  seating = genericdaoSeating.getById(seating,seatingId);
+		  
+		  for(SeatingDetails sd:seatingDetails) { 
+		
+			sd.setSeating(seating);
+			String systemName = sd.getSeatingSystemNo().trim();
+			
+			if(!systemName.equals("Emptydesk") && !systemName.equals("exit")) {
+				sd.setSystem(systemService.getSystemBySystemName(systemName));
+			}
+			
+			genericDaoSeatingDetails.saveOrUpdate(sd);
+		
+		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());	  	
+		
+	 }
+		 
 
-		seatingDetailsDao.saveSeatingDetailsInbatch(seatingDetails, seatingId);
+		/*seatingDetailsDao.saveSeatingDetailsInbatch(seatingDetails, seatingId);*/
 		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch ended at : " + LocalDateTime.now());
 	}
 

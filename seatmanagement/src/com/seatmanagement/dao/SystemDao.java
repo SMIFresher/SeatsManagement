@@ -10,9 +10,9 @@ import com.seatmanagement.model.Systems;
 
 public interface SystemDao {
 
-	public Systems getSystem(String request) throws BusinessException;
+	public List<Systems> getSystem(String request);
 
-	public Systems getSystemId(String systemName) throws BusinessException;
+	public List<Systems> getSystemId(String systemName);
 
 	public List<Systems> getOs(Systems system);
 

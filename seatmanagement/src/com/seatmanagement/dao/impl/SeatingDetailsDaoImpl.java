@@ -34,15 +34,6 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 	@Autowired
 	private HibernateTemplate hibernateTemplate;
 
-	@Autowired
-	GenericDao<SeatingDetails> genericDaoSeatingDetails;
-
-	@Autowired
-	GenericDao<Seating> genericdaoSeating;
-
-	@Autowired
-	SystemDao system;
-
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	public List<SeatingDetails> getAllSeatingDetails() {
 		
@@ -117,8 +108,9 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 
 	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails, UUID seatingId) throws BusinessException {
 		
-		logger.info(
+		/*logger.info(
 				"DAO: SeatingDetailsDaoImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());
+		
 		deleteByIdInBatch(seatingId);
 
 		Seating seating = new Seating();
@@ -127,12 +119,14 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		for (SeatingDetails sd : seatingDetails) {
 			sd.setSeating(seating);
 			String systemName = sd.getSeatingSystemNo();
-			sd.setSystem(system.getSystemId(systemName.trim()));
+			
+			
+			sd.setSystem(systemDao.getSystemId(systemName.trim()));
 			genericDaoSeatingDetails.saveOrUpdate(sd);
 		}
 
 		logger.info("DAO: SeatingDetailsDaoImpl Method : saveSeatingDetailsInbatch ended at : " + LocalDateTime.now());
-
+*/
 	}
 
 	@Override

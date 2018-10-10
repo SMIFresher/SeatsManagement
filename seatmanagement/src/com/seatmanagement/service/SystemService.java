@@ -27,7 +27,7 @@ public interface SystemService {
 
 	public Systems getSystem(String request) throws BusinessException;
 
-	public Systems getSystemBySystemName(String systemName) throws BusinessException;
+	public Systems getSystemBySystemName(String systemName);
 
 	public List<Systems> getOscount();
 

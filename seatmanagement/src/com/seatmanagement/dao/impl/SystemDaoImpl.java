@@ -31,51 +31,40 @@ public class SystemDaoImpl implements SystemDao {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Systems getSystem(String request) throws BusinessException {
+	public List<Systems> getSystem(String request){
 
 		logger.info("Dao: SystemDaoImpl Method : getSystem started at : " + LocalDateTime.now());
 
-		Systems system = null;
+		List<Systems> systemList = null;
 
-		try {
-
+		
 			DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 			criteria.createAlias("employee", "employee", CriteriaSpecification.LEFT_JOIN);
-
 			criteria.add(Restrictions.disjunction());
 			criteria.add(Restrictions.or(Restrictions.like("systemName", request, MatchMode.START),
 					Restrictions.like("employee.employeeRoll", request, MatchMode.START),
 					Restrictions.like("employee.firstName", request, MatchMode.START)));
 
-			system = (Systems) hibernateTemplate.findByCriteria(criteria).get(0);
+			systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
 
 			logger.info("Dao: SystemDaoImpl Method : getSystem ended at : " + LocalDateTime.now());
 
-		} catch (Exception e) {
-			throw new BusinessException("Enter a valid Name or ID");
-		}
+	
 
-		return system;
+		return systemList;
 	}
 
 	@Override
-	public Systems getSystemId(String systemName) throws BusinessException {
+	public List<Systems> getSystemId(String systemName){
 
 		logger.info("Dao: SystemDaoImpl Method : getSystemId started at : " + LocalDateTime.now());
 
-		Systems system = null;
-
-		try {
-			DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
-			criteria.add(Restrictions.eq("systemName", systemName));
-
-			system = (Systems) hibernateTemplate.findByCriteria(criteria).get(0);
-		} catch (Exception e) {
-			throw new BusinessException("Enter a valid ID");
-		}
+		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
+		criteria.add(Restrictions.eq("systemName", systemName));
+		List<Systems> systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
 
 		logger.info("Dao: SystemDaoImpl Method : getSystemId ended at : " + LocalDateTime.now());
-		return system;
+		return systemList;
 	}
 
 	@Override
@@ -87,7 +76,6 @@ public class SystemDaoImpl implements SystemDao {
 		ProjectionList projList = Projections.projectionList();
 		projList.add(Projections.property("operatingSystem"));
 		criteria.setProjection(projList);
-		// criteria.add(Restrictions.eq("systemId", systemId ));
 		List<Systems> syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
 
 		logger.info("Dao: SystemDaoImpl Method : getOs ended at : " + LocalDateTime.now());
@@ -97,12 +85,12 @@ public class SystemDaoImpl implements SystemDao {
 
 	@Override
 	public Systems mergeSystem(Systems system) {
+		
 		logger.info("Dao: SystemDaoImpl Method : mergeSystem started at : " + LocalDateTime.now());
 
 		system = hibernateTemplate.merge(system);
 
 		logger.info("Dao: SystemDaoImpl Method : mergeSystem ended at : " + LocalDateTime.now());
-
 		return system;
 	}
 
