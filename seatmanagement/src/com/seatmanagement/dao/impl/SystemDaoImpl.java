@@ -16,6 +16,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Systems;
 
 @Transactional
@@ -28,12 +29,15 @@ public class SystemDaoImpl implements SystemDao {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Systems getSystem(String request) {
+	public Systems getSystem(String request) throws BusinessException {
 		
 		logger.info("Dao: SystemDaoImpl Method : getSystem started at : " + LocalDateTime.now());
 		
 		Systems system=null;
-	
+		
+		try {
+			
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 		criteria.createAlias("employee","employee",CriteriaSpecification.LEFT_JOIN);
 	
@@ -44,6 +48,12 @@ public class SystemDaoImpl implements SystemDao {
 		system= (Systems) hibernateTemplate.findByCriteria(criteria).get(0);
 		
 		logger.info("Dao: SystemDaoImpl Method : getSystem ended at : " + LocalDateTime.now());
+		
+		}
+		catch(Exception e){
+			throw new BusinessException("Enter a valid Name or ID");
+		}
+		
 		return system;
 	}
 
