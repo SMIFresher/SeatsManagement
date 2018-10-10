@@ -2,6 +2,8 @@ package com.seatmanagement.dao;
 
 import java.util.List;
 import java.util.UUID;
+
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.SeatingDetails;
 
 public interface SeatingDetailsDao {
@@ -18,7 +20,7 @@ public interface SeatingDetailsDao {
 	
 	public SeatingDetails deleteBySeatingId(UUID seatingId);
 	
-	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId);
+	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails,UUID seatingId) throws BusinessException;
 	
 	public void deleteByIdInBatch(UUID seatingId);
 	

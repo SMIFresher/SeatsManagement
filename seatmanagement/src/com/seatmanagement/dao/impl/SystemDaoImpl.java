@@ -59,7 +59,7 @@ public class SystemDaoImpl implements SystemDao {
 	}
 
 	@Override
-	public Systems getSystemId(String systemName) {
+	public Systems getSystemId(String systemName) throws BusinessException {
 
 		logger.info("Dao: SystemDaoImpl Method : getSystemId started at : " + LocalDateTime.now());
 
@@ -71,7 +71,7 @@ public class SystemDaoImpl implements SystemDao {
 
 			system = (Systems) hibernateTemplate.findByCriteria(criteria).get(0);
 		} catch (Exception e) {
-			System.out.println("System name is not found");
+			throw new BusinessException("Enter a valid ID");
 		}
 
 		logger.info("Dao: SystemDaoImpl Method : getSystemId ended at : " + LocalDateTime.now());

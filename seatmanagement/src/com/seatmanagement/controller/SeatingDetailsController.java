@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
@@ -95,11 +96,12 @@ public class SeatingDetailsController {
 	 * @param seatingId
 	 * @return
 	 * @throws UnsupportedEncodingException
+	 * @throws BusinessException 
 	 */
 
 	@PostMapping(value = "/saveInBatch")
 	public ResponseEntity<SeatingDetails> saveSeatingDetailsInBatch(@RequestBody String seating_details,
-			@RequestParam UUID seatingId) throws UnsupportedEncodingException {
+			@RequestParam UUID seatingId) throws UnsupportedEncodingException, BusinessException {
 		ResponseEntity model = null;
 		logger.info(
 				"Controller: SeatingDetailsController Method : saveSeatingDetailsInBatch request processing started at : "

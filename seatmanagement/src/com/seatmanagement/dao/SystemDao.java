@@ -12,7 +12,7 @@ public interface SystemDao {
 
 	public Systems getSystem(String request) throws BusinessException;
 
-	public Systems getSystemId(String systemName);
+	public Systems getSystemId(String systemName) throws BusinessException;
 
 	public List<Systems> getOs(Systems system);
 
