@@ -4,20 +4,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.exception.BusinessException;
-
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Floor;
 import com.seatmanagement.service.FloorService;
@@ -31,7 +29,7 @@ import com.seatmanagement.service.FloorService;
 
 
 @Controller
-@RequestMapping("/floor")
+@RequestMapping("/Floors")
 public class FloorController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FloorController.class);
@@ -45,7 +43,7 @@ public class FloorController {
 	 * @throws BusinessException
 	 */
 
-	@RequestMapping("/FloorView")
+	@RequestMapping("/ViewFloors")
 	public ModelAndView getFloorView() throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorView request processing started at : "
@@ -64,7 +62,7 @@ public class FloorController {
 	 * @throws BusinessException
 	 */
 
-	@RequestMapping(value = "/FloorModify")
+	@RequestMapping(value = "/ModifyFloors")
 	public ModelAndView getModifyFloor() throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getModifyFloor request processing started at : "
@@ -87,20 +85,37 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes" })
-	@RequestMapping(value = "/floorsave", method = RequestMethod.POST)
-	public ResponseEntity saveOrUpdate( Floor floor,@RequestParam(value = "buildingId") UUID buildingId) throws BusinessException {
+	@RequestMapping(value="/{buildingId}",method = RequestMethod.POST)
+	
+	public ResponseEntity saveFloor(@RequestBody Floor floor,@PathVariable("buildingId") UUID buildingId) throws BusinessException {
 
-		logger.info("Controller: FloorController Method : saveOrUpdate request processing started at : "
+		logger.info("Controller: FloorController Method : saveFloor request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity response = null;
 
 		floorService.saveOrUpdateFloors(floor, buildingId);
 		response = new ResponseEntity(HttpStatus.OK);
 
-		logger.info("Controller: FloorController Method : saveOrUpdate response sent at : " + LocalDateTime.now());
+		logger.info("Controller: FloorController Method : saveFloor response sent at : " + LocalDateTime.now());
 
 		return response;
 	}
+
+	@RequestMapping(value="/{buildingId}",method = RequestMethod.PUT)
+	public ResponseEntity updateFloor(@RequestBody Floor floor,@PathVariable("buildingId") UUID buildingId) throws BusinessException {
+
+		logger.info("Controller: FloorController Method : updateFloor request processing started at : "
+				+ LocalDateTime.now());
+		ResponseEntity response = null;
+
+		floorService.saveOrUpdateFloors(floor, buildingId);
+		response = new ResponseEntity(HttpStatus.OK);
+
+		logger.info("Controller: FloorController Method : updateFloor response sent at : " + LocalDateTime.now());
+
+		return response;
+	}
+
 
 	/**
 	 * 
@@ -108,7 +123,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getAllFloors" ,method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Floor>> getAllFloors() {
 
 		logger.info("Controller: FloorController Method : getAllFloors request processing started at : "
@@ -132,8 +147,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/floorId", method = RequestMethod.GET)
-	public ResponseEntity getFloorById(@RequestParam(value = "floorId") UUID floorId) throws BusinessException {
+	@RequestMapping(value="/{floorId}",method = RequestMethod.GET)
+	public ResponseEntity getFloorById(@PathVariable("floorId") UUID floorId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorById request processing started at : "
 				+ LocalDateTime.now());
@@ -165,8 +180,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/floorbuildingId", method = RequestMethod.GET)
-	public ResponseEntity getFloorsByBuildingId(@RequestParam(value = "buildingId") UUID buildingId)
+	@RequestMapping(value="/getFloorsByBuildingId/{buildingId}",method = RequestMethod.GET)
+	public ResponseEntity getFloorsByBuildingId(@PathVariable ("buildingId") UUID buildingId)
 			throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorsByBuildingId request processing started at : "
@@ -187,6 +202,7 @@ public class FloorController {
 		return response;
 	}
 
+	
 	/**
 	 * 
 	 * @param buildingId
@@ -195,8 +211,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/viewfloorType/buildingId", method = RequestMethod.GET)
-	public ResponseEntity getFloorTypeByBuildingId(@RequestParam(value = "buildingId") UUID buildingId)
+	@RequestMapping(value="/getFloorTypeByBuildingId/{buildingId}",method = RequestMethod.GET)
+	public ResponseEntity getFloorTypeByBuildingId(@PathVariable ("buildingId") UUID buildingId)
 			throws BusinessException {
 
 		if (Objects.isNull(buildingId)) {
@@ -219,8 +235,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/delete/floorId")
-	public ResponseEntity deleteFloorById(@RequestParam(value = "floorId") UUID floorId) throws BusinessException {
+	@RequestMapping(value="/{floorId}",method = RequestMethod.DELETE)
+	public ResponseEntity deleteFloorById(@PathVariable("floorId") UUID floorId) throws BusinessException {
 
 		if (Objects.isNull(floorId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
