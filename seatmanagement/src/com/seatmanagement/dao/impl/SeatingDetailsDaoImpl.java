@@ -132,8 +132,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 	@Override
 	public void deleteByIdInBatch(UUID seatingId) {
 		logger.info("DAO: SeatingDetailsDaoImpl Method : deleteByIdInBatch started at : " + LocalDateTime.now());
-		List<SeatingDetails> sd = getAllSeatingDetails();
-		// hibernateTemplate.deleteAll(sd);
+		List<SeatingDetails> sd = getSeatingDetailsBySeatingId(seatingId);
 		for (SeatingDetails sd1 : sd) {
 			hibernateTemplate.delete(sd1);
 		}

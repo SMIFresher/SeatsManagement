@@ -68,13 +68,13 @@ public class SystemController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/EditView")
-	public ModelAndView getView(){
+	public ModelAndView getView(@RequestParam("seatingId") UUID seatingId)throws BusinessException{
 		
 		logger.info("controller: SystemController Method : getView  request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView mav=new ModelAndView("HR/cabins");
 		mav.addObject("list", systemService.getAllAvailableSystems());
-		mav.addObject("datasRow", seatingDetailsService.getAllSeatingDetails());
+		mav.addObject("datasRow", seatingDetailsService.getSeatingDetailsBySeatingId(seatingId));
 		
 		logger.info("controller: SystemController Method : getView response sent at : " + LocalDateTime.now());
 		return mav;
