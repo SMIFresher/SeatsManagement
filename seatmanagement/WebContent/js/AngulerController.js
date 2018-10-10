@@ -5,7 +5,21 @@ var app = angular.module('workplaceManagement', []);
 app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 });
-
+app.filter('unique', function() {
+   return function(collection, keyname) {
+  var output = [], 
+      keys = [];
+  angular.forEach(collection, function(item) {
+  var key = item[keyname];
+  if(keys.indexOf(key) === -1) {
+      keys.push(key); 
+          output.push(item);
+      }
+  });
+      return output;
+   };
+});
+   
 app.controller('workplaceManagementController', function($scope, $http) {
 	
 
@@ -44,8 +58,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.blockDetails();
-	    	doModal("Information","Block Added Successfully....!");
+		    	location.replace("/seatmanagement/seating/getSeating");
 		    }, 
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);

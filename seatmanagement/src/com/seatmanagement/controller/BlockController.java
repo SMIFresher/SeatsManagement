@@ -200,5 +200,15 @@ public class BlockController {
 		logger.info("Controller: BlockController Method : getModifyBlock response sent at : " + LocalDateTime.now());
 		return new ModelAndView("/HR/ModifyBlock");
 	}
+	
+	@RequestMapping(value="/blockView")
+	public ModelAndView blockView(@RequestParam("floorId") String floorId) throws BusinessException {
+		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
+				+ LocalDateTime.now());
+		ModelAndView model = new ModelAndView("/HR/blockviews");
+		logger.info("Controller: SeatingController Method : getSeatingView response sent at : " + LocalDateTime.now());
+		model.addObject("id", floorId);
+		return model;
+	}
 
 }

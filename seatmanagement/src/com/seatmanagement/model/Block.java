@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -76,8 +77,17 @@ public class Block implements Serializable{
 				inverseJoinColumns = { @JoinColumn(name = "utility_id") })
 	private Set<Utilities> utilities;
 	
+	@OneToOne(mappedBy = "block")
+	private Seating seating;
 	
-	
+	public Seating getSeating() {
+		return seating;
+	}
+
+	public void setSeating(Seating seating) {
+		this.seating = seating;
+	}
+
 	public Set<Utilities> getUtilities() {
 		return utilities;
 	}

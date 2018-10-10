@@ -140,7 +140,7 @@
 			</div>
 		</div>
 
-<div ng-include="'/seatmanagement/models/search.html'"></div>
+	<div ng-include="'/seatmanagement/models/search.html'"></div>
 	</div>
 
 <script src="/seatmanagement/js/AngulerController.js"></script>

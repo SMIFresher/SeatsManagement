@@ -163,7 +163,6 @@ public class SeatingDetailsController {
 
 	@RequestMapping(value = "/getSeatDetailsBySeatId", method = RequestMethod.GET)
 	public ResponseEntity getSeatingDetailBySeatId(@RequestParam(value = "seatingId") UUID seatingId) {
-		ResponseEntity model = null;
 		logger.info(
 				"Controller: SeatingDetailsController Method : getSeatingDetailBySeatId request processing started at : "
 						+ LocalDateTime.now());
@@ -176,10 +175,10 @@ public class SeatingDetailsController {
 		} else {
 			throw new RuntimeException("No Record Found");
 		}
-		model = new ResponseEntity(HttpStatus.OK);
+		
 		logger.info("Controller: SeatingDetailsController Method : getSeatingDetailBySeatId response sent at : "
 				+ LocalDateTime.now());
-		return model;
+		return responseEntity;
 	}
 
 }

@@ -133,7 +133,7 @@
               </div>
             </td>
             <td>
-              <div id="exit" class="redips-drag redips-clone" style="width: 100%;">
+              <div id="Exit" class="redips-drag redips-clone" style="width: 100%;">
                 <span class="fa fa-bars" style="font-size: 60px;"></span><br>Exit 
               </div>
             </td>

@@ -50,7 +50,7 @@
 								<div class="form-group">
 									<label>Floor</label>
 									<select ng-model="floor"
-										class="form-control" ng-change="blockDetails(floor)">
+										class="form-control" ng-change="blockDetailsByFloor(floor)">
 										<option value="">Select Floor</option>
 										<option ng-repeat="floor in getFloor" value="{{floor.floorId}}">
 											{{floor.floorName}}</option>
@@ -62,7 +62,7 @@
 									<select name="blockID" ng-model="block"
 										class="form-control">
 										<option value="">Select Floor</option>
-										<option ng-repeat="block in getBlock" value="{{block.blockId}}">
+										<option ng-repeat="block in getBlock | unique:'blockId' " value="{{block.blockId}}">
 											{{block.blockName}}</option>
 									</select>
 								</div>

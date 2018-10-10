@@ -111,7 +111,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 			sd.setSeating(seating);
 			String systemName = sd.getSeatingSystemNo().trim();
 			
-			if(!systemName.equals("Emptydesk") && !systemName.equals("exit")) {
+			if(!systemName.equalsIgnoreCase("Emptydesk") && !systemName.equalsIgnoreCase("Exit")) {
 				sd.setSystem(systemService.getSystemBySystemName(systemName));
 			}
 			

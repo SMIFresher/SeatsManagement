@@ -16,8 +16,8 @@
 		src="/seatmanagement/Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
 	</a>
 	<div class="collapse navbar-collapse"></div>
-	<form class="form-inline" id="src" action="#" ng-submit="getSysDetails(search)"  >
-		<input class="form-control mr-sm-2 search" ng-model="search" type="text" placeholder="Search" >
+	<form class="form-inline" id="src" action="#">
+		<input class="form-control mr-sm-2 search"  ng-model="search" ng-change="getSysDetails(search)" type="text" placeholder="Search" >
 	</form>
 </nav>
 
@@ -37,25 +37,7 @@
 		<li><a href="/seatmanagement/hr/index" class="fa fa-home"> Home</a></li>
 		<li><a href="/seatmanagement/organisation/getOrganisationView" class="fa fa-sitemap"> Organization</a></li>
 		<li><a href="/seatmanagement/building/getBuildingViewAndEdit" class="fa fa-building"> Manage Buildings</a></li>
-		<li class="active"><a href="#managebuildingSubmenu"
-			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-building"> Manage
-				Floors</a>
-			<ul class="collapse list-unstyled" id="managebuildingSubmenu">
-				<li><a href="#floorsubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Floor</a>
-					<ul class="collapse list-unstyled" id="floorsubmenu">
-						<li><a href="/seatmanagement/floor/FloorView">Add</a></li>
-						<li><a href="/seatmanagement/floor/FloorModify">Modify</a></li>
-					</ul></li>
-				<li><a href="#blocksubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle">Block</a>
-					<ul class="collapse list-unstyled" id="blocksubmenu">
-						<li><a href="/seatmanagement/block/getBlockView">Add</a></li>
-						<li><a href="/seatmanagement/seating/getSeating">Assign Block</a></li>
-						<li><a href="/seatmanagement/block/getModifyBlock">Modify</a></li>
-					</ul></li>
-			</ul>
-		</li>
+
 		<li class="active"><a href="#Employee"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-users"> Employee </a>
 			<ul class="collapse list-unstyled" id="Employee">

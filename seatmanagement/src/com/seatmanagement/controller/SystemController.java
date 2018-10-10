@@ -73,7 +73,7 @@ public class SystemController {
 		logger.info("controller: SystemController Method : getView  request processing started at : " + LocalDateTime.now());
 		
 		ModelAndView mav=new ModelAndView("HR/cabins");
-		mav.addObject("list", systemService.getAllSystems());
+		mav.addObject("list", systemService.getAllAvailableSystems());
 		mav.addObject("datasRow", seatingDetailsService.getAllSeatingDetails());
 		
 		logger.info("controller: SystemController Method : getView response sent at : " + LocalDateTime.now());

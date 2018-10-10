@@ -104,8 +104,8 @@ public class SystemDaoImpl implements SystemDao {
 
 		// criteria for subquery
 		DetachedCriteria subquery = DetachedCriteria.forClass(SeatingDetails.class)
-				.createAlias("system", "system", CriteriaSpecification.LEFT_JOIN)
-				.setProjection(Property.forName("system.systemId"));
+				.setProjection(Property.forName("system.systemId")).add(Restrictions.isNotNull("system.systemId"));
+
 
 		// criteria for main query
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class)
