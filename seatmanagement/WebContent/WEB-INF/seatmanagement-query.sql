@@ -310,22 +310,6 @@ ALTER TABLE employee
 ADD CONSTRAINT `employee_fk_1` FOREIGN KEY (team_id) REFERENCES team(team_id) ON DELETE SET NULL;
 
 # alter on 09/10/18
-ALTER TABLE `seatmanagement`.`reallocation` 
-DROP FOREIGN KEY `reallocation_fk_3`;
-ALTER TABLE `seatmanagement`.`reallocation` 
-DROP COLUMN `reallocated_position`,
-DROP COLUMN `reallocated_seating_detail_id`,
-DROP COLUMN `seating_detail_id`,
-ADD COLUMN `employee_id` VARCHAR(36) NOT NULL AFTER `alloted_by`,
-ADD INDEX `employee_id_idx` (`employee_id` ASC),
-DROP INDEX `reallocation_fk_3` ;
-ALTER TABLE `seatmanagement`.`reallocation` 
-ADD CONSTRAINT `employee_id`
-  FOREIGN KEY (`employee_id`)
-  REFERENCES `seatmanagement`.`employee` (`employee_id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
-
   #seating table add system_occupied Column
   ALTER TABLE `seatmanagement`.`seating` 
 ADD COLUMN `system_occupied` INT(11) NOT NULL AFTER `seat_occupied`;
@@ -334,3 +318,24 @@ ADD COLUMN `system_occupied` INT(11) NOT NULL AFTER `seat_occupied`;
 #10/09/2018
 alter table seating_detail add column system_occupied varchar(45); 
 alter table seating_detail drop column system_occupied; 
+
+#reallocation table
+drop table seatmanagement.reallocation;
+
+CREATE TABLE `seatmanagement`.`reallocation` (
+  `reallocation_id` VARCHAR(36) NOT NULL,
+  `previous_block_id` VARCHAR(45) NOT NULL,
+  `reallocated_block_id` VARCHAR(45) NOT NULL,
+  `reallocation_requested_date` VARCHAR(45) NOT NULL,
+  `reallocated_date` VARCHAR(45) NULL,
+  `reallocation_status` VARCHAR(45) NOT NULL,
+  `alloted_by` VARCHAR(45) NULL,
+  `employee_id` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`reallocation_id`),
+  INDEX `employee_id_idx` (`employee_id` ASC),
+  CONSTRAINT `employee_id`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `seatmanagement`.`employee` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
