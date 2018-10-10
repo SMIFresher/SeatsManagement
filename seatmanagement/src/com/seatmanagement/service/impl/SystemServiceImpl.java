@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Systems;
@@ -122,7 +123,7 @@ public class SystemServiceImpl implements SystemService{
 
 	
 
-	public  Systems getSystem(String request) {
+	public  Systems getSystem(String request) throws BusinessException {
 		
 		logger.info("Service: SystemServiceImpl Method : getSystem started at : " + LocalDateTime.now());
 		
