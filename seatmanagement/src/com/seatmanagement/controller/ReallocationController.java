@@ -1,14 +1,19 @@
 package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.seatmanagement.model.Reallocation;
@@ -136,4 +141,20 @@ public class ReallocationController {
 
 		return model;
 	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/getAllReallocationDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> getAllReallocationDetails() {
+		ResponseEntity model = null;
+		logger.info(
+				"Controller: SeatingDetailsController Method : getAllSeatingDetails request processing started at : "
+						+ LocalDateTime.now());
+
+		model = new ResponseEntity(reallocationService.getAllReallocationDetails(), HttpStatus.OK);
+
+		logger.info("Controller: SeatingDetailsController Method : getAllSeatingDetails response sent at : "
+				+ LocalDateTime.now());
+		return model;
+	}
+
 }

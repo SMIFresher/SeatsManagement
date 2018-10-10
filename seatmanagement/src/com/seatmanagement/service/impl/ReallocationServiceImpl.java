@@ -14,6 +14,7 @@ import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.ReallocationDao;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Reallocation;
+import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.service.ReallocationService;
 
 /**
@@ -81,9 +82,10 @@ public class ReallocationServiceImpl implements ReallocationService {
 	}
 
 	@Override
-	public void deleteReallocationsByBlockId(UUID blockId){
-		
-		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId started at : " + LocalDateTime.now());
+	public void deleteReallocationsByBlockId(UUID blockId) {
+
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId started at : "
+				+ LocalDateTime.now());
 		List<Reallocation> reallocations = reallocationDao.getReallocationsByBlockId(blockId);
 
 		// Scenario 1: No reallocations mapped
@@ -97,8 +99,21 @@ public class ReallocationServiceImpl implements ReallocationService {
 				reallocationDao.deleteReallocationByBlockId(blockId);
 			}
 		}
-		
-		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId ended at : " + LocalDateTime.now());
+
+		logger.info("Service: ReallocationServiceImpl Method : deleteReallocationsByBlockId ended at : "
+				+ LocalDateTime.now());
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Reallocation> getAllReallocationDetails() {
+		logger.info("Service: SeatingDetailsServiceImpl Method : getAllReallocationDetails started at : "
+				+ LocalDateTime.now());
+		Reallocation reallocation = new Reallocation();
+		List<Reallocation> list = genericDao.getAll(reallocation);
+		logger.info("Service: SeatingDetailsServiceImpl Method : getAllReallocationDetails ended at : "
+				+ LocalDateTime.now());
+		return list;
 	}
 
 }

@@ -1,9 +1,11 @@
 package com.seatmanagement.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Reallocation;
+import com.seatmanagement.model.SeatingDetails;
 
 /**
  * 
@@ -43,8 +45,10 @@ public interface ReallocationService {
 	/**
 	 * 
 	 * @param blockId
-	 * @throws BusinessException 
+	 * @throws BusinessException
 	 */
 	public void deleteReallocationsByBlockId(UUID blockId);
+
+	public List<Reallocation> getAllReallocationDetails();
 
 }
