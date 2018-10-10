@@ -12,23 +12,14 @@
 	<context:component-scan base-package="com.seatmanagement.exception"></context:component-scan>
 	
 	<context:annotation-config />
+
+	<!-- <context:property-placeholder location="classpath:build.properties" /> -->
 	
 	<mvc:annotation-driven validator="globalValidator"/>
 	
 	<mvc:resources mapping="/**" location="/" />
 	
-	<import resource="spring-beans.xml" />
-	
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-	
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix">
-			<value>/WEB-INF/views/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
-	</bean>
+	<import resource="spring-beans.xml" />	
 	
 	<!-- Spring Security Bean class Configuration -->
 			<!-- <bean id="securityConfig"
