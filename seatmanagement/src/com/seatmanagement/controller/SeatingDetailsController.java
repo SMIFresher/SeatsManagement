@@ -64,8 +64,7 @@ public class SeatingDetailsController {
 		logger.info(
 				"Controller: SeatingDetailsController Method : getAllSeatingDetails request processing started at : "
 						+ LocalDateTime.now());
-		seatingDetailsService.getAllSeatingDetails();
-		model = new ResponseEntity(HttpStatus.OK);
+		model = new ResponseEntity(seatingDetailsService.getAllSeatingDetails(),HttpStatus.OK);
 		logger.info("Controller: SeatingDetailsController Method : getAllSeatingDetails response sent at : "
 				+ LocalDateTime.now());
 		return model;
@@ -138,7 +137,6 @@ public class SeatingDetailsController {
 
 	@RequestMapping(value = "/getEmployeeBySeatId", method = RequestMethod.GET)
 	public ResponseEntity<SeatingDetails> getEmployeeBySeatId(@RequestParam(value = "id") UUID seating_id) {
-		ResponseEntity model = null;
 		logger.info("Controller: SeatingDetailsController Method : getEmployeeBySeatId request processing started at : "
 				+ LocalDateTime.now());
 		SeatingDetails seatingDetails = new SeatingDetails();
@@ -149,10 +147,10 @@ public class SeatingDetailsController {
 		} else {
 			throw new RuntimeException("Invalid Seat ID");
 		}
-		model = new ResponseEntity(HttpStatus.OK);
+		
 		logger.info("Controller: SeatingDetailsController Method : getEmployeeBySeatId response sent at : "
 				+ LocalDateTime.now());
-		return model;
+		return responseEntity;
 	}
 
 	/**
