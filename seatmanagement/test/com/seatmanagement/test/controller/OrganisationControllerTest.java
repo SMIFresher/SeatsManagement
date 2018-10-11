@@ -2,8 +2,8 @@ package com.seatmanagement.test.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
@@ -17,23 +17,19 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.model.Organisation;
 import com.seatmanagement.service.OrganisationService;
 
+@RunWith(JUnitPlatform.class)
 public class OrganisationControllerTest {
 	
 	private static final String HOST = "localhost";
@@ -52,7 +48,7 @@ public class OrganisationControllerTest {
 	@Autowired
 	private OrganisationService organisationService;
 
-	@Ignore
+	@Disabled
 	@Test
 	public void saveOrganisationTest() {
 		try {
@@ -79,7 +75,7 @@ public class OrganisationControllerTest {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void saveOrganisationNotEmptyValidationTest() {
 		try {
@@ -108,7 +104,7 @@ public class OrganisationControllerTest {
 		}
 	}
 	
-	@Ignore
+	@Disabled
 	@Test
 	public void saveOrganisationWithoutRequestParamTest() {
 		try {
@@ -135,7 +131,7 @@ public class OrganisationControllerTest {
 		}
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void getOrganisationViewTest() {
 		try {
