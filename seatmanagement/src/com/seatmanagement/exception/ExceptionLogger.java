@@ -117,12 +117,20 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 	 */
 	@ExceptionHandler(value = { ApplicationException.class })
 	protected void handleApplicationException(ApplicationException ex, WebRequest request) {
-
-		logger.error(
-				"ApplicationException caught in Class : ExceptionLogger, Method : handleApplicationException(), at "
-						+ LocalDateTime.now());
+		
+		Exception rootException = (Exception) ExceptionUtils.getRootCause(ex);
+		
+		logger.error("ApplicationException caught in Class : ExceptionLogger, Method : handleApplicationException(), at "
+				+ LocalDateTime.now());
 		logger.error("Exception message : " + ex.getMessage());
-		logger.error("Exception stack : ", ex);
+		
+		// Log root exception, if any
+		if (!Objects.isNull(rootException)) {
+			logger.error("Exception root cause : " + rootException.getMessage());
+			logger.error("Exception root stack : ", rootException);
+		}
+		
+		logger.error("Exception whole stack : ", ex);
 
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_APPLICATION,
 				RequestAttributes.SCOPE_REQUEST);
@@ -142,10 +150,19 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = { RuntimeException.class })
 	protected void handleRuntimeException(RuntimeException ex, WebRequest request, HttpServletRequest httpRequest) {
 
+		Exception rootException = (Exception) ExceptionUtils.getRootCause(ex);
+		
 		logger.error("RuntimeException caught in Class : ExceptionLogger, Method : handleRuntimeException(), at "
 				+ LocalDateTime.now());
 		logger.error("Exception message : " + ex.getMessage());
-		logger.error("Exception stack : ", ex);
+		
+		// Log root exception, if any
+		if (!Objects.isNull(rootException)) {
+			logger.error("Exception root cause : " + rootException.getMessage());
+			logger.error("Exception root stack : ", rootException);
+		}
+		
+		logger.error("Exception whole stack : ", ex);
 
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_RUNTIME, RequestAttributes.SCOPE_REQUEST);
 		request.setAttribute(Constant.EXCEPTION_MESSAGE, Constant.ERROR_MESSAGE_INTERNAL_SERVER_ERROR,
