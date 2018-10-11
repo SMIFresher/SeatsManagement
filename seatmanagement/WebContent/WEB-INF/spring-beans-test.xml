@@ -7,7 +7,7 @@
 	http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<beans profile="development">
+	<beans profile="test">
 
 		<bean
 			class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
@@ -105,14 +105,13 @@
 			class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 		</bean>
 
-		<bean id="genericDao"
-			class="com.seatmanagement.dao.impl.GenericDaoImpl">
+		<bean id="genericDaoMock"
+			class="com.seatmanagement.test.daomock.GenericDaoMockForOrganisation">
 		</bean>
 
 		<bean id="additionalDeviceService"
 			class="com.seatmanagement.service.impl.AdditionalDeviceServiceImpl">
 		</bean>
-
 
 		<bean id="teamService"
 			class="com.seatmanagement.service.impl.TeamServiceImpl">
@@ -160,6 +159,21 @@
 		<bean id="organisationDao"
 			class="com.seatmanagement.dao.impl.OrganisationDaoImpl">
 		</bean>
+
+		<!-- Autowire Test Beans -->
+		<bean class="com.seatmanagement.model.AutowireTestModel">
+			<property name="name">
+				<value>autowiredByType</value>
+			</property>
+		</bean>
+
+		<bean id="byName"
+			class="com.seatmanagement.model.AutowireTestModel">
+			<property name="name">
+				<value>autowiredByName</value>
+			</property>
+		</bean>
+
 	</beans>
 
 </beans>

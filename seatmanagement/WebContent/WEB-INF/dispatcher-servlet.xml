@@ -21,6 +21,7 @@
 	<mvc:resources mapping="/**" location="/" />
 	
 	<import resource="spring-beans.xml" />	
+	<import resource="spring-beans-test.xml" />	
 	
 	<!-- Spring Security Bean class Configuration -->
 			<!-- <bean id="securityConfig"
