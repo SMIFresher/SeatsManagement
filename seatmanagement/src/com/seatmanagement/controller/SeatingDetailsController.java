@@ -3,6 +3,7 @@ package com.seatmanagement.controller;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
@@ -159,6 +161,7 @@ public class SeatingDetailsController {
 	 * @return
 	 */
 
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getSeatDetailsBySeatId", method = RequestMethod.GET)
 	public ResponseEntity getSeatingDetailBySeatId(@RequestParam(value = "seatingId") UUID seatingId) {
 		logger.info(
@@ -179,4 +182,29 @@ public class SeatingDetailsController {
 		return responseEntity;
 	}
 
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/deleteSeatingDetailById", method = RequestMethod.GET)
+	public ResponseEntity deleteSeatingDetailById(@RequestParam(value = "seatingDetailsId") UUID seatingDetailsId)
+			throws BusinessException {
+
+		logger.info(
+				"Controller: SeatingDetailsController Method : deleteSeatingDetailById request processing started at : "
+						+ LocalDateTime.now());
+
+		ResponseEntity model = null;
+
+		if (Objects.isNull(seatingDetailsId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+
+		seatingDetailsService.deleteSeatingDetailById(seatingDetailsId);
+
+		model = new ResponseEntity(HttpStatus.OK);
+
+		logger.info("Controller: SeatingDetailsController Method : deleteSeatingDetailById response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
+	
 }

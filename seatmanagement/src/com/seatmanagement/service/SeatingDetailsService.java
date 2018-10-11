@@ -34,4 +34,5 @@ public interface SeatingDetailsService {
 
 	public void deleteByIdInBatch(UUID seatingId);
 
+	public void deleteSeatingDetailById(UUID seatingDetailsId);
 }
