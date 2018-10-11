@@ -62,6 +62,18 @@ public class Employee implements Serializable {
 	@JsonIgnore
 	private Systems systems;
 	
+	@OneToOne(mappedBy="employee")
+	@JsonIgnore
+	private Reallocation reallocation;
+	
+	public Reallocation getReallocation() {
+		return reallocation;
+	}
+
+	public void setReallocation(Reallocation reallocation) {
+		this.reallocation = reallocation;
+	}
+
 	public Systems getSystems() {
 		return systems;
 	}

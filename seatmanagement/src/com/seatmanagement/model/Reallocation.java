@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -41,22 +42,47 @@ public class Reallocation implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "reallocated_block_id")
 	private Block block;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "seating_detail_id")
-	private SeatingDetails seatingDetails;
-
-	@Column(name = "reallocation_date")
-	private LocalDate reallocationDate;
-
+	
+	@Column(name = "reallocation_requested_date")
+	private LocalDate reallocationRequestedDate;
+	
+	@Column(name = "reallocated_date")
+	private LocalDate reallocatedDate;
+	
 	@Column(name = "reallocation_status")
 	private String reallocationStatus;
-
+	
 	@Column(name = "alloted_by")
 	private String allotedBy;
+	
+	@OneToOne(targetEntity=Employee.class)  
+	@JoinColumn(name="employee_id")  
+	private Employee employee;
 
-	@Column(name = "reallocated_position")
-	private String reallocatedPosition;
+	
+	public LocalDate getReallocationRequestedDate() {
+		return reallocationRequestedDate;
+	}
+
+	public void setReallocationRequestedDate(LocalDate reallocationRequestedDate) {
+		this.reallocationRequestedDate = reallocationRequestedDate;
+	}
+
+	public LocalDate getReallocatedDate() {
+		return reallocatedDate;
+	}
+
+	public void setReallocatedDate(LocalDate reallocatedDate) {
+		this.reallocatedDate = reallocatedDate;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 	public UUID getPreviousBlockId() {
 		return previousBlockId;
@@ -66,13 +92,7 @@ public class Reallocation implements Serializable {
 		this.previousBlockId = previousBlockId;
 	}
 
-	public String getReallocatedPosition() {
-		return reallocatedPosition;
-	}
-
-	public void setReallocatedPosition(String reallocatedPosition) {
-		this.reallocatedPosition = reallocatedPosition;
-	}
+	
 
 	public UUID getReallocationId() {
 		return reallocationId;
@@ -88,22 +108,6 @@ public class Reallocation implements Serializable {
 
 	public void setBlock(Block block) {
 		this.block = block;
-	}
-
-	public LocalDate getReallocationDate() {
-		return reallocationDate;
-	}
-
-	public SeatingDetails getSeatingDetails() {
-		return seatingDetails;
-	}
-
-	public void setSeatingDetails(SeatingDetails seatingDetails) {
-		this.seatingDetails = seatingDetails;
-	}
-
-	public void setReallocationDate(LocalDate reallocationDate) {
-		this.reallocationDate = reallocationDate;
 	}
 
 	public String getReallocationStatus() {

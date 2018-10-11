@@ -45,12 +45,7 @@ public class SeatingDetails implements Serializable{
 	  
 	@OneToOne
     @JoinColumn(name="seating_id", nullable=false)
-    private Seating seating;
-	
-	@OneToOne(mappedBy="seatingDetails")
-	@JsonIgnore
-	private Reallocation reallocation;
-	
+    private Seating seating;	
 	
 	public Seating getSeating() {
 		return seating;
@@ -106,16 +101,6 @@ public class SeatingDetails implements Serializable{
 
 	public void setSeatingSystemNo(String seatingSystemNo) {
 		this.seatingSystemNo = seatingSystemNo;
-	}
-
-	
-	
-	public Reallocation getReallocation() {
-		return reallocation;
-	}
-
-	public void setReallocation(Reallocation reallocation) {
-		this.reallocation = reallocation;
 	}
 
 	public UUID getSeatingDetailsId() {
