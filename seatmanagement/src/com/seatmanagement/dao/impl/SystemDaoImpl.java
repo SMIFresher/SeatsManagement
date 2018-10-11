@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
@@ -37,7 +38,7 @@ public class SystemDaoImpl implements SystemDao {
 
 		List<Systems> systemList = null;
 
-		
+		try {
 			DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 			criteria.createAlias("employee", "employee", CriteriaSpecification.LEFT_JOIN);
 			criteria.add(Restrictions.disjunction());
@@ -46,8 +47,12 @@ public class SystemDaoImpl implements SystemDao {
 					Restrictions.like("employee.firstName", request, MatchMode.START)));
 
 			systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
-
-			logger.info("Dao: SystemDaoImpl Method : getSystem ended at : " + LocalDateTime.now());
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while retreving records", e);
+		}
+		
+		logger.info("Dao: SystemDaoImpl Method : getSystem ended at : " + LocalDateTime.now());
 
 	
 
@@ -58,11 +63,19 @@ public class SystemDaoImpl implements SystemDao {
 	public List<Systems> getSystemId(String systemName){
 
 		logger.info("Dao: SystemDaoImpl Method : getSystemId started at : " + LocalDateTime.now());
-
+		
+		List<Systems> systemList;
+		
+		try {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 		criteria.add(Restrictions.eq("systemName", systemName));
-		List<Systems> systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
-
+		systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+		
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while retreving records", e);
+		}
+		
 		logger.info("Dao: SystemDaoImpl Method : getSystemId ended at : " + LocalDateTime.now());
 		return systemList;
 	}
@@ -71,13 +84,19 @@ public class SystemDaoImpl implements SystemDao {
 	public List<Systems> getOs(Systems system) {
 
 		logger.info("Dao: SystemDaoImpl Method : getOs started at : " + LocalDateTime.now());
-
+		
+		List<Systems> syss;
+		
+		try {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 		ProjectionList projList = Projections.projectionList();
 		projList.add(Projections.property("operatingSystem"));
 		criteria.setProjection(projList);
-		List<Systems> syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
-
+		syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while retreving records", e);
+		}
 		logger.info("Dao: SystemDaoImpl Method : getOs ended at : " + LocalDateTime.now());
 		return syss;
 
@@ -87,9 +106,12 @@ public class SystemDaoImpl implements SystemDao {
 	public Systems mergeSystem(Systems system) {
 		
 		logger.info("Dao: SystemDaoImpl Method : mergeSystem started at : " + LocalDateTime.now());
-
+		try {
 		system = hibernateTemplate.merge(system);
-
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while merging systems", e);
+		}
 		logger.info("Dao: SystemDaoImpl Method : mergeSystem ended at : " + LocalDateTime.now());
 		return system;
 	}
@@ -102,6 +124,8 @@ public class SystemDaoImpl implements SystemDao {
 		// Mysql query: select system_id from system where (system_id )
 		// not in ( select system_id from seating_detail);
 
+		List<Systems> syss;
+		try {
 		// criteria for subquery
 		DetachedCriteria subquery = DetachedCriteria.forClass(SeatingDetails.class)
 				.setProjection(Property.forName("system.systemId")).add(Restrictions.isNotNull("system.systemId"));
@@ -111,8 +135,11 @@ public class SystemDaoImpl implements SystemDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class)
 				.add(Property.forName("systemId").notIn(subquery));
 
-		List<Systems> syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
-
+		syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+		}
+		catch(Exception e) {
+			throw new ApplicationException("Error while retreving records", e);
+		}
 		logger.info("Dao: SystemDaoImpl Method : getAvailableSystems ended at : " + LocalDateTime.now());
 		return syss;
 	}
