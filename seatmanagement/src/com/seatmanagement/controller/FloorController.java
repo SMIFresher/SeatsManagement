@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
@@ -77,32 +79,34 @@ public class FloorController {
 
 	}
 
+
 	/**
 	 * 
 	 * @param floor
 	 * @param buildingId
+	 * @param image
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-
 	@SuppressWarnings({ "rawtypes" })
 	@RequestMapping(value="/floorsave",method = RequestMethod.POST)
 	
-	public ResponseEntity saveFloor( Floor floor,@RequestParam("buildingId") UUID buildingId) throws BusinessException {
+	public ResponseEntity saveFloor( Floor floor,@RequestParam("buildingId") UUID buildingId,@RequestParam("file") MultipartFile image) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : saveFloor request processing started at : "
 				+ LocalDateTime.now());
-		ResponseEntity response = null;
+		//ResponseEntity response = null;
 
-		floorService.saveOrUpdateFloors(floor, buildingId);
-		response = new ResponseEntity(HttpStatus.OK);
+		floorService.saveOrUpdateFloors(floor, buildingId,image);
+		//response = new ResponseEntity(HttpStatus.OK,);
 
 		logger.info("Controller: FloorController Method : saveFloor response sent at : " + LocalDateTime.now());
 
-		return response;
+	//	return "redirect:/floor/floorSave/";
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Location", "/seatmanagement/floor/FloorView");    
+		return new ResponseEntity<String>(headers,HttpStatus.FOUND);
 	}
-
-
 
 	/**
 	 * 

@@ -1,7 +1,10 @@
 package com.seatmanagement.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Floor;
@@ -25,7 +28,7 @@ public interface FloorService {
 	 * @throws BusinessException
 	 */
 
-	public Floor saveOrUpdateFloors(Floor floor, UUID buildingId) throws BusinessException;
+	public Floor saveOrUpdateFloors(Floor floor, UUID buildingId,MultipartFile image) throws BusinessException;
 
 	/**
 	 * 
@@ -66,5 +69,6 @@ public interface FloorService {
 	 */
 
 	public List<Floor> getFloorTypeByBuildingId(UUID buildingId);
-
+	
+	 public  void uploadImage(MultipartFile multipartFile,String floorId) throws IOException ;
 }

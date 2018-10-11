@@ -1,13 +1,22 @@
 package com.seatmanagement.service.impl;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.BusinessException;
@@ -42,8 +51,11 @@ public class FloorServiceImpl implements FloorService {
 
 	@Autowired
 	BlockService blockService;
+	
+	@Autowired
+	HibernateTemplate ht;
 
-	public Floor saveOrUpdateFloors(Floor floor, UUID buildingId) throws BusinessException {
+	public Floor saveOrUpdateFloors(Floor floor, UUID buildingId,MultipartFile image) throws BusinessException {
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors started at : " + LocalDateTime.now());
 
@@ -55,6 +67,13 @@ public class FloorServiceImpl implements FloorService {
 		floor = (Floor)genericDao.saveOrUpdate(floor);
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors ended at : " + LocalDateTime.now());
+		String floorId=floor.getFloorId().toString();
+		//uploading image
+		try {
+			uploadImage(image,floorId);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		return floor;
 	}
@@ -134,5 +153,30 @@ public class FloorServiceImpl implements FloorService {
 
 		return floors;
 	}
+
+	@Override
+	public void uploadImage(MultipartFile multipartFile,String floorId) throws IOException {
+		
+		
+		
+		logger.info("Service: FloorServiceImpl Method : uploadImage started at : " + LocalDateTime.now());
+		
+		
+		String name=multipartFile.getOriginalFilename();
+		String ext = floorId+"."+FilenameUtils.getExtension(name);
+		File destinationFile=new File("\\\\192.168.2.96\\Temp_Share\\floormap\\"+ext);
+		 
+		File convertFile = new File(multipartFile.getOriginalFilename());
+		convertFile.createNewFile();
+		FileOutputStream fos = new FileOutputStream(convertFile);
+		fos.write(multipartFile.getBytes());
+			    
+		FileUtils.copyFile(convertFile, destinationFile);
+		fos.close();
+		
+		logger.info("Service: FloorServiceImpl Method : uploadImage ended at : " + LocalDateTime.now());
+	}
+	
+	
 
 }
