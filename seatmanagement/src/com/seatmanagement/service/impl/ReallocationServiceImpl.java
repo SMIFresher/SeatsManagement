@@ -1,5 +1,6 @@
 package com.seatmanagement.service.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -157,6 +158,20 @@ public class ReallocationServiceImpl implements ReallocationService {
 		List<Reallocation> reallocation = reallocationDao.getReallocationsByStatus(reallocationStatus);
 
 		logger.info("Service: ReallocationServiceImpl Method : getReallocationByReallocationStatus ended at : "
+				+ LocalDateTime.now());
+
+		return reallocation;
+	}
+
+	@Override
+	public List<Reallocation> getReallocationByRequestDate(LocalDate reallocationRequestedDate) {
+		
+		logger.info("Service: ReallocationServiceImpl Method : getReallocationByRequestDate started at : "
+				+ LocalDateTime.now());
+
+		List<Reallocation> reallocation = reallocationDao.getReallocationByRequestDate(reallocationRequestedDate);
+
+		logger.info("Service: ReallocationServiceImpl Method : getReallocationByRequestDate ended at : "
 				+ LocalDateTime.now());
 
 		return reallocation;

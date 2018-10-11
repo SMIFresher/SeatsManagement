@@ -1,5 +1,6 @@
 package com.seatmanagement.dao.impl;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -128,6 +129,27 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		}
 
 		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
+
+		return reallocations;
+	}
+
+	@Override
+	public List<Reallocation> getReallocationByRequestDate(LocalDate reallocationRequestedDate) {
+
+		List<Reallocation> reallocations = null;
+
+		logger.info("DAO: ReallocationDaoImpl Method : getReallocationByRequestDate started at : " + LocalDateTime.now());
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
+		criteria.add(Restrictions.eq("reallocationRequestedDate", reallocationRequestedDate));
+
+		try {
+			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
+		} catch (Exception e) {
+			throw new ApplicationException("Error while retreiving reallocation records");
+		}
+
+		logger.info("DAO: ReallocationDaoImpl Method : getReallocationByRequestDate ended at : " + LocalDateTime.now());
 
 		return reallocations;
 	}

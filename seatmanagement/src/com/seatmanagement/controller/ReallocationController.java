@@ -1,5 +1,6 @@
 package com.seatmanagement.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -221,6 +222,30 @@ public class ReallocationController {
 		}
 		
 		logger.info("Controller: ReallocationController Method : getReallocationByReallocationStatus response sent at : "
+				+ LocalDateTime.now());
+		return model;
+		
+	}
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value="/getReallocationByRequestDate",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity getReallocationByRequestDate(@RequestParam(value = "reallocationRequestedDate") String RequestedDate)
+	{
+		LocalDate reallocationRequestedDate= LocalDate.parse(RequestedDate);
+
+		ResponseEntity model = null;
+		logger.info(
+				"Controller: ReallocationController Method : getReallocationByRequestDate request processing started at : "
+						+ LocalDateTime.now());
+
+		List<Reallocation> reallocationList = reallocationService.getReallocationByRequestDate(reallocationRequestedDate);
+
+		if (!(reallocationList == null)) {
+			model = new ResponseEntity<List<Reallocation>>(reallocationList, HttpStatus.OK);
+		} else {
+			throw new RuntimeException("No Record Found");
+		}
+		
+		logger.info("Controller: ReallocationController Method : getReallocationByRequestDate response sent at : "
 				+ LocalDateTime.now());
 		return model;
 		

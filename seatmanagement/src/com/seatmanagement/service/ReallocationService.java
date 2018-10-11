@@ -1,5 +1,6 @@
 package com.seatmanagement.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,5 +58,7 @@ public interface ReallocationService {
 	public List<Reallocation> getReallocationByBlockId(UUID blockId);
 	
 	public List<Reallocation> getReallocationByReallocationStatus(String reallocationStatus);
+	
+	public List<Reallocation> getReallocationByRequestDate(LocalDate reallocationRequestedDate);
 
 }

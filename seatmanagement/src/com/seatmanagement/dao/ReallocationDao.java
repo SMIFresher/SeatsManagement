@@ -1,5 +1,6 @@
 package com.seatmanagement.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,5 +40,8 @@ public interface ReallocationDao {
 	public List<Reallocation> getReallocationsByBlockId(UUID blockId);
 	
 	public List<Reallocation> getReallocationsByStatus(String reallocationStatus);
+	
+	public List<Reallocation> getReallocationByRequestDate(LocalDate reallocationRequestedDate);
+
 
 }
