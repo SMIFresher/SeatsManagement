@@ -1,9 +1,7 @@
 package com.seatmanagement.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,11 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Reallocation;
-import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.service.ReallocationService;
 
 /**
@@ -39,6 +36,38 @@ public class ReallocationController {
 
 	@Autowired
 	private ReallocationService reallocationService;
+	
+	
+	
+	@RequestMapping(value = "/getReallocation")
+	public ModelAndView getReallocation() throws BusinessException {
+
+		logger.info("Controller: FloorController Method : getModifyFloor request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/HR/Reallocation");
+
+		logger.info("Controller: FloorController Method : getModifyFloor response sent at : " + LocalDateTime.now());
+
+		return model;
+
+	}
+	
+	
+	@RequestMapping(value = "/reallocationRequest")
+	public ModelAndView reallocationRequest() throws BusinessException {
+
+		logger.info("Controller: FloorController Method : getModifyFloor request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/Lead/ReallocationRequest");
+
+		logger.info("Controller: FloorController Method : getModifyFloor response sent at : " + LocalDateTime.now());
+
+		return model;
+
+	}
+	
 
 	/**
 	 * 
@@ -151,103 +180,14 @@ public class ReallocationController {
 	public ResponseEntity<List<Object>> getAllReallocationDetails() {
 		ResponseEntity model = null;
 		logger.info(
-				"Controller: ReallocationController Method : getAllReallocationDetails request processing started at : "
+				"Controller: SeatingDetailsController Method : getAllSeatingDetails request processing started at : "
 						+ LocalDateTime.now());
 
 		model = new ResponseEntity(reallocationService.getAllReallocationDetails(), HttpStatus.OK);
 
-		logger.info("Controller: ReallocationController Method : getAllReallocationDetails response sent at : "
+		logger.info("Controller: SeatingDetailsController Method : getAllSeatingDetails response sent at : "
 				+ LocalDateTime.now());
 		return model;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getByReallocationId",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getByReallocationId(@RequestParam(value = "reallocationId") UUID reallocationId)
-	{
-		Reallocation reallocation = new Reallocation();
-		ResponseEntity model = null;
-		logger.info(
-				"Controller: ReallocationController Method : getByReallocationId request processing started at : "
-						+ LocalDateTime.now());
-
-		model = new ResponseEntity(reallocationService.getByReallocationId(reallocation,reallocationId), HttpStatus.OK);
-
-		logger.info("Controller: ReallocationController Method : getByReallocationId response sent at : "
-				+ LocalDateTime.now());
-		return model;
-		
-	}
-	
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/getReallocationByBlockId",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getReallocationByBlockId(@RequestParam(value = "blockId") UUID blockId)
-	{
-		
-		ResponseEntity model = null;
-		logger.info(
-				"Controller: ReallocationController Method : getReallocationByBlockId request processing started at : "
-						+ LocalDateTime.now());
-
-		List<Reallocation> reallocationList = reallocationService.getReallocationByBlockId(blockId);
-
-		if (!(reallocationList == null)) {
-			model = new ResponseEntity<List<Reallocation>>(reallocationList, HttpStatus.OK);
-		} else {
-			throw new RuntimeException("No Record Found");
-		}
-		
-		logger.info("Controller: ReallocationController Method : getReallocationByBlockId response sent at : "
-				+ LocalDateTime.now());
-		return model;
-		
-	}
-	
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/getReallocationByReallocationStatus",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getReallocationByReallocationStatus(@RequestParam(value = "reallocationStatus") String reallocationStatus)
-	{
-		
-		ResponseEntity model = null;
-		logger.info(
-				"Controller: ReallocationController Method : getReallocationByReallocationStatus request processing started at : "
-						+ LocalDateTime.now());
-
-		List<Reallocation> reallocationList = reallocationService.getReallocationByReallocationStatus(reallocationStatus);
-
-		if (!(reallocationList == null)) {
-			model = new ResponseEntity<List<Reallocation>>(reallocationList, HttpStatus.OK);
-		} else {
-			throw new RuntimeException("No Record Found");
-		}
-		
-		logger.info("Controller: ReallocationController Method : getReallocationByReallocationStatus response sent at : "
-				+ LocalDateTime.now());
-		return model;
-		
-	}
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/getReallocationByRequestDate",method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity getReallocationByRequestDate(@RequestParam(value = "reallocationRequestedDate") String RequestedDate)
-	{
-		LocalDate reallocationRequestedDate= LocalDate.parse(RequestedDate);
-
-		ResponseEntity model = null;
-		logger.info(
-				"Controller: ReallocationController Method : getReallocationByRequestDate request processing started at : "
-						+ LocalDateTime.now());
-
-		List<Reallocation> reallocationList = reallocationService.getReallocationByRequestDate(reallocationRequestedDate);
-
-		if (!(reallocationList == null)) {
-			model = new ResponseEntity<List<Reallocation>>(reallocationList, HttpStatus.OK);
-		} else {
-			throw new RuntimeException("No Record Found");
-		}
-		
-		logger.info("Controller: ReallocationController Method : getReallocationByRequestDate response sent at : "
-				+ LocalDateTime.now());
-		return model;
-		
-	}
 }
