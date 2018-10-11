@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.model.SeatingDetails;
 
@@ -50,5 +51,11 @@ public interface ReallocationService {
 	public void deleteReallocationsByBlockId(UUID blockId);
 
 	public List<Reallocation> getAllReallocationDetails();
+	
+	public Reallocation getByReallocationId(Reallocation reallocation, UUID reallocationId);
+	
+	public List<Reallocation> getReallocationByBlockId(UUID blockId);
+	
+	public List<Reallocation> getReallocationByReallocationStatus(String reallocationStatus);
 
 }

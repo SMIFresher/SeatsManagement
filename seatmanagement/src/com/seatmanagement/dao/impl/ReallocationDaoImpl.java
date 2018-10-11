@@ -57,18 +57,18 @@ public class ReallocationDaoImpl implements ReallocationDao {
 
 	@Override
 	public void deleteReallocationByBlockId(UUID blockId) {
-		
+
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId started at : " + LocalDateTime.now());
-		
+
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
 		Reallocation reallocation = null;
-		
+
 		try {
 			reallocation = (Reallocation) hibernateTemplate.findByCriteria(criteria);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new ApplicationException("Error while retreiving reallocation record");
 		}
 
@@ -80,34 +80,55 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		else {
 			try {
 				hibernateTemplate.delete(reallocation);
-			}catch(Exception e) {
+			} catch (Exception e) {
 				throw new ApplicationException("Error while deleting reallocation record");
 			}
 		}
-		
-		logger.info(
-				"DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId ended at : " + LocalDateTime.now());
+
+		logger.info("DAO: ReallocationDaoImpl Method : deleteReallocationByBlockId ended at : " + LocalDateTime.now());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Reallocation> getReallocationsByBlockId(UUID blockId){
-		logger.info(
-				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId started at : " + LocalDateTime.now());
-		
+	public List<Reallocation> getReallocationsByBlockId(UUID blockId) {
+
+		List<Reallocation> reallocations = null;
+
+		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId started at : " + LocalDateTime.now());
+
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
 		criteria.add(Restrictions.eq("block.blockId", blockId));
 
-		List<Reallocation> reallocations = null;
-		
 		try {
 			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new ApplicationException("Error while retreiving reallocation records");
 		}
 
-		logger.info(
-				"DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
-		
+		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
+
+		return reallocations;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Reallocation> getReallocationsByStatus(String reallocationStatus) {
+
+		List<Reallocation> reallocations = null;
+
+		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId started at : " + LocalDateTime.now());
+
+		DetachedCriteria criteria = DetachedCriteria.forClass(Reallocation.class);
+		criteria.add(Restrictions.eq("reallocationStatus", reallocationStatus));
+
+		try {
+			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
+		} catch (Exception e) {
+			throw new ApplicationException("Error while retreiving reallocation records");
+		}
+
+		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
+
 		return reallocations;
 	}
 

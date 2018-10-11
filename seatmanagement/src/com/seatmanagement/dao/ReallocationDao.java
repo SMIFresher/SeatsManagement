@@ -37,5 +37,7 @@ public interface ReallocationDao {
 	 * @throws BusinessException 
 	 */
 	public List<Reallocation> getReallocationsByBlockId(UUID blockId);
+	
+	public List<Reallocation> getReallocationsByStatus(String reallocationStatus);
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.ReallocationDao;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.service.ReallocationService;
@@ -107,13 +108,58 @@ public class ReallocationServiceImpl implements ReallocationService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reallocation> getAllReallocationDetails() {
-		logger.info("Service: SeatingDetailsServiceImpl Method : getAllReallocationDetails started at : "
+
+		logger.info("Service: ReallocationServiceImpl Method : getAllReallocationDetails started at : "
 				+ LocalDateTime.now());
+
 		Reallocation reallocation = new Reallocation();
+
 		List<Reallocation> list = genericDao.getAll(reallocation);
-		logger.info("Service: SeatingDetailsServiceImpl Method : getAllReallocationDetails ended at : "
+
+		logger.info("Service: ReallocationServiceImpl Method : getAllReallocationDetails ended at : "
 				+ LocalDateTime.now());
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Reallocation getByReallocationId(Reallocation reallocation, UUID reallocationId) {
+		logger.info(
+				"Service: ReallocationServiceImpl Method : getByReallocationId started at : " + LocalDateTime.now());
+
+		reallocation = (Reallocation) genericDao.getById(reallocation, reallocationId);
+
+		logger.info("Service: ReallocationServiceImpl Method : getByReallocationId ended at : " + LocalDateTime.now());
+
+		return reallocation;
+
+	}
+
+	@Override
+	public List<Reallocation> getReallocationByBlockId(UUID blockId) {
+		logger.info("Service: ReallocationServiceImpl Method : getSeatingDetailsBySeatingId started at : "
+				+ LocalDateTime.now());
+
+		List<Reallocation> reallocation = reallocationDao.getReallocationsByBlockId(blockId);
+
+		logger.info("Service: ReallocationServiceImpl Method : getSeatingDetailsBySeatingId ended at : "
+				+ LocalDateTime.now());
+
+		return reallocation;
+
+	}
+
+	@Override
+	public List<Reallocation> getReallocationByReallocationStatus(String reallocationStatus) {
+		logger.info("Service: ReallocationServiceImpl Method : getReallocationByReallocationStatus started at : "
+				+ LocalDateTime.now());
+
+		List<Reallocation> reallocation = reallocationDao.getReallocationsByStatus(reallocationStatus);
+
+		logger.info("Service: ReallocationServiceImpl Method : getReallocationByReallocationStatus ended at : "
+				+ LocalDateTime.now());
+
+		return reallocation;
 	}
 
 }
