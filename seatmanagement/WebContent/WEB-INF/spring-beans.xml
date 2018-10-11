@@ -274,7 +274,7 @@
 			class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 		</bean>
 
-		<bean id="genericDao" class="org.mockito.Mockito"
+		<bean id="genericDao" name="genericDaoMock" class="org.mockito.Mockito"
 			factory-method="mock">
 			<constructor-arg
 				value="com.seatmanagement.dao.impl.GenericDaoImpl" />
