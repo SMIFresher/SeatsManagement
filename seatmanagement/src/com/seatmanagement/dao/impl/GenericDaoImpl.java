@@ -31,7 +31,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 			hibernateTemplate.saveOrUpdate(t);
 		 	}
 		 	catch(Exception e) {
-				throw new ApplicationException("Error while inserting records");
+				throw new ApplicationException("Error while inserting records", e);
 			}
 			
 		 	logger.info("Dao: GenericDaoImpl Method : saveOrUpdate ended at : " + LocalDateTime.now());
@@ -46,7 +46,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 			t=(T) hibernateTemplate.get(t.getClass(),id);	
 		}
 		catch(Exception e) {
-			throw new ApplicationException("Error while retriving records");
+			throw new ApplicationException("Error while retriving records", e);
 		}
 		
 		logger.info("Dao: GenericDaoImpl Method : getById ended at : " + LocalDateTime.now());
@@ -63,7 +63,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 			list = (List<T>) hibernateTemplate.loadAll(t.getClass());
 		}
 		catch(Exception e) {
-			throw new ApplicationException("Error while retriving records");
+			throw new ApplicationException("Error while retriving records", e);
 		}
 		
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : saveOrUpdate ended at : " + LocalDateTime.now());
@@ -80,7 +80,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 				b=true;
 			}
 			catch (Exception e) {
-				throw new ApplicationException("Error while deleting records");
+				throw new ApplicationException("Error while deleting records", e);
 			}
 			
 		logger.info("Dao: "+t.getClass().getSimpleName()+"(GenericDaoImpl)  Method : delete ended at : " + LocalDateTime.now());
@@ -98,7 +98,7 @@ public class GenericDaoImpl<T> implements GenericDao<T>{
 				hibernateTemplate.saveOrUpdate(obj);
 			}
 			catch(Exception e) {
-				throw new ApplicationException("Error while inserting bulk records");
+				throw new ApplicationException("Error while inserting bulk records", e);
 			}
 			
 			logger.info("Dao: "+obj.getClass().getSimpleName()+"(GenericDaoImpl)  Method : saveAll ended at : " + LocalDateTime.now());
