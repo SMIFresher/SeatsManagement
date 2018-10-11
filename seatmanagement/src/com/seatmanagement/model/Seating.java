@@ -45,6 +45,9 @@ public class Seating implements Serializable {
 	@JsonIgnore
 	private Block block;
 	
+	
+	@Column(name="system_occupied")
+	private Integer systemOccupied;
 	/*@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="team_id")
 	private Team team;*/
@@ -112,5 +115,13 @@ public class Seating implements Serializable {
 
 	public void setBlock(Block block) {
 		this.block = block;
+	}
+
+	public int getSystemOccupied() {
+		return systemOccupied;
+	}
+
+	public void setSystemOccupied(int systemOccupied) {
+		this.systemOccupied = systemOccupied;
 	}
 }

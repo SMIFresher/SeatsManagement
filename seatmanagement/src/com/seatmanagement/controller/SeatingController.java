@@ -35,7 +35,6 @@ import com.seatmanagement.service.SeatingService;
 public class SeatingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SeatingController.class);
-
 	@Autowired
 	private SeatingService seatingService;
 

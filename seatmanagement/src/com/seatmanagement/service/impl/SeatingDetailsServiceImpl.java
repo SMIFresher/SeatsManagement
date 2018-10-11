@@ -19,7 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SeatingDetailsDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Block;
+import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Seating;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
@@ -99,27 +102,60 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 	}
 
 	public void saveSeatingDetailsInbatch(SeatingDetails[] seatingDetails, UUID seatingId) throws BusinessException {
-		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());
+		logger.info(
+				"DAO: SeatingDetailsDaoImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());
+		deleteByIdInBatch(seatingId);
+		Block block = new Block();
+		Seating seating = new Seating();
+		Systems system=new Systems();
+		Employee employee=new Employee();
 		
-		  deleteByIdInBatch(seatingId);
-		 
-		  Seating seating=new Seating();
-		  seating = genericdaoSeating.getById(seating,seatingId);
-		  
-		  for(SeatingDetails sd:seatingDetails) { 
+		seating = genericdaoSeating.getById(seating, seatingId);
+		int old_count = seating.getSystemOccupied();
+		block=seating.getBlock();
+		int block_capacity = Integer.parseInt(block.getBlockCapacity());
+		int new_count = 0,seat_occupied=0;
 		
-			sd.setSeating(seating);
-			String systemName = sd.getSeatingSystemNo().trim();
-			
-			if(!systemName.equalsIgnoreCase("Emptydesk") && !systemName.equalsIgnoreCase("Exit")) {
-				sd.setSystem(systemService.getSystemBySystemName(systemName));
+		for (SeatingDetails sd : seatingDetails) {
+			if (!(sd.getSeatingSystemNo().trim().equals("Emptydesk") || sd.getSeatingSystemNo().equals("Exit"))) {
+				new_count++;
 			}
-			
-			genericDaoSeatingDetails.saveOrUpdate(sd);
-		
-		logger.info("Service: SeatingDetailsServiceImpl Method : saveSeatingDetailsInbatch started at : " + LocalDateTime.now());	  	
-		
-	 }
+		}
+		int total_count = old_count + new_count;
+		if (total_count <= block_capacity) {
+			for (SeatingDetails sd : seatingDetails) {
+				String systemName = sd.getSeatingSystemNo().trim();
+				if (!(sd.getSeatingSystemNo().trim().equalsIgnoreCase("Emptydesk") || sd.getSeatingSystemNo().equalsIgnoreCase("Exit"))) {	
+				system = systemService.getSystemBySystemName(systemName);
+				employee=system.getEmployee();
+				if(employee!=null) {
+					seat_occupied++;
+				}
+				sd.setSystem(system);
+				}
+				sd.setSeating(seating);
+				genericDaoSeatingDetails.saveOrUpdate(sd);
+			}
+				seating.setSeat_occupied(seat_occupied);
+				seating.setSystemOccupied(total_count);
+				genericdaoSeating.saveOrUpdate(seating);
+		}
+		/*
+		 * DetachedCriteria blockcriteria = DetachedCriteria.forClass(Employee.class)
+		 * .add(Restrictions.eq("employee.employeeId", employee_id));
+		 * .setProjection(Projections.rowCount()); Integer count = (Integer)
+		 * blockcriteria.uniqueResult(); int total=new_count + count;
+		 * 
+		 * 
+		 * sd.setSeating(seating); String systemName = sd.getSeatingSystemNo();
+		 * sd.setSystem(system.getSystemId(systemName.trim()));
+		 * genericDaoSeatingDetails.saveOrUpdate(sd);
+		 */
+		else {
+			// throw exception
+			throw new ApplicationException("Error while saving");
+		}
+		 
 		 
 
 		/*seatingDetailsDao.saveSeatingDetailsInbatch(seatingDetails, seatingId);*/

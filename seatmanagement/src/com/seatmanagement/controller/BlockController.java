@@ -112,6 +112,7 @@ public class BlockController {
 	 * @return
 	 * @throws BusinessException
 	 */
+	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/getBlockByFloorId", method = RequestMethod.GET)
 	public ResponseEntity getBlocksByFloorId(@RequestParam(value = "floor_id") UUID floorId) throws BusinessException {
