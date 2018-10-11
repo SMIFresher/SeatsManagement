@@ -54,7 +54,7 @@ public class FloorDaoImpl implements FloorDao {
 
 		} catch (Exception e) {
 
-			throw new ApplicationException("Error while retreiving Floors");
+			throw new ApplicationException("Error while retreiving Floors", e);
 		}
 		logger.info("DAO: FloorDaoImpl Method : getFloorsByBuildingId ended at : " + LocalDateTime.now());
 
@@ -82,7 +82,7 @@ public class FloorDaoImpl implements FloorDao {
 
 		} catch (Exception e) {
 
-			throw new ApplicationException("Error while retreiving floors");
+			throw new ApplicationException("Error while retreiving floors", e);
 		}
 
 		logger.info("DAO: FloorDaoImpl Method : getFloorType ended at : " + LocalDateTime.now());

@@ -32,7 +32,7 @@ public class OrganisationDaoImpl implements OrganisationDao{
 		try {
 			organisations = (List<Organisation>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retrieving organisation");
+			throw new ApplicationException("Error while retrieving organisation", e);
 		}
 
 		logger.info("DAO: OrganisationDaoImpl Method : getOrganisationByName ended at : " + LocalDateTime.now());

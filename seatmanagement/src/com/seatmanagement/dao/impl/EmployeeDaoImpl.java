@@ -28,7 +28,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			employees = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retreiving employees");
+			throw new ApplicationException("Error while retreiving employees", e);
 		}
 		
 		return employees;
@@ -42,7 +42,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			employees = (List<Employee>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retreiving employees");
+			throw new ApplicationException("Error while retreiving employees", e);
 		}
 		
 		return employees;

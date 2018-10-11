@@ -42,7 +42,7 @@ public class TeamDaoImpl implements TeamDao {
 		try {
 			team = (Team) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retrieving team");
+			throw new ApplicationException("Error while retrieving team", e);
 		}
 
 		logger.info("DAO: TeamDaoImpl Method : getTeamByName ended at : " + LocalDateTime.now());

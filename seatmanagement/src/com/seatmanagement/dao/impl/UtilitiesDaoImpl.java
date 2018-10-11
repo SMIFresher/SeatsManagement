@@ -34,7 +34,7 @@ public class UtilitiesDaoImpl implements UtilitiesDao{
 		try {
 			utilityList = (List<Utilities>) hibernateTemplate.find("From Utilities");
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retreiving Utility records");
+			throw new ApplicationException("Error while retreiving Utility records",e);
 		}
 		return utilityList;
 	}

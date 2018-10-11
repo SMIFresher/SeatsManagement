@@ -94,10 +94,19 @@ public class ExceptionLogger extends ResponseEntityExceptionHandler {
 		} else {
 			exceptionMessage = new StringBuilder(ex.getMessage());
 		}
+		
+		Exception rootException = (Exception) ExceptionUtils.getRootCause(ex);
 
 		logger.error("BusinessException caught in Class : ExceptionLogger, Method : handleBusinessException(), at "
 				+ LocalDateTime.now());
 		logger.error("Exception message : " + exceptionMessage);
+		
+		// Log root exception, if any
+		if (!Objects.isNull(rootException)) {
+			logger.error("Exception root cause : " + rootException.getMessage());
+			logger.error("Exception root stack : ", rootException);
+		}
+		
 		logger.error("Exception stack : ", ex);
 
 		request.setAttribute(Constant.EXCEPTION_TYPE, Constant.EXCEPTION_TYPE_BUSINESS,

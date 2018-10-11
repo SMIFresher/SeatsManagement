@@ -70,7 +70,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		try {
 			reallocation = (Reallocation) hibernateTemplate.findByCriteria(criteria);
 		} catch (Exception e) {
-			throw new ApplicationException("Error while retreiving reallocation record");
+			throw new ApplicationException("Error while retreiving reallocation record", e);
 		}
 
 		// Scenario 1: No reallocation in DB
@@ -82,7 +82,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 			try {
 				hibernateTemplate.delete(reallocation);
 			} catch (Exception e) {
-				throw new ApplicationException("Error while deleting reallocation record");
+				throw new ApplicationException("Error while deleting reallocation record", e);
 			}
 		}
 
@@ -103,7 +103,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		try {
 			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
 		} catch (Exception e) {
-			throw new ApplicationException("Error while retreiving reallocation records");
+			throw new ApplicationException("Error while retreiving reallocation records", e);
 		}
 
 		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
@@ -125,7 +125,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		try {
 			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
 		} catch (Exception e) {
-			throw new ApplicationException("Error while retreiving reallocation records");
+			throw new ApplicationException("Error while retreiving reallocation records", e);
 		}
 
 		logger.info("DAO: ReallocationDaoImpl Method : getReallocationsByBlockId ended at : " + LocalDateTime.now());
@@ -146,7 +146,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 		try {
 			reallocations = (List<Reallocation>) hibernateTemplate.findByCriteria(criteria);
 		} catch (Exception e) {
-			throw new ApplicationException("Error while retreiving reallocation records");
+			throw new ApplicationException("Error while retreiving reallocation records", e);
 		}
 
 		logger.info("DAO: ReallocationDaoImpl Method : getReallocationByRequestDate ended at : " + LocalDateTime.now());

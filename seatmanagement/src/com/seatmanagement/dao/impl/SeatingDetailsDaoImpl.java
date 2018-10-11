@@ -43,7 +43,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		try {
 			seatingList = (List<SeatingDetails>) hibernateTemplate.find("From SeatingDetails");
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retreiving SeatingDetails");
+			throw new ApplicationException("Error while retreiving SeatingDetails", e);
 		}
 		
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getAllSeatingDetails ended at : " + LocalDateTime.now());
@@ -69,7 +69,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 			seatingDetails = (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
 		}
 		catch(Exception e) {
-			throw new ApplicationException("Error while retreiving SeatingDetail");
+			throw new ApplicationException("Error while retreiving SeatingDetail", e);
 		}
 		
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getEmployeeBySeatId ended at : " + LocalDateTime.now());
@@ -91,7 +91,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 			seatingDetails = (SeatingDetails) hibernateTemplate.findByCriteria(criteria).get(0);
 		}
 		catch(Exception e) {
-			throw new ApplicationException("Error whi;e retreiving SeatingDetail");
+			throw new ApplicationException("Error whi;e retreiving SeatingDetail", e);
 		}
 		
 		logger.info("DAO: SeatingDetailsDaoImpl Method : getSeatByEmployeeId ended at : " + LocalDateTime.now());

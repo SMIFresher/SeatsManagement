@@ -48,7 +48,7 @@ public class BlockDaoImpl implements BlockDao {
 		try {
 			blockList = (List<Block>) hibernateTemplate.find("From Block");
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retreiving Block records");
+			throw new ApplicationException("Error while retreiving Block records", e);
 		}
 		
 		logger.info("DAO: BlockDaoImpl Method : saveBlock response sent at : " + LocalDateTime.now());
@@ -65,7 +65,7 @@ public class BlockDaoImpl implements BlockDao {
 		try {
 			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retrieving Block record");
+			throw new ApplicationException("Error while retrieving Block record", e);
 		}
 		logger.info("DAO: BlockDaoImpl Method : listBlockByFloorId response sent at : " + LocalDateTime.now());
 		return blocks;
@@ -90,7 +90,7 @@ public class BlockDaoImpl implements BlockDao {
 		try {
 			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
 		}catch(Exception e) {
-			throw new ApplicationException("Error while retreiving block records");
+			throw new ApplicationException("Error while retreiving block records", e);
 		}
 		logger.info("DAO: BlockDaoImpl Method : listBlockByBlockType response sent at : " + LocalDateTime.now());
 		return blocks;
