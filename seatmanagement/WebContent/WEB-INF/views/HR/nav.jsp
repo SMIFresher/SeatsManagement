@@ -35,6 +35,7 @@
 
 	<ul class="list-unstyled components">
 		<li><a href="/seatmanagement/hr/index" class="fa fa-home"> Home</a></li>
+		<li><a href="/seatmanagement/reallocation/getReallocationHr" class="fa fa-home"> Reallocation</a></li>
 		<li><a href="/seatmanagement/organisation/getOrganisationView" class="fa fa-sitemap"> Organization</a></li>
 		<li><a href="/seatmanagement/building/getBuildingViewAndEdit" class="fa fa-building"> Manage Buildings</a></li>
 

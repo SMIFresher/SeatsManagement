@@ -18,6 +18,12 @@
       <li class="nav-item">
         <a class="nav-link text-dark" href="/seatmanagement/lead/building">View</a>
       </li>
+      <li><a class="nav-link text-dark bg-white"  href="#Reallocation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reallocation</a>
+			<ul class="collapse list-unstyled" id="Reallocation">
+				<li><a class="nav-link text-dark bg-white" href="/seatmanagement/reallocation/reallocationRequest">Request</a></li>
+				<li><a class="nav-link text-dark bg-white" href="/seatmanagement/reallocation/reallocationStatusViewByLead">Status</a></li>
+			</ul>
+	  </li>
       <li class="nav-item">
         <a class="nav-link text-dark" href="/seatmanagement/pagelogout">Logout</a>
       </li>     
