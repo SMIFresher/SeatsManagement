@@ -30,7 +30,7 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form id="Form" method="post" ng-submit="saveFloors();">
+						<form id="Form" method="POST" enctype="multipart/form-data"  action="floorsave">
 							<div class="form-group">
 								<label for="location">Building Name </label>
 									<select class="custom-select mb-3" name="buildingId">
@@ -48,6 +48,13 @@
 									class="form-control" id="fname" placeholder="Enter Floor Name"
 									name="floorName">
 							</div>
+							
+							 <div class="custom-file mb-3">
+							 		<label for="ftype">Floor Map:</label>
+     							 <input type="file" class="custom-file-input" id="customFile" name="file">
+    							  <label class="custom-file-label" for="customFile">Choose file</label>
+   							 </div>
+							
 							<button type="submit" class="btn btn-success">Submit</button>
 						</form>
 
@@ -57,12 +64,6 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-					<div class="col-sm-12 bg-primary text-white">
-							<br>
-							<h4>Floor Details</h4>
-							<br>
-						</div>
-					<div class="col-sm-12 table-responsive">
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Floor Name</td>
@@ -78,7 +79,7 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				
 			</div>
 		</div>
 	</div>
