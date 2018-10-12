@@ -124,26 +124,25 @@ public class SystemServiceImpl implements SystemService {
 		logger.info("Service: SystemServiceImpl Method : getSystem started at : " + LocalDateTime.now());
 
 		Systems system;
-		List<Systems> list= (List<Systems>) systemDao.getSystem(request);
-		
-		if(list.isEmpty()) {
+		List<Systems> list = (List<Systems>) systemDao.getSystem(request);
+
+		if (list.isEmpty()) {
 			throw new BusinessException("Enter a valid Id");
-		}
-		else {
-			system=list.get(0);
+		} else {
+			system = list.get(0);
 		}
 		logger.info("Service: SystemServiceImpl Method : getSystem ended at : " + LocalDateTime.now());
 		return system;
 	}
 
 	@Override
-	public Systems getSystemBySystemName(String systemName){
+	public Systems getSystemBySystemName(String systemName) {
 
 		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName started at : " + LocalDateTime.now());
 
-		List<Systems> systemList= systemDao.getSystemId(systemName.trim());
-		Systems system=systemList.get(0);
-		
+		List<Systems> systemList = systemDao.getSystemId(systemName.trim());
+		Systems system = systemList.get(0);
+
 		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName ended at : " + LocalDateTime.now());
 		return system;
 	}
@@ -155,7 +154,7 @@ public class SystemServiceImpl implements SystemService {
 
 		Systems system = new Systems();
 		List<Systems> list = systemDao.getOs(system);
-		
+
 		logger.info("Service: SystemServiceImpl Method : getOscount ended at : " + LocalDateTime.now());
 		return list;
 
@@ -170,6 +169,19 @@ public class SystemServiceImpl implements SystemService {
 
 		logger.info("Service: SystemServiceImpl Method : getAllAvailableSystems ended at : " + LocalDateTime.now());
 		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void updateReallocation(UUID systemId) {
+		logger.info("Service: SystemServiceImpl Method : updateReallocation started at : " + LocalDateTime.now());
+		Systems system=new Systems();
+		system=(Systems) genericDao.getById(system, systemId);
+		system.getEmployee();
+		system.setEmployee(null);
+		genericDao.saveOrUpdate(system);
+		logger.info("Service: SystemServiceImpl Method : updateReallocation ended at : " + LocalDateTime.now());
+
 	}
 
 }

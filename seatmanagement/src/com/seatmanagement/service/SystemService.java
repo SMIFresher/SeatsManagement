@@ -32,5 +32,7 @@ public interface SystemService {
 	public List<Systems> getOscount();
 
 	public List<Systems> getAllAvailableSystems();
+	
+	public void updateReallocation(UUID systemId);
 
 }

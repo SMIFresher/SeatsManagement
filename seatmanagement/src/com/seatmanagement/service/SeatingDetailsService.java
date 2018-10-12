@@ -20,10 +20,6 @@ public interface SeatingDetailsService {
 
 	void saveSeatingDetails(SeatingDetails seatingDetails);
 
-	/*
-	 * public List<SeatingDetails> getEmployeeBySeatId(SeatingDetails
-	 * seatingdetails,UUID seating_id);
-	 */
 	public SeatingDetails getEmployeeBySeatId(SeatingDetails seatingdetails, UUID seating_id);
 
 	public SeatingDetails getSeatByEmployeeId(SeatingDetails seatingdetails, UUID employee_id);
@@ -35,4 +31,6 @@ public interface SeatingDetailsService {
 	public void deleteByIdInBatch(UUID seatingId);
 
 	public void deleteSeatingDetailById(UUID seatingDetailsId);
+	
+	public void undoSystemIdReference(UUID seatingDetailsId);
 }

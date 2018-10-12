@@ -206,4 +206,27 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		
 	}
 
+	@Override
+	public void undoSystemIdReference(UUID seatingDetailsId) {
+		logger.info(
+				"Service: SeatingDetailsServiceImpl Method : undoSystemIdReference started at : " + LocalDateTime.now());
+
+		SeatingDetails seatingDetails= (SeatingDetails) genericDaoSeatingDetails.getById(new SeatingDetails(), seatingDetailsId);
+
+		// Scenario 1 : seatingDetails does not exist
+		if (Objects.isNull(seatingDetails)) {
+			throw new ApplicationException("SeatingDetail record not found");
+		}
+		// Scenario 2 : seatingDetails exists
+		else {
+
+			seatingDetails.setSystem(null);
+			genericDaoSeatingDetails.saveOrUpdate(seatingDetails);
+		}
+
+		logger.info(
+				"Service: SeatingDetailsServiceImpl Method : undoSystemIdReference ended at : " + LocalDateTime.now());
+		
+	}
+
 }
