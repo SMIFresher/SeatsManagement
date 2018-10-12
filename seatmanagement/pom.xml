@@ -297,6 +297,13 @@
 	    <artifactId>lombok</artifactId>
 	    <version>1.18.2</version>
 	</dependency>
+	
+	<!-- commons file upload -->
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
+		<version>1.3.1</version>
+	</dependency>
 		
 	</dependencies>
 
