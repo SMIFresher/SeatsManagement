@@ -11,7 +11,7 @@
 	</button>
 
 
-
+ 
 	<a class="navbar-brand" href="/seatmanagement/hr/index"> <img
 		src="/seatmanagement/Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
 	</a>

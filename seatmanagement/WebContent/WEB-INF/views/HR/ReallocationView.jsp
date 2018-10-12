@@ -43,7 +43,7 @@
 						<td>{{reall.employee.firstName}}</td>
 						<td>{{reall.previousBlockId}}</td>
 						<td value="{{reall.block.blockId}}">{{reall.block.blockName}}</td>
-						<td align="center">
+						<td align="center"> 
 							<select>
 								<option value="">{{reall.reallocationStatus}}</option>
 								<option>Pending</option>

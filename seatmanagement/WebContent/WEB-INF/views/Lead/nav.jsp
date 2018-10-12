@@ -6,7 +6,7 @@
 
   <a class="navbar-brand" href="index.jsp">
     <img src="../Logo/nav-logo.jpg" alt="logo" style="width:100px;">
-  </a>
+  </a> 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="fa fa-bars " style="font-size: 30px;"  aria-hidden="true" ></span>
   </button>
