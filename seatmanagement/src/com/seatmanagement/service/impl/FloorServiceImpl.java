@@ -1,11 +1,16 @@
 package com.seatmanagement.service.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -15,11 +20,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.seatmanagement.dao.FloorDao;
 import com.seatmanagement.dao.GenericDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.exception.ExceptionLogger;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Floor;
@@ -55,6 +63,7 @@ public class FloorServiceImpl implements FloorService {
 	@Autowired
 	HibernateTemplate ht;
 
+	@Transactional(rollbackFor=BusinessException.class)
 	public Floor saveOrUpdateFloors(Floor floor, UUID buildingId,MultipartFile image) throws BusinessException {
 
 		logger.info("Service: FloorServiceImpl Method : saveOrUpdateFloors started at : " + LocalDateTime.now());
@@ -72,7 +81,8 @@ public class FloorServiceImpl implements FloorService {
 		try {
 			uploadImage(image,floorId);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new BusinessException("Can't upload image");
+			
 		}
 
 		return floor;
@@ -155,26 +165,73 @@ public class FloorServiceImpl implements FloorService {
 	}
 
 	@Override
-	public void uploadImage(MultipartFile multipartFile,String floorId) throws IOException {
-		
-		
+	public void uploadImage(MultipartFile multipartFile,String floorId) throws IOException, BusinessException {
 		
 		logger.info("Service: FloorServiceImpl Method : uploadImage started at : " + LocalDateTime.now());
 		
 		
 		String name=multipartFile.getOriginalFilename();
 		String ext = floorId+"."+FilenameUtils.getExtension(name);
-		File destinationFile=new File("\\\\192.168.2.96\\Temp_Share\\floormap\\"+ext);
-		 
-		File convertFile = new File(multipartFile.getOriginalFilename());
-		convertFile.createNewFile();
-		FileOutputStream fos = new FileOutputStream(convertFile);
-		fos.write(multipartFile.getBytes());
-			    
-		FileUtils.copyFile(convertFile, destinationFile);
-		fos.close();
 		
+		if (FilenameUtils.getExtension(name).equals("svg")) {
+
+		InputStream input=null;
+	    Properties p=new Properties();  
+	    
+	    	try {
+	   
+	    		input=getClass().getClassLoader().getResourceAsStream("build.properties");
+	    		p.load(input);  
+	    		
+	    		File destinationFile = new File(p.getProperty("image.path")+ext);
+	    		File convertFile = new File(multipartFile.getOriginalFilename());
+	    		
+	    		convertFile.createNewFile();
+	    		
+	    		FileOutputStream fos = new FileOutputStream(convertFile);
+				fos.write(multipartFile.getBytes());
+				FileUtils.copyFile(convertFile, destinationFile);
+				
+				fos.close();
+				input.close();
+	    	}
+	    	catch(Exception e) {
+	    		throw new BusinessException("Error uploading Image");
+	    	}
+		}	
+		else {
+			throw new BusinessException("Supports only svg file format");
+		}
 		logger.info("Service: FloorServiceImpl Method : uploadImage ended at : " + LocalDateTime.now());
+	}
+	
+	public HashMap<String,String> getFloorImage(String floorId) {
+		
+		
+		InputStream input=getClass().getClassLoader().getResourceAsStream("build.properties");
+		Properties p=new Properties();
+		String imagepath;
+		HashMap imagedetails;
+		try {
+			p.load(input);
+			
+			imagepath=p.getProperty("image.path")+floorId+".svg";
+			imagedetails=new HashMap<>();
+			imagedetails.put("fileLocation",imagepath);
+			File obj=new File(imagepath);
+			
+			if(!obj.exists()) {
+				throw new ApplicationException("Image not Exist");
+			}
+			
+			input.close();
+			
+		} catch (IOException e) {
+			throw new ApplicationException("cannot retrieve imags",e);
+		}  
+		
+		
+		return imagedetails;
 	}
 	
 	

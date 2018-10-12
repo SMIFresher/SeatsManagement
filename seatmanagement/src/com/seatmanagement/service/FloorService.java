@@ -1,6 +1,7 @@
 package com.seatmanagement.service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -70,5 +71,7 @@ public interface FloorService {
 
 	public List<Floor> getFloorTypeByBuildingId(UUID buildingId);
 	
-	 public  void uploadImage(MultipartFile multipartFile,String floorId) throws IOException ;
+	 public  void uploadImage(MultipartFile multipartFile,String floorId) throws IOException, BusinessException ;
+	 
+	 public HashMap<String,String> getFloorImage(String floorId);
 }
