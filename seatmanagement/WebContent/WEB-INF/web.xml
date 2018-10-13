@@ -23,11 +23,6 @@
 		<param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
 	</context-param>
 	
-	<context-param>  
-	    <param-name>spring.profiles.active</param-name>  
-	    <param-value>development</param-value>  
-	</context-param>  
-	
 	<!-- The front controller of this Spring Web application, responsible for 
 		handling all application requests -->
 	<servlet>

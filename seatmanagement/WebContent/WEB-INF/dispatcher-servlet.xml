@@ -19,6 +19,15 @@
 	
 	<mvc:resources mapping="/**" location="/" />
 	
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+       <property name="ignoreUnresolvablePlaceholders" value="true"/>
+       <property name="locations">
+         <list>
+           <value>classpath:build.properties</value>
+         </list>
+       </property>
+     </bean>
+	
 	<import resource="spring-beans.xml" />	
 	<import resource="spring-beans-test.xml" />	
 	
