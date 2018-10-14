@@ -9,25 +9,6 @@
 
 	<beans profile="development">
 
-
-			<!-- image upload configuration -->
-		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-			<property name="maxUploadSize" value="${max.upload.size}"></property> <!--  max size to 10mb -->
-		</bean>
-		
-		<bean
-			class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-
-		<bean id="viewResolver"
-			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-			<property name="prefix">
-				<value>/WEB-INF/views/</value>
-			</property>
-			<property name="suffix">
-				<value>.jsp</value>
-			</property>
-		</bean>
-
 		<bean id="dataSource"
 			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName"

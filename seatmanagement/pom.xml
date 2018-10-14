@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>seatmanagement</groupId>
@@ -8,52 +7,63 @@
 	<packaging>war</packaging>
 	<name>seatmanagement</name>
 	<properties>
-	    <tomcat.version>8.5.34</tomcat.version>
-	  </properties>
+		<spring.version>5.0.8.RELEASE</spring.version>
+		<spring.security.version>5.1.0.RELEASE</spring.security.version>
+		<mysql.connector.java.version>8.0.12</mysql.connector.java.version>
+		<hibernate.validator.version>6.0.13.Final</hibernate.validator.version>
+		<junit.jupiter.version>5.3.1</junit.jupiter.version>
+	</properties>
 	<dependencies>
+	
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>5.0.8.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.0.8.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>5.0.8.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>5.0.8.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>5.0.8.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.12</version>
+			<version>${mysql.connector.java.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>4.3.14.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
 		<dependency>
 			<groupId>javax.persistence</groupId>
@@ -68,296 +78,245 @@
 			<version>5.3.5.Final</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.25</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <version>1.7.25</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
 		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate4 -->
-	<dependency>
-		<groupId>com.fasterxml.jackson.datatype</groupId>
-		<artifactId>jackson-datatype-hibernate4</artifactId>
-		<version>2.9.6</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate4 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate4</artifactId>
+			<version>2.9.6</version>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hppc -->
-	<dependency>
-		<groupId>com.fasterxml.jackson.datatype</groupId>
-		<artifactId>jackson-datatype-hppc</artifactId>
-		<version>2.8.11</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hppc -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hppc</artifactId>
+			<version>2.8.11</version>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-json-org -->
-	<dependency>
-		<groupId>com.fasterxml.jackson.datatype</groupId>
-		<artifactId>jackson-datatype-json-org</artifactId>
-		<version>2.9.6</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-json-org -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-json-org</artifactId>
+			<version>2.9.6</version>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
-	<dependency>
-		<groupId>com.fasterxml.jackson.datatype</groupId>
-		<artifactId>jackson-datatype-jsr310</artifactId>
-		<version>2.9.5</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>2.9.5</version>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>3.1.0</version>
-		<scope>provided</scope>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-	<dependency>
-		<groupId>com.google.code.gson</groupId>
-		<artifactId>gson</artifactId>
-		<version>2.8.5</version>
-	</dependency>
-	
-	
-	<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/javax.servlet.jsp.jstl-api -->
-	<dependency>
-	    <groupId>javax.servlet.jsp.jstl</groupId>
-	    <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-	    <version>1.2.2</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/javax.servlet.jsp.jstl-api -->
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.2</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-<!-- 	<dependency>
-		<groupId>jstl</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.2</version>
-	</dependency> -->
-	
-	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-lang3</artifactId>
-	    <version>3.0</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
-	<dependency>
-	    <groupId>dom4j</groupId>
-	    <artifactId>dom4j</artifactId>
-	    <version>1.6.1</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+
+		<!-- Spring Security Dependency -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>5.0.1.RELEASE</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-annotation-processor -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator-annotation-processor</artifactId>
+		    <version>${hibernate.validator.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.2</version>
+		</dependency>
+
+		<!-- commons file upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+			
+		<!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
+		<dependency>
+		    <groupId>javax.el</groupId>
+		    <artifactId>javax.el-api</artifactId>
+		    <version>3.0.1-b06</version>
+		</dependency>
+					
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>${hibernate.validator.version}</version>
+		</dependency>
 		
-	<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
-	<dependency>
-	    <groupId>jaxen</groupId>
-	    <artifactId>jaxen</artifactId>
-	    <version>1.1.6</version>
-	</dependency>
-	
-	 <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-	<dependency>
-	    <groupId>org.junit.jupiter</groupId>
-	    <artifactId>junit-jupiter-engine</artifactId>
-	    <version>5.3.1</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-	<dependency>
-	    <groupId>org.junit.jupiter</groupId>
-	    <artifactId>junit-jupiter-api</artifactId>
-	    <version>5.3.1</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
-	<dependency>
-	    <groupId>org.junit.platform</groupId>
-	    <artifactId>junit-platform-runner</artifactId>
-	    <version>1.3.1</version>
-	</dependency>
-		
-	<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-test</artifactId>
-	    <version>5.0.8.RELEASE</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
-	<dependency>
-	    <groupId>com.jayway.jsonpath</groupId>
-	    <artifactId>json-path</artifactId>
-	    <version>2.4.0</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-	<dependency>
-	    <groupId>javax.validation</groupId>
-	    <artifactId>validation-api</artifactId>
-	    <version>2.0.1.Final</version>
-	</dependency>
-		
-	<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-	<dependency>
-	    <groupId>org.hibernate.validator</groupId>
-	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.0.13.Final</version>
-	</dependency>
-	
-	<!-- Spring Security Dependency -->
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-web</artifactId>
-		<version>5.1.0.RELEASE</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-config</artifactId>
-		<version>5.1.0.RELEASE</version>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
-	<dependency>
-		<groupId>org.springframework.security</groupId>
-		<artifactId>spring-security-crypto</artifactId>
-		<version>5.0.1.RELEASE</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-	<dependency>
-	    <groupId>javax.validation</groupId>
-	    <artifactId>validation-api</artifactId>
-	    <version>2.0.1.Final</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-	<dependency>
-	    <groupId>org.hibernate.validator</groupId>
-	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.0.13.Final</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator-annotation-processor -->
-	<dependency>
-	    <groupId>org.hibernate.validator</groupId>
-	    <artifactId>hibernate-validator-annotation-processor</artifactId>
-	    <version>6.0.13.Final</version>
-	    <scope>provided</scope>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.glassfish/javax.el -->
-	<dependency>
-	    <groupId>org.glassfish</groupId>
-	    <artifactId>javax.el</artifactId>
-	    <version>3.0.1-b10</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
-	<dependency>
-		<groupId>org.hamcrest</groupId>
-		<artifactId>hamcrest-library</artifactId>
-		<version>1.3</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-io</artifactId>
-	    <version>1.3.2</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
-	<dependency>
-	    <groupId>org.mockito</groupId>
-	    <artifactId>mockito-all</artifactId>
-	    <version>1.10.19</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-	<dependency>
-	    <groupId>org.apache.httpcomponents</groupId>
-	    <artifactId>httpclient</artifactId>
-	    <version>4.5.6</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-	<dependency>
-	    <groupId>org.projectlombok</groupId>
-	    <artifactId>lombok</artifactId>
-	    <version>1.18.2</version>
-	</dependency>
-	
-	<!-- commons file upload -->
-	<dependency>
-		<groupId>commons-fileupload</groupId>
-		<artifactId>commons-fileupload</artifactId>
-		<version>1.3.1</version>
-	</dependency>
-	
-	<dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-	    <artifactId>tomcat-embed-core</artifactId>
-	    <version>${tomcat.version}</version>
-    </dependency>
-		
-	<dependency>
-        <groupId>org.apache.tomcat.embed</groupId>
-        <artifactId>tomcat-embed-jasper</artifactId>
-        <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-jasper</artifactId>
-        <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-jasper-el</artifactId>
-        <version>${tomcat.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.tomcat</groupId>
-        <artifactId>tomcat-jsp-api</artifactId>
-        <version>${tomcat.version}</version>
-    </dependency>
-    
 	</dependencies>
 
 	<build>
 		<!-- <sourceDirectory>src</sourceDirectory> -->
 		<plugins>
 			<plugin>
-	            <groupId>org.codehaus.mojo</groupId>
-	            <artifactId>build-helper-maven-plugin</artifactId>
-	            <executions>
-	                <execution>
-	                    <phase>generate-sources</phase>
-	                    <goals>
-	                        <goal>add-source</goal>
-	                    </goals>
-	                    <configuration>
-	                        <sources>
-	                        	<source>src</source>
-	                            <source>test</source>
-	                            <source>resources</source>
-	                        </sources>
-	                    </configuration>
-	                </execution>
-	            </executions>
-	        </plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src</source>
+								<source>test</source>
+								<source>resources</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>
@@ -370,64 +329,64 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-			        <warSourceDirectory>${basedir}/WebContent</warSourceDirectory>
-			        <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+					<warSourceDirectory>${basedir}/WebContent</warSourceDirectory>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
 				</configuration>
 			</plugin>
 			<plugin>
-				 <groupId>org.apache.maven.plugins</groupId>
-				 <artifactId>maven-resources-plugin</artifactId>
-				 <version>3.0.0</version>
-				 <configuration>
-				   <!-- specify UTF-8, ISO-8859-1 or any other file encoding -->
-				   <encoding>UTF-8</encoding>
-				 </configuration>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<!-- specify UTF-8, ISO-8859-1 or any other file encoding -->
+					<encoding>UTF-8</encoding>
+				</configuration>
 			</plugin>
 			<plugin>
-			    <groupId>org.apache.tomcat.maven</groupId>
+				<groupId>org.apache.tomcat.maven</groupId>
 			    <artifactId>tomcat7-maven-plugin</artifactId>
-			    <version>2.0</version>
-			    <executions>
-			        <execution>
-			            <id>tomcat-run</id>
-			            <goals>
-			                <goal>exec-war-only</goal>
-			            </goals>
-			            <phase>package</phase>
-			            <configuration>
-			                <path>/seatmanagement</path>
-			                <enableNaming>false</enableNaming>
-			                <finalName>seatmanagement.jar</finalName>
-			                <charset>utf-8</charset>
-			            </configuration>
-			        </execution>
-			    </executions>
+			    <version>2.1</version>
+				<executions>
+					<execution>
+						<id>tomcat-run</id>
+						<goals>
+							<goal>exec-war-only</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<path>/seatmanagement</path>
+							<enableNaming>false</enableNaming>
+							<finalName>seatmanagement.jar</finalName>
+							<charset>utf-8</charset>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
-		
+
 		<resources>
-	        <resource>
-	            <directory>${basedir}/resources</directory>
-	            <filtering>true</filtering>
-	        </resource>
-	    </resources>
+			<resource>
+				<directory>${basedir}/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
-	
-	<!--  -->
+
+	<!-- -->
 	<profiles>
 		<profile>
 			<id>development</id>
 			<activation>
-	            <activeByDefault>true</activeByDefault>
-	        </activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
-				<spring.profiles.active>development</spring.profiles.active>  
+				<spring.profiles.active>development</spring.profiles.active>
 			</properties>
 		</profile>
 		<profile>
 			<id>test</id>
 			<properties>
-				<spring.profiles.active>test</spring.profiles.active>  
+				<spring.profiles.active>test</spring.profiles.active>
 			</properties>
 		</profile>
 	</profiles>

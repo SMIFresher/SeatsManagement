@@ -20,7 +20,7 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+		<param-value>/WEB-INF/Application-Context.xml</param-value>
 	</context-param>
 	
 	<!-- The front controller of this Spring Web application, responsible for 

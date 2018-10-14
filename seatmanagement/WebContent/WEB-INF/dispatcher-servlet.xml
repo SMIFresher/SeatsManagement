@@ -1,39 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="com.seatmanagement.controller"></context:component-scan>
-	<context:component-scan base-package="com.seatmanagement.scheduledtasks"></context:component-scan>
-	<context:component-scan base-package="com.seatmanagement.exception"></context:component-scan>
-	
-	<context:annotation-config />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 
-	<!-- <context:property-placeholder location="classpath:build.properties" /> -->
-	
-	<mvc:annotation-driven validator="globalValidator"/>
-	
-	<mvc:resources mapping="/**" location="/" />
-	
-	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-       <property name="ignoreUnresolvablePlaceholders" value="true"/>
-       <property name="locations">
-         <list>
-           <value>classpath:build.properties</value>
-         </list>
-       </property>
-     </bean>
-	
-	<import resource="spring-beans.xml" />	
-	<import resource="spring-beans-test.xml" />	
-	
-	<!-- Spring Security Bean class Configuration -->
-			<!-- <bean id="securityConfig"
-		class="com.seatmanagement.security.SecurityConfig">
-			</bean> -->
-	
 </beans>
