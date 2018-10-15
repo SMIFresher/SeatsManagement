@@ -155,11 +155,12 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@RequestMapping("/Seating")
-	public ModelAndView getSeating() throws BusinessException {
+	public ModelAndView getSeating(@RequestParam(value="floorId") String floorId) throws BusinessException {
 
 		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 				+ LocalDateTime.now());
 		ModelAndView model = new ModelAndView("/HR/seating");
+		model.addObject("id", floorId);
 		logger.info("Controller: SeatingController Method : getSeatingView response sent at : " + LocalDateTime.now());
 		return model;
 	}

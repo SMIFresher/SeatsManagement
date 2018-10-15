@@ -38,22 +38,22 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-3">
-					<div class="col-md-12">
-						<div class="content text-center" data-toggle="modal"
-							data-target="#myModal" style="height: 550px;">
-							<br> <br>
-							<h3>Map View</h3>
-							<p align="justify">If you want To see the Floor Map View You
-								can View By click below the button. All Blocks of the this floor
-								will display like a map and you can see others Empty Place also
-								Try out this...</p>
-							<br> <br> <br> <br> <label><b>Floor
-									Map View</b></label><br> <a
-								href="/seatmanagement/Seatings/seatingview?floorId=${id}"><button
-									class="btn btn-primary">Floor View</button></a>
-						</div>
-					</div>
-				</div>
+			<div class="col-md-12" >
+			    	<div class="content text-center" data-toggle="modal" data-target="#myModal" style="height: 550px;">
+		              <br><br>
+		              <h3>Map View</h3>
+		              <p align="justify">
+		                If you want To see the Floor Map View You can View By click below the button. All Blocks of the this floor will display like a map and you can see others Empty Place also Try out this... <br>
+		                If you want To Modify Map Location
+		                <a href="/seatmanagement/Seatings/Seating?floorId=${id}"><b>Click here</b></a>
+		              </p>
+					    	<br><br><br><br>
+		
+						     <label><b>Floor Map View</b></label><br>
+		             <a href="/seatmanagement/Seatings/seatingview?floorId=${id}"><button class="btn btn-primary">Floor View</button></a>
+			    	</div>
+			</div>
+		</div>
 				<div class="col-md-9">
 					<div class="row">
 						<div class="col-md-4"
@@ -193,26 +193,12 @@
 									</ul>
 								</div>
 								<div class="col-md-7">
+									
+									
 									<div class="form-group">
-										<label for="location">Building:</label> <select
-											name="building" ng-model="building" class="form-control"
-											ng-change="floorDetailsByBuilding(building)">
-											<option value="">--Select Building--</option>
-											<option ng-repeat="building in getBuilding"
-												value="{{building.buildingId}}">{{building.buildingName}}</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label for="location">Floor:</label> <select name="floorId"
-											id="flrId" ng-model="floor" class="form-control"
-											ng-change="blockDetails()">
-											<option value="">--Select Floor--</option>
-											<option ng-repeat="floor in getFloor"
-												value="{{floor.floorId}}">{{floor.floorName}}</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label for="blockName">Block Name:</label> <input type="text"
+										<label for="blockName">Block Name:</label> 
+										<input type="hidden" value="${id}" name="floorId" id="flrId">
+										<input type="text"
 											class="form-control" id="blockName"
 											placeholder="Enter Block Name" name="blockName">
 									</div>

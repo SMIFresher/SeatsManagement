@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); blockDetails(); FloorDetails(); seatDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); FloorDetails(); seatDetails(); blockDetailsByFloor('${id}');">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -33,29 +33,13 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2>Seating Arrangement</h2>
+						<h2>Assign Seating </h2>
+						<p>Please set Location For the particular Block </p>
+						<a href="/seatmanagement/Seatings/seatingview?floorId=${id}"><button class="btn  btn-info">Block View</button></a>
 						<hr>
 						
 						<form method="post" id="Form"  ng-submit="saveSeats();">
-								<div class="form-group">
-									 <label for="emp_id">Building</label>
-									<select ng-model="building" class="form-control"
-										ng-change="floorDetailsByBuilding(building)">
-										<option value="">Select Building</option>
-										<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
-									</select>
-								</div>
-								
-								<div class="form-group">
-									<label>Floor</label>
-									<select ng-model="floor"
-										class="form-control" ng-change="blockDetailsByFloor(floor)">
-										<option value="">Select Floor</option>
-										<option ng-repeat="floor in getFloor" value="{{floor.floorId}}">
-											{{floor.floorName}}</option>
-									</select>
-								</div>
-								
+																
 								<div class="form-group">
 									<label for="emp_id">Block</label>
 									<select name="blockID"  id="boid" ng-model="block"

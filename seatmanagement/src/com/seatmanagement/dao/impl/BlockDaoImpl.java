@@ -81,11 +81,8 @@ public class BlockDaoImpl implements BlockDao {
 		logger.info("DAO: BlockDaoImpl Method : listBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
-		criteria.createAlias("floor", "floor", CriteriaSpecification.LEFT_JOIN);
-		criteria.add(Restrictions.disjunction());
 		criteria.add(
 				Restrictions.and(Restrictions.eq("blockType", blockType), Restrictions.eq("floor.floorId", floorId)));
-		criteria.setFetchMode("blocks", FetchMode.SELECT); 
 		List<Block> blocks = null;
 		try {
 			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);

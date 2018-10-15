@@ -105,8 +105,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    		//location.replace("/seatmanagement/Seatings/Seating");
-		    	location.replace("/seatmanagement/Seatings/seatingview?floorId=" +fId);
+		    		location.replace("/seatmanagement/Seatings/Seating?floorId=" +fId);
+		    	//location.replace("/seatmanagement/Seatings/seatingview?floorId=" +fId);
 		    },
 		    	 
 			function(response) { // optional
