@@ -94,7 +94,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * Save Blocks
 	 */
 	 $scope.saveBlocks = function(){ 
-		
+		 var fId = $("#flrId").val();
+		 console.log("fId :" +fId);
 		 $http({
 		        url: '/seatmanagement/Blocks/block',
 		        method: "POST",
@@ -104,7 +105,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    		location.replace("/seatmanagement/Seatings/Seating");
+		    		//location.replace("/seatmanagement/Seatings/Seating");
+		    	location.replace("/seatmanagement/Seatings/seatingview?floorId=" +fId);
 		    },
 		    	 
 			function(response) { // optional
