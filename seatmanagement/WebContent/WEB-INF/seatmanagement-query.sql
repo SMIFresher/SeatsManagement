@@ -338,4 +338,9 @@ CREATE TABLE `seatmanagement`.`reallocation` (
     REFERENCES `seatmanagement`.`employee` (`employee_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+    
+ALTER TABLE `seatmanagement`.`seating_detail` DROP COLUMN `seatingColum`;
+ALTER TABLE `seatmanagement`.`seating_detail` ADD COLUMN `seating_colum` VARCHAR(45) NULL AFTER `seating_row`;
 
+ALTER TABLE `seatmanagement`.`seating_detail` DROP COLUMN `seatingSystemNo`;
+ALTER TABLE `seatmanagement`.`seating_detail` ADD COLUMN `seating_system_no` VARCHAR(45) NULL AFTER `seating_row`;
