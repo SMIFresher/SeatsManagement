@@ -14,7 +14,7 @@
 	 <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails(); teamDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganisationDetails(); teamDetails();">
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -89,7 +89,7 @@
 						<td>{{team.teamHead}}</td>
 						<td>{{team.teamMembersCount}}</td>
 						<td align="center">
-							<button class="btn btn-danger deleteBtn" ng-click="deleteTeam(team.teamId)">Delete</button>
+							<button class="btn btn-danger " ng-click="deleteTeam(team.teamId)">Delete</button>
 						</td>
 						</tr>
 						</tbody>

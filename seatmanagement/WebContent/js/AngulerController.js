@@ -356,7 +356,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * get All Team
 	 */
 	$scope.teamDetails=function(){
-		 $http.post("/seatmanagement/Teams")
+		 $http.get("/seatmanagement/Teams")
 	     .then(function successCallback(response) {
 	     	console.log("getAllTeam success");
 	         $scope.getteam = response.data;
@@ -487,7 +487,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      */
     $scope.onDesignationChange = function() {
     	console.log("designation : " + $scope.designation);
-    	$http.get("/seatmanagement/Employees/getEmployeesByDesignation?designation="+ $scope.designation)
+    	$http.get("/seatmanagement/Employees/Designation?designation="+ $scope.designation)
         .then(function successCallback(response) {
             $scope.getTeamHeads = response.data;
             console.log(response.data);

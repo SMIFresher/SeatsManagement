@@ -138,7 +138,7 @@ public class EmployeeController {
 	}
 	
 	
-	@RequestMapping("/EmployeesByDesignation")
+	@RequestMapping("/Designation")
 	public ResponseEntity getEmployeesByDesignation(@RequestParam(value="designation") String designation) throws BusinessException {
 		logger.info("Controller: EmployeeController Method : getEmployeesByDesignation request processing started at : "
 				+ LocalDateTime.now());

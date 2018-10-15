@@ -44,7 +44,7 @@
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-users"> Employee </a>
 			<ul class="collapse list-unstyled" id="Employee">
 				<li><a href="/seatmanagement/Employees/EmployeeView">Employee</a></li>
-				<li><a href="/seatmanagement/team/getTeamView">Team</a></li>
+				<li><a href="/seatmanagement/Teams/TeamView">Team</a></li>
 				
 
 			</ul></li>
