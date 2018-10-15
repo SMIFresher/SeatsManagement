@@ -37,7 +37,7 @@ public class SeatingDetails implements Serializable{
 	private UUID seatingDetailsId;
 	
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name="system_id", nullable=false)
 	@JsonIgnore
     private Systems system;

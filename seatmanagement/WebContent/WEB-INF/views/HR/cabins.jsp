@@ -87,9 +87,11 @@
    				 <td>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingAccessories,'laptop')) }">
+	   				 	
 	   				  	<div id="laptop" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
 		             		 <span class="fa fa-laptop" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
+		            	
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
@@ -101,14 +103,14 @@
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingSystemNo,'Exit')) }">
-	   				  	<div id="exit" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
+	   				  	<div id="exit" class="redips-drag" style="width: 100%;" >
 		             		 <span class="fa fa-bars" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>
 	   				 </c:forEach>
 	   				 <c:forEach items="${datasRow}" var="sys"> 
 	   				 <c:if test="${(i==sys.seatingRow) && (j==sys.seatingColum) && (fn:contains(sys.seatingSystemNo,'Emptydesk')) }">
-	   				  	<div id="Emptydesk" class="redips-drag" style="width: 100%;" ng-click="getSysDetails('${sys.seatingSystemNo}')" class="content text-center" data-toggle="modal" data-target="#myModal">
+	   				  	<div id="Emptydesk" class="redips-drag" style="width: 100%;" >
 		             		 <span class="fa fa-stop" style="font-size: 60px;"></span><br>${sys.seatingSystemNo}
 		            	</div>
 	   				 </c:if>

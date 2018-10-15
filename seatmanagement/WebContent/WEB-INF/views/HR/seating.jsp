@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); FloorDetails(); seatDetails(); blockDetailsByFloor('${id}');">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); FloorDetails(); seatDetails(); blockDetailsByFloor('${id}'); getImages('${id}');">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -76,7 +76,7 @@
 			<div class="col-md-8">
 				<div class="borderr text-center">
 
-			      <img  id="image1" src="/seatmanagement/images/HR/vgs.svg" style="border: 30px solid #555; padding:20px;" width="80%"  />
+			      <img  id="image1" src="/images/${id}.svg" style="border: 30px solid #555; padding:20px;" width="80%"  />
 			  
 			     </div>
 			</div>

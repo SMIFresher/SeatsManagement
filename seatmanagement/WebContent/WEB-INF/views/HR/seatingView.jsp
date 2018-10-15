@@ -22,7 +22,7 @@
 
 <body>
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById(); seatDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById(); seatDetails(); getImages('${id}');">
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -55,8 +55,7 @@
 			</div>
 			<div class="col-md-8">
 				<div class="borderr text-center">
-
-			      <img  id="image1" src="/seatmanagement/images/HR/vgs.svg" style="border: 30px solid #555; padding:20px;" width="80%"  />
+			      <img  id="image1" src="/images/${id}.svg" style="border: 30px solid #555; padding:20px;" width="80%"  />
 			  
 			     </div>
 			</div>

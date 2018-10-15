@@ -681,6 +681,20 @@ app.controller('workplaceManagementController', function($scope, $http) {
      });
     };
     
+    /**
+     * get Image
+     */
+    $scope.getImages = function(floorId) {
+        $http.get("/seatmanagement/Floors/getImage?floorId="+floorId)
+        .then(function successCallback(response) {
+            $scope.getImage = response.data;
+            console.log(response.data);
+      
+        }, function errorCallback(response) {
+           
+            doModal('Some Error',response.data.ERROR_MESSAGE);
+        });
+     };
 
 
     /**
