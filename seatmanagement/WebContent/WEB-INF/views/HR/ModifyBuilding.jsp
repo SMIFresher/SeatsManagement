@@ -30,7 +30,7 @@
 					<div class="col-md-12">
 
 						<h2>Building</h2>
-						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+						<form id="Form" method="post" ng-submit="saveBuildings();" autocomplete="off">
 							 <div class="form-group">
 								<label for="pwd">Building Id:</label>
 								
@@ -66,13 +66,13 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				
-					<div class="col-sm-12 bg-primary text-white">
+				<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Building Details</h4>
 							<br>
 						</div>
 					<div class="col-sm-12 table-responsive">
+
 					<table class="table table-hover">
 						<thead>
 							<td>Building Name</td>
@@ -90,7 +90,7 @@
 								<td align="center">{{build.buildingLocation}}</td>
 								<td>{{build.squareFeet}}</td>
 								<td align="center">
-									<button class="btn btn-danger" onclick="deleteBuilding(this)">Delete</button></td>
+									<button class="btn btn-danger" ng-click="deleteBuilding(build.buildingId);">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -135,11 +135,11 @@
 function formSubmit(){
 
  $.ajax({
-     url:'/seatmanagement/building/build',
+     url:'/seatmanagement/Buildings/',
      method : 'POST',
      data: $("#Form").serialize(),
      success: function (data) {
-    	 location.replace("/seatmanagement/building/getModifyBuilding");
+    	 location.replace("/seatmanagement/Buildings/ModifyBuildings");
     },error: function (response) {
     	var status = response.RESPONSE_STATUS;
     	var message = response.RESPONSE_MESSAGE;
@@ -157,13 +157,13 @@ function deleteBuilding(button){
 	 var  buildingId=currow.find('td:eq(0)').text();
 	    
 	 $.ajax({
-	     url:'/seatmanagement/building/deleteBuildingById',
-	     method : 'POST',
+	     url:'/seatmanagement/Buildings/',
+	     method : 'DELETE',
 	     data: {
 	    	 buildingId:buildingId
 	     },
 	     success: function (data) {
-	    	 location.replace("/seatmanagement/building/getModifyBuilding");
+	    	 location.replace("/seatmanagement/Buildings/ModifyBuildings");
 	    },error: function (response) {
 	    }
 	 	

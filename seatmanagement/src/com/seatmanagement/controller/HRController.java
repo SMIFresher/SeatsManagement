@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.exception.BusinessException;
 
 @Controller
-@RequestMapping("/hr")
+@RequestMapping("/Hr")
 public class HRController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HRController.class);

@@ -24,7 +24,7 @@ public interface ReallocationService {
 	 * @param employeeId
 	 * @return Reallocation
 	 */
-	public Reallocation getReallocationByEmployeeId(String employeeId);
+	public Reallocation getReallocationByEmployeeId(UUID employeeId);
 
 	/**
 	 * 

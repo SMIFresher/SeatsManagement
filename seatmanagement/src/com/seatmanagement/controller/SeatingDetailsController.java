@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.seatmanagement.exception.BusinessException;
-import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Seating;
+import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SeatingDetailsService;
@@ -46,7 +47,7 @@ import net.bytebuddy.description.type.TypeVariableToken;
  */
 
 @RestController
-@RequestMapping("/seatingdetails")
+@RequestMapping("/Seatingdetails")
 public class SeatingDetailsController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SeatingDetailsController.class);
@@ -60,7 +61,7 @@ public class SeatingDetailsController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getAllSeatingDetails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping( method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> getAllSeatingDetails() {
 		ResponseEntity model = null;
 		logger.info(
@@ -78,8 +79,8 @@ public class SeatingDetailsController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SeatingDetails> saveSeatingDetails(@RequestBody SeatingDetails seatingDetails) {
+	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SeatingDetails> saveSeatingDetails( SeatingDetails seatingDetails) {
 		ResponseEntity model = null;
 		logger.info("Controller: SeatingDetailsController Method : saveSeatingDetails request processing started at : "
 				+ LocalDateTime.now());
@@ -120,16 +121,7 @@ public class SeatingDetailsController {
 		return model;
 	}
 
-	/*
-	 * @SuppressWarnings({ "rawtypes", "unchecked" })
-	 * 
-	 * @RequestMapping(value="/getEmployeeBySeatId",method=RequestMethod.GET,
-	 * produces = MediaType.APPLICATION_JSON_VALUE) public
-	 * ResponseEntity<SeatingDetails> getEmployeeBySeatId(@RequestParam(value="id")
-	 * UUID seating_id,SeatingDetails seatingdetails){ return new
-	 * ResponseEntity(seatingDetailsService.getEmployeeBySeatId(seatingdetails,
-	 * seating_id),HttpStatus.OK); }
-	 */
+	
 
 	/**
 	 * 
@@ -137,8 +129,8 @@ public class SeatingDetailsController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/getEmployeeBySeatId", method = RequestMethod.GET)
-	public ResponseEntity<SeatingDetails> getEmployeeBySeatId(@RequestParam(value = "id") UUID seating_id) {
+	@RequestMapping(value = "/getEmployeeBySeatId/{seating_id}", method = RequestMethod.GET)
+	public ResponseEntity<SeatingDetails> getEmployeeBySeatId(@PathVariable("seating_id") UUID seating_id) {
 		logger.info("Controller: SeatingDetailsController Method : getEmployeeBySeatId request processing started at : "
 				+ LocalDateTime.now());
 		SeatingDetails seatingDetails = new SeatingDetails();
@@ -161,9 +153,8 @@ public class SeatingDetailsController {
 	 * @return
 	 */
 
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getSeatDetailsBySeatId", method = RequestMethod.GET)
-	public ResponseEntity getSeatingDetailBySeatId(@RequestParam(value = "seatingId") UUID seatingId) {
+	@RequestMapping(value = "/getSeatDetailsBySeatId/{seatingId}", method = RequestMethod.GET)
+	public ResponseEntity getSeatingDetailBySeatId(@PathVariable( "seatingId") UUID seatingId) {
 		logger.info(
 				"Controller: SeatingDetailsController Method : getSeatingDetailBySeatId request processing started at : "
 						+ LocalDateTime.now());
@@ -181,7 +172,8 @@ public class SeatingDetailsController {
 				+ LocalDateTime.now());
 		return responseEntity;
 	}
-
+	
+	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/deleteSeatingDetailById", method = RequestMethod.GET)
 	public ResponseEntity deleteSeatingDetailById(@RequestParam(value = "seatingDetailsId") UUID seatingDetailsId)
@@ -206,5 +198,28 @@ public class SeatingDetailsController {
 
 		return model;
 	}
-	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "/undoSystemIdReference", method = RequestMethod.POST)
+	public ResponseEntity undoSystemIdReference(@RequestParam(value="seatingDetailsId") UUID seatingDetailsId) throws BusinessException
+	{
+		logger.info(
+				"Controller: SeatingDetailsController Method : undoSystemIdReference request processing started at : "
+						+ LocalDateTime.now());
+
+		ResponseEntity model = null;
+
+		if (Objects.isNull(seatingDetailsId)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+
+		seatingDetailsService.undoSystemIdReference(seatingDetailsId);
+
+		model = new ResponseEntity(HttpStatus.OK);
+
+		logger.info("Controller: SeatingDetailsController Method : undoSystemIdReference response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
+
 }

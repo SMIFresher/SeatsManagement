@@ -13,15 +13,15 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-dark" href="/seatmanagement/lead/index">Home</a>
+        <a class="nav-link text-dark" href="/seatmanagement/Lead/index">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-dark" href="/seatmanagement/lead/building">View</a>
+        <a class="nav-link text-dark" href="/seatmanagement/Lead/building">View</a>
       </li>
       <li><a class="nav-link text-dark bg-white"  href="#Reallocation" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Reallocation</a>
 			<ul class="collapse list-unstyled" id="Reallocation">
-				<li><a class="nav-link text-dark bg-white" href="/seatmanagement/reallocation/reallocationRequest">Request</a></li>
-				<li><a class="nav-link text-dark bg-white" href="/seatmanagement/reallocation/reallocationStatusViewByLead">Status</a></li>
+				<li><a class="nav-link text-dark bg-white" href="/seatmanagement/Reallocations/Reallocationrequest">Request</a></li>
+				<li><a class="nav-link text-dark bg-white" href="/seatmanagement/Reallocations/Reallocationlead">Status</a></li>
 			</ul>
 	  </li>
       <li class="nav-item">

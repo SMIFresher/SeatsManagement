@@ -52,13 +52,13 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-				
-					<div class="col-sm-12 bg-primary text-white">
+				<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Utilities Details</h4>
 							<br>
 						</div>
 					<div class="col-sm-12 table-responsive">
+
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Utilities Name</td>
@@ -69,13 +69,15 @@
 						<td style="display:none;">{{utilities.utilityId}}</td>
 						<td>{{utilities.utilityName}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="utilityId" value="{{utilities.utilityId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<form method="post" ><input type="hidden" name="utilityId" value="{{utilities.utilityId}}">
+							<button type="submit" class="btn btn-danger" ng-click="deleteUtilities(utilities.utilityId);">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>
 					
 					</table>
-				</div>
+				
+			</div>
 			</div>
 		</div>
 	</div>
@@ -83,16 +85,16 @@
 </div>
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
 			var col1 = currow.find('td:eq(0)').text();
 
 			document.getElementById('utilityId').value = col1;
 		})
-</script>
+</script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 var uId = null;
 
@@ -110,7 +112,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 
 	}
 );
-</script>
+</script> -->
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

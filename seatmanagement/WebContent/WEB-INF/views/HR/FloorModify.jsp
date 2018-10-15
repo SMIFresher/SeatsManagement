@@ -16,7 +16,7 @@
 	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetails();">
+<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetails(); buildingDetails(); ">
 	<!-- Nav Bar -->
 	<jsp:include page="nav.jsp"></jsp:include>
 
@@ -67,12 +67,13 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-					<div class="col-sm-12 bg-primary text-white">
+			<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Floor Details</h4>
 							<br>
 						</div>
 					<div class="col-sm-12 table-responsive">
+				
 					<table class="table table-hover">
 						<thead>
 							
@@ -91,7 +92,7 @@
 								<td style="display:none;">{{floor.building.buildingId}}</td>
 								
 								<td align="center">
-									<button class="btn btn-danger deletBtn" onclick="deleteFloor(this)">Delete</button>
+									<button class="btn btn-danger" ng-click="deleteFloor(floor.floorId);">Delete</button>
 								</td>
 							</tr>
 						</tbody>
@@ -122,14 +123,14 @@
 	})
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 		
 		function deleteFloor(button){
 			var currow = $(button).closest('tr');
 			var floorId = currow.find('td:eq(0)').text();
 			console.log("floorId : " + floorId);
 			
-			 $.post("/seatmanagement/floor/delete/floorId", {
+			 $.delete("/seatmanagement/Floors/", {
 				 floorId:floorId
 				}, function(data) {
 					// $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
@@ -137,7 +138,7 @@
 				});
 
 			}
-	</script>
+	</script> -->
 
 </body>
 </html>

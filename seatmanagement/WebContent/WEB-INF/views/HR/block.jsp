@@ -16,7 +16,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="buildingDetails(); UtilitiesDetails(); blockDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="blockDetails();  FloorDetails(); buildingDetails(); UtilitiesDetails();">
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -42,7 +42,7 @@
 								
 								<div class="form-group">
 									<label for="location">Floor:</label>
-								<select name="floorId" ng-model="floor"
+								<select name="floorId" id="fid" ng-model="floor"
 									class="form-control" ng-change="blockDetails()">
 									<option value="">--Select Floor--</option>
 									<option ng-repeat="floor in getFloor" value="{{floor.floorId}}">
@@ -95,11 +95,12 @@
 							<div >
 								<label>Add Utility :</label>
 								<div ng-repeat="utilities in getUtilities">
-										<input type="checkbox" name="utilityList" 
+										<input type="checkbox" name="utilitiesUUIDs" 
 										value="{{utilities.utilityId}}"> {{utilities.utilityName}}
 								 	</div>
 							</div>
-							<button type="submit" class="btn btn-primary" ng-click="showCheckedOnes()">Submit</button>
+							<button type="submit" class="btn btn-sucess">Submit</button>
+							<!-- <button type="submit" class="btn btn-primary" ng-click="showCheckedOnes()">Submit</button> -->
 						</form>
 </div>
 					</div>
@@ -108,13 +109,13 @@
 				<br>
 			
 			<div class="col-md-8">
-	
-					<div class="col-sm-12 bg-primary text-white">
+	<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>BLock Details</h4>
 							<br>
 						</div>
 					<div class="col-sm-12 table-responsive">
+
 					<table class="table table-hover">
 						<thead>
 							<td>Building Name</td>
@@ -141,20 +142,20 @@
 								<option ng-repeat="block in blk.utilities">{{block.utilityName}}</option>
 							</select>
 						</td>
-						<td align="center"><button class="btn btn-danger deleteBtn" value="{{blk.blockId}}">Delete</button></td>
+						<td align="center"><button class="btn btn-danger" ng-click="deleteBlock(blk.blockId);">Delete</button></td>
 						
 						</tr>
 						</tbody>
 						
 					</table>
-					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 		<div ng-include="'/seatmanagement/models/search.html'"></div>
 </div>
 	
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 		
 	var blockId = null;
 	
@@ -174,7 +175,7 @@
 	);
 		 
 		
-</script>
+</script> -->
 <script src="/seatmanagement/js/AngulerController.js"></script>
 	
 </body>

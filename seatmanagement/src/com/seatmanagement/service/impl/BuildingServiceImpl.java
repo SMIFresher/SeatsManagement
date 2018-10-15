@@ -68,4 +68,6 @@ public class BuildingServiceImpl implements BuildingService {
 		return genericDao.delete(building);
 	}
 
+	
+
 }

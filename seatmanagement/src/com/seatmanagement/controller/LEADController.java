@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.seatmanagement.exception.BusinessException;
 
 @Controller
-@RequestMapping("/lead")
+@RequestMapping("/Lead")
 public class LEADController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HRController.class);
@@ -46,8 +46,8 @@ public class LEADController {
 		return model;
 	}
 
-	@RequestMapping("/getReallocationRequestView")
-	public ModelAndView getReallocationRequestView() throws BusinessException {
+	@RequestMapping("/ReallocationRequestView")
+	public ModelAndView reallocationRequestView() throws BusinessException {
 
 		logger.info("Controller: LEADController Method : getReallocationRequestView request processing started at : "
 				+ LocalDateTime.now());
@@ -64,8 +64,8 @@ public class LEADController {
 		return model;
 	}
 	
-	@RequestMapping("/getSeatingView")
-	public ModelAndView getSeatingView(@RequestParam("floorId") String floorId) throws BusinessException {
+	@RequestMapping("/SeatingView")
+	public ModelAndView seatingView(@RequestParam("floorId") String floorId) throws BusinessException {
 
 		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 				+ LocalDateTime.now());

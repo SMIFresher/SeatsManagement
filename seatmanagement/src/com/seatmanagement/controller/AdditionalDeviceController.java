@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,17 +39,14 @@ import com.seatmanagement.service.AdditionalDeviceService;
  */
 
 @Controller
-@RequestMapping("/Additionaldevice")
+@RequestMapping("/Additionaldevices")
 public class AdditionalDeviceController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdditionalDeviceController.class);
 	@Autowired
 	private AdditionalDeviceService additionalDeviceService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView welcome() {
-		return new ModelAndView("AdditionalDevice");
-	}
+	
 
 	/**
 	 * 
@@ -57,8 +55,8 @@ public class AdditionalDeviceController {
 	 * @return
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value = "/savedevice", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AdditionalDevice> saveAdditionalDevice(AdditionalDevice additionalDevice, Errors errors)
+	@RequestMapping( method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<AdditionalDevice> saveAdditionalDevices(AdditionalDevice additionalDevice, Errors errors)
 			throws BusinessException {
 
 		logger.info(
@@ -88,7 +86,7 @@ public class AdditionalDeviceController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/getAllDevice")
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity getAllDevice() {
 
 		logger.info("Controller: AdditionalDeviceController Method : getAllDevice request processing started at : "
@@ -113,8 +111,8 @@ public class AdditionalDeviceController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "/deleteByDeviceId", method = RequestMethod.POST)
-	public ResponseEntity deleteDeviceById(@RequestParam UUID additional_device_id) {
+	@RequestMapping(value = "/{additional_device_id}", method = RequestMethod.DELETE)
+	public ResponseEntity deleteDeviceById(@PathVariable("additional_device_id") UUID additional_device_id) {
 		logger.info("Controller: AdditionalDeviceController Method : deleteDeviceById request processing started at : "
 				+ LocalDateTime.now());
 
@@ -136,7 +134,7 @@ public class AdditionalDeviceController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/addAdditionalDevice")
+	@RequestMapping(value = "/AdditionalDevice")
 	public ModelAndView getAddsystem() {
 
 		logger.info("Controller: AdditionalDeviceController Method : getAddsystem request processing started at : "

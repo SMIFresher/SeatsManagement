@@ -64,7 +64,7 @@
 									name="blockType" >
 									</div>
 							<input type="text"
-									class="form-control" id="flrid"
+									class="form-control" id="fid"
 									name="floorId" hidden="">
 									
 							<button type="submit" class="btn btn-primary">Submit</button>
@@ -76,12 +76,13 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-					<div class="col-sm-12 bg-primary text-white">
+				<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Block Details</h4>
 							<br>
 						</div>
 					<div class="col-sm-12 table-responsive">
+
 					<table class="table table-hover">
 						<thead>
 							
@@ -106,11 +107,11 @@
 								
 								
 								<td align="center">
-									<button class="btn btn-danger deleteBtn">Delete</button></td>
+								<button class="btn btn-danger" ng-click="deleteBlock(block.blockId);">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
+		</div>
 			</div>
 		</div>
 		<div ng-include="'/seatmanagement/models/search.html'"></div>
@@ -136,7 +137,7 @@
     document.getElementById('bdes').value=col4;
     document.getElementById('bmes').value=col5;
 	document.getElementById('btype').value=col6;
-	document.getElementById('flrid').value=col7;
+	document.getElementById('fid').value=col7;
 	
   })
 
@@ -144,7 +145,7 @@
 
 <script src="/seatmanagement/js/AngulerController.js"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
  var blockId = null;
 
@@ -167,7 +168,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 
 	
 </script>
-
+ -->
 
 
 

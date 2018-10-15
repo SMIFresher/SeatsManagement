@@ -3,7 +3,6 @@ package com.seatmanagement.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.seatmanagement.service.DashboardService;
 
 /**
@@ -27,7 +25,7 @@ import com.seatmanagement.service.DashboardService;
  *
  */
 @Controller
-@RequestMapping("/dashboard")
+@RequestMapping("/Dashboards")
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class DashboardController {
 
@@ -40,8 +38,8 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllDashboardCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllDashboardCount() {
+	@RequestMapping(value = "/dashboardCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> dashboardCount() {
 		logger.info("Controller: DashboardController Method : getAllDashboardCount request processing started at : "
 				+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllDashboardCount(), HttpStatus.OK);
@@ -51,8 +49,8 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllCompanyDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllCompanyDetailsCount() {
+	@RequestMapping(value = "/companyDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> companyDetailsCount() {
 		logger.info(
 				"Controller: DashboardController Method : getAllCompanyDetailsCount request processing started at : "
 						+ LocalDateTime.now());
@@ -64,8 +62,8 @@ public class DashboardController {
 	 * @param buildingId
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllFloorDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllFloorDetailsCount(@RequestParam(value = "buildingId") UUID buildingId) {
+	@RequestMapping(value = "/floorDetailsCount/{buildingId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> floorDetailsCount(@PathVariable("buildingId") UUID buildingId) {
 
 		logger.info("Controller: DashboardController Method : getAllFloorDetailsCount request processing started at : "
 				+ LocalDateTime.now());
@@ -77,8 +75,8 @@ public class DashboardController {
 	 * @param floorId
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllBlockDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllBlockDetailsCount(@RequestParam(value = "floorId") UUID floorId) {
+	@RequestMapping(value = "/blockDetailsCount/{floorId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> blockDetailsCount(@PathVariable("floorId") UUID floorId) {
 
 		logger.info("Controller: DashboardController Method : getAllFloorDetailsCount request processing started at : "
 				+ LocalDateTime.now());
@@ -89,8 +87,8 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllOsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> getAllOsCount() {
+	@RequestMapping(value = "/osCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> osCount() {
 		logger.info("Controller: DashboardController Method : getAllOsCount request processing started at : "
 				+ LocalDateTime.now());
 		return new ResponseEntity(dashboardService.getAllOsCount(), HttpStatus.OK);

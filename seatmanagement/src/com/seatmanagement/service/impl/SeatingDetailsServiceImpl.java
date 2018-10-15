@@ -117,7 +117,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		int new_count = 0,seat_occupied=0;
 		
 		for (SeatingDetails sd : seatingDetails) {
-			if (!(sd.getSeatingSystemNo().trim().equals("Emptydesk") || sd.getSeatingSystemNo().equals("Exit"))) {
+			if (!(sd.getSeatingSystemNo().trim().equals("Emptydesk") || sd.getSeatingSystemNo().trim().equals("Exit"))) {
 				new_count++;
 			}
 		}
@@ -125,7 +125,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		if (total_count <= block_capacity) {
 			for (SeatingDetails sd : seatingDetails) {
 				String systemName = sd.getSeatingSystemNo().trim();
-				if (!(sd.getSeatingSystemNo().trim().equalsIgnoreCase("Emptydesk") || sd.getSeatingSystemNo().equalsIgnoreCase("Exit"))) {	
+				if (!(sd.getSeatingSystemNo().trim().equalsIgnoreCase("Emptydesk") || sd.getSeatingSystemNo().trim().equalsIgnoreCase("Exit"))) {	
 				system = systemService.getSystemBySystemName(systemName);
 				employee=system.getEmployee();
 				if(employee!=null) {
@@ -205,7 +205,6 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 				"Service: SeatingDetailsServiceImpl Method : deleteSeatingDetailById ended at : " + LocalDateTime.now());
 		
 	}
-
 	@Override
 	public void undoSystemIdReference(UUID seatingDetailsId) {
 		logger.info(

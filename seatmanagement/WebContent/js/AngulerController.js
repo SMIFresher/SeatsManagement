@@ -22,13 +22,35 @@ app.filter('unique', function() {
    
 app.controller('workplaceManagementController', function($scope, $http) {
 	
-
+/**
+	 * Save Organisation
+	 */
+	 $scope.saveOrganisations = function(){
+		
+		 $http({
+		        url: '/seatmanagement/Organisations',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.OrganisationDetails();
+		    	doModal("Information","Organisation Added Successfully....!");
+		    }, 
+		    function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+		    });
+	 };
 	/**
 	 * Save Building
 	 */
-	 $scope.saveBuildings = function(){ 
-		 $http({
-		        url: '/seatmanagement/building/build',
+	 $scope.saveBuildings = function(){
+		var build = $("#oid").val();
+		console.log(build);
+		$http({
+		        url: '/seatmanagement/Buildings/'+build,
 		        method: "POST",
 		        data: $("#Form").serialize(),
 		        headers : {
@@ -43,14 +65,38 @@ app.controller('workplaceManagementController', function($scope, $http) {
 		    	doModal("Information",response.data.ERROR_MESSAGE);
 		    });
 	 };
+	 /**
+		 * Save Floors
+		 */
+		 $scope.saveFloors = function(){ 
+			 var floor = $("#bid").val();
+				console.log(floor);
+
+			 $http({
+			        url: '/seatmanagement/Floors/'+floor,
+			        method: "POST",
+			        data: $("#Form").serialize(),
+		        headers : {
+		                'Content-Type' : 'application/x-www-form-urlencoded'
+		            }
+			    })
+			    .then(function(response) {
+			    	$scope.FloorDetails();
+		    	doModal("Information","Floors Added Successfully....!");
+			    }, 
+				function(response) { // optional
+			    	doModal("Information",response.data.ERROR_MESSAGE);
+				});
+		};
 	 
 	 
 	 /**
 	 * Save Blocks
 	 */
 	 $scope.saveBlocks = function(){ 
+		
 		 $http({
-		        url: '/seatmanagement/block/saveblock',
+		        url: '/seatmanagement/Blocks/block',
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -58,20 +104,20 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	location.replace("/seatmanagement/seating/getSeating");
-		    }, 
+		    		location.replace("/seatmanagement/Seatings/Seating");
+		    },
+		    	 
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);
 			});
 	};
 	
-	
-	 /**
-	 * Save Cabins
+	/**
+	 * Save SeatingDetails
 	 */
 	 $scope.saveCabins = function(){ 
 		 $http({
-		        url: '/seatmanagement/seatingdetails/saveInBatch?seatingId='+seatId,
+		        url: '/seatmanagement/Seatingdetails/saveInBatch?seatingId='+seatId,
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -85,15 +131,14 @@ app.controller('workplaceManagementController', function($scope, $http) {
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);
 			});
-	};
-	
+	}; 
 
 	 /**
-	 * Save Devices
+	 * Save AdditionalDevices
 	 */
-	 $scope.saveDevices = function(){ 
+	 $scope.saveAdditionalDevices = function(){ 
 		 $http({
-		        url: '/seatmanagement/Additionaldevice/savedevice',
+		        url: '/seatmanagement/Additionaldevices',
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -101,43 +146,21 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.deviceDetails();
+		    	$scope.AdditionaldeviceDetails();
 	    	doModal("Information","Devices Added Successfully....!");
 		    }, 
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);
 			});
 	};
-
+	
 	
 	/**
-	 * Save Floors
-	 */
-	 $scope.saveFloors = function(){ 
-		 $http({
-		        url: '/seatmanagement/floor/floorsave',
-		        method: "POST",
-		        data: $("#Form").serialize(),
-	        headers : {
-	                'Content-Type' : 'application/x-www-form-urlencoded'
-	            }
-		    })
-		    .then(function(response) {
-		    	$scope.FloorDetails();
-	    	doModal("Information","Floors Added Successfully....!");
-		    }, 
-			function(response) { // optional
-		    	doModal("Information",response.data.ERROR_MESSAGE);
-			});
-	};
-	
-	
-	 /**
 	 * Save Systems
 	 */
 	 $scope.saveSystems = function(){ 
 		 $http({
-		        url: '/seatmanagement/systems/saveOrUpdateSystem',
+		        url: '/seatmanagement/Systems/system',
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -159,7 +182,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	 $scope.assignSystems = function(){ 
 		 $http({
-		        url: '/seatmanagement/systems/assignEmployee',
+		        url: '/seatmanagement/Systems/assignEmployee',
 		        method: "POST",
 		        data: $("#Form1").serialize(),
 	        headers : {
@@ -180,8 +203,10 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * save Seats
 	 */
 	 $scope.saveSeats = function(){ 
+		 var seat = $("#boid").val();
+			console.log(seat);
 		 $http({
-		        url: '/seatmanagement/seating/saveSeating',
+		        url: '/seatmanagement/Seatings/'+seat,
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -189,7 +214,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.getAllSeats();
+		    	$scope.seatDetails();
 	    	doModal("Information","Seats Added Successfully....!");
 		    }, 
 			function(response) { // optional
@@ -203,7 +228,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	 $scope.saveUtilities = function(){ 
 		 $http({
-		        url: '/seatmanagement/utilities/saveUtilities',
+		        url: '/seatmanagement/Utilities',
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -219,13 +244,35 @@ app.controller('workplaceManagementController', function($scope, $http) {
 			});
 	};
 	
-	
 	/**
 	 * Save Team
 	 */
 	$scope.saveTeam = function(){ 
+		 var team = $("#ogid").val();
+			console.log(team);
 		 $http({
-		        url: '/seatmanagement/team/saveTeam',
+		        url: '/seatmanagement/Teams/'+team,
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.teamDetails();
+		    	doModal("Information","Team Updated Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	/**
+	 * Save Reallocation
+	 */
+	$scope.saveReallocation= function(){ 
+		 $http({
+		        url: '/seatmanagement/Reallocations',
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -234,7 +281,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 		    })
 		    .then(function(response) {
 		    	$scope.deviceDetails();
-		    	doModal("Information","Team Updated Successfully....!");
+		    	doModal("Information","Reallocation Updated Successfully....!");
 		    }, 
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);
@@ -242,14 +289,19 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	};
 	
 	
+	
+	
 	/**
 	 * Save Employee
 	 */
 	$scope.saveEmployee = function(){ 
-		var teamId = $("#Form .teamId").val();		
+		var teamId = $("#teamid").val();
+		var org = $("#orgid").val();		
+		console.log(org);
 		if(teamId == null){
+			
 			$http({
-		        url: '/seatmanagement/employee/saveEmployeeWithoutTeam',
+		        url: '/seatmanagement/Employees/'+org,
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
@@ -265,7 +317,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 			});
 		}else{
 			 $http({
-			        url: '/seatmanagement/employee/saveEmployeeWithTeam',
+			        url: '/seatmanagement/Employees/'+org+"/"+teamId,
 			        method: "POST",
 			        data: $("#Form").serialize(),
 		        headers : {
@@ -285,11 +337,11 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	
 	 
 	/**
-	 * Get all Devices
+	 * Get all AdditionalDevices
 	 */
 	
-	 $scope.deviceDetails = function(){ 
-    	$http.post("/seatmanagement/Additionaldevice/getAllDevice")
+	 $scope.AdditionaldeviceDetails = function(){ 
+    	$http.get("/seatmanagement/Additionaldevices")
 	        .then(function successCallback(response) {
 	            $scope.getAddDev = response.data;
 	            console.log(response.data);
@@ -298,12 +350,11 @@ app.controller('workplaceManagementController', function($scope, $http) {
         });
 	  };
 	    
-	    
 	/**
 	 * get All Team
 	 */
-	$scope.TeamDetails=function(){
-		 $http.post("/seatmanagement/team/getAllTeam")
+	$scope.teamDetails=function(){
+		 $http.post("/seatmanagement/Teams")
 	     .then(function successCallback(response) {
 	     	console.log("getAllTeam success");
 	         $scope.getteam = response.data;
@@ -317,11 +368,13 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * Get All Employee
 	 */
 	$scope.employeeDetails=function(){
-		 $http.post("/seatmanagement/employee/getAllEmployees")
+		 $http.get("/seatmanagement/Employees")
+		 
 	     .then(function successCallback(response) {
+	    	 console.log("start");
 	         $scope.getemp = response.data;
 	         console.log(response.data);
-				
+	         console.log("end");
 	     }, function errorCallback(response) {
 	          
 	     });
@@ -331,7 +384,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * Get All systems
 	 */
 	$scope.systemDetails=function(){
-	 $http.post("/seatmanagement/systems/getAllSystems.do")
+	 $http.get("/seatmanagement/Systems")
      .then(function successCallback(response) {
          $scope.getsystem = response.data;
          console.log(response.data);
@@ -346,7 +399,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	$scope.getSysDetails=function(sysno){
     	console.log(sysno);
-		$http.get("/seatmanagement/systems/getSystem?request="+sysno)
+		$http.get("/seatmanagement/Systems/System?request="+sysno)
 			.then(function(response) {
 			$scope.DetailsSystems = response.data;
 			console.log(response.data);
@@ -363,62 +416,76 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 * get All Building
 	 */
     $scope.buildingDetails=function(){
-     $http.post("/seatmanagement/building/getAllBuildings")
+     $http.get("/seatmanagement/Buildings")
         .then(function successCallback(response) {
             $scope.getBuilding = response.data;
             console.log(response.data);
             
         }, function errorCallback(response) {
-             
+            
         });
     };
     
-    /**
+     /**
      * get All Utilities
      */
     $scope.UtilitiesDetails=function(){
-	    $http.post("/seatmanagement/utilities/getAllUtilities")
+	    $http.get("/seatmanagement/Utilities")
 	    .then(function successCallback(response) {
 	        $scope.getUtilities = response.data;
 	        console.log(response.data);
 	    }, function errorCallback(response) {
-	         
+	        
 	    });
     };
-    
-    /**
+     /**
      * Get All Organization
      */
-    $scope.OrganizationDetails=function(){
-        $http.post("/seatmanagement/organisation/getAllOrganisations")
+    $scope.OrganisationDetails=function(){
+        $http.get("/seatmanagement/Organisations")
         .then(function successCallback(response) {
             $scope.getOrg = response.data;
             console.log(response.data);
         }, function errorCallback(response) {
-             
+            
         });
     };
-
+    
     /**
      * get Floor by Building ID
      */
     $scope.floorDetailsByBuilding=function(buildingId){
-        $http.get("/seatmanagement/floor/floorbuildingId?buildingId="+buildingId)
+        $http.get("/seatmanagement/Floors/floorsByBuildingId/"+buildingId)
         .then(function successCallback(response) {
             $scope.getFloor= response.data;
             console.log(response.data);
-            
+           
         }, function errorCallback(response) {
              
         });
     };
 
+    
+    /**
+     * get Reallocation by EmployeeId
+     */
+    $scope.reallocationDetailsByemployeeId=function(employeeId){
+        $http.get("/seatmanagement/Reallocations/"+employeeId)
+        .then(function successCallback(response) {
+            $scope.getFloor= response.data;
+            console.log(response.data);
+           
+        }, function errorCallback(response) {
+             
+        });
+    };
+    
     /**
      * getEmployee By Designation 
      */
     $scope.onDesignationChange = function() {
     	console.log("designation : " + $scope.designation);
-    	$http.get("/seatmanagement/employee/getEmployeesByDesignation?designation="+ $scope.designation)
+    	$http.get("/seatmanagement/Employees/getEmployeesByDesignation?designation="+ $scope.designation)
         .then(function successCallback(response) {
             $scope.getTeamHeads = response.data;
             console.log(response.data);
@@ -430,21 +497,22 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * Get Block Details by Floor Id and Block Type Cabin
      */
     $scope.blockDetailsByFloor=function(floor){
-		$http.get("/seatmanagement/block/getBlockByBlockType?block_type=Cabins&floor_id="+floor)
+    
+		$http.get("/seatmanagement/Blocks/BlocksByBlockType?block_type=Cabins&floor_id="+floor)
         .then(function successCallback(response) {
             $scope.getBlock = response.data;
             console.log(response.data);
 			
         }, function errorCallback(response) {
-             
+            
         });
 	};
 	
-    /**
+      /**
      * get Floor Details By Floor ID
      */
     $scope.FloorDetailsById = function() {
-	    $http.get("/seatmanagement/floor/floorId?floorId="+gett())
+	    $http.get("/seatmanagement/Floors/"+gett())
 	    .then(function(response) {
 	        $scope.FloorDetails = response.data;
 	        console.log(response.data);
@@ -452,24 +520,36 @@ app.controller('workplaceManagementController', function($scope, $http) {
     };
     
     /**
-     * Get Floor Details
+     * get Team Details By Team ID
      */
+    $scope.TeamDetailsById = function(teamId) {
+	    $http.get("/seatmanagement/Teams/"+teamId)
+	    .then(function(response) {
+	        $scope.teamsDetails = response.data;
+	        console.log(response.data);
+	    });
+    };
+    
+  /**
+   * Get FloorDetails
+   */
     $scope.FloorDetails = function() {
-	    $http.get("/seatmanagement/floor/getAllFloors")
+	    $http.get("/seatmanagement/Floors")
 	    .then(function successCallback(response) {
 	        $scope.getFloor = response.data;
 	        console.log(response.data);
 				
 	    }, function errorCallback(response) {
-	         
+	        
 	    });
     };
+    
     
     /**
      * get All Blocks
      */
     $scope.blockDetails = function() {
-	    $http.get("/seatmanagement/block/getAllBlocks")
+	    $http.get("/seatmanagement/Blocks")
 	    .then(function successCallback(response) {
 	        $scope.getBlock= response.data;
 	        console.log(response.data);
@@ -478,12 +558,11 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	   	 doModal('Some Error',response.data.ERROR_MESSAGE);
 	    });
     };
-    
     /**
      * get All Dashboard Count
      */
     $scope.dashboardCount = function() {
-	    $http.get("../dashboard/getAllDashboardCount")
+	    $http.get("/seatmanagement/Dashboards/dashboardCount")
 	    .then(function successCallback(response) {
 	        $scope.getCountDatas = response.data[0];
 	        console.log(response.data);
@@ -496,7 +575,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * Company Details Count
      */
     $scope.companyDetailsCount = function() {
-	    $http.get("../dashboard/getAllCompanyDetailsCount")
+	    $http.get("/seatmanagement/Dashboards/companyDetailsCount")
 	    .then(function successCallback(response) {
 	        $scope.getCompDetails = response.data;
 	        console.log(response.data);
@@ -507,30 +586,29 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	    });
     };
     
-    /**
+     /**
      * get All Floor Details Count BuildingId
      */
     $scope.getFloor = function(buildingId){ 
-	    $http.get("/seatmanagement/dashboard/getAllFloorDetailsCount?buildingId="+buildingId)
+	    $http.get("/seatmanagement/Dashboards/floorDetailsCount/"+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloorDetails = response.data;
 	            console.log(response.data);
 	        }, function errorCallback(response) {
-	             
+	            
 	        });
 	};
-	
 	/**
 	 * get All Block Details Count FloorId
 	 */
 	$scope.getBlock=function(floorId){
-		$http.get("/seatmanagement/dashboard/getAllBlockDetailsCount?floorId="+floorId)
+		$http.get("/seatmanagement/Dashboards/blockDetailsCount/"+floorId)
         .then(function successCallback(response) {
             $scope.getBlockDetails = response.data;
             console.log(response.data);
 			
         }, function errorCallback(response) {
-             
+            
         });
 	};
     
@@ -538,7 +616,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get All OS Count
      */
     $scope.osDetailsCount = function() {
-	    $http.get("../dashboard/getAllOsCount")
+	    $http.get("/seatmanagement/Dashboards/osCount ")
 	    .then(function successCallback(response) {
 	        $scope.getOsDetails = response.data;
 	        console.log(response.data);
@@ -552,8 +630,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
     /**
      * get All Seats
      */
-    $scope.getAllSeats = function() {
-	    $http.get("/seatmanagement/seating/getAllSeating")
+    $scope.seatDetails = function() {
+	    $http.get("/seatmanagement/Seatings")
 	    .then(function successCallback(response) {
 	        $scope.getOsDetails = response.data;
 	        console.log(response.data);
@@ -562,6 +640,21 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	       
 	        doModal('Some Error',response.data.ERROR_MESSAGE);
 	    });
+    };
+    
+    /**
+     * get All Reallocations
+     */
+    $scope.getAllReallocations = function() {
+     $http.get("/seatmanagement/Reallocations")
+     .then(function successCallback(response) {
+         $scope.getAllReallocation = response.data;
+         console.log(response.data);
+   
+     }, function errorCallback(response) {
+        
+         doModal('Some Error',response.data.ERROR_MESSAGE);
+     });
     };
     
 
@@ -580,20 +673,20 @@ app.controller('workplaceManagementController', function($scope, $http) {
      */
     
     
-    /**
-     * Organization Delete
+        /**
+     *  Delete Organization
      */
     
     $scope.deleteOrganisation = function(orgId){ 
 		 $http({
-		        url: '/seatmanagement/organisation/deleteOrganisationById?organisationId='+orgId,
-		        method: "GET",
+		        url: '/seatmanagement/Organisations/'+orgId,
+		        method: "DELETE",
 	        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.OrganizationDetails();
+		    	$scope.OrganisationDetails();
 	    	doModal("Information","Organization Deleted Successfully....!");
 		    }, 
 			function(response) { // optional
@@ -606,8 +699,8 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	$scope.deleteBuilding = function(buildingId){ 
 		 $http({
-		        url: '/seatmanagement/building/deleteBuildingById?buildingId='+buildingId,
-		        method: "GET",
+		        url: '/seatmanagement/Buildings/'+buildingId,
+		        method: "DELETE",
 	        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'
 	            }
@@ -622,19 +715,76 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	};
 	
 	/**
-	 * Delete Team
+	 * Delete FLoor
 	 */
-	$scope.deleteTeam = function(teamId){ 
+	$scope.deleteFloor = function(floorId){ 
 		 $http({
-		        url: '/seatmanagement/team/deleteTeamById?teamId='+teamId,
-		        method: "GET",
-		        headers : {
+		        url: '/seatmanagement/Floors/'+floorId,
+		        method: "DELETE",
+	        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.TeamDetails();
-		    	doModal("Information","Team Deleted Successfully....!");
+		    	$scope.FloorDetails();
+		    	doModal("Information","Floor Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	/**
+	 * Delete Block
+	 */
+	$scope.deleteBlock= function(blockId){ 
+		 $http({
+		        url: '/seatmanagement/Blocks/'+blockId,
+		        method: "DELETE",
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.blockDetails();
+		    	doModal("Information","Block Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	/**
+	 * Delete Utilities
+	 */
+	$scope.deleteUtilities= function(utilityId){ 
+		 $http({
+		        url: '/seatmanagement/Utilities/'+utilityId,
+		        method: "DELETE",
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.UtilitiesDetails();
+		    	doModal("Information","Utilities Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	/**
+	 * Delete System
+	 */
+	$scope.deleteSystem= function(systemId){ 
+		 $http({
+		        url: '/seatmanagement/Systems/'+systemId,
+		        method: "DELETE",
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.systemDetails();
+		    	doModal("Information","System Deleted Successfully....!");
 		    }, 
 			function(response) { // optional
 		    	doModal("Information",response.data.ERROR_MESSAGE);
@@ -642,12 +792,33 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	};
 	
 	/**
+	 * Delete Team
+	 */
+	$scope.deleteTeam = function(teamId){ 
+		 $http({
+		        url: '/seatmanagement/Teams/'+teamId,
+		        method: "DELETE",
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.teamDetails();
+		    	doModal("Information","Team Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	/**
 	 * Delete Employee
 	 */
 	
 	$scope.deleteEmployee = function(employeeId){ 
 		 $http({
-		        url: '/seatmanagement/employee/deleteEmployeeById?employeeId='+employeeId,
+		        url: '/seatmanagement/Employees/'+employeeId,
 		        method: "GET",
 		        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'
@@ -661,5 +832,47 @@ app.controller('workplaceManagementController', function($scope, $http) {
 		    	doModal("Information",response.data.ERROR_MESSAGE);
 			});
 	};
-    
+	/**
+	 * Delete AdditionalDevice
+	 */
+	
+	$scope.deleteAdditionalDevice = function(additional_device_id){ 
+		 $http({
+		        url: '/seatmanagement/Additionaldevices/'+additional_device_id,
+		        method: "DELETE",
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.AdditionaldeviceDetails();
+		    	doModal("Information","AdditionalDevice Deleted Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+		 
+		 /**
+			 * Delete Reallocations
+			 */
+			
+			$scope.deleteReallocations = function(){ 
+				 $http({
+				        url: '/seatmanagement/Reallocations',
+				        method: "DELETE",
+				        headers : {
+			                'Content-Type' : 'application/x-www-form-urlencoded'
+			            }
+				    })
+				    .then(function(response) {
+				    	$scope.AdditionaldeviceDetails();
+				    	doModal("Information","Reallocations Deleted Successfully....!");
+				    }, 
+					function(response) { // optional
+				    	doModal("Information",response.data.ERROR_MESSAGE);
+					});
+	};
+	
+
 });

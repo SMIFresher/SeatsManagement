@@ -30,10 +30,10 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form id="Form" method="POST" enctype="multipart/form-data"  action="floorsave">
+						<form id="Form" method="post" ng-submit="saveFloors();" enctype="multipart/form-data">
 							<div class="form-group">
 								<label for="location">Building Name </label>
-									<select class="custom-select mb-3" name="buildingId">
+									<select class="custom-select mb-3"  id="bid">
 										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
 									</select>
 
@@ -48,13 +48,11 @@
 									class="form-control" id="fname" placeholder="Enter Floor Name"
 									name="floorName">
 							</div>
-							
 							 <div class="custom-file mb-3">
 							 		<label for="ftype">Floor Map:</label>
      							 <input type="file" class="custom-file-input" id="customFile" name="file">
     							  <label class="custom-file-label" for="customFile">Choose file</label>
    							 </div>
-							
 							<button type="submit" class="btn btn-success">Submit</button>
 						</form>
 
@@ -63,7 +61,14 @@
 				</div>
 				<br>
 			</div>
+			
 			<div class="col-md-8">
+					<div class="col-sm-12 bg-primary text-white">
+							<br>
+							<h4>Floor Details</h4>
+							<br>
+						</div>
+					<div class="col-sm-12 table-responsive">
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Floor Name</td>
@@ -75,11 +80,12 @@
 								<td>{{flr.floorName}}</td>
 								<td>{{flr.floorType}}</td>
 								<td style="display:none;">{{flr.floorId}}</td>
-								<td><a href="/seatmanagement/seating/getSeatingView?floorId={{flr.floorId}}"><button class="btn btn-primary deleteBtn">View</button></a></td>
+								<td><a href="#">
+								<button class="btn btn-primary">View</button></a></td>
 							</tr>
 						</tbody>
 					</table>
-				
+				</div>
 			</div>
 		</div>
 	</div>

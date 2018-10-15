@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +34,7 @@ import com.seatmanagement.service.BlockService;
  *
  */
 @Controller
-@RequestMapping("/block")
+@RequestMapping("/Blocks")
 public class BlockController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BlockController.class);
@@ -57,9 +58,8 @@ public class BlockController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/saveblock", method = RequestMethod.POST)
-	public ResponseEntity saveOrUpdate(Block block, @RequestParam(value = "floorId") UUID floorId,
-			@RequestParam(value = "utilityList", required = false) List<UUID> utilitiesUUIDs) throws BusinessException {
+	@RequestMapping(value = "/block", method = RequestMethod.POST)
+	public ResponseEntity saveOrUpdate(Block block, @RequestParam(value = "floorId") UUID floorId,@RequestParam(value = "utilityList", required = false) List<UUID> utilitiesUUIDs) throws BusinessException {
 		logger.info("Controller: BlockController Method : saveBlock request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
@@ -72,27 +72,29 @@ public class BlockController {
 		return responseEntity;
 	}
 
-	/**
+
+/**
 	 * 
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getAllBlocks", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping( method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Block>> getAll() {
 		logger.info("Controller:  BlockController Method : getAllBlock request processing started at : "
 				+ LocalDateTime.now());
 		logger.info("Controller:  BlockController Method : getAll Block response sent at : " + LocalDateTime.now());
 		return new ResponseEntity(blockService.getAll(), HttpStatus.OK);
 	}
-
-	/**
+	
+   /**
 	 * 
 	 * @param blockId
 	 * @return
 	 * @throws BusinessException 
 	 */
-	@RequestMapping(value = "/getBlockById", method = RequestMethod.GET)
-	public ResponseEntity getBlockById(@RequestParam(value = "blockId") UUID blockId) throws BusinessException {
+	 
+	@RequestMapping(value = "/BlockById/{blockId}", method = RequestMethod.GET)
+	public ResponseEntity BlockById(@PathVariable("blockId") UUID blockId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockById request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
@@ -105,17 +107,16 @@ public class BlockController {
 		logger.info("Controller: BlockController Method : getBlockById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
-
+	
 	/**
 	 * 
 	 * @param floorId
 	 * @return
 	 * @throws BusinessException
 	 */
-	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getBlockByFloorId", method = RequestMethod.GET)
-	public ResponseEntity getBlocksByFloorId(@RequestParam(value = "floor_id") UUID floorId) throws BusinessException {
+	@RequestMapping(value = "/BlocksByFloorId/{floor_id}", method = RequestMethod.GET)
+	public ResponseEntity BlocksByFloorId(@PathVariable("floor_id") UUID floorId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockByFloorId request processing started at : "
 				+ LocalDateTime.now());
 		if (Objects.isNull(floorId)) {
@@ -130,6 +131,8 @@ public class BlockController {
 		return responseEntity;
 	}
 
+
+
 	/**
 	 * 
 	 * @param blockType
@@ -138,9 +141,8 @@ public class BlockController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getBlockByBlockType", method = RequestMethod.GET)
-	public ResponseEntity getBlocksByBlockType(@RequestParam(value = "block_type") String blockType,
-			@RequestParam(value = "floor_id") UUID floorId) throws BusinessException {
+	@RequestMapping(value = "/BlocksByBlockType", method = RequestMethod.GET)
+	public ResponseEntity getBlocksByBlockType(@RequestParam(value="block_type") String blockType,@RequestParam("floor_id") UUID floorId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockByBlockType request processing started at : "
 				+ LocalDateTime.now());
 		if (Objects.isNull(floorId) || Objects.isNull(blockType)) {
@@ -155,14 +157,16 @@ public class BlockController {
 		return responseEntity;
 	}
 
-	/**
+
+    /**
 	 * 
 	 * @param blockId
 	 * @return
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value = "/deleteBlockById")
-	public ResponseEntity deleteBlockById(@RequestParam(value = "blockId") UUID blockId) throws BusinessException {
+	
+	@RequestMapping(value = "/{blockId}" ,method = RequestMethod.DELETE)
+	public ResponseEntity deleteBlockById(@PathVariable("blockId") UUID blockId) throws BusinessException {
 		logger.info("Controller: BlockController Method : deleteBlockById request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
@@ -177,24 +181,12 @@ public class BlockController {
 		logger.info("Controller: BlockController Method : deleteBlockById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
-
+	
 	/**
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getBlockView", method = RequestMethod.GET)
-	public ModelAndView getBlockView() {
-		logger.info("Controller: BlockController Method : getBlockView request processing started at : "
-				+ LocalDateTime.now());
-		logger.info("Controller: BlockController Method : getBlockView response sent at : " + LocalDateTime.now());
-		return new ModelAndView("HR/block");
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/getModifyBlock")
+	@RequestMapping(value = "/ModifyBlock",method = RequestMethod.GET)
 	public ModelAndView getModifyBuilding() {
 		logger.info("Controller: BlockController Method : getModifyBlock request processing started at : "
 				+ LocalDateTime.now());
@@ -202,7 +194,12 @@ public class BlockController {
 		return new ModelAndView("/HR/ModifyBlock");
 	}
 	
-	@RequestMapping(value="/blockView")
+	/**
+	 * 
+	 * @return
+	 */ 
+	 
+	@RequestMapping(value="/blockViews")
 	public ModelAndView blockView(@RequestParam("floorId") String floorId) throws BusinessException {
 		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 				+ LocalDateTime.now());
@@ -211,5 +208,19 @@ public class BlockController {
 		model.addObject("id", floorId);
 		return model;
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/BlockView", method = RequestMethod.GET)
+	public ModelAndView getBlockView() {
+		logger.info("Controller: BlockController Method : getBlockView request processing started at : "
+				+ LocalDateTime.now());
+		logger.info("Controller: BlockController Method : getBlockView response sent at : " + LocalDateTime.now());
+		return new ModelAndView("HR/block");
+	}
+
+
 
 }

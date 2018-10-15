@@ -152,7 +152,7 @@
 								</select></td>
 								<td>{{sys.allotmentStatus}}</td>
 								<td align="center">
-									<button class="btn btn-danger deleteBtn">Delete</button></td>
+									<button class="btn btn-danger" ng-click="deleteSystem(sys.systemId);">Delete</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -187,7 +187,7 @@
 						</select>
 				</div>
 				<div class="modal-footer">
-		          <button type="submit"  class="btn btn-success" >Submit</button>
+		          <button type="submit"  class="btn btn-success" ng-click="assignSystems();" >Submit</button>
 		        </div>
 		        </form>
 		  </div>
@@ -233,7 +233,7 @@
 
 
 
-<script type="text/javascript">
+ <script type="text/javascript">
 function formSubmit(){
 	
 	console.log("Serialised Form : " + $("#Form").serialize());
@@ -284,7 +284,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 	}
 );
 
-</script>
+</script> 
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

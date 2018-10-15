@@ -1,4 +1,4 @@
-package com.seatmanagement.controller;
+ package com.seatmanagement.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +33,11 @@ import com.seatmanagement.service.SeatingService;
  *
  */
 @Controller
-@RequestMapping("/seating")
+@RequestMapping("/Seatings")
 public class SeatingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SeatingController.class);
+
 	@Autowired
 	private SeatingService seatingService;
 
@@ -46,8 +49,8 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getSeatingByBlockId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Seating>> getSeatingByBlockId(@RequestParam(value = "id") UUID block_id, Seating seating)
+	@RequestMapping(value = "/{block_id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Seating>> getSeatingByBlockId(@PathVariable("block_id") UUID block_id, Seating seating)
 			throws BusinessException {
 		ResponseEntity responseEntity = null;
 		logger.info("Controller: SeatingController Method : getSeatingByBlockId request processing started at : "
@@ -69,21 +72,22 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/saveSeating")
-	public ResponseEntity<Seating> saveOrUpdateSystems(Seating seating, @RequestParam(value = "blockID") UUID blockID)
+	@RequestMapping(value = "/{blockID}", method = RequestMethod.POST)
+	public ResponseEntity<Seating> saveOrUpdateSeating( Seating seating, @PathVariable("blockID") UUID blockID)
 			throws BusinessException {
 		ResponseEntity responseEntity = null;
-		logger.info("Controller: SeatingController Method : saveOrUpdateSystems request processing started at : "
+		logger.info("Controller: SeatingController Method : saveOrUpdateSeating request processing started at : "
 				+ LocalDateTime.now());
 		if (Objects.isNull(blockID) || Objects.isNull(seating)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		responseEntity = new ResponseEntity(seatingService.addOrUpdateSeating(seating, blockID), HttpStatus.OK);
 		logger.info(
-				"Controller: SeatingController Method : saveOrUpdateSystems response sent at : " + LocalDateTime.now());
+				"Controller: SeatingController Method : saveOrUpdateSeating response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
-
+	
+	
 	/**
 	 * 
 	 * @param floorId
@@ -91,8 +95,8 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping("/getAllSeatingWithAxis")
-	public ResponseEntity<List<Object>> getAllSeatingWithAxisByFloor(@RequestParam("floorId") UUID floorId)
+	@RequestMapping(value="/AllSeatingWithAxisByFloor/{floorId}",method = RequestMethod.GET)
+	public ResponseEntity<List<Object>> allSeatingWithAxisByFloor(@PathVariable("floorId") UUID floorId)
 			throws BusinessException {
 		ResponseEntity responseEntity = null;
 		logger.info(
@@ -114,8 +118,8 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping("/getAllSeatingWithAxisLead")
-	public ResponseEntity<List<Object>> getAllSeatingWithAxisByFloorLead(@RequestParam("floorId") UUID floorId)
+	@RequestMapping(value="/seatingWithAxisByFloorLead/{floorId}",method = RequestMethod.GET)
+	public ResponseEntity<List<Object>> seatingWithAxisByFloorLead(@PathVariable("floorId") UUID floorId)
 			throws BusinessException {
 		ResponseEntity responseEntity = null;
 		logger.info(
@@ -135,7 +139,7 @@ public class SeatingController {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getAllSeating", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping( method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Seating>> getAllSeating() {
 		ResponseEntity responseEntity = null;
 		logger.info("Controller: SeatingController Method : getAllSeating request processing started at : "
@@ -150,7 +154,7 @@ public class SeatingController {
 	 * @return
 	 * @throws BusinessException
 	 */
-	@RequestMapping("/getSeating")
+	@RequestMapping("/Seating")
 	public ModelAndView getSeating() throws BusinessException {
 
 		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
@@ -166,8 +170,8 @@ public class SeatingController {
 	 * @return
 	 * @throws BusinessException
 	 */
-	@RequestMapping("/getSeatingView")
-	public ModelAndView getSeatingView(@RequestParam("floorId") String floorId) throws BusinessException {
+	@RequestMapping(value="/seatingview",method = RequestMethod.GET)
+	public ModelAndView getSeatingView(@RequestParam(value="floorId") String floorId) throws BusinessException {
 		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 				+ LocalDateTime.now());
 		ModelAndView model = new ModelAndView("/HR/seatingView");

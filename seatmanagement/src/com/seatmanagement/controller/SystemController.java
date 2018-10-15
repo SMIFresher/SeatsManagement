@@ -1,5 +1,6 @@
 package com.seatmanagement.controller;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +22,7 @@ import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Systems;
 import com.seatmanagement.service.SeatingDetailsService;
 import com.seatmanagement.service.SystemService;
-import com.seatmanagement.service.impl.SystemServiceImpl;
+
 
 /**
  * 
@@ -30,7 +32,7 @@ import com.seatmanagement.service.impl.SystemServiceImpl;
  *
  */
 @RestController
-@RequestMapping("/systems")
+@RequestMapping("/Systems")
 public class SystemController {
 
 	@Autowired
@@ -46,58 +48,19 @@ public class SystemController {
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping("getAllSystems.do")
-	public ResponseEntity getAllEmployees() throws BusinessException {
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity getAllSystems() throws BusinessException {
 		
 		logger.info("controller: SystemController Method : getAllEmployees request processing started at : " + LocalDateTime.now());
 		
 		List<Systems> systemList = systemService.getAllSystems();
 		
-	
-		
-		ResponseEntity responseEntity = null;
+        ResponseEntity responseEntity = null;
 		responseEntity=new ResponseEntity(systemList,HttpStatus.OK);
 		
 		logger.info("controller: SystemController Method : getAllEmployees response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
-	
-	
-	/**
-	 * 
-	 * @return ModelAndView
-	 */
-	@RequestMapping(value="/EditView")
-	public ModelAndView getView(@RequestParam("seatingId") UUID seatingId)throws BusinessException{
-		
-		logger.info("controller: SystemController Method : getView  request processing started at : " + LocalDateTime.now());
-		
-		ModelAndView mav=new ModelAndView("HR/cabins");
-		mav.addObject("list", systemService.getAllAvailableSystems());
-		mav.addObject("datasRow", seatingDetailsService.getSeatingDetailsBySeatingId(seatingId));
-		
-		logger.info("controller: SystemController Method : getView response sent at : " + LocalDateTime.now());
-		return mav;
-	}
-	
-	
-	/**
-	 * 
-	 * @param seatingId
-	 * @return ModelAndView
-	 * @throws BusinessException
-	 */
-	@RequestMapping(value="/View")
-	public ModelAndView View(@RequestParam("seatingId") String seatingId)throws BusinessException {
-		
-		logger.info("controller: SystemController Method : View request processing started at : " + LocalDateTime.now());
-		
-		ModelAndView mav=new ModelAndView("Lead/Viewcabins");
-
-		logger.info("controller: SystemController Method : View response sent at :  : " + LocalDateTime.now());
-		return mav;
-	}
-	
 	
 	/**
 	 * 
@@ -108,7 +71,7 @@ public class SystemController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value="/saveOrUpdateSystem",method=RequestMethod.POST )
+	@RequestMapping(value="/system",method=RequestMethod.POST )
 	public ResponseEntity<Systems> saveOrUpdateSystems(Systems system, 
 			@RequestParam(value="employeeId" , required=false) UUID employeeId,
 			@RequestParam(value="additionalDeviceList", required=false) List<UUID> additionalDevicesUUIDs) throws BusinessException {
@@ -168,8 +131,8 @@ public class SystemController {
 	 * @return responseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value="/getSystemById",method=RequestMethod.GET)
-	public ResponseEntity getSystemById(@RequestParam UUID systemId) throws BusinessException{
+	@RequestMapping(value="/{systemId}",method=RequestMethod.GET)
+	public ResponseEntity getSystemById(@PathVariable("systemId") UUID systemId) throws BusinessException{
 		
 		logger.info("controller: SystemController Method : getSystemById request processing started at : " + LocalDateTime.now());
 		
@@ -193,7 +156,7 @@ public class SystemController {
 	 * @return responseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value="/getSystem",method=RequestMethod.GET)
+	@RequestMapping(value="/System",method=RequestMethod.GET)
 	public ResponseEntity getSystem(@RequestParam String request) throws BusinessException{
 		
 		logger.info("controller: SystemController Method : getSystem request processing started at : " + LocalDateTime.now());
@@ -234,8 +197,8 @@ public class SystemController {
 	 * @return responseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value="/deleteById",method=RequestMethod.GET)
-	public ResponseEntity deleteSystemById(@RequestParam UUID systemId) throws BusinessException{
+	@RequestMapping(value="/{systemId}",method=RequestMethod.DELETE)
+	public ResponseEntity deleteSystemById(@PathVariable("systemId") UUID systemId) throws BusinessException{
 		
 		logger.info("controller: SystemController Method : deleteSystemById request processing started at : " + LocalDateTime.now());
 		
@@ -260,7 +223,7 @@ public class SystemController {
 	 * @throws BusinessException
 	 */
  @SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getOs", method = RequestMethod.GET)
+	@RequestMapping(value = "/operatingSystem", method = RequestMethod.GET)
 	public ResponseEntity getOscount() throws BusinessException {
 	 
 	 	logger.info("controller: SystemController Method : getOscount request processing started at : " + LocalDateTime.now());
@@ -279,44 +242,16 @@ public class SystemController {
 	}
 
  
- 	/**
- 	 * 
- 	 * @return ModelAndView
- 	 */
-	@RequestMapping(value = "/addSystem")
-	public ModelAndView getAddsystem() {
-		
-		logger.info("controller: SystemController Method : getAddsystem request processed at : " + LocalDateTime.now());
-		
-		return new ModelAndView("/HR/System");
-	}
-	
-	/**
-	 * 
-	 * @return ModelAndView
-	 */
-	@RequestMapping(value = "/getModifySystem")
-	public ModelAndView getModifySystem() {
-		
-		logger.info("controller: SystemController Method : getModifySystem request processed at : " + LocalDateTime.now());
-		
-		return new ModelAndView("/HR/ModifySystem");
-	}
-	
-	
-	
-	
-	
+ 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAllAvailableSystems", method = RequestMethod.GET)
+	@RequestMapping(value="/getAllAvailableSystems" , method = RequestMethod.GET)
 	public ResponseEntity getAllAvailableSystems()
 	{
 		logger.info("Controller: ReallocationController Method : getAllAvailableSystems request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity model = null;
-		String status = null;
-
+		
 		List<Systems> systems = systemService.getAllAvailableSystems();
 
 		model = new ResponseEntity(systems, HttpStatus.OK);
@@ -326,6 +261,67 @@ public class SystemController {
 
 		return model;
 	}
+	
+	/**
+ 	 * 
+ 	 * @return ModelAndView
+ 	 */
+	@RequestMapping(value = "/SystemView")
+	public ModelAndView getAddsystem() {
+		
+		logger.info("controller: SystemController Method : getAddsystem request processed at : " + LocalDateTime.now());
+		
+		return new ModelAndView("/HR/System");
+	}
+	/**
+	  * 
+	  * @return ModelAndView
+	  */
+	 @RequestMapping(value = "/ModifySystem")
+	 public ModelAndView getModifySystem() {
+	  
+	  logger.info("controller: SystemController Method : getModifySystem request processed at : " + LocalDateTime.now());
+	  
+	  return new ModelAndView("/HR/ModifySystem");
+	 }
+	
+	
+	/**
+	 * 
+	 * @return ModelAndView
+	 */
+	@RequestMapping(value="/EditView")
+	public ModelAndView getView(@RequestParam("seatingId") UUID seatingId)throws BusinessException{
+		
+		logger.info("controller: SystemController Method : getView  request processing started at : " + LocalDateTime.now());
+		
+		ModelAndView mav=new ModelAndView("HR/cabins");
+		mav.addObject("list", systemService.getAllAvailableSystems());
+		mav.addObject("datasRow", seatingDetailsService.getSeatingDetailsBySeatingId(seatingId));
+		
+		logger.info("controller: SystemController Method : getView response sent at : " + LocalDateTime.now());
+		return mav;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param seatingId
+	 * @return ModelAndView
+	 * @throws BusinessException
+	 */
+	@RequestMapping(value="/View")
+	public ModelAndView View(@RequestParam("seatingId") String seatingId)throws BusinessException {
+		
+		logger.info("controller: SystemController Method : View request processing started at : " + LocalDateTime.now());
+		
+		ModelAndView mav=new ModelAndView("Lead/Viewcabins");
+
+		logger.info("controller: SystemController Method : View response sent at :  : " + LocalDateTime.now());
+		return mav;
+	}
+	
 	
 	
 }

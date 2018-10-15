@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="shortcut icon" href="/seatmanagement/images/favicon.ico" type="image/x-icon">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <nav
 	class="navbar navbar-expand-md bg-white shadow p-3 mb-5 navbar-dark fixed-top">
 
@@ -11,8 +12,8 @@
 	</button>
 
 
- 
-	<a class="navbar-brand" href="/seatmanagement/hr/index"> <img
+
+	<a class="navbar-brand" href="/seatmanagement/Hr/index"> <img
 		src="/seatmanagement/Logo/nav-logo.jpg" alt="logo" style="width: 100px;">
 	</a>
 	<div class="collapse navbar-collapse"></div>
@@ -34,15 +35,15 @@
 	</div>
 
 	<ul class="list-unstyled components">
-		<li><a href="/seatmanagement/hr/index" class="fa fa-home"> Home</a></li>
-		<li><a href="/seatmanagement/reallocation/getReallocationHr" class="fa fa-home"> Reallocation</a></li>
-		<li><a href="/seatmanagement/organisation/getOrganisationView" class="fa fa-sitemap"> Organization</a></li>
-		<li><a href="/seatmanagement/building/getBuildingViewAndEdit" class="fa fa-building"> Manage Buildings</a></li>
+		<li><a href="/seatmanagement/Hr/index" class="fa fa-home"> Home</a></li>
+		<li><a href="/seatmanagement/Reallocations/Reallocationview" class="fa fa-home"> Reallocation</a></li>
+		<li><a href="/seatmanagement/Organisations/ViewAndEditOrganisations"class="fa fa-sitemap"> Organisation</a></li>
+		<li><a href="/seatmanagement/Buildings/ViewAndEditBuildings" class="fa fa-building"> Manage Buildings</a></li>
 
 		<li class="active"><a href="#Employee"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-users"> Employee </a>
 			<ul class="collapse list-unstyled" id="Employee">
-				<li><a href="/seatmanagement/employee/getEmployeeView">Employee</a></li>
+				<li><a href="/seatmanagement/Employees/EmployeeView">Employee</a></li>
 				<li><a href="/seatmanagement/team/getTeamView">Team</a></li>
 				
 
@@ -51,7 +52,7 @@
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-map-o"> Manage
 				Allotment</a>
 			<ul class="collapse list-unstyled" id="manageallotmentSubmenu">
-				<li><a href="/seatmanagement/hr/available">Available Seats</a></li>
+				<li><a href="/seatmanagement/Hr/available">Available Seats</a></li>
 				<li><a href="#">Reserved Seats</a></li>
 				<li><a href="#">Reallocated Seats</a></li>
 			</ul></li>
@@ -61,11 +62,11 @@
 				<li><a href="#systemSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle">System</a>
 					<ul class="collapse list-unstyled" id="systemSubmenu">
-						<li><a href="/seatmanagement/systems/addSystem">Add System Details</a></li>
-							<li><a href="/seatmanagement/systems/getModifySystem">Modify System Details</a></li>
-						<li><a href="/seatmanagement/Additionaldevice/addAdditionalDevice">Add Device Details</a></li>
+						<li><a href="/seatmanagement/Systems/SystemView">Add System Details</a></li>
+							<li><a href="/seatmanagement/Systems/ModifySystem">Modify System Details</a></li>
+						<li><a href="/seatmanagement/Additionaldevices/AdditionalDevice">Add Device Details</a></li>
 					</ul></li>
-				<li><a href="/seatmanagement/utilities/addUtilities">Utilities</a></li>
+				<li><a href="/seatmanagement/Utilities/addUtilities">Utilities</a></li>
 			</ul></li>
 		<li><a href="ChangePassword.jsp" class="fa fa-exchange"> Change Password</a></li>
 		<li><a href="/seatmanagement/pagelogout" class="fa fa-sign-out"> Logout</a></li>

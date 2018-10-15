@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,7 +36,7 @@ import com.seatmanagement.service.BuildingService;
  *
  */
 @Controller
-@RequestMapping("/building")
+@RequestMapping("/Buildings")
 public class BuildingController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BuildingController.class);
@@ -53,29 +54,53 @@ public class BuildingController {
 	 * @param building
 	 * @param organisationId
 	 * @return
+	 * 
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/build", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public  ResponseEntity<Building> saveOrUpdate(Building building,
-			@RequestParam(value = "organisationId") UUID organisationId) {
 
-		logger.info("Controller: BuildingController Method : saveOrUpdate request processing started at : "
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/{organisationId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public  ResponseEntity<Building> saveBuilding( Building building,@PathVariable("organisationId") UUID organisationId) {
+
+		logger.info("Controller: BuildingController Method : Save request processing started at : "
 				+ LocalDateTime.now());
 
 		ResponseEntity<Building> response = new ResponseEntity(buildingService.saveOrUpdate(building, organisationId),
 				HttpStatus.OK);
 
-		logger.info("Controller: BuildingController Method : saveOrUpdate response sent at : " + LocalDateTime.now());
+		logger.info("Controller: BuildingController Method : Save response sent at : " + LocalDateTime.now());
 
 		return response;
 
 	}
+	
+	/**
+	 * 
+	 * @param building
+	 * @param organisationId
+	 * @return
+	 *//*
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/updateBuilding/{organisationId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Building> updateBuilding( Building building,@PathVariable("organisationId") UUID organisationId) {
+
+		logger.info("Controller: BuildingController Method : Update request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity<Building> response = new ResponseEntity(buildingService.saveOrUpdate(building, organisationId),
+				HttpStatus.OK);
+
+		logger.info("Controller: BuildingController Method : Update response sent at : " + LocalDateTime.now());
+
+		return response;
+
+	}*/
+
 
 	/**
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/getAllBuildings")
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity getAll() {
 
 		logger.info("Controller: BuildingController Method : getAll request processing started at : "
@@ -98,8 +123,8 @@ public class BuildingController {
 	 * @param buildingId
 	 * @return
 	 */
-	@RequestMapping(value = "/getBuildingById", method = RequestMethod.GET)
-	public ResponseEntity getBuildingById(@RequestParam(value = "buildingId") UUID buildingId) {
+	@RequestMapping(value = "/{buildingId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity getBuildingById(@PathVariable("buildingId") UUID buildingId) {
 		logger.info("Controller: BuildingController Method : getBuildingById request processing started at : "
 				+ LocalDateTime.now());
 
@@ -122,8 +147,8 @@ public class BuildingController {
 	 * @param buildingId
 	 * @return
 	 */
-	@RequestMapping(value = "/deleteBuildingById", method = RequestMethod.POST)
-	public ResponseEntity deleteBuildingById(@RequestParam UUID buildingId) {
+	@RequestMapping(value = "/{buildingId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity deleteBuildingById(@PathVariable("buildingId") UUID buildingId) {
 		logger.info("Controller: BuildingController Method : deleteBuildingById request processing started at : "
 				+ LocalDateTime.now());
 		if (Objects.isNull(buildingId)) {
@@ -147,7 +172,7 @@ public class BuildingController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getBuildingViewAndEdit")
+	@RequestMapping(value = "/ViewAndEditBuildings")
 	public ModelAndView getBuildingViewAndEdit() {
 		logger.info("Controller: BuildingController Method : getBuildingViewAndEdit request processing started at : "
 				+ LocalDateTime.now());
@@ -161,7 +186,7 @@ public class BuildingController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getModifyBuilding")
+	@RequestMapping(value = "/ModifyBuildings")
 	public ModelAndView getModifyBuilding() {
 		logger.info("Controller: BuildingController Method : getModifyBuilding request processing started at : "
 				+ LocalDateTime.now());

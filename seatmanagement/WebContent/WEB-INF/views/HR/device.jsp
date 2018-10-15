@@ -16,7 +16,7 @@
 <body>
 
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="deviceDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="AdditionaldeviceDetails();">
 
 	
 <!-- Nav Bar -->
@@ -32,12 +32,12 @@
 
 						<h2>Additional Device</h2>
 						<div>
-							<form id="Form" method="post" ng-submit="saveDevices();" autocomplete="off">
+							<form id="Form" method="post" ng-submit="saveAdditionalDevices();" autocomplete="off">
 						  		<div class="form-group">
 								<label>Device Name</label>
 						  		<input name="device_name" class="form-control" id="device_name" type="text" placeholder="Device Name"/>
 						  		</div>
-					  			<button type="submit" class="btn btn-primary">Submit</button>
+					  			<button type="submit" class="btn btn-success">Submit</button>
 					  		</form>	
 					    </div>
 					    
@@ -50,12 +50,13 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-					<div class="col-sm-12 bg-primary text-white">
+				<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Company Details</h4>
 							<br>
 						</div>
 					<div class="col-sm-12 table-responsive">
+
 					<table class="table table-hover">
 						<thead align="center">
 							<td>Device Name</td>
@@ -66,30 +67,32 @@
 						<td style="display:none;">{{dev.additional_device_id}}</td>
 						<td>{{dev.device_name}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="additional_device_id" value="{{dev.additional_device_id}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<form method="post" ><input type="hidden" name="additional_device_id" value="{{dev.additional_device_id}}">
+							<button type="submit" class="btn btn-danger" ng-click="deleteAdditionalDevice(dev.additional_device_id);">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>
 					
 					</table>
-				</div>
+				
 			</div>
 		</div>
+	</div>
 	</div>
 	<div ng-include="'/seatmanagement/models/search.html'"></div>
 </div>
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 		$('.table tbody').on('click', 'tr', function() {
 			var currow = $(this).closest('tr');
 			var col1 = currow.find('td:eq(1)').text();
 
 			document.getElementById('device_name').value = col1;
 		})
-	</script>
+	</script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	
 var devId = null;
 
@@ -107,7 +110,7 @@ $('.table tbody').on('click', '.deleteBtn', function() {
 
 	}
 );
-</script>
+</script> -->
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>
 </html>

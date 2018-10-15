@@ -230,7 +230,7 @@
               
               <p>Do You Want To save This Details</p>
               <form id="Form" ng-submit="saveCabins();">
-              	<input type="hidden" id="saveDetails" name="seating_details">
+              	<input type="text" id="saveDetails" name="seating_details">
              
 				<input type="submit" value="Submit" class="btn btn-primary"/>
               </form>

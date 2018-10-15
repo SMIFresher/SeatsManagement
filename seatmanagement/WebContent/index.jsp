@@ -5,13 +5,13 @@
 		if(usr.equals("HR")){
 			%>
 				<script>
-						location.replace("hr/index");
+						location.replace("Hr/index");
 				</script>
 			<%
 		}else if(usr.equals("Lead")){
 			%>
 					<script>
-						location.replace("lead/index");
+						location.replace("Lead/index");
 					</script>
 			<%
 		}

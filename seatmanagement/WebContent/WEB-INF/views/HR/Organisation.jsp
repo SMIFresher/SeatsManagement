@@ -17,7 +17,7 @@
 
 
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganisationDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -32,7 +32,7 @@
 
 						<h2>Organisation</h2>
 						<div>
-							<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+							<form id="Form" method="post" ng-submit="saveOrganisations();" autocomplete="off">
 					  		<div class="form-group">
 							<label>Organization Name</label>
 					  		<input name="organisationName" class="form-control" id="orgName" type="text" placeholder="Organization Name"/>
@@ -51,7 +51,7 @@
 				<br>
 			</div>
 			<div class="col-md-8">
-					<div class="col-sm-12 bg-primary text-white">
+				<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Organization Details</h4>
 							<br>
@@ -68,12 +68,13 @@
 						<td style="display:none;">{{org.organisationId}}</td>
 						<td>{{org.organisationName}}</td>
 						<td align="center">
-							<form method="post" ><input type="hidden" name="organisationId" value="{{org.organisationId}}"><button type="submit" class="btn btn-danger deleteBtn">Delete</button></form>
+							<form method="post" ><input type="hidden" name="organisationId" value="{{org.organisationId}}">
+							<button  class="btn btn-danger" ng-click="deleteOrganisation(org.organisationId);">Delete</button></form>
 						</td>
 						</tr>
 						</tbody>
 					</table>
-					</div>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -82,61 +83,10 @@
 
 
 <script src="/seatmanagement/js/AngulerController.js"></script>
-<script type="text/javascript">
-	$('.table tbody').on('click', 'tr', function() {
-		var currow = $(this).closest('tr');
-		var col1 = currow.find('td:eq(1)').text();
-
-		document.getElementById('orgName').value = col1;
-	})
-</script>
 
 
 
-<script type="text/javascript">
-function formSubmit(){
 
- $.ajax({
-     url:'/seatmanagement/organisation/saveOrganisation',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     success: function (data) {
-
-    	 console.log("Success scenario Response : " +data);
-         	
-         $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-         location.replace("/seatmanagement/organisation/getOrganisationView");
-         
-    },error: function (data) {
-    	console.log("Failure scenario Response : " + JSON.stringify(data));
-    }
- 	
-});
-}
-	
-	
-var orgId = null;
-
-$('.table tbody').on('click', '.deleteBtn', function() {
-	var currow = $(this).closest('tr');
-	orgId = currow.find('td:eq(0)').text();
-	console.log("orgId : " + orgId);
-	 
-	 $.ajax({
-	     url:'/seatmanagement/organisation/deleteOrganisationById',
-	     method : 'POST',
-	     data: {organisationId:orgId},
-	     success: function (data) {
-	    	 location.replace("/seatmanagement/organisation/getOrganisationView");
-	    },error: function (response) {
-	    	
-	    }
-	 	
-	});
-
-	}
-);
-</script>
 
 </body>
 </html>

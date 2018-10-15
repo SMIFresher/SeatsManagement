@@ -15,7 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,7 +36,7 @@ import com.seatmanagement.service.OrganisationService;
  *
  */
 @Controller
-@RequestMapping("/organisation")
+@RequestMapping("/Organisations")
 public class OrganisationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrganisationController.class);
@@ -41,23 +44,7 @@ public class OrganisationController {
 	@Autowired
 	private OrganisationService organisationService;
 
-	/**
-	 * 
-	 * @return ModelAndView
-	 */
-	@RequestMapping("/getOrganisationView")
-	public ModelAndView getOrganisationView() {
-
-		logger.info("Controller: OrganisationController Method : getOrganisationView request processing started at : "
-				+ LocalDateTime.now());
-
-		ModelAndView model = new ModelAndView("/HR/Organisation");
-
-		logger.info("Controller: OrganisationController Method : getOrganisationView response sent at : "
-				+ LocalDateTime.now());
-
-		return model;
-	}
+	
 
 	/**
 	 * 
@@ -66,8 +53,8 @@ public class OrganisationController {
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping("/saveOrganisation")
-	public ResponseEntity saveOrganisation(@Valid Organisation organisation, Errors errors) throws BusinessException {
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity saveOrUpdate( @Valid Organisation organisation, Errors errors) throws BusinessException {
 
 		logger.info("Controller: OrganisationController Method : saveOrganisation request processing started at : "
 				+ LocalDateTime.now());
@@ -89,12 +76,41 @@ public class OrganisationController {
 
 		return model;
 	}
+	/**
+	 * 
+	 * @param organisation
+	 * @return ResponseEntity
+	 * @throws BusinessException
+	 *//*
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity updateOrganisation(@ModelAttribute Organisation organisation) throws BusinessException {
+
+		logger.info("Controller: OrganisationController Method : updateOrganisation request processing started at : "
+				+ LocalDateTime.now());
+
+		ResponseEntity model = null;
+		String status = null;
+
+		if (Objects.isNull(organisation)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+
+		organisationService.updateOrganisation(organisation);
+
+		model = new ResponseEntity(HttpStatus.OK);
+
+		logger.info("Controller: OrganisationController Method : updateOrganisation response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
+*/
 
 	/**
 	 * 
 	 * @return ResponseEntity
 	 */
-	@RequestMapping("/getAllOrganisations")
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity getAllOrganisations() {
 
 		logger.info("Controller: OrganisationController Method : getAllOrganisations request processing started at : "
@@ -119,8 +135,8 @@ public class OrganisationController {
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping("/getOrganisationById")
-	public ResponseEntity getOrganisationById(@RequestParam(value = "organisationId") UUID organisationId) throws BusinessException {
+	@RequestMapping(value="/{organisationId}",method = RequestMethod.GET)
+	public ResponseEntity getOrganisationById(@PathVariable("organisationId") UUID organisationId) throws BusinessException {
 
 		logger.info("Controller: OrganisationController Method : getOrganisationById request processing started at : "
 				+ LocalDateTime.now());
@@ -142,43 +158,15 @@ public class OrganisationController {
 		return model;
 	}
 
-	/**
-	 * 
-	 * @param organisation
-	 * @return ResponseEntity
-	 * @throws BusinessException
-	 */
-	@RequestMapping("/updateOrganisation")
-	public ResponseEntity updateOrganisation(@ModelAttribute Organisation organisation) throws BusinessException {
-
-		logger.info("Controller: OrganisationController Method : updateOrganisation request processing started at : "
-				+ LocalDateTime.now());
-
-		ResponseEntity model = null;
-		String status = null;
-
-		if (Objects.isNull(organisation)) {
-			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-		}
-
-		organisationService.updateOrganisation(organisation);
-
-		model = new ResponseEntity(HttpStatus.OK);
-
-		logger.info("Controller: OrganisationController Method : updateOrganisation response sent at : "
-				+ LocalDateTime.now());
-
-		return model;
-	}
-
+	
 	/**
 	 * 
 	 * @param organisationId
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping("/deleteOrganisationById")
-	public ResponseEntity deleteOrganisationById(@RequestParam(value = "organisationId") UUID organisationId)
+	@RequestMapping(value="/{organisationId}",method = RequestMethod.DELETE)
+	public ResponseEntity deleteOrganisationById(@PathVariable("organisationId") UUID organisationId)
 			throws BusinessException {
 
 		logger.info(
@@ -197,6 +185,23 @@ public class OrganisationController {
 		model = new ResponseEntity(HttpStatus.OK);
 
 		logger.info("Controller: OrganisationController Method : deleteOrganisationById response sent at : "
+				+ LocalDateTime.now());
+
+		return model;
+	}
+	/**
+	 * 
+	 * @return ModelAndView
+	 */
+	@RequestMapping(value="/ViewAndEditOrganisations")
+	public ModelAndView getOrganisationView() {
+
+		logger.info("Controller: OrganisationController Method : getOrganisationView request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/HR/Organisation");
+
+		logger.info("Controller: OrganisationController Method : getOrganisationView response sent at : "
 				+ LocalDateTime.now());
 
 		return model;

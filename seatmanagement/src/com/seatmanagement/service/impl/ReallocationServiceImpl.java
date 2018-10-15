@@ -39,7 +39,7 @@ public class ReallocationServiceImpl implements ReallocationService {
 	private GenericDao genericDao;
 
 	@Override
-	public Reallocation getReallocationByEmployeeId(String employeeId) {
+	public Reallocation getReallocationByEmployeeId(UUID employeeId) {
 
 		logger.info("Service: ReallocationServiceImpl Method : getReallocationByEmployeeId started at : "
 				+ LocalDateTime.now());

@@ -133,7 +133,7 @@ public class SeatingServiceImpl implements SeatingService {
 			properties.put("note",
 					"<center>  BlockType = " + k.getBlock().getBlockName() + "  <p> Seat Oocupied: "
 							+ k.getSeat_occupied() + " ||  Block Capacity : " + k.getBlock().getBlockCapacity()
-							+ " </p><a href='/seatmanagement/systems/EditView?seatingId=" + k.getSeatingId()
+							+ " </p><a href='/seatmanagement/Systems/EditView?seatingId=" + k.getSeatingId()
 							+ "'><button class='btn btn-primary btn-sm'>view cabins</button></a></center>");
 			object.add(properties);
 		});

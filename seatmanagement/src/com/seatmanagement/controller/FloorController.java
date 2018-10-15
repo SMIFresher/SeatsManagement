@@ -32,7 +32,7 @@ import com.seatmanagement.service.FloorService;
 
 
 @Controller
-@RequestMapping("/floor")
+@RequestMapping("/Floors")
 public class FloorController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FloorController.class);
@@ -42,69 +42,29 @@ public class FloorController {
 
 	/**
 	 * 
-	 * @return ModelAndView
-	 * @throws BusinessException
-	 */
-
-	@RequestMapping("/FloorView")
-	public ModelAndView getFloorView() throws BusinessException {
-
-		logger.info("Controller: FloorController Method : getFloorView request processing started at : "
-				+ LocalDateTime.now());
-
-		ModelAndView model = new ModelAndView("/HR/Floor");
-
-		logger.info("Controller: FloorController Method : getFloorView response sent at : " + LocalDateTime.now());
-
-		return model;
-	}
-
-	/**
-	 * 
-	 * @return ModelAndView
-	 * @throws BusinessException
-	 */
-
-	@RequestMapping(value = "/FloorModify")
-	public ModelAndView getModifyFloor() throws BusinessException {
-
-		logger.info("Controller: FloorController Method : getModifyFloor request processing started at : "
-				+ LocalDateTime.now());
-
-		ModelAndView model = new ModelAndView("/HR/FloorModify");
-
-		logger.info("Controller: FloorController Method : getModifyFloor response sent at : " + LocalDateTime.now());
-
-		return model;
-
-	}
-
-
-	/**
-	 * 
 	 * @param floor
 	 * @param buildingId
-	 * @param image
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
+
 	@SuppressWarnings({ "rawtypes" })
-	@RequestMapping(value="/floorsave",method = RequestMethod.POST)
+	@RequestMapping(value="/{buildingId}",method = RequestMethod.POST)
 	
-	public ResponseEntity saveFloor( Floor floor,@RequestParam("buildingId") UUID buildingId,@RequestParam("file") MultipartFile image) throws BusinessException {
+	public ResponseEntity saveOrUpdateFloor( Floor floor,@PathVariable("buildingId") UUID buildingId,@PathVariable("file") MultipartFile image) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : saveFloor request processing started at : "
 				+ LocalDateTime.now());
 		//ResponseEntity response = null;
 
 		floorService.saveOrUpdateFloors(floor, buildingId,image);
-		//response = new ResponseEntity(HttpStatus.OK,);
+		//response = new ResponseEntity(HttpStatus.OK);
 
 		logger.info("Controller: FloorController Method : saveFloor response sent at : " + LocalDateTime.now());
 
-	//	return "redirect:/floor/floorSave/";
+		//return "redirect:/floor/floorSave/";
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "/seatmanagement/floor/FloorView");    
+		headers.add("Location", "/seatmanagement/Floor/ViewFloors");    
 		return new ResponseEntity<String>(headers,HttpStatus.FOUND);
 	}
 
@@ -114,7 +74,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/getAllFloors",method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Floor>> getAllFloors() {
 
 		logger.info("Controller: FloorController Method : getAllFloors request processing started at : "
@@ -138,8 +98,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/floorId",method = RequestMethod.GET)
-	public ResponseEntity getFloorById(@RequestParam("floorId") UUID floorId) throws BusinessException {
+	@RequestMapping(value="/{floorId}",method = RequestMethod.GET)
+	public ResponseEntity getFloorById(@PathVariable("floorId") UUID floorId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorById request processing started at : "
 				+ LocalDateTime.now());
@@ -171,8 +131,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/floorbuildingId",method = RequestMethod.GET)
-	public ResponseEntity getFloorsByBuildingId(@RequestParam ("buildingId") UUID buildingId)
+	@RequestMapping(value="/floorsByBuildingId/{buildingId}",method = RequestMethod.GET)
+	public ResponseEntity floorsByBuildingId(@PathVariable ("buildingId") UUID buildingId)
 			throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorsByBuildingId request processing started at : "
@@ -202,8 +162,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/viewfloorType/buildingId",method = RequestMethod.GET)
-	public ResponseEntity getFloorTypeByBuildingId(@RequestParam ("buildingId") UUID buildingId)
+	@RequestMapping(value="/floorTypeByBuildingId/{buildingId}",method = RequestMethod.GET)
+	public ResponseEntity floorTypeByBuildingId(@PathVariable ("buildingId") UUID buildingId)
 			throws BusinessException {
 
 		if (Objects.isNull(buildingId)) {
@@ -226,8 +186,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/delete/floorId",method = RequestMethod.DELETE)
-	public ResponseEntity deleteFloorById(@RequestParam("floorId") UUID floorId) throws BusinessException {
+	@RequestMapping(value="/{floorId}",method = RequestMethod.DELETE)
+	public ResponseEntity deleteFloorById(@PathVariable("floorId") UUID floorId) throws BusinessException {
 
 		if (Objects.isNull(floorId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
@@ -241,5 +201,50 @@ public class FloorController {
 
 		return response;
 	}
+	/**
+	 * 
+	 * @param floorId
+	 * @return
+	 */
+	@RequestMapping(value="/getImage")
+	 public ResponseEntity getImagePath(@RequestParam UUID floorId) {
+	  return new ResponseEntity(floorService.getFloorImage(floorId.toString()),HttpStatus.OK);
+	 }
+	/**
+	 * 
+	 * @return ModelAndView
+	 * @throws BusinessException
+	 */
 
+	@RequestMapping("/ViewFloors")
+	public ModelAndView getFloorView() throws BusinessException {
+
+		logger.info("Controller: FloorController Method : getFloorView request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/HR/Floor");
+
+		logger.info("Controller: FloorController Method : getFloorView response sent at : " + LocalDateTime.now());
+
+		return model;
+	}
+	/**
+	 * 
+	 * @return ModelAndView
+	 * @throws BusinessException
+	 */
+
+	@RequestMapping(value = "/ModifyFloors")
+	public ModelAndView getModifyFloor() throws BusinessException {
+
+		logger.info("Controller: FloorController Method : getModifyFloor request processing started at : "
+				+ LocalDateTime.now());
+
+		ModelAndView model = new ModelAndView("/HR/FloorModify");
+
+		logger.info("Controller: FloorController Method : getModifyFloor response sent at : " + LocalDateTime.now());
+
+		return model;
+
+	}
 }

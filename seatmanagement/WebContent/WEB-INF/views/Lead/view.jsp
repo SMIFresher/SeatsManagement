@@ -67,7 +67,7 @@
           	<div class="col-sm-8 cc">
           		<div class="row text-center">
           			<div class="col-sm-12" ng-repeat="flr in getFloor | orderBy : '-floorName'">
-          				<a href="/seatmanagement/lead/getSeatingView?floorId={{flr.floorId}}">
+          				<a href="/seatmanagement/Lead/SeatingView?floorId={{flr.floorId}}">
           				<div class="container flr">
 							<h4>{{flr.floorName}}</h4>
           				</div></a>
@@ -97,7 +97,7 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 	});
 app.controller('getOrganization', function($scope, $http) {
-    $http.post("/seatmanagement/organisation/getAllOrganisations")
+    $http.get("/seatmanagement/Organisations")
         .then(function successCallback(response) {
             $scope.getOrg = response.data;
             console.log(response.data);
@@ -113,7 +113,7 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 	});
 app.controller('BuildingController', function($scope, $http) {
-    $http.post("/seatmanagement/building/getAllBuildings")
+    $http.get("/seatmanagement/Buildings")
         .then(function successCallback(response) {
             $scope.getBuilding = response.data;
             console.log(response.data);
@@ -122,7 +122,7 @@ app.controller('BuildingController', function($scope, $http) {
             alert(response.status);
         });
 		$scope.floorDetails=function(buildingId){
-			$http.get("/seatmanagement/floor/viewfloor/buildingId?buildingId="+buildingId)
+			$http.get("/seatmanagement/Floors/floorsByBuildingId/"+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloor = response.data;
 	            console.log(response.data);

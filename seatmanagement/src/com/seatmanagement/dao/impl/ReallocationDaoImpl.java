@@ -36,7 +36,7 @@ public class ReallocationDaoImpl implements ReallocationDao {
 	HibernateTemplate hibernateTemplate;
 
 	@Override
-	public Reallocation getReallocationByEmployeeId(String employeeId) {
+	public Reallocation getReallocationByEmployeeId(UUID employeeId) {
 
 		logger.info(
 				"DAO: ReallocationDaoImpl Method : getReallocationByEmployeeId started at : " + LocalDateTime.now());

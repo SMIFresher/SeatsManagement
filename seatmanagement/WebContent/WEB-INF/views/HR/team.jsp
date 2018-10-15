@@ -14,7 +14,7 @@
 	 <script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails(); TeamDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="OrganizationDetails(); teamDetails();">
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -31,7 +31,7 @@
 							<div class="form-group">
 		                   		<div>
 								<label for="organisation">Organisation </label>
-									<select class="custom-select mb-3 organisationId" name="organisationId">
+									<select class="custom-select mb-3 organisationId" id="ogid" name="organisationId">
 										<option ng-repeat="organisation in getOrg" value="{{organisation.organisationId}}">{{organisation.organisationName}}</option>
 									</select>
 								</div>
@@ -57,7 +57,7 @@
 								</div>
 							</div>
 
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-success">Submit</button>
 						</form>
 
 					</div>

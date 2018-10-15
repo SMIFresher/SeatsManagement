@@ -18,7 +18,7 @@
 <body>
 
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="OrganizationDetails(); employeeDetails(); TeamDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="OrganisationDetails(); employeeDetails(); TeamDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -65,17 +65,17 @@
 							 <div class="form-group">
 		                   		
 								<label for="organisation">Organisation </label>
-									<select class="custom-select mb-3 organisationId" name="organisationId">
+									<select class="custom-select mb-3 organisationId" id="orgid" >
 										<option ng-repeat="organisation1 in getOrg" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
 									</select>
 								
 
 								<label for="team">Team Name </label>
-									<select class="custom-select mb-3 teamId" name="teamId">
+									<select class="custom-select mb-3 teamId" id="teamid" name="teamId">
 										<option ng-repeat="team1 in getteam" value="{{team1.teamId}}">{{team1.teamName}}</option>
 									</select>
 							</div>
-							<button type="submit" class="btn btn-primary" onClick="formSubmit();" >Submit</button>
+							<button type="submit" class="btn btn-success" >Submit</button>
 						</form>
 
 					</div>

@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); OrganizationDetails();">
+<div id="build" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); OrganisationDetails();">
 
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -37,7 +37,7 @@
     	  <p>{{Building.buildingName}} Building architecture</p>
     	 
     	  <div class="row d-flex justify-content-center details" align="center" >
-    		<div class=" col-sm-3 " ><a href="getModifyBuilding"><div class="option"><span class="fa fa-cogs"></span></div></a></div>
+    		<div class=" col-sm-3 " ><a href="ModifyBuildings"><div class="option"><span class="fa fa-cogs"></span></div></a></div>
     		<div class=" col-sm-3 " >
     			<div class="option">
     				<span class="fa fa-info"></span>
@@ -96,9 +96,9 @@
 	          				
 	          				<div class="container flr">
 		          				<div class="erase float-sm-right">
-		          					<h5><span onclick="location.replace('/seatmanagement/floor/FloorModify')" class="fa fa-cog"></span></h5>
+		          					<h5><span onclick="location.replace('/seatmanagement/Floors/ModifyFloors')" class="fa fa-cog"></span></h5>
 		          				</div>
-		          				<a href="/seatmanagement/block/blockView?floorId={{flr.floorId}}">
+		          				<a href="/seatmanagement/Blocks/blockViews?floorId={{flr.floorId}}">
 	          					<br>
 								<h4>{{flr.floorName}}</h4>
 								</a>
@@ -107,7 +107,7 @@
 	          			</div>
 	
           			<div class="col-sm-12">
-          				<a href="/seatmanagement/floor/FloorView">
+          				<a href="/seatmanagement/Floors/ViewFloors">
           				<div class="container flr">
 							<h2>+</h2>
 							<p>Add</p>
@@ -173,7 +173,7 @@
                   </div>
                    <div class="form-group">
 						<label for="location">Organization </label>
-							<select class="custom-select mb-3" name="organisationId">
+							<select class="custom-select mb-3" name="organisationId" id="oid">
 								<option ng-repeat="org in getOrg" value="{{org.organisationId}}">{{org.organisationName}}</option>
 							</select>
 					</div>

@@ -78,7 +78,7 @@ app.config(function ($httpProvider, $httpParamSerializerJQLikeProvider){
 	  $httpProvider.defaults.headers.common['RequestType'] = 'AJAX';
 	});
 app.controller('FloorController', function($scope, $http) {
-    $http.get("/seatmanagement/floor/getFloorById?FloorId="+gett())
+    $http.get("/seatmanagement/Floors/"+gett())
     .then(function(response) {
         $scope.FloorDetails = response.data;
         console.log(response.data);
@@ -135,7 +135,7 @@ function gett(){
               var notes
               var response = '';
               $.ajax({ type: "GET",   
-                       url: "/seatmanagement/seating/getAllSeatingWithAxisLead?floorId="+gett(),   
+                       url: "/seatmanagement/Seatings/seatingWithAxisByFloorLead/floorId="+gett(),   
                        async: false,
                        success : function(text)
                        {

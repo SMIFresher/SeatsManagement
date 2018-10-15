@@ -22,7 +22,7 @@
 
 <body>
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="FloorDetailsById(); seatDetails();">
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
 
@@ -125,7 +125,7 @@ function gett(){
               var notes
               var response = '';
               $.ajax({ type: "GET",   
-                       url: "/seatmanagement/seating/getAllSeatingWithAxis?floorId="+gett(),   
+                       url: "/seatmanagement/Seatings/AllSeatingWithAxisByFloor/"+gett(),   
                        async: false,
                        success : function(text)
                        {

@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,7 +31,7 @@ import com.seatmanagement.service.UtilitiesService;
  *         object and delegates to service classes for business processing
  */
 @Controller
-@RequestMapping("/utilities")
+@RequestMapping("/Utilities")
 public class UtilitiesController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UtilitiesController.class);
@@ -38,10 +39,7 @@ public class UtilitiesController {
 	@Autowired
 	private UtilitiesService utilitiesService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView welcome() {
-		return new ModelAndView("Utilities");
-	}
+	
 
 	/**
 	 * 
@@ -49,7 +47,7 @@ public class UtilitiesController {
 	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/saveUtilities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping( method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Utilities> saveOrUpdate(Utilities utilities) throws BusinessException{
 		logger.info("Controller: UtilitiesController Method : saveUtilities request processing started at : "
 				+ LocalDateTime.now());
@@ -66,7 +64,7 @@ public class UtilitiesController {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getAllUtilities", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping( method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Utilities>> getAll() {
 		logger.info("Controller: UtilitiesController Method : getAllUtilities request processing started at : "
 				+ LocalDateTime.now());
@@ -83,8 +81,8 @@ public class UtilitiesController {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value = "/getUtilitiesById")
-	public ResponseEntity getBlockById(@RequestParam(value = "utilityId") UUID utilityId) throws BusinessException{
+	@RequestMapping(value = "/{utilityId}")
+	public ResponseEntity getBlockById(@PathVariable("utilityId") UUID utilityId) throws BusinessException{
 		logger.info("Controller: UtilitiesController Method : getUtilitiesById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities utilities = new Utilities();
@@ -106,9 +104,9 @@ public class UtilitiesController {
 	 * @param utilityId
 	 * @return
 	 */
-	@RequestMapping(value = "/deleteUtilityById", method = RequestMethod.POST)
+	@RequestMapping(value = "/{utilityId}", method = RequestMethod.DELETE)
 
-	public ResponseEntity deleteUtilityById(@RequestParam(value = "utilityId") UUID utilityId) throws BusinessException {
+	public ResponseEntity deleteUtilityById(@PathVariable("utilityId") UUID utilityId) throws BusinessException {
 		logger.info("Controller: UtilitiesController Method : deleteUtilityById request processing started at : "
 				+ LocalDateTime.now());
 		Utilities utilities = new Utilities();

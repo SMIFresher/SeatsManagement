@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +20,7 @@
 </head>
 <body>
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="buildingDetails(); blockDetails(); FloorDetails(); seatDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -59,7 +58,7 @@
 								
 								<div class="form-group">
 									<label for="emp_id">Block</label>
-									<select name="blockID" ng-model="block"
+									<select name="blockID"  id="boid" ng-model="block"
 										class="form-control">
 										<option value="">Select Floor</option>
 										<option ng-repeat="block in getBlock | unique:'blockId' " value="{{block.blockId}}">
@@ -79,6 +78,8 @@
 								<label for="Seatoccupied">Seat Occupied:</label>  
 								<input type="text" class="form-control" id="seatoccupied" placeholder="Enter Occupied Seat"
 									name="seat_occupied">
+									<input type="hidden" class="form-control" id="seatoccupied" placeholder="Enter Occupied Seat"
+									name="systemOccupied" value="0">
 							</div>
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
