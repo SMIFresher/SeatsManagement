@@ -36,8 +36,9 @@ public class Reallocation implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID reallocationId;
 
-	@Column(name = "previous_block_id")
-	private UUID previousBlockId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "previous_block_id")
+	private Block previousBlock;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "reallocated_block_id")
@@ -82,17 +83,15 @@ public class Reallocation implements Serializable {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}	
+
+	public Block getPreviousblock() {
+		return previousBlock;
 	}
 
-	public UUID getPreviousBlockId() {
-		return previousBlockId;
+	public void setPreviousBlock(Block previousBlock) {
+		this.previousBlock = previousBlock;
 	}
-
-	public void setPreviousBlockId(UUID previousBlockId) {
-		this.previousBlockId = previousBlockId;
-	}
-
-	
 
 	public UUID getReallocationId() {
 		return reallocationId;

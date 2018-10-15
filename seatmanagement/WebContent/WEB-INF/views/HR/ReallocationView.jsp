@@ -41,7 +41,7 @@
 						<td style="display:none;">{{reall.employee.employeeId}}</td>
 						<td>{{reall.employee.employeeRoll}}</td>
 						<td>{{reall.employee.firstName}}</td>
-						<td>{{reall.previousBlockId}}</td>
+						<td>{{reall.previousblock.blockName}}</td>
 						<td value="{{reall.block.blockId}}">{{reall.block.blockName}}</td>
 						<td align="center"> 
 							<select>

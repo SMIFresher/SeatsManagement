@@ -30,7 +30,7 @@ public interface ReallocationService {
 	 * 
 	 * @param reallocation
 	 */
-	public void saveReallocation(Reallocation reallocation);
+	public void saveReallocation(UUID previousblockId,UUID employeeId,UUID blockId);
 
 	/**
 	 * 

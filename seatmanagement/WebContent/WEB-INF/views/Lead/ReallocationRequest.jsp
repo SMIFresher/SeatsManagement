@@ -37,30 +37,26 @@
         <a href="#step-2" type="button" class="btn  btn-circle" >2</a>
         <p>Step 2</p>
       </div>
-      <div class="stepwizard-step">
-        <a href="#step-3" type="button" class="btn btn-circle" >3</a>
-        <p>Step 3</p>
-      </div>
     </div>
   </div>
   
-  <form role="form" action="" method="post">
+  <form id="Form" ng-submit="leadRequests();">
     <div class="setup-content" id="step-1">
       <div class="col-md-12 ">
         <div class="col-md-12">
           <h3> Current Building ID</h3>
           	<label for="location">Building:</label>
           		<div>
-					<select name="building" ng-model="building" class="form-control"
-						ng-change="floorDetailsByBuilding(building)">
+					<select ng-model="previousbuilding" class="form-control"
+						ng-change="floorDetailsByBuilding(previousbuilding)">
 						<option value="">--Select Building--</option>
 						<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
 					</select>
 				</div>
 				<div class="form-group">
 					<label for="location">Floor:</label>
-					<select name="floorId" ng-model="floor"
-						class="form-control" ng-change="blockDetailsByFloor(floor)">
+					<select ng-model="previousfloor"
+						class="form-control" ng-change="blockDetailsByFloor(previousfloor)">
 						<option value="">--Select Floor--</option>
 						<option ng-repeat="floor in getFloor" value="{{floor.floorId}}">
 							{{floor.floorName}}</option>
@@ -68,7 +64,7 @@
 				</div>
 				<div class="form-group">
 					<label for="location">Block:</label>
-					<select name="blockId" ng-model="block"
+					<select name="previousblockId" ng-model="previousblock"
 						class="form-control" >
 						<option value="">--Select Block--</option>
 						<option ng-repeat="block in getBlock" value="{{block.blockId}}">
@@ -77,9 +73,9 @@
 				</div>
 				<div class="form-group">
 					<label>Employee Roll :</label><br>
-					<input class="form-control" list="browsers" name="browser">
+					<input class="form-control" list="browsers" name="employeeId">
 						<datalist  id="browsers">
-							<option ng-repeat="emp in getemp" value="{{emp.firstName}} ({{emp.employeeRoll}})"></option>
+							<option ng-repeat="emp in getemp" value="{{emp.employeeId}}">{{emp.firstName}} ({{emp.employeeRoll}})</option>
 						</datalist>
 				</div>
           <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
@@ -92,7 +88,7 @@
           <h3>Requested Building ID</h3>
           <label for="location">Building:</label>
           		<div>
-					<select name="building" ng-model="building" class="form-control"
+					<select ng-model="building" class="form-control"
 						ng-change="floorDetailsByBuilding(building)">
 						<option value="">--Select Building--</option>
 						<option ng-repeat="building in getBuilding" value="{{building.buildingId}}">{{building.buildingName}}</option>
@@ -100,7 +96,7 @@
 				</div>
 				<div class="form-group">
 					<label for="location">Floor:</label>
-					<select name="floorId" ng-model="floor"
+					<select ng-model="floor"
 						class="form-control" ng-change="blockDetailsByFloor(floor)">
 						<option value="">--Select Floor--</option>
 						<option ng-repeat="floor in getFloor" value="{{floor.floorId}}">
@@ -116,148 +112,13 @@
 							{{block.blockName}}</option>
 					</select>
 				</div>
-				<div class="form-group">
-					<label>Employee Roll :</label><br>
-					<input class="form-control" list="browsers" name="browser">
-						<datalist  id="browsers">
-							<option ng-repeat="emp in getemp" value="{{emp.firstName}} ({{emp.employeeRoll}})"></option>
-						</datalist>
-				</div>
-          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
-        </div>
-      </div>
-    </div>
-    <div class=" setup-content" id="step-3">
-      <div class="col-xs-12 col-md-offset-3">
-        <div class="col-md-12">
-          <h3> Review</h3>
-          <div class="form-group">
-            <label class="control-label">Current Building Name</label>
-            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-          </div>
-          <div class="form-group">
-            <label class="control-label">Requested Building Name</label>
-            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-          </div>
-          <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+          <button class="btn btn-primary nextBtn pull-right" type="submit" >Submit</button>
         </div>
       </div>
     </div>
   </form>
   
 </div>
-
-
-
-
-<!-- Models -->
-
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div class="row">
-          	<div class="col-sm-4 text-center">
-          		<h3>SMI I</h3>
-          		<p>SMI I floar architecture.....</p>
-          	</div>
-          	<div class="col-sm-8 cc">
-          		<div class="row text-center">
-          			<div class="col-sm-12 ">
-          				<div class="container flr">
-          					<h4>Flr 1</h4>
-
-          				</div>
-          				
-          			</div>
-          			<div class="col-sm-12 ">
-          				<a href="#"><div class="container flr">
-          					<h4>Flr 1</h4>
-          				</div></a>
-          				
-          			</div>
-          			<div class="col-sm-12 ">
-          				<div class="container flr">
-          					<h4>Flr 1</h4>
-          				</div>
-          				
-          			</div>
-          		</div>
-          	</div>
-          </div>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal fade" id="AddBuilding">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-         <form action="/addBuilding" autocomplete="off">
-        <div class="modal-header">
-          <h4 class="modal-title">Add Buliding</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-5">
-              <h4>Please give a building</h4>
-              <ul>
-                <li>Enter A Proper Name</li>
-                <li>Please Provide a Full Address</li>
-                <li>Location EX: - "Chennai Or Madurai"</li>
-              </ul>
-            </div>
-            <div class="col-md-7">
-              
-                  <div class="form-group">
-                    <label for="buildingName">Building Name :</label> <input
-                      type="text" class="form-control" id="buildingName"
-                      name="buildingName" required="required"
-                      placeholder="Building Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="address">Address:</label>
-                    <textarea class="form-control" rows="5" id="address"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="location">Building Name :</label> <input type="text"
-                      class="form-control" id="location" name="location"
-                      required="required" placeholder="Location">
-                  </div>
-               
-            </div>
-          </div>
-           
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success" >Add Building</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
 </div>
 <script src="/seatmanagement/js/AngulerController.js"></script>
 </body>

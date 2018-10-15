@@ -2,6 +2,7 @@ package com.seatmanagement.service.impl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.ReallocationDao;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
+import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.Reallocation;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.service.ReallocationService;
@@ -31,6 +34,9 @@ import com.seatmanagement.service.ReallocationService;
 public class ReallocationServiceImpl implements ReallocationService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReallocationServiceImpl.class);
+	
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+	LocalDate localDate = LocalDate.now();
 
 	@Autowired
 	private ReallocationDao reallocationDao;
@@ -54,10 +60,24 @@ public class ReallocationServiceImpl implements ReallocationService {
 	}
 
 	@Override
-	public void saveReallocation(Reallocation reallocation) {
+	public void saveReallocation(UUID previousblockId,UUID employeeId,UUID blockId) {
 
 		logger.info("Service: ReallocationServiceImpl Method : saveReallocation started at : " + LocalDateTime.now());
-
+		
+		Reallocation reallocation=new Reallocation();
+		Employee employee=new Employee();
+		employee=(Employee) genericDao.getById(employee, employeeId);
+		Block block=new Block();
+		block=(Block) genericDao.getById(block, blockId);
+		Block previousBlock=new Block();
+		previousBlock=(Block) genericDao.getById(block, previousblockId);
+		
+		reallocation.setEmployee(employee);
+		reallocation.setBlock(block);
+		reallocation.setPreviousBlock(previousBlock);
+		reallocation.setReallocationStatus("Pending");
+		reallocation.setReallocationRequestedDate(localDate);
+		
 		genericDao.saveOrUpdate(reallocation);
 
 		logger.info("Service: ReallocationServiceImpl Method : saveReallocation ended at : " + LocalDateTime.now());

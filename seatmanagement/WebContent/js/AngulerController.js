@@ -335,6 +335,28 @@ app.controller('workplaceManagementController', function($scope, $http) {
 			});
 		}
 	}
+	
+	/**
+	 * Save LeadRequests
+	 */
+	$scope.leadRequests = function(){ 
+		console.log($("#Form").serialize());
+		 $http({
+		        url: '/seatmanagement/Reallocations',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+	        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
+	            }
+		    })
+		    .then(function(response) {
+		    	$scope.deviceDetails();
+		    	doModal("Information","Request Sent Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
 
 	
 	 

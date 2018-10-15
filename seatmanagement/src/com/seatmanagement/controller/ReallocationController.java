@@ -82,21 +82,21 @@ public class ReallocationController {
 	 * @return ModelAndView
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity saveReallocation( Reallocation reallocation) {
+	public ResponseEntity saveReallocation(@RequestParam UUID employeeId,@RequestParam UUID blockId,@RequestParam UUID previousblockId) throws BusinessException {
 
-		logger.info("Controller: ReallocationController Method : saveReallocation request processing started at : "
+		logger.info("Controller: BlockController Method : saveBlock request processing started at : "
 				+ LocalDateTime.now());
-
-		ResponseEntity model = null;
-
-		model = new ResponseEntity(HttpStatus.OK);
-
-		reallocationService.saveReallocation(reallocation);
-
-		logger.info("Controller: ReallocationController Method : saveReallocation response sent at : "
-				+ LocalDateTime.now());
-
-		return model;
+		
+		ResponseEntity responseEntity = null;
+		
+		/*if (Objects.isNull(reallocation)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		} */
+		reallocationService.saveReallocation(previousblockId,employeeId,blockId);
+		responseEntity = new ResponseEntity(HttpStatus.OK);
+		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
+		return responseEntity;
+		
 	}
 
 	
