@@ -226,11 +226,11 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-12 text-center">
-              <h3>Are You Soure</h3>
+              <h3>Are You Sure</h3>
               
               <p>Do You Want To save This Details</p>
               <form id="Form" ng-submit="saveCabins();">
-              	<input type="text" id="saveDetails" name="seating_details">
+              	<input type="hidden" id="saveDetails" name="seating_details">
              
 				<input type="submit" value="Submit" class="btn btn-primary"/>
               </form>

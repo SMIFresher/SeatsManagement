@@ -18,7 +18,7 @@
 <body>
 	
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" id="additinal" ng-init="deviceDetails(); systemDetails(); employeeDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController" id="additinal" ng-init="AdditionaldeviceDetails(); systemDetails(); employeeDetails();">
 <jsp:include page="nav.jsp"></jsp:include>
 
 <br><br><br><br><br>
@@ -32,7 +32,7 @@
 					<div class="col-md-12">
 
 						<h2>System</h2>
-						<form id="Form" method="post" onsubmit="formSubmit();" autocomplete="off">
+						<form id="Form" method="post" ng-submit="saveSystems();" autocomplete="off">
 							<div class="form-group">
 								<label for="pwd">System Name:</label> 
 								<input type="hidden" class="form-control" id="systemId"  name="systemId">
@@ -173,7 +173,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-			<form id="Form1" method="post" onsubmit="formSubmitEmp();" autocomplete="off">
+			<form id="Form1" method="post" ng-submit="assignSystems();" autocomplete="off">
 				<div class="form-group">
                    		<label for="systemId">System Id </label>
 							<select class="custom-select mb-3" name="systemId" id="systemName">
@@ -234,41 +234,7 @@
 
 
  <script type="text/javascript">
-function formSubmit(){
-	
-	console.log("Serialised Form : " + $("#Form").serialize());
-
- $.ajax({
-     url:'/seatmanagement/systems/saveOrUpdateSystem',
-     method : 'POST',
-     data: $("#Form").serialize(),
-     async:false,
-     success: function (data) {
-   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("/seatmanagement/systems/addSystem");
-    }
- 	
-});
-}
-
-function formSubmitEmp(){
-	
-	console.log("Serialised Form : " + $("#Form1").serialize());
-
- $.ajax({
-     url:'/seatmanagement/systems/assignEmployee',
-     method : 'POST',
-     data: $("#Form1").serialize(),
-     async:false,
-     success: function (data) {
-   $('#result').html("<br><div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a> <strong>Success!</strong> successful Inserted</div>");
-            location.replace("/seatmanagement/systems/addSystem");
-    }
- 	
-});
-}
-
-                   
+                
 $('.table tbody').on('click', '.deleteBtn', function() {
 	var currow = $(this).closest('tr');
 	 systemId = currow.find('td:eq(0)').text();

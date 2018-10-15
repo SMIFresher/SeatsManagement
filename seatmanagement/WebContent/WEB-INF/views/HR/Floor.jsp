@@ -30,10 +30,10 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form id="Form" method="post" ng-submit="saveFloors();" enctype="multipart/form-data">
+						<form id="Form" method="post"  enctype="multipart/form-data" action="/seatmanagement/Floors/save">
 							<div class="form-group">
 								<label for="location">Building Name </label>
-									<select class="custom-select mb-3"  id="bid">
+									<select class="custom-select mb-3"  id="bid" name="buildingId">
 										<option ng-repeat="build in getBuilding" value="{{build.buildingId}}">{{build.buildingName}}</option>
 									</select>
 

@@ -49,9 +49,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes" })
-	@RequestMapping(value="/{buildingId}",method = RequestMethod.POST)
-	
-	public ResponseEntity saveOrUpdateFloor( Floor floor,@PathVariable("buildingId") UUID buildingId,@PathVariable("file") MultipartFile image) throws BusinessException {
+	@RequestMapping(value="/save",method = RequestMethod.POST)
+	public ResponseEntity saveOrUpdateFloor( Floor floor,@RequestParam("buildingId") UUID buildingId,@RequestParam("file") MultipartFile image) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : saveFloor request processing started at : "
 				+ LocalDateTime.now());
@@ -64,7 +63,7 @@ public class FloorController {
 
 		//return "redirect:/floor/floorSave/";
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "/seatmanagement/Floor/ViewFloors");    
+		headers.add("Location", "/seatmanagement/Floors/ViewFloors");    
 		return new ResponseEntity<String>(headers,HttpStatus.FOUND);
 	}
 
