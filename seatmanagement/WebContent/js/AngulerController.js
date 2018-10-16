@@ -184,7 +184,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	 $scope.assignSystems = function(){ 
 		 $http({
-		        url: '/seatmanagement/Systems/assignEmployee',
+		        url: '/seatmanagement/Systems/Employee',
 		        method: "POST",
 		        data: $("#Form1").serialize(),
 	        headers : {
@@ -479,7 +479,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor by Building ID
      */
     $scope.floorDetailsByBuilding=function(buildingId){
-        $http.get("/seatmanagement/Floors/floorsByBuildingId/"+buildingId)
+        $http.get("/seatmanagement/Floors/floor/"+buildingId)
         .then(function successCallback(response) {
             $scope.getFloor= response.data;
             console.log(response.data);
@@ -522,7 +522,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      */
     $scope.blockDetailsByFloor=function(floor){
     
-		$http.get("/seatmanagement/Blocks/BlocksByBlockType?block_type=Cabins&floor_id="+floor)
+		$http.get("/seatmanagement/Blocks/BlockType?block_type=Cabins&floor_id="+floor)
         .then(function successCallback(response) {
             $scope.getBlock = response.data;
             console.log(response.data);
@@ -547,7 +547,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Team Details By Team ID
      */
     $scope.TeamDetailsById = function(teamId) {
-	    $http.get("/seatmanagement/Teams/"+teamId)
+	    $http.get("/seatmanagement/Teams/teamId/"+teamId)
 	    .then(function(response) {
 	        $scope.teamsDetails = response.data;
 	        console.log(response.data);
@@ -586,7 +586,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get All Dashboard Count
      */
     $scope.dashboardCount = function() {
-	    $http.get("/seatmanagement/Dashboards/dashboardCount")
+	    $http.get("/seatmanagement/Dashboards/dashboard")
 	    .then(function successCallback(response) {
 	        $scope.getCountDatas = response.data[0];
 	        console.log(response.data);
@@ -596,10 +596,10 @@ app.controller('workplaceManagementController', function($scope, $http) {
     };
     
     /**
-     * Company Details Count
+     * Company Details Count in Dashboard
      */
     $scope.companyDetailsCount = function() {
-	    $http.get("/seatmanagement/Dashboards/companyDetailsCount")
+	    $http.get("/seatmanagement/Dashboards/company")
 	    .then(function successCallback(response) {
 	        $scope.getCompDetails = response.data;
 	        console.log(response.data);
@@ -611,10 +611,10 @@ app.controller('workplaceManagementController', function($scope, $http) {
     };
     
      /**
-     * get All Floor Details Count BuildingId
+     * get All Floor Details Count BuildingId in Dashboard
      */
     $scope.getFloor = function(buildingId){ 
-	    $http.get("/seatmanagement/Dashboards/floorDetailsCount/"+buildingId)
+	    $http.get("/seatmanagement/Dashboards/floor/"+buildingId)
 	        .then(function successCallback(response) {
 	            $scope.getFloorDetails = response.data;
 	            console.log(response.data);
@@ -623,10 +623,10 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	        });
 	};
 	/**
-	 * get All Block Details Count FloorId
+	 * get All Block Details Count FloorId in Dashboard
 	 */
 	$scope.getBlock=function(floorId){
-		$http.get("/seatmanagement/Dashboards/blockDetailsCount/"+floorId)
+		$http.get("/seatmanagement/Dashboards/block/"+floorId)
         .then(function successCallback(response) {
             $scope.getBlockDetails = response.data;
             console.log(response.data);
@@ -637,10 +637,10 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	};
     
     /**
-     * get All OS Count
+     * get All OS Count in Dashboard
      */
     $scope.osDetailsCount = function() {
-	    $http.get("/seatmanagement/Dashboards/osCount ")
+	    $http.get("/seatmanagement/Dashboards/os ")
 	    .then(function successCallback(response) {
 	        $scope.getOsDetails = response.data;
 	        console.log(response.data);
@@ -685,7 +685,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Image
      */
     $scope.getImages = function(floorId) {
-        $http.get("/seatmanagement/Floors/getImage?floorId="+floorId)
+        $http.get("/seatmanagement/Floors/Image?floorId="+floorId)
         .then(function successCallback(response) {
             $scope.getImage = response.data;
             console.log(response.data);
@@ -834,7 +834,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	$scope.deleteTeam = function(teamId){ 
 		 $http({
-		        url: '/seatmanagement/Teams/'+teamId,
+		        url: '/seatmanagement/Teams//deleteTeam'+teamId,
 		        method: "DELETE",
 		        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'

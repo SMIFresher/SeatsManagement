@@ -95,8 +95,8 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value="/AllSeatingWithAxisByFloor/{floorId}",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> allSeatingWithAxisByFloor(@PathVariable("floorId") UUID floorId)
+	@RequestMapping(value="/floorAxis/{floorId}",method = RequestMethod.GET)
+	public ResponseEntity<List<Object>> floorAxis(@PathVariable("floorId") UUID floorId)
 			throws BusinessException {
 		ResponseEntity responseEntity = null;
 		logger.info(
@@ -118,8 +118,8 @@ public class SeatingController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/seatingWithAxisByFloorLead/{floorId}",method = RequestMethod.GET)
-	public ResponseEntity<List<Object>> seatingWithAxisByFloorLead(@PathVariable("floorId") UUID floorId)
+	@RequestMapping(value="/floorLeadAxis/{floorId}",method = RequestMethod.GET)
+	public ResponseEntity<List<Object>> floorLeadAxis(@PathVariable("floorId") UUID floorId)
 			throws BusinessException {
 		ResponseEntity responseEntity = null;
 		logger.info(
@@ -171,7 +171,7 @@ public class SeatingController {
 	 * @return
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value="/seatingview",method = RequestMethod.GET)
+	@RequestMapping(value="/ViewSeating",method = RequestMethod.GET)
 	public ModelAndView getSeatingView(@RequestParam(value="floorId") String floorId) throws BusinessException {
 		logger.info("Controller: SeatingController Method : getSeatingView request processing started at : "
 				+ LocalDateTime.now());

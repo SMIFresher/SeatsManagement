@@ -98,7 +98,7 @@
 		          				<div class="erase float-sm-right">
 		          					<h5><span onclick="location.replace('/seatmanagement/Floors/ModifyFloors')" class="fa fa-cog"></span></h5>
 		          				</div>
-		          				<a href="/seatmanagement/Blocks/blockViews?floorId={{flr.floorId}}">
+		          				<a href="/seatmanagement/Blocks/ViewBlocks?floorId={{flr.floorId}}">
 	          					<br>
 								<h4>{{flr.floorName}}</h4>
 								</a>

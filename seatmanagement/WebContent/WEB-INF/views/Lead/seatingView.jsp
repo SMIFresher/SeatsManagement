@@ -135,7 +135,7 @@ function gett(){
               var notes
               var response = '';
               $.ajax({ type: "GET",   
-                       url: "/seatmanagement/Seatings/seatingWithAxisByFloorLead/floorId="+gett(),   
+                       url: "/seatmanagement/Seatings/floorLeadAxis/floorId="+gett(),   
                        async: false,
                        success : function(text)
                        {

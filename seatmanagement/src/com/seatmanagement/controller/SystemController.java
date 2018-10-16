@@ -101,7 +101,7 @@ public class SystemController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value="/assignEmployee",method=RequestMethod.POST )
+	@RequestMapping(value="/Employee",method=RequestMethod.POST )
 	public ResponseEntity<Systems> saveOrUpdateSystems1(Systems system, 
 			@RequestParam(value="systemId" , required=true) UUID systemId,
 			@RequestParam(value="employeeId" , required=true) UUID employeeId,

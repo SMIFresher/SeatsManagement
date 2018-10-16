@@ -172,7 +172,7 @@ public class BuildingController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/ViewAndEditBuildings")
+	@RequestMapping(value = "/ViewBuildings")
 	public ModelAndView getBuildingViewAndEdit() {
 		logger.info("Controller: BuildingController Method : getBuildingViewAndEdit request processing started at : "
 				+ LocalDateTime.now());

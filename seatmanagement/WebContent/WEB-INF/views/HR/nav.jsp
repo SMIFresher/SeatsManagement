@@ -37,8 +37,8 @@
 	<ul class="list-unstyled components">
 		<li><a href="/seatmanagement/Hr/index" class="fa fa-home"> Home</a></li>
 		<li><a href="/seatmanagement/Reallocations/Reallocationview" class="fa fa-home"> Reallocation</a></li>
-		<li><a href="/seatmanagement/Organisations/ViewAndEditOrganisations"class="fa fa-sitemap"> Organisation</a></li>
-		<li><a href="/seatmanagement/Buildings/ViewAndEditBuildings" class="fa fa-building"> Manage Buildings</a></li>
+		<li><a href="/seatmanagement/Organisations/ViewOrganisations"class="fa fa-sitemap"> Organisation</a></li>
+		<li><a href="/seatmanagement/Buildings/ViewBuildings" class="fa fa-building"> Manage Buildings</a></li>
 
 		<li class="active"><a href="#Employee"
 			data-toggle="collapse" aria-expanded="false" class="dropdown-toggle fa fa-users"> Employee </a>

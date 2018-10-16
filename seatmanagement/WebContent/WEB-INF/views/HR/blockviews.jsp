@@ -138,7 +138,7 @@
 												</h5>
 											</div>
 											<a
-												href="/seatmanagement/Seating/getSeatingView?floorId={{flr.floorId}}">
+												href="/seatmanagement/Seatings/ViewSeating?floorId={{flr.floorId}}">
 												<br>
 												<h4>{{flr.floorName}}</h4>
 											</a>

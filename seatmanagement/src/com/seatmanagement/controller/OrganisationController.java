@@ -76,35 +76,7 @@ public class OrganisationController {
 
 		return model;
 	}
-	/**
-	 * 
-	 * @param organisation
-	 * @return ResponseEntity
-	 * @throws BusinessException
-	 *//*
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity updateOrganisation(@ModelAttribute Organisation organisation) throws BusinessException {
-
-		logger.info("Controller: OrganisationController Method : updateOrganisation request processing started at : "
-				+ LocalDateTime.now());
-
-		ResponseEntity model = null;
-		String status = null;
-
-		if (Objects.isNull(organisation)) {
-			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-		}
-
-		organisationService.updateOrganisation(organisation);
-
-		model = new ResponseEntity(HttpStatus.OK);
-
-		logger.info("Controller: OrganisationController Method : updateOrganisation response sent at : "
-				+ LocalDateTime.now());
-
-		return model;
-	}
-*/
+	
 
 	/**
 	 * 
@@ -193,7 +165,7 @@ public class OrganisationController {
 	 * 
 	 * @return ModelAndView
 	 */
-	@RequestMapping(value="/ViewAndEditOrganisations")
+	@RequestMapping(value="/ViewOrganisations")
 	public ModelAndView getOrganisationView() {
 
 		logger.info("Controller: OrganisationController Method : getOrganisationView request processing started at : "

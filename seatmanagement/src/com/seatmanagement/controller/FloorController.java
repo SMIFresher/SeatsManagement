@@ -130,8 +130,8 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/floorsByBuildingId/{buildingId}",method = RequestMethod.GET)
-	public ResponseEntity floorsByBuildingId(@PathVariable ("buildingId") UUID buildingId)
+	@RequestMapping(value="/floor/{buildingId}",method = RequestMethod.GET)
+	public ResponseEntity floor(@PathVariable ("buildingId") UUID buildingId)
 			throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorsByBuildingId request processing started at : "
@@ -205,7 +205,7 @@ public class FloorController {
 	 * @param floorId
 	 * @return
 	 */
-	@RequestMapping(value="/getImage")
+	@RequestMapping(value="/Image")
 	 public ResponseEntity getImagePath(@RequestParam UUID floorId) {
 	  return new ResponseEntity(floorService.getFloorImage(floorId.toString()),HttpStatus.OK);
 	 }

@@ -93,8 +93,8 @@ public class TeamController {
 	 * @throws BusinessException
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value="/TeamById/{teamId}",method=RequestMethod.GET)
-	public ResponseEntity TeamById(@PathVariable("teamId") UUID teamId) throws BusinessException {
+	@RequestMapping(value="/teamId/{teamId}",method=RequestMethod.GET)
+	public ResponseEntity teamId(@PathVariable("teamId") UUID teamId) throws BusinessException {
 
 		logger.info("Controller: TeamController Method : getTeamById request processing started at : "
 				+ LocalDateTime.now());
@@ -121,7 +121,7 @@ public class TeamController {
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value="/deleteTeamById/{teamId}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/deleteTeam/{teamId}", method = RequestMethod.DELETE)
 	public ResponseEntity deleteTeamById(@PathVariable("teamId") UUID teamId) throws BusinessException {
 
 		logger.info("Controller: TeamController Method : deleteTeam request processing started at : "

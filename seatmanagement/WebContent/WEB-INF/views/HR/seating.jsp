@@ -35,7 +35,7 @@
 
 						<h2>Assign Seating </h2>
 						<p>Please set Location For the particular Block </p>
-						<a href="/seatmanagement/Seatings/seatingview?floorId=${id}"><button class="btn  btn-info">Block View</button></a>
+						<a href="/seatmanagement/Seatings/ViewSeating?floorId=${id}"><button class="btn  btn-info">Block View</button></a>
 						<hr>
 						
 						<form method="post" id="Form"  ng-submit="saveSeats();">

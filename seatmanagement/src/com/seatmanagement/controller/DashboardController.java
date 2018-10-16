@@ -38,7 +38,7 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/dashboardCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> dashboardCount() {
 		logger.info("Controller: DashboardController Method : getAllDashboardCount request processing started at : "
 				+ LocalDateTime.now());
@@ -49,7 +49,7 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/companyDetailsCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/company", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> companyDetailsCount() {
 		logger.info(
 				"Controller: DashboardController Method : getAllCompanyDetailsCount request processing started at : "
@@ -62,7 +62,7 @@ public class DashboardController {
 	 * @param buildingId
 	 * @return
 	 */
-	@RequestMapping(value = "/floorDetailsCount/{buildingId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/floor/{buildingId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> floorDetailsCount(@PathVariable("buildingId") UUID buildingId) {
 
 		logger.info("Controller: DashboardController Method : getAllFloorDetailsCount request processing started at : "
@@ -75,7 +75,7 @@ public class DashboardController {
 	 * @param floorId
 	 * @return
 	 */
-	@RequestMapping(value = "/blockDetailsCount/{floorId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/block/{floorId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> blockDetailsCount(@PathVariable("floorId") UUID floorId) {
 
 		logger.info("Controller: DashboardController Method : getAllFloorDetailsCount request processing started at : "
@@ -87,7 +87,7 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/osCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/os", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Object>> osCount() {
 		logger.info("Controller: DashboardController Method : getAllOsCount request processing started at : "
 				+ LocalDateTime.now());
