@@ -86,17 +86,10 @@ public class OrganisationServiceImpl implements OrganisationService {
 		logger.info(
 				"Service: OrganisationServiceImpl Method : deleteOrganisationById started at : " + LocalDateTime.now());
 
-		Organisation organisation = (Organisation) genericDao.getById(new Organisation(), organisationId);
-
-		// Scenario 1 : Organisation does not exist
-		if (Objects.isNull(organisation)) {
-			throw new ApplicationException("Organisation record not found");
-		}
-		// Scenario 2 : Organisation exists
-		else {
-
-			genericDao.delete(organisation);
-		}
+		Organisation organisation = new Organisation();
+		organisation.setOrganisationId(organisationId);
+		
+		genericDao.delete(organisation);
 
 		logger.info(
 				"Service: OrganisationServiceImpl Method : deleteOrganisationById ended at : " + LocalDateTime.now());
