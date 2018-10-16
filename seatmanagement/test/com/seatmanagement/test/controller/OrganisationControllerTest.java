@@ -1,16 +1,22 @@
 package com.seatmanagement.test.controller;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +27,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.util.NestedServletException;
 
-@ActiveProfiles("development")
+import com.seatmanagement.dao.GenericDao;
+import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Organisation;
+
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @RunWith(JUnitPlatform.class)
 @ContextConfiguration("file:WebContent/WEB-INF/Application-Context.xml")
@@ -42,45 +53,38 @@ public class OrganisationControllerTest  {
 	@Autowired
 	private WebApplicationContext wac;
 	
+	@Autowired
+	private GenericDao genericDaoMock;
+	
 	private MockMvc mockMvc;
 	
 	@BeforeEach
 	public void setup() throws Exception {
+		Mockito.reset(genericDaoMock);
 	    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
-	/*@Test
+	@Test
 	public void saveOrganisationTest() {
 		try {
-
-			CloseableHttpClient client = HttpClients.createDefault();
+			Mockito.when(genericDaoMock.saveOrUpdate(any(Organisation.class))).thenReturn(new Organisation());
+			mockMvc.perform(post("/Organisations").param("organisationName", "Test Organisation"));
 			
-		    HttpPost httpPost = new HttpPost(BASE_URL+"/saveOrganisation");
-		    List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		    params.add(new BasicNameValuePair("organisationName", "Save Organisation Test"));
-		    httpPost.setEntity(new UrlEncodedFormEntity(params));
-		    httpPost.setHeader(REQUEST_TYPE, REQUEST_TYPE_AJAX);
-		    
-		    CloseableHttpResponse response = client.execute(httpPost);
-		    
-		    String responseBody = EntityUtils.toString(response.getEntity());
-		    
-		    assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
-		    
-		    client.close();
 		} catch (Exception e) {
 			fail(e.getMessage());
 
 			e.printStackTrace();
 		}
-	}*/
+	}
 
+	@Disabled
 	@Test
 	public void saveOrganisationNotEmptyValidationTest() {
 		try {
-			mockMvc.perform(post("/Organisations").param("organisationName", "")).andDo(print())
-		      .andExpect(status().isOk()).andExpect(content().string("BusinessException"));
-			 
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {mockMvc.perform(post("/Organisations").param("organisationName", ""));});
+			BusinessException rootException = (BusinessException) ExceptionUtils.getRootCause(thrown);
+			
+			assertThat(rootException, instanceOf(BusinessException.class));
 		} catch (Exception e) {
 			fail(e.getMessage());
 
