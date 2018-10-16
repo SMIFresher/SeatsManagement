@@ -16,7 +16,7 @@
 	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-<div id=block ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="blockDetails();">
+<div id=block ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="blockDetails(); UtilitiesDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -24,7 +24,7 @@
 <br><br><br><br><br>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 border">
+			<div class="col-md-3 border">
 				<br>
 				<div class="row">
 					<div class="col-md-12">
@@ -33,7 +33,7 @@
 						<form id="Form" method="post" ng-submit="saveBlocks();" autocomplete="off">
 						
 							<div class="form-group">
-								<label for="pwd">Block Id:</label> <input type="text"
+								<input type="hidden"
 									class="form-control" id="bid" placeholder="Enter Block Id"
 									name="blockId">									
 							</div>
@@ -62,10 +62,23 @@
 										<input type="text"
 									class="form-control" id="btype" placeholder="Enter Block Type"
 									name="blockType" >
-									</div>
-							<input type="text"
+							</div>
+							<div class="form-group">
+								<label>Utility :</label>
+								<div ng-repeat="utilities in getUtilities">
+										<input type="checkbox" id="utility" name="utilityList" 
+										value="{{utilities.utilityId}}"> {{utilities.utilityName}}
+								 	</div>
+							</div>
+							<div class="form-group">
+								<label for="floorId">Floor Id:</label>  <input type="text" readonly="readonly"
+									class="form-control" id="floor_Id" placeholder="Enter Floor Id"
+									name="floorId">
+							</div>
+							<!-- <input type="hidden" value="{{block.floor.floorId}}" name="floorId" id="flrId"> -->
+							<!-- <input type="text"
 									class="form-control" id="fid"
-									name="floorId" hidden="">
+									name="floorId" hidden=""> -->
 									
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
@@ -75,7 +88,7 @@
 				</div>
 				<br>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-9">
 				<div class="col-sm-12 bg-primary text-white">
 							<br>
 							<h4>Block Details</h4>
@@ -85,13 +98,12 @@
 
 					<table class="table table-hover">
 						<thead>
-							
 							<td>Block Name</td>
 							<td>Block Capacity</td>
 							<td>Block Description</td>
 							<td>Block Measurement</td>
 							<td>Block Type</td>
-							
+							<td>Utilities</td>
 							<td align="center">Process</td>
 						</thead>
 						<tbody>
@@ -102,8 +114,12 @@
 								<td>{{block.blockDescription}}</td>
 								<td>{{block.blockMeasurement}}</td>
 								<td>{{block.blockType}}</td>
-								
-								<td style="display:none;">{{block.floor.floorId}}</td>
+								<td align="center" > 
+									<select>
+							<option ng-repeat="utilities in block.utilities">{{utilities.utilityName}}</option>
+									</select>
+								</td>
+								<td style="display: none;">{{block.floor.floorId}}</td>
 								
 								
 								<td align="center">
@@ -116,7 +132,7 @@
 		</div>
 		<div ng-include="'/seatmanagement/models/search.html'"></div>
 	</div>
-
+</div>
 
 
 
@@ -130,15 +146,16 @@
 	var  col5=currow.find('td:eq(4)').text();
 	var  col6=currow.find('td:eq(5)').text();
 	var  col7=currow.find('td:eq(6)').text();
+	var  col8=currow.find('td:eq(7)').text();
 	
-	 document.getElementById('bid').value=col1;
+	document.getElementById('bid').value=col1;
     document.getElementById('bname').value=col2;
     document.getElementById('bcap').value=col3;
     document.getElementById('bdes').value=col4;
     document.getElementById('bmes').value=col5;
 	document.getElementById('btype').value=col6;
-	document.getElementById('fid').value=col7;
-	
+	document.getElementById('utility').value=col7;
+	document.getElementById('floor_Id').value=col8;
   })
 
 </script>

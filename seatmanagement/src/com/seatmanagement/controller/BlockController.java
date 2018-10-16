@@ -65,7 +65,7 @@ public class BlockController {
 		ResponseEntity responseEntity = null;
 		if (Objects.isNull(block) || Objects.isNull(floorId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-		} 
+		}
 		blockService.saveOrUpdate(block, floorId, utilitiesUUIDs);
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
