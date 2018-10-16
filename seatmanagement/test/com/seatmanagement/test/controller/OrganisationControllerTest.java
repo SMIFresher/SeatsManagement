@@ -5,18 +5,25 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.contains;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +32,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
@@ -77,7 +85,6 @@ public class OrganisationControllerTest  {
 		}
 	}
 
-	@Disabled
 	@Test
 	public void saveOrganisationNotEmptyValidationTest() {
 		try {
@@ -92,25 +99,14 @@ public class OrganisationControllerTest  {
 		}
 	}
 	
-	/*@Test
+	@Test
 	public void saveOrganisationWithoutRequestParamTest() {
 		try {
 
-			CloseableHttpClient client = HttpClients.createDefault();
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {mockMvc.perform(post("/Organisations").param("organisationName", ""));});
+			BusinessException rootException = (BusinessException) ExceptionUtils.getRootCause(thrown);
 			
-		    HttpPost httpPost = new HttpPost(BASE_URL+"/saveOrganisation");
-		    httpPost.setHeader(REQUEST_TYPE, REQUEST_TYPE_AJAX);
-		    
-		    CloseableHttpResponse response = client.execute(httpPost);
-		    
-		    String responseBody = EntityUtils.toString(response.getEntity());
-		    
-		    assertThat(response.getStatusLine().getStatusCode(), equalTo(500));
-		    assertThat(responseBody, containsString("Organisation name can not be empty"));
-		    assertThat(responseBody, containsString("Organisation name can not be null"));
-		    assertThat(responseBody, containsString("\"ERROR_CODE\":9000"));
-		    
-		    client.close();
+			assertThat(rootException, instanceOf(BusinessException.class));
 		} catch (Exception e) {
 			fail(e.getMessage());
 
@@ -121,16 +117,7 @@ public class OrganisationControllerTest  {
 	@Test
 	public void getOrganisationViewTest() {
 		try {
-			CloseableHttpClient client = HttpClients.createDefault();
-			
-		    HttpPost httpPost = new HttpPost(BASE_URL+"/getOrganisationView");
-		    
-		    CloseableHttpResponse response = client.execute(httpPost);
-		    
-		    assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
-		    
-		    client.close();
-
+			mockMvc.perform(get("/Organisations/ViewAndEditOrganisations").param("organisationName", "Test Organisation")).andExpect(view().name("/HR/Organisation"));
 		} catch (Exception e) {
 			fail(e.getMessage());
 
@@ -141,20 +128,28 @@ public class OrganisationControllerTest  {
 	@Test
 	public void getAllOrganisationsNormalFlowTest() {
 		try {
-			CloseableHttpClient client = HttpClients.createDefault();
+			// Dao Configurations
+			List<Organisation> organisations = new ArrayList<Organisation>();
 			
-		    HttpPost httpPost = new HttpPost(BASE_URL+"/getAllOrganisations");
-		    httpPost.setHeader(REQUEST_TYPE, REQUEST_TYPE_AJAX);
-		    
-		    CloseableHttpResponse response = client.execute(httpPost);
-		    
-		    String responseBody = EntityUtils.toString(response.getEntity());
-		    List organisationList = new Gson().fromJson(responseBody, List.class);
-		    
-		    assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
-		    assertThat(organisationList.size(), is(2));
-		    
-		    client.close();
+			Organisation organisation = new Organisation();
+			organisation.setOrganisationName("Test Organisation");
+			
+			organisations.add(organisation);
+			
+			Mockito.when(genericDaoMock.getAll(any(Organisation.class))).thenReturn(organisations);
+			
+			mockMvc.perform(get("/Organisations").
+					param("organisationName", "Test Organisation")).
+					andDo(print()).andExpect(status().isOk())
+					.andExpect(jsonPath("$.[*].organisationName", containsInAnyOrder("Test Organisation")));
+		/*	
+            .andExpect(jsonPath("$.organisations[*].path", containsInAnyOrder("title", "description")))
+            .andExpect(jsonPath("$.fieldErrors[*].message", containsInAnyOrder(
+                    "The maximum length of the description is 500 characters.",
+                    "The maximum length of the title is 100 characters."
+            )));
+			
+			String mvcResult.getResponse();*/
 		} catch (Exception e) {
 			fail(e.getMessage());
 
@@ -162,7 +157,7 @@ public class OrganisationControllerTest  {
 		}
 	}
 
-	@Test
+	/*@Test
 	public void deleteOrganisationByIdNormalFlowTest() {
 		try {
 			CloseableHttpClient client = HttpClients.createDefault();
