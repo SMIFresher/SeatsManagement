@@ -344,3 +344,7 @@ ALTER TABLE `seatmanagement`.`seating_detail` ADD COLUMN `seating_colum` VARCHAR
 
 ALTER TABLE `seatmanagement`.`seating_detail` DROP COLUMN `seatingSystemNo`;
 ALTER TABLE `seatmanagement`.`seating_detail` ADD COLUMN `seating_system_no` VARCHAR(45) NULL AFTER `seating_row`;
+
+#16/10/18
+ALTER TABLE `seatmanagement`.`employee` 
+ADD UNIQUE INDEX `employee_roll_UNIQUE` (`employee_roll` ASC);

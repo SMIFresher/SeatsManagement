@@ -857,7 +857,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	$scope.deleteEmployee = function(employeeId){ 
 		 $http({
 		        url: '/seatmanagement/Employees/'+employeeId,
-		        method: "GET",
+		        method: "DELETE",
 		        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'
 	            }

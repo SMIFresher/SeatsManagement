@@ -114,7 +114,10 @@
 						<td>{{emp.organisation.organisationName}}</td>
 						<td>{{emp.team.teamName}}</td>
 						<td align="center">
-							<button type="submit" class="btn btn-danger deleteBtn" ng-click="deleteEmployee(emp.employeeId)">Delete</button>
+							<form method="post" >
+								<input type="hidden" name="employeeId" value="{{emp.employeeId}}">
+								<button  class="btn btn-danger" ng-click="deleteEmployee(emp.employeeId);">Delete</button>
+							</form>
 						</td>
 						<td style="display:none;">{{emp.employeeId}}</td>
 						</tr>
