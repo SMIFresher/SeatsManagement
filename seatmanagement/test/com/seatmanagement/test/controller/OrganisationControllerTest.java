@@ -40,6 +40,7 @@ import org.springframework.web.util.NestedServletException;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.exception.SpringMVCStandardException;
 import com.seatmanagement.model.Organisation;
 
 @ActiveProfiles("test")
@@ -87,7 +88,7 @@ public class OrganisationControllerTest {
 	}
 
 	@Test
-	public void saveOrganisationDAOExceptionTest() {
+	public void saveOrganisationDatabaseExceptionTest() {
 		try {
 
 			// DAO Configuration
@@ -159,20 +160,38 @@ public class OrganisationControllerTest {
 	@Test
 	public void getAllOrganisationsNormalFlowTest() {
 		try {
-			// Dao Configurations
+			// DAO Configurations
 			List<Organisation> organisations = new ArrayList<Organisation>();
-
 			Organisation organisation = new Organisation();
 			organisation.setOrganisationName("Test Organisation");
-
 			organisations.add(organisation);
-
 			Mockito.when(genericDaoMock.getAll(any(Organisation.class))).thenReturn(organisations);
 
 			mockMvc.perform(get("/Organisations").param("organisationName", "Test Organisation")).andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.[*].organisationName", containsInAnyOrder("Test Organisation")));
 
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getAllOrganisationsDatabaseExceptionTest() {
+		try {
+			// DAO Configurations
+			ApplicationException applicationException = new ApplicationException(
+					"Error while retreiving records from Organisation");
+			Mockito.when(genericDaoMock.getAll(any(Organisation.class))).thenThrow(applicationException);
+
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+				mockMvc.perform(get("/Organisations")).andDo(print());
+			});
+			
+			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+			assertEquals("Error while retreiving records from Organisation", rootException.getMessage());
 		} catch (Exception e) {
 			fail(e.getMessage());
 
@@ -199,7 +218,7 @@ public class OrganisationControllerTest {
 	@Test
 	public void deleteOrganisationByIdDatabaseExceptionTest() {
 		try {
-			// Database Configuration
+			// DAO Configuration
 			ApplicationException applicationException = new ApplicationException(
 					"Error while deleting records in Organisation");
 			Mockito.when(genericDaoMock.delete(any(Organisation.class))).thenThrow(applicationException);
@@ -217,6 +236,5 @@ public class OrganisationControllerTest {
 			e.printStackTrace();
 		}
 	}
-
-	// Must write test case for delete request param validation
+	
 }
