@@ -18,7 +18,7 @@
 <body>
 
 
-<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="OrganisationDetails(); employeeDetails(); TeamDetails();">
+<div ng-app="workplaceManagement" ng-controller="workplaceManagementController"  ng-init="OrganisationDetails(); employeeDetails(); teamDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>
@@ -65,7 +65,7 @@
 							 <div class="form-group">
 		                   		
 								<label for="organisation">Organisation </label>
-									<select class="custom-select mb-3 organisationId" id="orgid" >
+									<select class="custom-select mb-3 organisationId" id="orgid" name="organisationId">
 										<option ng-repeat="organisation1 in getOrg" value="{{organisation1.organisationId}}">{{organisation1.organisationName}}</option>
 									</select>
 								

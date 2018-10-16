@@ -45,10 +45,10 @@ public class Reallocation implements Serializable {
 	private Block block;
 	
 	@Column(name = "reallocation_requested_date")
-	private LocalDate reallocationRequestedDate;
+	private String reallocationRequestedDate;
 	
 	@Column(name = "reallocated_date")
-	private LocalDate reallocatedDate;
+	private String reallocatedDate;
 	
 	@Column(name = "reallocation_status")
 	private String reallocationStatus;
@@ -61,19 +61,19 @@ public class Reallocation implements Serializable {
 	private Employee employee;
 
 	
-	public LocalDate getReallocationRequestedDate() {
+	public String getReallocationRequestedDate() {
 		return reallocationRequestedDate;
 	}
 
-	public void setReallocationRequestedDate(LocalDate reallocationRequestedDate) {
+	public void setReallocationRequestedDate(String reallocationRequestedDate) {
 		this.reallocationRequestedDate = reallocationRequestedDate;
 	}
 
-	public LocalDate getReallocatedDate() {
+	public String getReallocatedDate() {
 		return reallocatedDate;
 	}
 
-	public void setReallocatedDate(LocalDate reallocatedDate) {
+	public void setReallocatedDate(String reallocatedDate) {
 		this.reallocatedDate = reallocatedDate;
 	}
 

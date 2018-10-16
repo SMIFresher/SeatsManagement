@@ -350,7 +350,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.deviceDetails();
+		    	location.replace("/seatmanagement/Reallocations/Reallocationlead");
 		    	doModal("Information","Request Sent Successfully....!");
 		    }, 
 			function(response) { // optional

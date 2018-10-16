@@ -36,7 +36,7 @@ public class ReallocationServiceImpl implements ReallocationService {
 	private static final Logger logger = LoggerFactory.getLogger(ReallocationServiceImpl.class);
 	
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
-	LocalDate localDate = LocalDate.now();
+	String localDate = LocalDate.now().toString();
 
 	@Autowired
 	private ReallocationDao reallocationDao;

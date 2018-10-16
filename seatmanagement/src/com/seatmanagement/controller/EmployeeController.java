@@ -51,7 +51,7 @@ public class EmployeeController {
 		return responseEntity;
 	}
 
-	@RequestMapping(value="/{teamId}/{organisationId}",method=RequestMethod.POST)
+	@RequestMapping(value="/{organisationId}/{teamId}",method=RequestMethod.POST)
 	public ResponseEntity saveEmployeeWithTeam(Employee employee, @PathVariable( "teamId") UUID teamId,
 			@PathVariable( "organisationId") UUID organisationId) throws BusinessException {
 	

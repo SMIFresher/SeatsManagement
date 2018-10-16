@@ -31,10 +31,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		logger.info("Service: EmployeeServiceImpl Method : saveEmployee started at : " + LocalDateTime.now());
 		
 		Team team=new Team();
-		team.setTeamId(team_id);
+		team=(Team) genericDao.getById(team, team_id);
+		
 		
 		Organisation organisation = new Organisation();
-		organisation.setOrganisationId(organisationId);
+		organisation=(Organisation) genericDao.getById(organisation, organisationId);
 		
 		employee.setTeam(team);
 		employee.setOrganisation(organisation);

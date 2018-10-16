@@ -32,7 +32,7 @@
 							<td>Previous Block</td>
 							<td>Assigned Block</td>
 							<td>Approved Date</td>
-							<td>Alloted by</td>
+							<td>Approved by</td>
 							<td>Status</td>
 						</thead>
 						
@@ -40,7 +40,7 @@
 						<tr ng-repeat="reall in getAllReallocation" align="left">
 							<td>{{reall.employee.employeeRoll}}</td>
 							<td>{{reall.employee.firstName}}</td>
-							<td>{{reall.previousBlockId}}</td>
+							<td>{{reall.previousblock.blockName}}</td>
 							<td style="display: none;">{{reall.block.blockId}}</td>
 							<td>{{reall.block.blockName}}</td>
 							<td>{{reall.reallocatedDate}}</td>
