@@ -97,7 +97,7 @@ public class FloorController {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/{floorId}",method = RequestMethod.GET)
+	@RequestMapping(value="/getFloorById/{floorId}",method = RequestMethod.GET)
 	public ResponseEntity getFloorById(@PathVariable("floorId") UUID floorId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getFloorById request processing started at : "
