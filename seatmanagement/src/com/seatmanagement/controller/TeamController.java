@@ -4,16 +4,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Team;
@@ -43,8 +49,8 @@ public class TeamController {
 	 * @return ResponseEntity
 	 * @throws BusinessException
 	 */
-	@RequestMapping(value="/{organisationId}", method = RequestMethod.POST)
-	public ResponseEntity saveTeam(Team team, @PathVariable(value = "organisationId") UUID organisationId)
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity saveTeam(@RequestParam(value = "organisationId") UUID organisationId, @Valid Team team, Errors errors)
 			throws BusinessException {
 
 		logger.info(
@@ -52,8 +58,9 @@ public class TeamController {
 
 		ResponseEntity model = null;
 
-		if (Objects.isNull(team)) {
-			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		// Validation
+		if (errors.hasErrors()) {
+			throw new BusinessException(errors);
 		}
 
 		teamService.saveTeam(team, organisationId);

@@ -253,7 +253,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 		 var team = $("#ogid").val();
 			console.log(team);
 		 $http({
-		        url: '/seatmanagement/Teams/'+team,
+		        url: '/seatmanagement/Teams',
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {

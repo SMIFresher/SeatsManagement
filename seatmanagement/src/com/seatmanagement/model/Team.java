@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -38,6 +40,8 @@ public class Team implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID teamId;
 
+	@NotNull(message = "Please set a Team Name")
+	@NotEmpty(message = "Team Name can not be empty")
 	@Column(name = "team_name")
 	private String teamName;
 

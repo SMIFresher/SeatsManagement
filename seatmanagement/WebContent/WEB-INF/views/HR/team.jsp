@@ -43,7 +43,7 @@
 							<div class="form-group">
 								<label for="teamHeadDesignation">TeamHead Designation </label>
 								<select class="custom-select mb-3" ng-model="designation" ng-change="onDesignationChange()" name="teamHeadDesignation">
-									<option value="PROJECT MANAGER">PROJECT MAMANGER</option>
+									<option value="PROJECT MANAGER">PROJECT MANAGER</option>
 									<option value="TECH LEADER">TECH LEADER</option>
 									<option value="TEAM LEADER">TEAM LEADER</option>
 								</select>
