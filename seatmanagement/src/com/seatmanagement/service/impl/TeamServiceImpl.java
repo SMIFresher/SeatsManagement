@@ -55,7 +55,7 @@ public class TeamServiceImpl implements TeamService {
 		teamHead = (Employee) genericDao.getById(teamHead, team.getTeamHeadEmployeeId());
 
 		if (Objects.isNull(teamHead)) {
-			throw new BusinessException("Employee (Teamhead) Record not found");
+			throw new ApplicationException("Employee (Teamhead) Record not found");
 		}
 
 		team.setTeamHead(teamHead.getFirstName());
