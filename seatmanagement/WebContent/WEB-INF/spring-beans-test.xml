@@ -101,10 +101,6 @@
 		<bean id="seatingDetailsService"
 			class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 		</bean>
-
-		<!-- <bean id="genericDaoMock"
-			class="com.seatmanagement.test.daomock.GenericDaoMockForOrganisation">
-		</bean> -->
 		
 		<bean id="genericDao" name="genericDao" class="org.mockito.Mockito" factory-method="mock">
  	       <constructor-arg value="com.seatmanagement.dao.impl.GenericDaoImpl"/>
