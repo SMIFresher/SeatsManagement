@@ -186,7 +186,7 @@ public class BlockController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/ModifyBlocks",method = RequestMethod.GET)
+	@RequestMapping(value = "/ModifyBlock",method = RequestMethod.GET)
 	public ModelAndView getModifyBuilding() {
 		logger.info("Controller: BlockController Method : getModifyBlock request processing started at : "
 				+ LocalDateTime.now());

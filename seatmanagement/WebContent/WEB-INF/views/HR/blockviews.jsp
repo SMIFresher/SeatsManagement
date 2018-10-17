@@ -50,7 +50,7 @@
 					    	<br><br><br><br>
 		
 						     <label><b>Floor Map View</b></label><br>
-		             <a href="/seatmanagement/Seatings/seatingview?floorId=${id}"><button class="btn btn-primary">Floor View</button></a>
+		             <a href="/seatmanagement/Seatings/ViewSeating?floorId=${id}"><button class="btn btn-primary">Floor View</button></a>
 			    	</div>
 			</div>
 		</div>
