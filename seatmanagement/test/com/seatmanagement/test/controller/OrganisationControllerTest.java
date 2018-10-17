@@ -52,13 +52,7 @@ public class OrganisationControllerTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(OrganisationControllerTest.class);
 
-	private static final String HOST = "localhost";
-	private static final String PORT = "8080";
-	private static final String MODULE = "organisation";
-	private static final String WEBAPP = "seatmanagement";
-	private static final String BASE_URL = "http://" + HOST + ":" + PORT + "/" + WEBAPP + "/" + MODULE + "";
-	private static final String REQUEST_TYPE = "requestType";
-	private static final String REQUEST_TYPE_AJAX = "AJAX";
+	private static final String MODULE = "Organisations";
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -78,7 +72,7 @@ public class OrganisationControllerTest {
 	public void saveOrganisationTest() {
 		try {
 			Mockito.when(genericDaoMock.saveOrUpdate(any(Organisation.class))).thenReturn(new Organisation());
-			mockMvc.perform(post("/Organisations").param("organisationName", "Test Organisation"))
+			mockMvc.perform(post("/"+MODULE).param("organisationName", "Test Organisation"))
 				.andDo(print())
 				.andExpect(status().isOk());
 
@@ -99,7 +93,7 @@ public class OrganisationControllerTest {
 			Mockito.when(genericDaoMock.saveOrUpdate(any(Organisation.class))).thenThrow(applicationException);
 
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-				mockMvc.perform(post("/Organisations").param("organisationName", "Test Organisation"));
+				mockMvc.perform(post("/"+MODULE).param("organisationName", "Test Organisation"));
 			});
 
 			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
@@ -117,7 +111,7 @@ public class OrganisationControllerTest {
 	public void saveOrganisationNotEmptyValidationTest() {
 		try {
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-				mockMvc.perform(post("/Organisations").param("organisationName", ""));
+				mockMvc.perform(post("/"+MODULE).param("organisationName", ""));
 			});
 			BusinessException rootException = (BusinessException) ExceptionUtils.getRootCause(thrown);
 
@@ -134,7 +128,7 @@ public class OrganisationControllerTest {
 		try {
 
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-				mockMvc.perform(post("/Organisations"));
+				mockMvc.perform(post("/"+MODULE));
 			});
 			BusinessException rootException = (BusinessException) ExceptionUtils.getRootCause(thrown);
 
@@ -150,7 +144,7 @@ public class OrganisationControllerTest {
 	public void getOrganisationViewTest() {
 		try {
 			mockMvc.perform(
-					get("/Organisations/ViewOrganisations"))
+					get("/"+MODULE+"/ViewOrganisations"))
 					.andExpect(status().isOk()).andExpect(view().name("/HR/Organisation"));
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -169,7 +163,7 @@ public class OrganisationControllerTest {
 			organisations.add(organisation);
 			Mockito.when(genericDaoMock.getAll(any(Organisation.class))).thenReturn(organisations);
 
-			mockMvc.perform(get("/Organisations").param("organisationName", "Test Organisation")).andDo(print())
+			mockMvc.perform(get("/"+MODULE).param("organisationName", "Test Organisation")).andDo(print())
 					.andExpect(status().isOk())
 					.andExpect(jsonPath("$.[*].organisationName", containsInAnyOrder("Test Organisation")));
 
@@ -189,7 +183,7 @@ public class OrganisationControllerTest {
 			Mockito.when(genericDaoMock.getAll(any(Organisation.class))).thenThrow(applicationException);
 
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-				mockMvc.perform(get("/Organisations")).andDo(print());
+				mockMvc.perform(get("/"+MODULE)).andDo(print());
 			});
 			
 			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
@@ -207,7 +201,7 @@ public class OrganisationControllerTest {
 			// DAO Configuration
 			Mockito.when(genericDaoMock.delete(any(Organisation.class))).thenReturn(true);
 
-			mockMvc.perform(delete("/Organisations/47ba4710-20a5-4546-9fbd-b1ead0f3cfb8"))
+			mockMvc.perform(delete("/"+MODULE+"/47ba4710-20a5-4546-9fbd-b1ead0f3cfb8"))
 					.andDo(print()).andExpect(status().isOk());
 
 		} catch (Exception e) {
@@ -226,7 +220,7 @@ public class OrganisationControllerTest {
 			Mockito.when(genericDaoMock.delete(any(Organisation.class))).thenThrow(applicationException);
 			
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-				mockMvc.perform(delete("/Organisations/47ba4710-20a5-4546-9fbd-b1ead0f3cfb8"));
+				mockMvc.perform(delete("/"+MODULE+"/47ba4710-20a5-4546-9fbd-b1ead0f3cfb8"));
 			});
 			
 			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
