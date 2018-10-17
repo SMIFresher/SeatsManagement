@@ -111,7 +111,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		Employee employee=new Employee();
 		
 		seating = genericdaoSeating.getById(seating, seatingId);
-		int old_count = seating.getSystemOccupied();
+		//int old_count = seating.getSystemOccupied();
 		block=seating.getBlock();
 		int block_capacity = Integer.parseInt(block.getBlockCapacity());
 		int new_count = 0,seat_occupied=0;
@@ -121,8 +121,9 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 				new_count++;
 			}
 		}
-		int total_count = old_count + new_count;
-		if (total_count <= block_capacity) {
+		//int total_count = old_count + new_count;
+		//if (total_count <= block_capacity) {
+		if (new_count <= block_capacity) {
 			for (SeatingDetails sd : seatingDetails) {
 				String systemName = sd.getSeatingSystemNo().trim();
 				if (!(sd.getSeatingSystemNo().trim().equalsIgnoreCase("Emptydesk") || sd.getSeatingSystemNo().trim().equalsIgnoreCase("Exit"))) {	
@@ -134,10 +135,10 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 				sd.setSystem(system);
 				}
 				sd.setSeating(seating);
-				genericDaoSeatingDetails.saveOrUpdate(sd);
+ 				genericDaoSeatingDetails.saveOrUpdate(sd);
 			}
 				seating.setSeat_occupied(seat_occupied);
-				seating.setSystemOccupied(total_count);
+				seating.setSystemOccupied(new_count);
 				genericdaoSeating.saveOrUpdate(seating);
 		}
 		/*
@@ -153,7 +154,7 @@ public class SeatingDetailsServiceImpl implements SeatingDetailsService {
 		 */
 		else {
 			// throw exception
-			throw new ApplicationException("Error while saving");
+			throw new ApplicationException("Maximum Seat capacity in this block: "+block_capacity);
 		}
 		 
 		 
