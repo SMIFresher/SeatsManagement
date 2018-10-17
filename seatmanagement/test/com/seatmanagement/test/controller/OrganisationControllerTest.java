@@ -78,7 +78,9 @@ public class OrganisationControllerTest {
 	public void saveOrganisationTest() {
 		try {
 			Mockito.when(genericDaoMock.saveOrUpdate(any(Organisation.class))).thenReturn(new Organisation());
-			mockMvc.perform(post("/Organisations").param("organisationName", "Test Organisation"));
+			mockMvc.perform(post("/Organisations").param("organisationName", "Test Organisation"))
+				.andDo(print())
+				.andExpect(status().isOk());
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -148,7 +150,7 @@ public class OrganisationControllerTest {
 	public void getOrganisationViewTest() {
 		try {
 			mockMvc.perform(
-					get("/Organisations/ViewAndEditOrganisations").param("organisationName", "Test Organisation"))
+					get("/Organisations/ViewOrganisations"))
 					.andExpect(status().isOk()).andExpect(view().name("/HR/Organisation"));
 		} catch (Exception e) {
 			fail(e.getMessage());
