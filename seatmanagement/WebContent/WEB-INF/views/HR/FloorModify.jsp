@@ -34,7 +34,7 @@
 					<div class="col-md-12">
 
 						<h2>Floor</h2>
-						<form id="Form" method="post" ng-submit="saveFloors();" autocomplete="off">
+						<form id="Form" method="post"  enctype="multipart/form-data" action="/seatmanagement/Floors/save">
 							<div class="form-group">
 								<label for="pwd">Floor Id:</label> <input type="text"
 									class="form-control" id="fid" placeholder="Enter Floor Id"
@@ -57,7 +57,11 @@
 							<input type="text"
 									class="form-control" id="bid"
 									name="buildingId" hidden="">
-
+							 <div class="custom-file mb-3">
+							 		<label for="ftype">Floor Map:</label>
+     							 <input type="file" class="custom-file-input" id="customFile" name="file">
+    							  <label class="custom-file-label" for="customFile">Choose file</label>
+   							 </div>
 							<button type="submit" class="btn btn-success">Submit</button>
 						</form>
 
