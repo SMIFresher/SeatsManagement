@@ -834,7 +834,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	 */
 	$scope.deleteTeam = function(teamId){ 
 		 $http({
-		        url: '/seatmanagement/Teams/deleteTeam'+teamId,
+		        url: '/seatmanagement/Teams/deleteTeam/'+teamId,
 		        method: "DELETE",
 		        headers : {
 	                'Content-Type' : 'application/x-www-form-urlencoded'
