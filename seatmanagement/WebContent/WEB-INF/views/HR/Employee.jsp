@@ -70,7 +70,7 @@
 									</select>
 								
 
-								<label for="team">Team Name </label>
+								<label for="team">Team Name (Optional) </label>
 									<select class="custom-select mb-3 teamId" id="teamid" name="teamId">
 										<option ng-repeat="team1 in getteam" value="{{team1.teamId}}">{{team1.teamName}}</option>
 									</select>

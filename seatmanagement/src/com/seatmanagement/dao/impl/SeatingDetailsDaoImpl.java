@@ -62,7 +62,6 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		
 		SeatingDetails seatingDetails = null;
 		DetachedCriteria criteria = DetachedCriteria.forClass(SeatingDetails.class);
-		criteria.createAlias("seating", "seating", CriteriaSpecification.INNER_JOIN);
 		criteria.add(Restrictions.eq("seating.seatingId", seating_id));
 		
 		try {
@@ -139,6 +138,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		logger.info("DAO: SeatingDetailsDaoImpl Method : deleteByIdInBatch ended at : " + LocalDateTime.now());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SeatingDetails> getSeatingDetailsBySeatingId(UUID seatingId) {
 		logger.info(
@@ -149,6 +149,8 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 
 		criteria.createAlias("seating", "seating");
 		criteria.add(Restrictions.eq("seating.seatingId", seatingId));
+		//criteria.add(Restrictions.eq("seating.systemId", seatingId));
+		criteria.createAlias("system", "system", CriteriaSpecification.LEFT_JOIN);
 		seatingDetailsList = (List<SeatingDetails>) hibernateTemplate.findByCriteria(criteria);
 
 		logger.info(

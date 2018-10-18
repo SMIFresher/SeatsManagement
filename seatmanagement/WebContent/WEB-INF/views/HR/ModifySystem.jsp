@@ -16,7 +16,7 @@
 	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body >
-<div  ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="deviceDetails(); systemDetails();">
+<div  ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="AdditionaldeviceDetails(); systemDetails();">
 	
 <!-- Nav Bar -->
 <jsp:include page="nav.jsp"></jsp:include>

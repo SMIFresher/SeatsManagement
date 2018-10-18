@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.AdditionalDevice;
 import com.seatmanagement.model.Employee;
@@ -139,10 +140,15 @@ public class SystemServiceImpl implements SystemService {
 	public Systems getSystemBySystemName(String systemName) {
 
 		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName started at : " + LocalDateTime.now());
-
-		List<Systems> systemList = systemDao.getSystemId(systemName.trim());
-		Systems system = systemList.get(0);
-
+		
+		Systems system;
+		try {
+		List<Systems> systemList = systemDao.getSystemId(systemName);
+		system = systemList.get(0);
+		}
+		catch(Exception e) {
+			throw new ApplicationException("can't retrive system details");		
+		}
 		logger.info("Service: SystemServiceImpl Method : getSystemBySystemName ended at : " + LocalDateTime.now());
 		return system;
 	}

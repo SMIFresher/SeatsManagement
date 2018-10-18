@@ -184,9 +184,9 @@
               <br>
               <p><b>System Number :</b>{{DetailsSystems.systemName}}
               <br> <b>System Type :</b>{{DetailsSystems.systemType}} <br> 
-              <b>System Oprating System :</b>{{DetailsSystems.operatingSystem}}</p>
+              <b>Operating System :</b>{{DetailsSystems.operatingSystem}}</p>
               
-              <b>Additinal Device</b>
+              <b>Additional Device</b>
               <ul ng-repeat="device in DetailsSystems.additionalDevice">
               	<li>{{device.device_name}}</li>
               </ul>
