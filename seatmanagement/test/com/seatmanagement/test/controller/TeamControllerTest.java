@@ -1,21 +1,28 @@
 package com.seatmanagement.test.controller;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,10 +37,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
 
+import com.google.gson.Gson;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
@@ -95,15 +104,11 @@ public class TeamControllerTest {
 			teamHead.setEmployeeId(teamHeadId);
 			teamHead.setFirstName("Team_Head_First_Name");
 			
-			/*Mockito.when(genericDaoMock.saveOrUpdate(any(Team.class))).thenReturn(team);
-			Mockito.when(genericDaoMock.saveOrUpdate(any(Employee.class))).thenReturn(teamHead);*/
-			
+			// Mockito Configuration
 			Mockito.when(genericDaoMock.getById(any(Employee.class), any(UUID.class))).thenReturn(teamHead);
 			when(genericDaoMock.saveOrUpdate(any(Object.class)))
 			   .thenReturn(team)
 			   .thenReturn(teamHead);
-			
-			/**/
 			
 			// Start Test
 			mockMvc.perform(post("/"+MODULE)
@@ -348,6 +353,46 @@ public class TeamControllerTest {
 			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
 			assertThat(rootException, instanceOf(ApplicationException.class));
 			assertEquals("Error while saving Employee", rootException.getMessage());
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getAllNormalFlowTest() {
+		try {
+			
+			//DAO Configuration
+			
+			// TeamHead Configuration
+			Employee employee = new Employee();
+			employee.setFirstName("First_Name_Test");
+			
+			// Team Configuration
+			Team team = new Team();
+			Set<Employee> employees = new HashSet<Employee>();
+			employees.add(employee);
+			team.setEmployees(employees);
+			team.setTeamName("Team_Name_Test");
+			
+			List<Team> teams = new ArrayList<Team>();
+			teams.add(team);
+			
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.getAll(any(Team.class))).thenReturn(teams);
+			
+			
+			// Start Test
+			MvcResult result = mockMvc.perform(get("/"+MODULE)).andDo(print())
+				.andExpect(status().isOk()).andReturn();
+		
+			// asserts
+			String teamsResponseString = result.getResponse().getContentAsString();
+			List<Team> teamsResponse = new Gson().fromJson(teamsResponseString, List.class);
+			assertThat(teamsResponse, not(IsEmptyCollection.empty()));
+			
 		} catch (Exception e) {
 			fail(e.getMessage());
 
