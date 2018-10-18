@@ -6,6 +6,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -92,9 +95,15 @@ public class TeamControllerTest {
 			teamHead.setEmployeeId(teamHeadId);
 			teamHead.setFirstName("Team_Head_First_Name");
 			
+			/*Mockito.when(genericDaoMock.saveOrUpdate(any(Team.class))).thenReturn(team);
+			Mockito.when(genericDaoMock.saveOrUpdate(any(Employee.class))).thenReturn(teamHead);*/
+			
 			Mockito.when(genericDaoMock.getById(any(Employee.class), any(UUID.class))).thenReturn(teamHead);
-			Mockito.when(genericDaoMock.saveOrUpdate(any(Team.class))).thenReturn(team);
-			Mockito.when(genericDaoMock.saveOrUpdate(any(Employee.class))).thenReturn(teamHead);
+			when(genericDaoMock.saveOrUpdate(any(Object.class)))
+			   .thenReturn(team)
+			   .thenReturn(teamHead);
+			
+			/**/
 			
 			// Start Test
 			mockMvc.perform(post("/"+MODULE)
@@ -286,7 +295,7 @@ public class TeamControllerTest {
 		}
 	}
 	
-	/*@Test
+	@Test
 	public void saveTeamDatabaseExceptionWhileSavingTeamHeadTest() {
 		try {
 			// Request Params
@@ -295,7 +304,7 @@ public class TeamControllerTest {
 			String teamName = "Test_Team_Name";
 			
 			// Application Exception Configuration
-			ApplicationException applicationException = new ApplicationException("Error while saving team");
+			ApplicationException applicationException = new ApplicationException("Error while saving Employee");
 			
 			//DAO Configuration
 			
@@ -321,8 +330,11 @@ public class TeamControllerTest {
 			
 			// Mockito Configuration
 			Mockito.when(genericDaoMock.getById(any(Employee.class), any(UUID.class))).thenReturn(teamHead);
-			Mockito.when(genericDaoMock.saveOrUpdate(any(Team.class))).thenReturn(team);
-			Mockito.when(genericDaoMock.saveOrUpdate(any(Employee.class))).thenThrow(applicationException);
+			
+			when(genericDaoMock.saveOrUpdate(any(Object.class)))
+			   .thenReturn(team)
+			   .thenThrow(applicationException);
+			
 			
 			// Start Test
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
@@ -335,11 +347,11 @@ public class TeamControllerTest {
 			// asserts
 			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
 			assertThat(rootException, instanceOf(ApplicationException.class));
-			assertEquals("Error while saving team", rootException.getMessage());
+			assertEquals("Error while saving Employee", rootException.getMessage());
 		} catch (Exception e) {
 			fail(e.getMessage());
 
 			e.printStackTrace();
 		}
-	}*/
+	}
 }
