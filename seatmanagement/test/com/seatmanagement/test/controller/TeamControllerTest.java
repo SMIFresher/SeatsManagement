@@ -2,18 +2,18 @@ package com.seatmanagement.test.controller;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -483,6 +483,85 @@ public class TeamControllerTest {
 			assertThat(rootException, instanceOf(ApplicationException.class));
 			assertEquals("Error while retreiving records from Team", rootException.getMessage());
 			
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void deleteTeamByIdNormalFlowTest() {
+		try {
+			
+			//Request Params
+			String teamIdString = "7a82d67e-d24c-4ef7-8241-f9cb225703de";
+						
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.delete(any(Team.class))).thenReturn(true);
+			
+			// Start Test
+			mockMvc.perform(delete("/"+MODULE+"/deleteTeam/"+teamIdString)).andDo(print())
+				.andExpect(status().isOk());
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void deleteTeamByIdDatabaseExceptionTest() {
+		try {
+			//Request Params
+			String teamIdString = "7a82d67e-d24c-4ef7-8241-f9cb225703de";
+
+			// DAO Configuration
+
+			// Application Exception Configuration
+			ApplicationException applicationException = new ApplicationException(
+					"Error while deleting record from Team");
+						
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.delete(any(Team.class))).thenThrow(applicationException);
+			
+			// Start Test
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+				mockMvc.perform(delete("/"+MODULE+"/deleteTeam/"+teamIdString));
+			});
+			
+			// asserts
+			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+			assertThat(rootException, instanceOf(ApplicationException.class));
+			assertEquals("Error while deleting record from Team", rootException.getMessage());
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getTeamViewNormalFlowTest() {
+		try {
+			mockMvc.perform(
+					get("/"+MODULE+"/TeamView"))
+					.andExpect(status().isOk()).andExpect(view().name("HR/team"));
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getTeamTBNormalFlowTest() {
+		try {
+			mockMvc.perform(
+					get("/"+MODULE+"/TeamTB"))
+					.andExpect(status().isOk()).andExpect(view().name("Curds/TeamTbCURD"));
 		} catch (Exception e) {
 			fail(e.getMessage());
 
