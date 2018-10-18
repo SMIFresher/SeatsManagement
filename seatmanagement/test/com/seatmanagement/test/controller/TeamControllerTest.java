@@ -399,4 +399,94 @@ public class TeamControllerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void getAllNoTeamInDatabaseTest() {
+		try {
+			
+			//DAO Configuration
+			
+			List<Team> teams = new ArrayList<Team>();
+			
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.getAll(any(Team.class))).thenReturn(teams);
+			
+			
+			// Start Test
+			MvcResult result = mockMvc.perform(get("/"+MODULE)).andDo(print())
+				.andExpect(status().isOk()).andReturn();
+		
+			// asserts
+			String teamsResponseString = result.getResponse().getContentAsString();
+			List<Team> teamsResponse = new Gson().fromJson(teamsResponseString, List.class);
+			assertThat(teamsResponse, IsEmptyCollection.empty());
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getAllTeamWithNoEmployeeTest() {
+		try {
+			
+			//DAO Configuration
+			
+			// Team Configuration
+			Team team = new Team();
+			team.setTeamName("Team_Name_Test");
+			
+			List<Team> teams = new ArrayList<Team>();
+			teams.add(team);
+			
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.getAll(any(Team.class))).thenReturn(teams);
+			
+			
+			// Start Test
+			MvcResult result = mockMvc.perform(get("/"+MODULE)).andDo(print())
+				.andExpect(status().isOk()).andReturn();
+		
+			// asserts
+			String teamsResponseString = result.getResponse().getContentAsString();
+			List<Team> teamsResponse = new Gson().fromJson(teamsResponseString, List.class);
+			assertThat(teamsResponse, not(IsEmptyCollection.empty()));
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void getAllDatabaseExceptionTest() {
+		try {
+			
+			//DAO Configuration
+			
+			// Application Exception Configuration
+			ApplicationException applicationException = new ApplicationException("Error while retreiving records from Team");
+			
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.getAll(any(Team.class))).thenThrow(applicationException);
+			
+			// Start Test
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+				mockMvc.perform(get("/"+MODULE));
+			});
+		
+			// asserts
+			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+			assertThat(rootException, instanceOf(ApplicationException.class));
+			assertEquals("Error while retreiving records from Team", rootException.getMessage());
+			
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
 }
