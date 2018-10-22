@@ -3,9 +3,14 @@ package com.seatmanagement.service.impl;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,10 +177,20 @@ public class SystemServiceImpl implements SystemService {
 
 		Systems system = new Systems();
 		List<Systems> list = systemDao.getAllAvailableSystems(system);
+		 List<Systems> distinctElements = list.stream()
+                 .filter( distinctByKey(p -> p.getSystemId()) )
+                 .collect( Collectors.toList() );
+		 
 
 		logger.info("Service: SystemServiceImpl Method : getAllAvailableSystems ended at : " + LocalDateTime.now());
-		return list;
+		return distinctElements;
 	}
+	
+	public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)
+    {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 
 	@SuppressWarnings("unchecked")
 	@Override
