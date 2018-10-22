@@ -232,14 +232,15 @@ public class FloorController {
 	 * @return ModelAndView
 	 * @throws BusinessException
 	 */
-
-	@RequestMapping(value = "/ModifyFloors")
-	public ModelAndView getModifyFloor() throws BusinessException {
+	@RequestMapping(value = "/ModifyFloors/{buildingId}", method=RequestMethod.GET)
+	public ModelAndView getModifyFloor(@PathVariable UUID buildingId) throws BusinessException {
 
 		logger.info("Controller: FloorController Method : getModifyFloor request processing started at : "
 				+ LocalDateTime.now());
 
 		ModelAndView model = new ModelAndView("/HR/FloorModify");
+		
+		model.addObject("buildingId", buildingId);
 
 		logger.info("Controller: FloorController Method : getModifyFloor response sent at : " + LocalDateTime.now());
 

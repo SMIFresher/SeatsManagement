@@ -488,6 +488,21 @@ app.controller('workplaceManagementController', function($scope, $http) {
              
         });
     };
+    
+    /**
+     * get Floor by Building ID
+     */
+    $scope.floorDetailsByBuildingFromHidden=function(buildingId){
+    	buildingId = $("#buildingIdForFloorModify").val();
+        $http.get("/seatmanagement/Floors/floor/"+buildingId)
+        .then(function successCallback(response) {
+            $scope.getFloor= response.data;
+            console.log(response.data);
+           
+        }, function errorCallback(response) {
+             
+        });
+    };
 
     
     /**
@@ -695,6 +710,10 @@ app.controller('workplaceManagementController', function($scope, $http) {
             doModal('Some Error',response.data.ERROR_MESSAGE);
         });
      };
+     
+     $scope.getModifyFloorView = function(buildingId){ 
+    	 location.replace("/seatmanagement/Floors/ModifyFloors/" +buildingId);
+ 	};
 
 
     /**

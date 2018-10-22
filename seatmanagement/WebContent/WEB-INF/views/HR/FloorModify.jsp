@@ -16,7 +16,8 @@
 	<script src="/seatmanagement/js/ajaxConfig.js"></script>
 </head>
 <body>
-<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="floorDetailsByBuilding(); buildingDetails(); ">
+<input type="text" hidden="hidden" value="${buildingId}" id="buildingIdForFloorModify">
+<div id="floor" ng-app="workplaceManagement" ng-controller="workplaceManagementController" ng-init="floorDetailsByBuildingFromHidden(); buildingDetails(); ">
 	<!-- Nav Bar -->
 	<jsp:include page="nav.jsp"></jsp:include>
 

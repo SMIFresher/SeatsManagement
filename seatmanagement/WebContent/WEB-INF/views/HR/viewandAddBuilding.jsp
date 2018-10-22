@@ -96,7 +96,7 @@
 	          				
 	          				<div class="container flr">
 		          				<div class="erase float-sm-right">
-		          					<h5><span onclick="location.replace('/seatmanagement/Floors/ModifyFloors')" class="fa fa-cog"></span></h5>
+		          					<h5><span ng-click="getModifyFloorView(flr.building.buildingId)" class="fa fa-cog"></span></h5>
 		          				</div>
 		          				<a href="/seatmanagement/Blocks/ViewBlocks?floorId={{flr.floorId}}">
 	          					<br>
