@@ -122,8 +122,8 @@
 			class="com.seatmanagement.service.impl.ReallocationServiceImpl">
 		</bean>
 
-		<bean id="reallocationDao"
-			class="com.seatmanagement.dao.impl.ReallocationDaoImpl">
+		<bean id="reallocationDao" name="reallocationDao" class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg value="com.seatmanagement.dao.impl.ReallocationDaoImpl"/>
 		</bean>
 
 		<bean id="organisationService"

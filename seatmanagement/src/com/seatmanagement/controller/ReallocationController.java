@@ -65,11 +65,9 @@ public class ReallocationController {
 			throw new RuntimeException("Required Params not present");
 		}
 
-		model = new ResponseEntity(HttpStatus.OK);
-
 		Reallocation reallocation = reallocationService.getReallocationByEmployeeId(employeeId);
-
-		// model.addObject("reallocation", reallocation);
+		
+		model = new ResponseEntity(reallocation, HttpStatus.OK);
 
 		logger.info("Controller: ReallocationController Method : getReallocationByEmployeeId response sent at : "
 				+ LocalDateTime.now());
