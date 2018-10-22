@@ -101,10 +101,12 @@
 		<bean id="seatingDetailsService"
 			class="com.seatmanagement.service.impl.SeatingDetailsServiceImpl">
 		</bean>
-		
-		<bean id="genericDao" name="genericDao" class="org.mockito.Mockito" factory-method="mock">
- 	       <constructor-arg value="com.seatmanagement.dao.impl.GenericDaoImpl"/>
-  		</bean>
+
+		<bean id="genericDao" name="genericDao"
+			class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg
+				value="com.seatmanagement.dao.impl.GenericDaoImpl" />
+		</bean>
 
 		<bean id="additionalDeviceService"
 			class="com.seatmanagement.service.impl.AdditionalDeviceServiceImpl">
@@ -122,8 +124,10 @@
 			class="com.seatmanagement.service.impl.ReallocationServiceImpl">
 		</bean>
 
-		<bean id="reallocationDao" name="reallocationDao" class="org.mockito.Mockito" factory-method="mock">
-			<constructor-arg value="com.seatmanagement.dao.impl.ReallocationDaoImpl"/>
+		<bean id="reallocationDao" name="reallocationDao"
+			class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg
+				value="com.seatmanagement.dao.impl.ReallocationDaoImpl" />
 		</bean>
 
 		<bean id="organisationService"
@@ -134,8 +138,10 @@
 			class="com.seatmanagement.service.impl.SeatingServiceImpl">
 		</bean>
 
-		<bean id="seatingDao"
-			class="com.seatmanagement.dao.impl.SeatingDaoImpl">
+		<bean id="seatingDao" name="seatingDao"
+			class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg
+				value="com.seatmanagement.dao.impl.SeatingDaoImpl" />
 		</bean>
 
 		<bean id="employeeService"
