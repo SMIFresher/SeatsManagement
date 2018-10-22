@@ -536,7 +536,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
      * get Floor Details By Floor ID
      */
     $scope.FloorDetailsById = function() {
-	    $http.get("/seatmanagement/Floors/"+gett())
+	    $http.get("/seatmanagement/Floors/getFloorById/"+gett())
 	    .then(function(response) {
 	        $scope.FloorDetails = response.data;
 	        console.log(response.data);
