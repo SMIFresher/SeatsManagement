@@ -87,9 +87,9 @@ public class ReallocationController {
 		
 		ResponseEntity responseEntity = null;
 		
-		/*if (Objects.isNull(reallocation)) {
+		if (Objects.isNull(employeeId) || Objects.isNull(blockId) || Objects.isNull(previousblockId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
-		} */
+		}
 		reallocationService.saveReallocation(previousblockId,employeeId,blockId);
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
@@ -131,12 +131,12 @@ public class ReallocationController {
 	public ResponseEntity<List<Object>> getAllReallocationDetails() {
 		ResponseEntity model = null;
 		logger.info(
-				"Controller: SeatingDetailsController Method : getAllSeatingDetails request processing started at : "
+				"Controller: ReallocationController Method : getAllReallocationDetails request processing started at : "
 						+ LocalDateTime.now());
 
 		model = new ResponseEntity(reallocationService.getAllReallocationDetails(), HttpStatus.OK);
 
-		logger.info("Controller: SeatingDetailsController Method : getAllSeatingDetails response sent at : "
+		logger.info("Controller: ReallocationController Method : getAllReallocationDetails response sent at : "
 				+ LocalDateTime.now());
 		return model;
 	}
