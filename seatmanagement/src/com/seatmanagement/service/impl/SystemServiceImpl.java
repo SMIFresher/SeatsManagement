@@ -177,13 +177,9 @@ public class SystemServiceImpl implements SystemService {
 
 		Systems system = new Systems();
 		List<Systems> list = systemDao.getAllAvailableSystems(system);
-		 List<Systems> distinctElements = list.stream()
-                 .filter( distinctByKey(p -> p.getSystemId()) )
-                 .collect( Collectors.toList() );
-		 
-
+		
 		logger.info("Service: SystemServiceImpl Method : getAllAvailableSystems ended at : " + LocalDateTime.now());
-		return distinctElements;
+		return list;
 	}
 	
 	public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor)

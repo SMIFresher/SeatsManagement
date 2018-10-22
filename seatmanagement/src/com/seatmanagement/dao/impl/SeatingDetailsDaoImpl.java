@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
@@ -151,6 +152,7 @@ public class SeatingDetailsDaoImpl implements SeatingDetailsDao {
 		criteria.add(Restrictions.eq("seating.seatingId", seatingId));
 		//criteria.add(Restrictions.eq("seating.systemId", seatingId));
 		criteria.createAlias("system", "system", CriteriaSpecification.LEFT_JOIN);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		seatingDetailsList = (List<SeatingDetails>) hibernateTemplate.findByCriteria(criteria);
 
 		logger.info(

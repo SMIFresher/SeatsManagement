@@ -3,6 +3,7 @@ package com.seatmanagement.dao.impl;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
@@ -127,14 +128,14 @@ public class SystemDaoImpl implements SystemDao {
 		List<Systems> syss;
 		try {
 		// criteria for subquery
-		DetachedCriteria subquery = DetachedCriteria.forClass(SeatingDetails.class)
+ 		DetachedCriteria subquery = DetachedCriteria.forClass(SeatingDetails.class)
 				.setProjection(Property.forName("system.systemId")).add(Restrictions.isNotNull("system.systemId"));
-
-
+		
 		// criteria for main query
 		DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class)
 				.add(Property.forName("systemId").notIn(subquery));
-
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
 		syss = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
 		}
 		catch(Exception e) {
