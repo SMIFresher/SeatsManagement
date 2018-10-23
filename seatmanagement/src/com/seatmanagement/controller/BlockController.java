@@ -23,6 +23,7 @@ import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Constant;
 import com.seatmanagement.model.Floor;
+import com.seatmanagement.model.Seating;
 import com.seatmanagement.service.BlockService;
 
 /**
@@ -82,8 +83,10 @@ public class BlockController {
 	public ResponseEntity<List<Block>> getAll() {
 		logger.info("Controller:  BlockController Method : getAllBlock request processing started at : "
 				+ LocalDateTime.now());
+		ResponseEntity responseEntity = null;
+		responseEntity = new ResponseEntity(blockService.getAll(), HttpStatus.OK);
 		logger.info("Controller:  BlockController Method : getAll Block response sent at : " + LocalDateTime.now());
-		return new ResponseEntity(blockService.getAll(), HttpStatus.OK);
+		return responseEntity;
 	}
 	
    /**
@@ -93,17 +96,16 @@ public class BlockController {
 	 * @throws BusinessException 
 	 */
 	 
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/BlockById/{blockId}", method = RequestMethod.GET)
-	public ResponseEntity BlockById(@PathVariable("blockId") UUID blockId) throws BusinessException {
+	public ResponseEntity BlockById(Block block,@PathVariable("blockId") UUID blockId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockById request processing started at : "
 				+ LocalDateTime.now());
 		ResponseEntity responseEntity = null;
 		if(Objects.isNull(blockId)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
-		Block block = new Block();
-		block = blockService.getById(block, blockId);
-		responseEntity = new ResponseEntity<Block>(block, HttpStatus.OK);
+		responseEntity = new ResponseEntity<Block>(blockService.getById(block, blockId), HttpStatus.OK);
 		logger.info("Controller: BlockController Method : getBlockById response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
@@ -114,7 +116,7 @@ public class BlockController {
 	 * @return
 	 * @throws BusinessException
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/BlocksByFloorId/{floor_id}", method = RequestMethod.GET)
 	public ResponseEntity BlocksByFloorId(@PathVariable("floor_id") UUID floorId) throws BusinessException {
 		logger.info("Controller: BlockController Method : getBlockByFloorId request processing started at : "
@@ -124,9 +126,9 @@ public class BlockController {
 		}
 
 		ResponseEntity responseEntity = null;
-		List<Block> blocks = null;
-		blocks = blockService.getBlocksByFloorId(floorId);
-		responseEntity = new ResponseEntity(blocks, HttpStatus.OK);
+	//	List<Block> blocks = null;
+	//	blocks = blockService.getBlocksByFloorId(floorId);
+		responseEntity = new ResponseEntity(blockService.getBlocksByFloorId(floorId), HttpStatus.OK);
 		logger.info("Controller: BlockController Method : getBlockByFloorId response sent at : " + LocalDateTime.now());
 		return responseEntity;
 	}
@@ -165,6 +167,7 @@ public class BlockController {
 	 * @throws BusinessException
 	 */
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/{blockId}" ,method = RequestMethod.DELETE)
 	public ResponseEntity deleteBlockById(@PathVariable("blockId") UUID blockId) throws BusinessException {
 		logger.info("Controller: BlockController Method : deleteBlockById request processing started at : "
