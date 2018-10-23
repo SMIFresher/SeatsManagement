@@ -7,8 +7,7 @@
 	<packaging>war</packaging>
 	<name>seatmanagement</name>
 	<properties>
-		<spring.version>5.0.8.RELEASE</spring.version>
-		<spring.security.version>5.1.0.RELEASE</spring.security.version>
+		<spring.version>5.1.0.RELEASE</spring.version>
 		<mysql.connector.java.version>8.0.12</mysql.connector.java.version>
 		<hibernate.validator.version>6.0.13.Final</hibernate.validator.version>
 		<junit.jupiter.version>5.3.1</junit.jupiter.version>
@@ -216,18 +215,18 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${spring.security.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring.security.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
-			<version>5.0.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator-annotation-processor -->
