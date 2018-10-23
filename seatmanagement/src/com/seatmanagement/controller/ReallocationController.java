@@ -104,18 +104,18 @@ public class ReallocationController {
 	 * @param reallocation
 	 * @return ModelAndView
 	 */
-	@RequestMapping(method=RequestMethod.PUT)
-	public ResponseEntity updateReallocatio(@RequestParam(value="reallocation") Reallocation reallocation) throws BusinessException {
+	@RequestMapping(value="/update")
+	public ResponseEntity updateReallocatio(@RequestParam UUID reallocationId,@RequestParam String reallocationStatus) throws BusinessException {
 
 		logger.info("Controller: BlockController Method : saveBlock request processing started at : "
 				+ LocalDateTime.now());
 		
 		ResponseEntity responseEntity = null;
 		
-		if (Objects.isNull(reallocation)) {
+		if (Objects.isNull(reallocationId) || Objects.isNull(reallocationStatus)) {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
-		reallocationService.updateReallocation(reallocation);
+		reallocationService.updateReallocation(reallocationId,reallocationStatus);
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
 		return responseEntity;

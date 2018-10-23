@@ -36,7 +36,7 @@ public interface ReallocationService {
 	 * 
 	 * @param reallocation
 	 */
-	public void updateReallocation(Reallocation reallocation);
+	public void updateReallocation(UUID reallocationId, String status);
 
 	/**
 	 * 

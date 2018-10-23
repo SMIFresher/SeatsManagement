@@ -22,10 +22,10 @@
 	<div class="row">
 	<div class="col-md-4">
 	<h2>Reallocation Status</h2>
-		<form id="Form" method="put" ng-submit="updateReallocation();">
-			<input type="text" class="form-control" id="reallocationId"  name="reallocationId">
-			<input type="text" class="form-control" id="requestedDate"  name="reallocationRequestedDate">
-			<input type="text" class="form-control" id="employeeId"  name="employee">
+		<form id="Form" method="post" ng-submit="updateReallocation();">
+			<input type="text" class="form-control" id="reallocationId" hidden="hidden"  name="reallocationId">
+			<input type="text" class="form-control" id="requestedDate" hidden="hidden">
+			<input type="text" class="form-control" id="employeeId" hidden="hidden">
 			<div class="form-group">
 				<label>Employee Roll Number:</label>
 				<input type="text" class="form-control" id="employeeRoll" placeholder="Enter Employee Roll Number"> 
@@ -34,8 +34,8 @@
 				<label>Employee Name:</label>
 				<input type="text" class="form-control" id="employeeName" placeholder="Enter Employee Name"> 
 			</div>
-			<input type="text"  class="form-control" id="previousBlockId"  name="previousBlock">
-			<input type="text"  class="form-control" id="blockId"  name="block">
+			<input type="text"  class="form-control" id="previousBlockId" hidden="hidden">
+			<input type="text"  class="form-control" id="blockId" hidden="hidden">
 			<div class="form-group">
 				<label for="status">Status:</label>
 				<select class="custom-select mb-3" id="status" name="reallocationStatus">

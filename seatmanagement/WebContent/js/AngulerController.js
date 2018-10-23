@@ -278,7 +278,7 @@ app.controller('workplaceManagementController', function($scope, $http) {
 		        method: "POST",
 		        data: $("#Form").serialize(),
 	        headers : {
-	                'Content-Type' : 'application/x-www-form-urlencoded'
+	                'Content-Type' : 'application/json'
 	            }
 		    })
 		    .then(function(response) {
@@ -296,16 +296,15 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	$scope.updateReallocation= function(){ 
 		console.log("reallocation : " + $("#Form").serialize());
 		 $http({
-		        url: '/seatmanagement/Reallocations',
-		        method: "PUT",
-		        data:{
-		        	reallocation : $("#Form").serialize(),
-		        },
-	        headers : {
-	                'Content-Type' : 'application/json'
+		        url: '/seatmanagement/Reallocations/update',
+		        method: "POST",
+		        data: $("#Form").serialize(),
+		        headers : {
+	                'Content-Type' : 'application/x-www-form-urlencoded'
 	            }
 		    })
 		    .then(function(response) {
+		    	location.replace("/seatmanagement/Reallocations/Reallocationview");
 		    	doModal("Information","Reallocation Updated Successfully....!");
 		    }, 
 			function(response) { // optional

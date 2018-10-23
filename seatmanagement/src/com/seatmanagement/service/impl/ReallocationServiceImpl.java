@@ -86,10 +86,12 @@ public class ReallocationServiceImpl implements ReallocationService {
 	}
 
 	@Override
-	public void updateReallocation(Reallocation reallocation) {
+	public void updateReallocation(UUID reallocationId, String reallocationStatus) {
 
 		logger.info("Service: ReallocationServiceImpl Method : updateReallocation started at : " + LocalDateTime.now());
-
+		Reallocation reallocation=new Reallocation();
+		reallocation=(Reallocation) genericDao.getById(reallocation, reallocationId);
+		reallocation.setReallocationStatus(reallocationStatus);
 		reallocation.setReallocatedDate(localDate);
 		
 		genericDao.saveOrUpdate(reallocation);
