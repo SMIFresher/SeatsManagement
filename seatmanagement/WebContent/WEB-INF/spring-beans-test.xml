@@ -133,7 +133,9 @@
 			<constructor-arg
 				value="com.seatmanagement.dao.impl.ReallocationDaoImpl" />
 		</bean>
-
+	<bean id="blockDaoMock" name="blockDaoMock" class="org.mockito.Mockito" factory-method="mock">
+ 	       <constructor-arg value="com.seatmanagement.dao.impl.BlockDaoImpl"/>
+  		</bean> 
 		<bean id="organisationService"
 			class="com.seatmanagement.service.impl.OrganisationServiceImpl">
 		</bean>
