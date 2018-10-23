@@ -1,6 +1,7 @@
 package com.seatmanagement.dao.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.seatmanagement.dao.SystemDao;
 import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.exception.BusinessException;
+import com.seatmanagement.model.Employee;
 import com.seatmanagement.model.SeatingDetails;
 import com.seatmanagement.model.Systems;
 
@@ -37,17 +39,30 @@ public class SystemDaoImpl implements SystemDao {
 
 		logger.info("Dao: SystemDaoImpl Method : getSystem started at : " + LocalDateTime.now());
 
-		List<Systems> systemList = null;
+		List<Systems> list = null;
+		Employee employee=null;
 
 		try {
+			//searching systems with employees(assigned)
 			DetachedCriteria criteria = DetachedCriteria.forClass(Systems.class);
 			criteria.createAlias("employee", "employee", CriteriaSpecification.LEFT_JOIN);
 			criteria.add(Restrictions.disjunction());
 			criteria.add(Restrictions.or(Restrictions.like("systemName", request, MatchMode.START),
 					Restrictions.like("employee.employeeRoll", request, MatchMode.START),
 					Restrictions.like("employee.firstName", request, MatchMode.START)));
-
-			systemList = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+			
+			list = (List<Systems>) hibernateTemplate.findByCriteria(criteria);
+			
+			//un-assigned employees
+			if(list.isEmpty()) {
+				DetachedCriteria dc = DetachedCriteria.forClass(Employee.class);
+				dc.add(Restrictions.disjunction());
+				dc.add(Restrictions.or(Restrictions.like("employeeRoll", request),(Restrictions.like("firstName", request))));
+				employee = (Employee) hibernateTemplate.findByCriteria(dc).get(0);
+				Systems system=new Systems();
+				system.setEmployee(employee);
+				list.add(system);
+			}
 		}
 		catch(Exception e) {
 			throw new ApplicationException("Error while retreving records", e);
@@ -55,9 +70,9 @@ public class SystemDaoImpl implements SystemDao {
 		
 		logger.info("Dao: SystemDaoImpl Method : getSystem ended at : " + LocalDateTime.now());
 
-	
+		
 
-		return systemList;
+		return list;
 	}
 
 	@Override

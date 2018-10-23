@@ -164,7 +164,7 @@ public class SystemController {
 		Systems system = new Systems();
 		system=systemService.getSystem(request);
 		ResponseEntity responseEntity=null;
-		if(!(system.getSystemId()==null)) {
+		if(system!=null) {
 			responseEntity=new ResponseEntity<Systems>(system,HttpStatus.OK);
 		}
 		else{
