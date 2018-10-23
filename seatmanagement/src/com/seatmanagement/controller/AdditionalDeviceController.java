@@ -56,7 +56,7 @@ public class AdditionalDeviceController {
 	 * @throws BusinessException
 	 */
 	@RequestMapping( method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AdditionalDevice> saveAdditionalDevices(AdditionalDevice additionalDevice, Errors errors)
+	public ResponseEntity<AdditionalDevice> saveAdditionalDevices(@Valid AdditionalDevice additionalDevice, Errors errors)
 			throws BusinessException {
 
 		logger.info(

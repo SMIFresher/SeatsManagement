@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -34,6 +36,8 @@ public class AdditionalDevice implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private UUID additional_device_id;
 	
+	@NotEmpty(message = "Device name can not be empty")
+	@NotNull(message = "Device name can not be null")
 	@Column(name="device_name")
 	private String device_name;
 
