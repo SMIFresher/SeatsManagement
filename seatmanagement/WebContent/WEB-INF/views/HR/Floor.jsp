@@ -39,9 +39,12 @@
 
 							</div>
 							<div class="form-group">
-								<label for="ftype">Floor Type:</label>  <input type="text"
-									class="form-control" id="ftype" placeholder="Enter Floor Type"
-									name="floorType">
+								<label for="pwd">Floor Type:</label>
+								<select class="custom-select mb-3" id="ftype" name="floorType">
+										<option value="Commercial">Commercial</option>
+										<option value="Home">Home</option>
+									</select>
+								
 							</div>
 							<div class="form-group">
 								<label for="fname">Floor Name:</label>  <input type="text"

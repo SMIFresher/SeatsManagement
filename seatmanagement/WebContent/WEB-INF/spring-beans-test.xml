@@ -61,8 +61,10 @@
 			class="com.seatmanagement.service.impl.BuildingServiceImpl">
 		</bean>
 
-		<bean id="floorDao"
-			class="com.seatmanagement.dao.impl.FloorDaoImpl">
+	<bean id="floorDao" name="floorDao"
+			class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg
+				value="com.seatmanagement.dao.impl.FloorDaoImpl" />
 		</bean>
 
 		<bean id="floorService"
