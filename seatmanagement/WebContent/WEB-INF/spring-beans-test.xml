@@ -22,11 +22,11 @@
 		<bean id="dataSource"
 			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName"
-				value="com.mysql.jdbc.Driver" />
+				value="${hibernate.driverClassName}" />
 			<property name="url"
-				value="jdbc:mysql://localhost:3306/seatmanagement" />
-			<property name="username" value="root" />
-			<property name="password" value="root" />
+				value="${hibernate.url}" />
+			<property name="username" value="${hibernate.username}" />
+			<property name="password" value="${hibernate.password}" />
 		</bean>
 
 		<bean id="sessionFactory"
@@ -36,10 +36,10 @@
 				value="com.seatmanagement.model"></property>
 			<property name="hibernateProperties">
 				<props>
-					<prop key="hibernate.hbm2ddl.auto">update</prop>
-					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+					<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 					<!-- <prop key="hibernate.show_sql">true</prop> -->
-					<prop key="hibernate.format_sql">true</prop>
+					<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				</props>
 			</property>
 		</bean>
