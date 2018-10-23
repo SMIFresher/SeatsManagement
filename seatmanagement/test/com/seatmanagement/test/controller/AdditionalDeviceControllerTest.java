@@ -110,6 +110,39 @@ public class AdditionalDeviceControllerTest {
 	
 	
 	@Test
+	public void saveAdditionalNotEmptyValidationTest() {
+		try {
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+				mockMvc.perform(post("/"+MODULE).param("device_name", ""));
+			});
+			BusinessException rootException = (BusinessException) ExceptionUtils.getRootCause(thrown);
+
+			assertThat(rootException, instanceOf(BusinessException.class));
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void saveAdditionalnWithoutRequestParamTest() {
+		try {
+
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+				mockMvc.perform(post("/"+MODULE));
+			});
+			BusinessException rootException = (BusinessException) ExceptionUtils.getRootCause(thrown);
+
+			assertThat(rootException, instanceOf(BusinessException.class));
+		} catch (Exception e) {
+			fail(e.getMessage());
+
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	public void getAllAdditionalDeviceNormalFlowTest() {
 		try {
 			// DAO Configurations
