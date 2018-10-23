@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.ReallocationDao;
@@ -88,6 +90,8 @@ public class ReallocationServiceImpl implements ReallocationService {
 
 		logger.info("Service: ReallocationServiceImpl Method : updateReallocation started at : " + LocalDateTime.now());
 
+		reallocation.setReallocatedDate(localDate);
+		
 		genericDao.saveOrUpdate(reallocation);
 
 		logger.info("Service: ReallocationServiceImpl Method : updateReallocation ended at : " + LocalDateTime.now());

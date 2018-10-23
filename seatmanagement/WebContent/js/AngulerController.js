@@ -282,7 +282,30 @@ app.controller('workplaceManagementController', function($scope, $http) {
 	            }
 		    })
 		    .then(function(response) {
-		    	$scope.deviceDetails();
+		    	doModal("Information","Reallocation Saved Successfully....!");
+		    }, 
+			function(response) { // optional
+		    	doModal("Information",response.data.ERROR_MESSAGE);
+			});
+	};
+	
+	
+	/**
+	 * Update Reallocation
+	 */
+	$scope.updateReallocation= function(){ 
+		console.log("reallocation : " + $("#Form").serialize());
+		 $http({
+		        url: '/seatmanagement/Reallocations',
+		        method: "PUT",
+		        data:{
+		        	reallocation : $("#Form").serialize(),
+		        },
+	        headers : {
+	                'Content-Type' : 'application/json'
+	            }
+		    })
+		    .then(function(response) {
 		    	doModal("Information","Reallocation Updated Successfully....!");
 		    }, 
 			function(response) { // optional

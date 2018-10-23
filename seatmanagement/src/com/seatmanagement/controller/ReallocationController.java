@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -91,6 +92,30 @@ public class ReallocationController {
 			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
 		}
 		reallocationService.saveReallocation(previousblockId,employeeId,blockId);
+		responseEntity = new ResponseEntity(HttpStatus.OK);
+		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
+		return responseEntity;
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param reallocation
+	 * @return ModelAndView
+	 */
+	@RequestMapping(method=RequestMethod.PUT)
+	public ResponseEntity updateReallocatio(@RequestParam(value="reallocation") Reallocation reallocation) throws BusinessException {
+
+		logger.info("Controller: BlockController Method : saveBlock request processing started at : "
+				+ LocalDateTime.now());
+		
+		ResponseEntity responseEntity = null;
+		
+		if (Objects.isNull(reallocation)) {
+			throw new BusinessException(Constant.REQUIRED_PARAMAS_NOT_PRESENT);
+		}
+		reallocationService.updateReallocation(reallocation);
 		responseEntity = new ResponseEntity(HttpStatus.OK);
 		logger.info("Controller: BlockController Method : saveBlock response sent at : " + LocalDateTime.now());
 		return responseEntity;
