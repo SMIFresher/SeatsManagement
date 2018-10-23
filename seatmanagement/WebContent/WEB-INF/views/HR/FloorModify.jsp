@@ -37,7 +37,7 @@
 						<h2>Floor</h2>
 						<form id="Form" method="post"  enctype="multipart/form-data" action="/seatmanagement/Floors/save">
 							<div class="form-group">
-								<label for="pwd">Floor Id:</label> <input type="text"
+								 <input type="hidden"
 									class="form-control" id="fid" placeholder="Enter Floor Id"
 									name="floorId"> 
 							</div>
