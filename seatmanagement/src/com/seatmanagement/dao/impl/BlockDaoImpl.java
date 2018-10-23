@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
@@ -83,6 +84,7 @@ public class BlockDaoImpl implements BlockDao {
 		DetachedCriteria criteria = DetachedCriteria.forClass(Block.class);
 		criteria.add(
 				Restrictions.and(Restrictions.eq("blockType", blockType), Restrictions.eq("floor.floorId", floorId)));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Block> blocks = null;
 		try {
 			blocks = (List<Block>) hibernateTemplate.findByCriteria(criteria);
