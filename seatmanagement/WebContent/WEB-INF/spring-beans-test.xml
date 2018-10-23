@@ -94,8 +94,10 @@
 			class="com.seatmanagement.service.impl.SystemServiceImpl">
 		</bean>
 
-		<bean id="seatingDetailsDao"
-			class="com.seatmanagement.dao.impl.SeatingDetailsDaoImpl">
+		<bean id="seatingDetailsDao" name="seatingDetailsDao"
+			class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg
+				value="com.seatmanagement.dao.impl.SeatingDetailsDaoImpl" />
 		</bean>
 
 		<bean id="seatingDetailsService"
