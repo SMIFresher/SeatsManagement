@@ -57,7 +57,8 @@ public class SystemDaoImpl implements SystemDao {
 			if(list.isEmpty()) {
 				DetachedCriteria dc = DetachedCriteria.forClass(Employee.class);
 				dc.add(Restrictions.disjunction());
-				dc.add(Restrictions.or(Restrictions.like("employeeRoll", request),(Restrictions.like("firstName", request))));
+				dc.add(Restrictions.or(Restrictions.like("employeeRoll", request, MatchMode.START),
+						(Restrictions.like("firstName", request, MatchMode.START))));
 				employee = (Employee) hibernateTemplate.findByCriteria(dc).get(0);
 				Systems system=new Systems();
 				system.setEmployee(employee);
