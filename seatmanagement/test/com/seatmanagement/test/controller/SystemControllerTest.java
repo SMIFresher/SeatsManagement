@@ -3,6 +3,7 @@ package com.seatmanagement.test.controller;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,10 +38,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.util.NestedServletException;
 
 import com.google.gson.Gson;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.dao.SystemDao;
+import com.seatmanagement.exception.ApplicationException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Building;
 import com.seatmanagement.model.Employee;
@@ -74,7 +78,7 @@ public class SystemControllerTest {
 	@BeforeEach
 	public void setup() throws Exception {
 		Mockito.reset(genericDaoMock);
-	//	Mockito.reset(systemDaoMock);
+		Mockito.reset(systemDaoMock);
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
@@ -99,6 +103,26 @@ public class SystemControllerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void saveSystemExceptionTest() throws Exception {
+
+		UUID uuid1 = UUID.randomUUID();
+
+		ApplicationException applicationException = new ApplicationException(
+				"Error while inserting records in Systems");
+
+		Mockito.when(genericDaoMock.saveOrUpdate(any(Systems.class))).thenThrow(applicationException);
+
+		NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+			mockMvc.perform(post("/" + MODULE + "/system").param("system_type", "laptop")).andDo(print());
+		});
+
+		ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+
+		assertEquals("Error while inserting records in Systems", rootException.getMessage());
+	}
+	
 	
 	
 	@Test
@@ -131,6 +155,39 @@ public class SystemControllerTest {
 
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void saveSystemWithEmployeExceptionTest() throws Exception {
+
+		UUID sys = UUID.randomUUID();
+		UUID emp = UUID.randomUUID();
+		
+		String systemType="laptop";
+		Employee employee=new Employee();
+		employee.setEmployeeId(emp);
+		
+		Systems system=new Systems();
+		system.setSystemId(sys);
+		system.setEmployee(employee);
+
+		Mockito.when(genericDaoMock.getById(any(Object.class), any(UUID.class))).thenReturn(system).thenReturn(employee);
+		
+		ApplicationException applicationException = new ApplicationException(
+				"Error while inserting records in Systems");
+		
+		Mockito.when(systemDaoMock.mergeSystem(any(Systems.class))).thenThrow(applicationException);
+		//Mockito.when(genericDaoMock.saveOrUpdate(any(Systems.class))).thenThrow(applicationException);
+		
+		NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+			mockMvc.perform(post("/"+MODULE+"/Employee")
+					.param("systemId", sys.toString())
+					.param("employeeId", emp.toString())).andDo(print());
+		});
+
+		ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+
+		assertEquals("Error while inserting records in Systems", rootException.getMessage());
 	}
 	
 	@Test
