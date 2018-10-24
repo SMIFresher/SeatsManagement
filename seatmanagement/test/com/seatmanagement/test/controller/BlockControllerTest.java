@@ -1,6 +1,7 @@
 package com.seatmanagement.test.controller;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -51,17 +53,18 @@ import com.google.gson.Gson;
 import com.seatmanagement.dao.BlockDao;
 import com.seatmanagement.dao.GenericDao;
 import com.seatmanagement.exception.ApplicationException;
-import com.seatmanagement.exception.BusinessException;
 import com.seatmanagement.model.Block;
 import com.seatmanagement.model.Floor;
-import com.seatmanagement.model.Organisation;
-import com.seatmanagement.model.Seating;
+
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @RunWith(JUnitPlatform.class)
 @ContextConfiguration("file:WebContent/WEB-INF/Application-Context.xml")
 @WebAppConfiguration
+
+
+
 public class BlockControllerTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(BlockControllerTest.class);
@@ -86,7 +89,8 @@ public class BlockControllerTest {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
 	}
 
-/*	@Test
+	
+	@Test
 	public void saveOrUpdateTest() {
 		try {
 			List<Block> params=new ArrayList();
@@ -104,36 +108,62 @@ public class BlockControllerTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	
 	@Test
-	public void saveOrUpdateBlockDatabaseBlockExceptionTest() throws Exception {
+	public void saveOrUpdateBlockDatabaseBlockExceptionTest() {
+		try {
+			// Request Params
+			String floorIDString = "7a82d67e-d24c-4ef7-8241-f9cb225703de";
+			UUID fuuid=UUID.randomUUID();
+			UUID buuid=UUID.randomUUID();
+			// DAO Configuration
+			
+			// Exception Configuration
+			String exceptionMessage = "Error while retreiving Block record";
+			ApplicationException applicationException = new ApplicationException(exceptionMessage);
+			
+		
+			Floor floor=new Floor();
+			floor.setFloorId(fuuid);
+			floor.setFloorName("1st floor");
+			floor.setFloorType("home");
+			
+			// Mockito Configuration
+			Mockito.when(genericDaoMock.getById(any(Floor.class), any(UUID.class))).thenThrow(applicationException);
+			/*mockMvc.perform(get("/Floors"+ "/getFloorById/" + fuuid)).andExpect(status().isOk())
+			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)).andDo(print());
+			
+			
+			Mockito.when(genericDaoMock.saveOrUpdate(any(Block.class)))
+				.thenThrow(applicationException);*/
+			
+			// Start Test			
+			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+				mockMvc.perform(post("/block")
+						.param("floorId", floorIDString)
+						.param("blockName", "Block Testing")
+						.param("blockType", "Cabin")
+						.param("blockCapacity", "5")
+						.param("blockDescription", "Training Hall")
+						.param("blockMeasurement", "10"));
+			});
+			
+			// Asserts
+			ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+			assertThat(rootException, instanceOf(ApplicationException.class));
+			assertEquals(exceptionMessage, rootException.getMessage());
 
-		UUID uuid = UUID.randomUUID();
+		} catch (Exception e) {
+			fail(e.getMessage());
 
-		ApplicationException applicationException = new ApplicationException(
-				"Error while inserting records in Block");
-
-		when(genericDaoMock.getById(any(Block.class), eq(uuid))).thenThrow(applicationException);
-
-		NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-			mockMvc.perform(post("/block")
-					.param("blockType", "Cabin")
-					.param("blockCapacity", "5")
-					.param("blockDescription", "Training Hall")
-					.param("blockMeasurement", "10"))
-					.andDo(print());
-		});
-
-		ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
-
-		assertEquals("Error while inserting records in Block", rootException.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	
 	@SuppressWarnings("unchecked")
 	@Test
-
 	public void getAllTest() {
 		try {
 			// Dao Configurations
@@ -163,7 +193,24 @@ public class BlockControllerTest {
 	
 	
 	@Test
+	public void getAllBlockDatabaseExceptionTest() throws Exception {
+		ApplicationException applicationException = new ApplicationException(
+				"Error while retreiving records from Block");
+
+		Mockito.when(genericDaoMock.getAll(any(Block.class))).thenThrow(applicationException);
+
+		NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
+			mockMvc.perform(get("/Blocks")).andDo(print());
+		});
+
+		ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
+
+		assertEquals("Error while retreiving records from Block", rootException.getMessage());
+	}
 	
+	
+	
+	@Test
 	public void getBlockByIdTest(){
 		try {
 			UUID uuid=UUID.randomUUID();
@@ -192,10 +239,9 @@ public class BlockControllerTest {
 			e.printStackTrace();
 		}
 	}
-	*/
 	
+
 	@Test
-	
 	public void getBlocksByFloorIdTest() {
 		try {
 			UUID uuid=UUID.randomUUID();
@@ -214,55 +260,39 @@ public class BlockControllerTest {
 			
 			List<Block> blocks = new ArrayList<Block>();
 			blocks.add(block);
-			
-
 			Mockito.when(blockDaoMock.getBlocksByFloorId(eq(uuid))).thenReturn(blocks);
-
-			MvcResult result = mockMvc.perform(get("/Blocks/BlocksByFloorId/"+uuid))
-					.andExpect(status().isOk())
-					.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)).andReturn();
-				
-			// Asserts
-			String blockResponseString = result.getResponse().getContentAsString();
-			Block blockInResponse = (Block) new Gson().fromJson(blockResponseString, List.class);
-			assertEquals(blockInResponse.getBlockDescription(), "Admin Room");
-			
-			/*Mockito.when(blockDaoMock.getBlocksByFloorId(eq(uuid))).thenReturn(blocks);
 
 			mockMvc.perform(get("/Blocks/BlocksByFloorId/"+uuid)).andDo(print())
 					.andExpect(status().isOk())
-					.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-					.andExpect(jsonPath("$.[*].blockDescription", containsInAnyOrder("Admin Room")));*/
+					.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
 
 		}catch(Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-}
-	/*
-	@Test
-	public void getBlocksByFloorIdDatabaseExceptionTest() throws Exception {
 
-		UUID uuid = UUID.randomUUID();
+	@Test
+	public void getBlockByFloorIdDatabaseExceptionTest() throws Exception {
+
+		UUID uuid1 = UUID.randomUUID();
 
 		ApplicationException applicationException = new ApplicationException(
-				"Error while retreiving records from Block");
+				"Error while retreiving records from Blocks");
 
-		when(blockDaoMock.getBlocksByFloorId(eq(uuid))).thenThrow(applicationException);
+		when(blockDaoMock.getBlocksByFloorId(any(UUID.class))).thenThrow(applicationException);
 
 		NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-			mockMvc.perform(get("/Blocks/BlocksByFloorId/"+uuid)).andDo(print());
+			mockMvc.perform(get("/Blocks/BlocksByFloorId/" + uuid1)).andDo(print());
 		});
 
 		ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
 
-		assertEquals("Error while retreiving records from Block", rootException.getMessage());
+		assertEquals("Error while retreiving records from Seating", rootException.getMessage());
 	}
 	
 	
 	@Test
-	@Disabled
 	public void getBlockByBlockTypeTest() {
 		try {
 			UUID uuid=UUID.randomUUID();
@@ -281,21 +311,29 @@ public class BlockControllerTest {
 			blocks.add(block);
 			Mockito.when(blockDaoMock.getBlocksByBlockType(eq("Cabin"),eq(uuid))).thenReturn(blocks);
 
-			mockMvc.perform(get("/Blocks//BlockType").param("block_type","Cabin").param("floor_id","fccefb43-42bd-4335-a11e-b0069237c123")).andDo(print())
-					.andExpect(status().isOk())
-					.andExpect(jsonPath("$.[*].blockDescription", containsInAnyOrder("Admin Room")));
+			mockMvc.perform(get("/Blocks/BlockType").param("block_type","Cabin").param("floor_id","fccefb43-42bd-4335-a11e-b0069237c123")).andDo(print())
+					.andExpect(status().isOk());
 		}catch(Exception e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Test
-	@Disabled
 	public void deleteBlockTest() {
 		try {
 			// DAO Configuration
 			UUID uuid=UUID.randomUUID();
+			//	List<Block> blocks = new ArrayList<Block>();
+				Block block=new Block();
+				block.setBlockId(uuid);
+				block.setBlockType("Cabin");
+				block.setBlockName("L1");
+				block.setBlockMeasurement("100");
+				block.setBlockDescription("Admin Room");
+				block.setBlockCapacity("10");
+			Mockito.when(genericDaoMock.getById(any(Block.class),eq(uuid))).thenReturn(block);
 			Mockito.when(genericDaoMock.delete(any(Block.class))).thenReturn(true);
 			mockMvc.perform(delete("/Blocks/"+uuid))
 					.andDo(print()).andExpect(status().isOk());
@@ -306,6 +344,4 @@ public class BlockControllerTest {
 			e.printStackTrace();
 		}
 	}
-	
 }
-*/
