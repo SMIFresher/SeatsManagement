@@ -288,7 +288,7 @@ public class BlockControllerTest {
 
 		ApplicationException rootException = (ApplicationException) ExceptionUtils.getRootCause(thrown);
 
-		assertEquals("Error while retreiving records from Seating", rootException.getMessage());
+		assertEquals("Error while retreiving records from Blocks", rootException.getMessage());
 	}
 	
 	
