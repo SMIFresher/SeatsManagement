@@ -152,8 +152,8 @@
 			class="com.seatmanagement.service.impl.EmployeeServiceImpl">
 		</bean>
 
-		<bean id="employeeDao"
-			class="com.seatmanagement.dao.impl.EmployeeDaoImpl">
+		<bean id="employeeDao" name="employeeDao" class="org.mockito.Mockito" factory-method="mock">
+			<constructor-arg value="com.seatmanagement.dao.impl.EmployeeDaoImpl" />
 		</bean>
 
 		<bean id="dashboardService"
