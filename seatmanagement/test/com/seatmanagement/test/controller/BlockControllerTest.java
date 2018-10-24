@@ -140,7 +140,7 @@ public class BlockControllerTest {
 			
 			// Start Test			
 			NestedServletException thrown = assertThrows(NestedServletException.class, () -> {
-				mockMvc.perform(post("/block")
+				mockMvc.perform(post("/Blocks/block")
 						.param("floorId", floorIDString)
 						.param("blockName", "Block Testing")
 						.param("blockType", "Cabin")
